@@ -7,6 +7,16 @@
 SDL_Window* window = NULL;
 SDL_Renderer* renderer = NULL;
 
+SDL_Rect rect = { 100, 100, 64, 64 };
+int playerVelX;
+int playerVelY;
+float playerMoveSpeed = 1;
+
+bool init();
+void cleanUp();
+void handleInput(SDL_Event& e);
+void update(float dt);
+
 bool init()
 {
     if (SDL_Init(SDL_INIT_VIDEO) != 0)
@@ -40,14 +50,48 @@ void cleanUp()
     SDL_Quit();
 }
 
+void handleInput(SDL_Event& e)
+{
+    if(e.type == SDL_KEYDOWN && e.key.repeat == 0)
+    {
+        SDL_Keycode keyCode = e.key.keysym.sym;
+        if (keyCode == SDLK_UP)
+        {
+            playerVelX = 0;
+            playerVelY = -1;
+        }
+        if (keyCode == SDLK_DOWN)
+        {
+            playerVelX = 0;
+            playerVelY = 1;
+        }
+        if (keyCode == SDLK_LEFT)
+        {
+            playerVelX = -1;
+            playerVelY = 0;
+        }
+        if (keyCode == SDLK_RIGHT)
+        {
+            playerVelX = 1;
+            playerVelY = 0;
+        }
+    }
+}
+
+void update(float dt)
+{
+    
+    rect.x += playerVelX * playerMoveSpeed;
+    rect.y += playerVelY * playerMoveSpeed;
+
+}
+
 int main(int argc, char* argv[])
 {
     if(init())
     {
-        SDL_Rect rect = { 100, 100, 50, 50 };
-        
-        SDL_Event e;
         bool quit = false;
+        SDL_Event e;
         while(!quit)
         {
             while(SDL_PollEvent(&e) != 0)
@@ -56,7 +100,11 @@ int main(int argc, char* argv[])
                 {
                     quit = true;
                 }
+
+                handleInput(e);
             }
+
+            update(0);
 
             SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0x00);
             SDL_RenderClear(renderer);

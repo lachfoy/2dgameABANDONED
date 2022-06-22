@@ -1,0 +1,4 @@
+x set up boilerplate sdl drawing code
+x set up input code
+set up framerate independant update code
+refactor into seperate files. game class, player class, etc.
