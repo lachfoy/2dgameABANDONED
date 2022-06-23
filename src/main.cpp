@@ -1,27 +1,24 @@
 #include <stdio.h>
 #include <SDL2/SDL.h>
 
+#include "Player.h"
+
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
 
 SDL_Window* window = NULL;
 SDL_Renderer* renderer = NULL;
 
-SDL_Rect rect = { 0, 0, 64, 64 };
-float posX;
-float posY;
-int velX;
-int velY;
-float moveSpeed = 200.0f;
+Player* player = new Player();
 
 bool init();
 void cleanUp();
-void handleInput(SDL_Event& e);
 void update(float dt);
+void render();
 
 bool init()
 {
-    if (SDL_Init(SDL_INIT_VIDEO) != 0)
+    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) != 0)
     {
         printf("Unable to initialize SDL: %s\n", SDL_GetError());
         return false;
@@ -46,51 +43,27 @@ bool init()
 
 void cleanUp()
 {
+    delete player;
+
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
 
     SDL_Quit();
 }
 
-void handleInput(SDL_Event& e) // take a const Uint8* keystates instead?
-{
-    if(e.type == SDL_KEYDOWN && e.key.repeat == 0)
-    {
-        if (e.key.keysym.sym == SDLK_UP)
-        {
-            printf("Up key pressed\n");
-            velX = 0;
-            velY = -1;
-        }
-        if (e.key.keysym.sym == SDLK_DOWN)
-        {
-            printf("Down key pressed\n");
-            velX = 0;
-            velY = 1;
-        }
-        if (e.key.keysym.sym == SDLK_LEFT)
-        {
-            printf("Left key pressed\n");
-            velX = -1;
-            velY = 0;
-        }
-        if (e.key.keysym.sym == SDLK_RIGHT)
-        {
-            printf("Right key pressed\n");
-            velX = 1;
-            velY = 0;
-        }
-    }
-
-
-}
-
 void update(float dt)
 {
-    posX += velX * moveSpeed * dt;
-    posY += velY * moveSpeed * dt;
-    rect.x = (int)posX;
-    rect.y = (int)posY;
+    player->update(dt);
+}
+
+void render()
+{
+    SDL_SetRenderDrawColor(renderer, 0x90, 0x90, 0x90, 0xFF);
+    SDL_RenderClear(renderer);
+    
+    player->render(renderer);
+    
+    SDL_RenderPresent(renderer);
 }
 
 int main(int argc, char* argv[])
@@ -112,7 +85,7 @@ int main(int argc, char* argv[])
                     quit = true;
                 }
 
-                handleInput(e);
+                player->handleInput(e);
             }
 
             last = now;
@@ -125,12 +98,7 @@ int main(int argc, char* argv[])
             dt = (float)((now - last) * 1000 / (float)SDL_GetPerformanceFrequency()) / 1000.0f;
 
             // render
-            SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0x00);
-            SDL_RenderClear(renderer);
-            SDL_SetRenderDrawColor(renderer, 0x29, 0x65, 0xff, 0xff); // #2965ff
-            SDL_RenderFillRect(renderer, &rect);
-
-            SDL_RenderPresent(renderer);
+            render();
         }
     }
 

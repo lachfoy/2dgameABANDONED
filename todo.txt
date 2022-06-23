@@ -1,4 +1,9 @@
 x set up boilerplate sdl drawing code
 x set up input code
 x set up framerate independant update code
-refactor into seperate files. game class, player class, etc.
+refactor into seperate files. game class, player class, etc. (in progress)
+implement image loading and textures
+aabb collision detection
+aabb collision response i.e. sliding response
+simple enemies
+controller support
