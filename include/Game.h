@@ -1,22 +1,37 @@
+#ifndef GAME_H
+#define GAME_H
+
 #include <stdio.h>
 #include <SDL2/SDL.h>
 
 #include "Player.h"
 
-#define SCREEN_WIDTH 800
-#define SCREEN_HEIGHT 600
+class Game
+{
+public:
+    Game();
 
-SDL_Window* window = NULL;
-SDL_Renderer* renderer = NULL;
+    bool initEngine(int width, int height); // build the window and renderer
+    bool runGame(); // start game loop
+    void cleanUpEngine(); // deallocate window and renderer
 
-Player* player = new Player();
+private:
+    SDL_Window* window = NULL;
+    SDL_Renderer* renderer = NULL;
+    int width;
+    int height;
 
-bool init();
-void cleanUp();
-void update(float dt);
-void render();
+    Player* player = new Player();
 
-bool init()
+    void onStart();
+    void onCleanup();
+    void onUpdate(float dt);
+    void onRender();
+};
+
+#endif
+
+bool Game::initEngine(int width, int height)
 {
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) != 0)
     {
@@ -24,7 +39,7 @@ bool init()
         return false;
     }
 
-    window = SDL_CreateWindow("sdl2 window", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, 0);
+    window = SDL_CreateWindow("sdl2 window", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, 0);
     if(window == NULL)
     {
         printf("Window could not be created: %s\n", SDL_GetError());
@@ -39,6 +54,11 @@ bool init()
     }
 
     return true;
+}
+
+bool Game::runGame()
+{
+    
 }
 
 void cleanUp()
