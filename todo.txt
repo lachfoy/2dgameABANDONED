@@ -1,9 +1,11 @@
 x set up boilerplate sdl drawing code
 x set up input code
 x set up framerate independant update code
-refactor into seperate files. game class, player class, etc. (in progress)
+x mac compiling
+refactor into seperate files. game class, player class, etc. (in progress) OR simply rewrite in C
 implement image loading and textures
 aabb collision detection
 aabb collision response i.e. sliding response
 simple enemies
 controller support
+
