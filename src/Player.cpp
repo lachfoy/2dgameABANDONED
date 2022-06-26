@@ -23,27 +23,47 @@ void Player::handleInput(SDL_Event& e) // use keystate instead?
 {
     if (e.type == SDL_KEYDOWN && e.key.repeat == 0)
     {
-        const SDL_Keycode keyCode = e.key.keysym.sym;
-        if (keyCode == SDLK_UP)
-            velY = -1;
-        if (keyCode == SDLK_DOWN)
-            velY = 1;
-        if (keyCode == SDLK_LEFT)
-            velX = -1;
-        if (keyCode == SDLK_RIGHT)
-            velX = 1;
+        switch(e.key.keysym.sym)
+        {
+            case SDLK_UP:
+            case SDLK_w:
+                velY = -1;
+                break;
+            case SDLK_DOWN:
+            case SDLK_s:
+                velY = 1;
+                break;
+            case SDLK_LEFT:
+            case SDLK_a:
+                velX = -1;
+                break;
+            case SDLK_RIGHT:
+            case SDLK_d:
+                velX = 1;
+                break;
+        }
     }
     else if (e.type == SDL_KEYUP && e.key.repeat == 0)
     {
-        const SDL_Keycode keyCode = e.key.keysym.sym;
-        if (e.key.keysym.sym == SDLK_UP)
-            velY = 0;
-        if (e.key.keysym.sym == SDLK_DOWN)
-            velY = 0;
-        if (e.key.keysym.sym == SDLK_LEFT)
-            velX = 0;
-        if (e.key.keysym.sym == SDLK_RIGHT)
-            velX = 0;
+        switch(e.key.keysym.sym)
+        {
+            case SDLK_UP:
+            case SDLK_w:
+                velY = 0;
+                break;
+            case SDLK_DOWN:
+            case SDLK_s:
+                velY = 0;
+                break;
+            case SDLK_LEFT:
+            case SDLK_a:
+                velX = 0;
+                break;
+            case SDLK_RIGHT:
+            case SDLK_d:
+                velX = 0;
+                break;
+        }
     }
 }
 

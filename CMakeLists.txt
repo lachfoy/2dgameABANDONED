@@ -7,6 +7,9 @@ find_package(SDL2 REQUIRED)
 
 add_executable(${PROJECT_NAME}
     src/main.cpp
+    src/Game.cpp
+    src/Player.cpp
+    src/Engine.cpp
 )
 
 include_directories(${PROJECT_NAME} ${SDL2_INCLUDE_DIRS} include /usr/local/include)
