@@ -1,11 +1,15 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include <vector>
+
 #include <SDL2/SDL.h>
 
 #include "Engine.h"
-#include "Player.h"
+#include "BaseObject.h"
 #include "AABB.h"
+#include "Player.h"
+#include "Projectile.h"
 
 class Game : public Engine
 {
@@ -15,6 +19,8 @@ public:
 private:
     Player* player;
     AABB* test_collider;
+
+    std::vector<Projectile*> projectiles;
 
     void onCreate();
     void onCleanup();

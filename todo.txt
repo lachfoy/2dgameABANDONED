@@ -5,8 +5,10 @@ x mac compiling
 x refactor into seperate files. game class, player class, etc.
 create a proper input handler?
 implement image loading and textures
-aabb collision detection
+x aabb collision detection
 aabb collision response i.e. sliding response
 simple enemies
 controller support
+game manager singleton
+projectiles and entity handling (in progress)
 

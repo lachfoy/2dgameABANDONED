@@ -3,14 +3,7 @@
 
 #include <SDL2/SDL.h>
 
-struct Point2f
-{
-    Point2f(){}
-    Point2f(float x, float y) : x(x), y(y) {}
-
-    float x;
-    float y;
-};
+#include "Point2f.h"
 
 //simple aabb AABB
 struct AABB

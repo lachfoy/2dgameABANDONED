@@ -10,6 +10,7 @@ add_executable(${PROJECT_NAME}
     src/Game.cpp
     src/Player.cpp
     src/Engine.cpp
+    src/Projectile.cpp
 )
 
 include_directories(${PROJECT_NAME} ${SDL2_INCLUDE_DIRS} include /usr/local/include)
