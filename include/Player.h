@@ -3,6 +3,8 @@
 
 #include <SDL2/SDL.h>
 
+#include "AABB.h"
+
 class Player
 {
 public:
@@ -10,16 +12,15 @@ public:
 
     float posX;
     float posY;
+    AABB* collider;
 
     void handleInput(SDL_Event& e);
     void update(float dt);
     void render(SDL_Renderer* renderer);
 
 private:
-    SDL_Rect rect;
-    SDL_Rect debug_point;
-    int width;
-    int height;
+    int playerW;
+    int playerH;
     int velX;
     int velY;
     float moveSpeed;

@@ -5,6 +5,7 @@
 
 #include "Engine.h"
 #include "Player.h"
+#include "AABB.h"
 
 class Game : public Engine
 {
@@ -13,6 +14,7 @@ public:
 
 private:
     Player* player;
+    AABB* test_collider;
 
     void onCreate();
     void onCleanup();

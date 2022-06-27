@@ -5,18 +5,12 @@ Player::Player()
     // initialize everything
     posX = 100.0f;
     posY = 100.0f;
-    rect.x = (int)posX;
-    rect.y = (int)posY;
-    rect.w = 40;
-    rect.h = 64;
+    playerW = 40;
+    playerH = 60;
     velX = 0;
     velY = 0;
     moveSpeed = 200.0f;
-
-    debug_point.x = 0;
-    debug_point.y = 0;
-    debug_point.w = 6;
-    debug_point.h = 6;
+    collider = new AABB(posX, posY, 40, 64);
 }
 
 void Player::handleInput(SDL_Event& e) // use keystate instead?
@@ -73,21 +67,38 @@ void Player::update(float dt)
     posX += velX * moveSpeed * dt;
     posY += velY * moveSpeed * dt;
 
-    // also reposition the visual representation of the player
-    rect.x = (int)posX - (rect.w / 2);
-    rect.y = (int)posY - (rect.h);
-
-    debug_point.x = (int)posX - (debug_point.w / 2);
-    debug_point.y = (int)posY - (debug_point.h/ 2);
+    // move the collider as well
+    collider->upperBound.x = posX - (playerW / 2);
+    collider->upperBound.y = posY - playerH;
+    collider->lowerBound.x = posX + (playerW / 2);
+    collider->lowerBound.y = posY;
 }
 
 void Player::render(SDL_Renderer* renderer)
 {
     // draw the player rect representing the player
+    SDL_Rect player_rect;
+    player_rect.x = (int)posX - (playerW / 2);
+    player_rect.y = (int)posY - playerH;
+    player_rect.w = playerW;
+    player_rect.h = playerH;
     SDL_SetRenderDrawColor(renderer, 0x29, 0x65, 0xff, 0xff); // #2965ff blue
-    SDL_RenderFillRect(renderer, &rect);
+    SDL_RenderFillRect(renderer, &player_rect);
+
+    // draw a rect representing the collider
+    // SDL_Color collider_color;
+    // collider_color.a = 0xff;
+    // collider_color.r = 0xff;
+    // collider_color.g = 0xff;
+    // collider_color.b = 0xff;
+    // collider->debugRender(renderer, collider_color);
 
     // draw the origin position representing the actual x and y positions
+    SDL_Rect debug_point_pos;
+    debug_point_pos.w = 6;
+    debug_point_pos.h = 6;
+    debug_point_pos.x = (int)posX - (debug_point_pos.w / 2);
+    debug_point_pos.y = (int)posY - (debug_point_pos.h / 2);
     SDL_SetRenderDrawColor(renderer, 0xeb, 0xd5, 0x17, 0xff); // #ebd517 yellow
-    SDL_RenderFillRect(renderer, &debug_point);
+    SDL_RenderFillRect(renderer, &debug_point_pos);
 }
