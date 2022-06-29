@@ -10,6 +10,7 @@
 #include "AABB.h"
 #include "Player.h"
 #include "Projectile.h"
+#include "Enemy.h"
 
 class Game : public Engine
 {
@@ -21,6 +22,7 @@ private:
     AABB* test_collider;
 
     std::vector<Projectile*> projectiles;
+    std::vector<Enemy*> enemies;
 
     void onCreate();
     void onCleanup();

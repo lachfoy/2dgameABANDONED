@@ -3,12 +3,11 @@ x set up input code
 x set up framerate independant update code
 x mac compiling
 x refactor into seperate files. game class, player class, etc.
+x aabb collision detection
 create a proper input handler?
 implement image loading and textures
-x aabb collision detection
 aabb collision response i.e. sliding response
 simple enemies
 controller support
-game manager singleton
 projectiles and entity handling (in progress)
 

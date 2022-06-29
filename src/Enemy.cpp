@@ -1,21 +1,23 @@
-#include "Player.h"
+#include "Enemy.h"
 
-Player::Player()
+Enemy::Enemy(float x, float y)
 {
     // initialize everything
-    pos.x = 100.0f;
-    pos.y = 100.0f;
-    playerW = 40;
-    playerH = 60;
+    pos.x = x;
+    pos.y = y;
+    enemyW = 40;
+    enemyH = 60;
     colliderW = 50;
     colliderH = 50;
     velX = 0;
     velY = 0;
-    moveSpeed = 200.0f;
+    moveSpeed = 180.0f;
     collider = new AABB(pos.x, pos.y, colliderW, colliderH);
+    health = 100;
+    damageable = true;
 }
 
-void Player::update(float dt)
+void Enemy::update(float dt)
 {
     // update the internal position
     pos.x += velX * moveSpeed * dt;
@@ -23,20 +25,20 @@ void Player::update(float dt)
 
     // move the collider as well
     collider->upperBound.x = pos.x - (colliderW / 2);
-    collider->upperBound.y = pos.y - (colliderH / 2) - (playerH/2);
+    collider->upperBound.y = pos.y - (colliderH / 2) - (enemyH / 2);
     collider->lowerBound.x = pos.x + (colliderW / 2);
-    collider->lowerBound.y = pos.y + (colliderH / 2) - (playerH/2);
+    collider->lowerBound.y = pos.y + (colliderH / 2) - (enemyH / 2);
 }
 
-void Player::render(SDL_Renderer* renderer)
+void Enemy::render(SDL_Renderer* renderer)
 {
     // draw the player rect representing the player
     SDL_Rect player_rect;
-    player_rect.x = (int)pos.x - (playerW / 2);
-    player_rect.y = (int)pos.y - playerH;
-    player_rect.w = playerW;
-    player_rect.h = playerH;
-    SDL_SetRenderDrawColor(renderer, 0x29, 0x65, 0xff, 0xff); // #2965ff blue
+    player_rect.x = (int)pos.x - (enemyW / 2);
+    player_rect.y = (int)pos.y - enemyH;
+    player_rect.w = enemyW;
+    player_rect.h = enemyH;
+    SDL_SetRenderDrawColor(renderer, 0xe3, 0x48, 0x36, 0xff); // #e34836 red
     SDL_RenderFillRect(renderer, &player_rect);
 
     // draw a rect representing the collider
@@ -50,4 +52,12 @@ void Player::render(SDL_Renderer* renderer)
     debug_point_pos.y = (int)pos.y - (debug_point_pos.h / 2);
     SDL_SetRenderDrawColor(renderer, 0xeb, 0xd5, 0x17, 0xff); // #ebd517 yellow
     SDL_RenderFillRect(renderer, &debug_point_pos);
+}
+
+void Enemy::doDamage(int damage)
+{
+    while(damageable)
+    {
+        health -= damage;
+    }
 }

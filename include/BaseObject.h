@@ -8,11 +8,12 @@
 class BaseObject
 {
 public:
-    BaseObject() {}
+    BaseObject() { remove = false; }
 
     Point2f pos;
     int velX; // normalized x velocity
     int velY; // normalized y velocity
+    bool remove;
 
     virtual void update(float dt) = 0;
     virtual void render(SDL_Renderer* renderer) = 0;

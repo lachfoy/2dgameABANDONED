@@ -1,28 +1,31 @@
-#ifndef PLAYER_H
-#define PLAYER_H
+#ifndef ENEMY_H
+#define ENEMY_H
 
 #include <SDL2/SDL.h>
 
 #include "BaseObject.h"
-#include "Point2f.h"
 #include "AABB.h"
 
-class Player : public BaseObject
+class Enemy : public BaseObject
 {
 public:
-    Player();
+    Enemy(float x, float y);
 
     AABB* collider;
-    
+
     void update(float dt);
     void render(SDL_Renderer* renderer);
 
+    void doDamage(int damage);
+
 private:
-    int playerW;
-    int playerH;
+    float moveSpeed;
+    int enemyW;
+    int enemyH;
     int colliderW;
     int colliderH;
-    float moveSpeed;
+    int health;
+    bool damageable;
 };
 
 #endif

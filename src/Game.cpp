@@ -6,6 +6,7 @@ void Game::onCreate()
 {
     player = new Player();
     test_collider = new AABB(300, 200, 200, 100);
+    enemies.push_back(new Enemy(400, 400));
 }
 
 void Game::onCleanup()
@@ -68,9 +69,15 @@ void Game::handleInput(SDL_Event& e)
 void Game::onUpdate(float dt)
 {
     player->update(dt);
+
     for (int i = 0; i < projectiles.size(); i++)
     {
         projectiles[i]->update(dt);
+    }
+
+    for (int i = 0; i < enemies.size(); i++)
+    {
+        enemies[i]->update(dt);
     }
 }
 
@@ -86,17 +93,28 @@ void Game::onRender()
         projectiles[i]->render(renderer);
     }
 
-    SDL_Color test_collider_color = { 0xff, 0x00, 0x00, 0xff };
-    if (AABB::testOverlap(*player->collider, *test_collider))
-        test_collider_color.g = 0xff;
+    for (int i = 0; i < enemies.size(); i++)
+    {
+        enemies[i]->render(renderer);
+    }
+
+    if (AABB::testOverlap(*player->collider, *test_collider)) {}
 
     for (int i = 0; i < projectiles.size(); i++)
     {
-        if (AABB::testOverlap(*projectiles[i]->collider, *test_collider))
-        test_collider_color.g = 0xff;
+        if (AABB::testOverlap(*projectiles[i]->collider, *test_collider)) {}
+        
+        // test projectiles against enemies
+        for (int j = 0; j < enemies.size(); j++)
+        {
+            if (AABB::testOverlap(*projectiles[i]->collider, *enemies[j]->collider))
+            {
+                enemies[j]->doDamage(10);
+            }
+        }
     }
 
-    test_collider->debugRender(renderer, test_collider_color);
+    test_collider->debugRender(renderer);
     
     SDL_RenderPresent(renderer);
 }

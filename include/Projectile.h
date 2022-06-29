@@ -18,6 +18,8 @@ public:
 
 private:
     float moveSpeed;
+    int colliderW;
+    int colliderH;
 };
 
 #endif
