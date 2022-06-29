@@ -1,13 +1,11 @@
 x basic sdl drawing code
 x simple input
 x framerate independant update
-refactor into seperate files. game class, player class, etc. (in progress)
-better input implementation
-implement image loading and textures
-aabb collision detection
+x projectiles and basic entity handling
+x refactor into seperate files. game class, player class, etc.
+x aabb collision detection
 simple enemies
-projectiles
 aabb collision response i.e. sliding response
-controller support
-projectiles and entity handling (in progress)
-damage types
+controller support (in progress)
+damage types and resistances
+implement image loading and textures (backlog)
