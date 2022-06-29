@@ -9,3 +9,4 @@ simple enemies
 projectiles
 aabb collision response i.e. sliding response
 controller support
+projectiles and entity handling (in progress)

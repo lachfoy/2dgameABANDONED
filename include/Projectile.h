@@ -1,28 +1,25 @@
-#ifndef PLAYER_H
-#define PLAYER_H
+#ifndef PROJECTILE_H
+#define PROJECTILE_H
 
 #include <SDL2/SDL.h>
 
 #include "BaseObject.h"
-#include "Point2f.h"
 #include "AABB.h"
 
-class Player : public BaseObject
+class Projectile : public BaseObject
 {
 public:
-    Player();
+    Projectile(float x, float y, int velX, int velY);
 
     AABB* collider;
-    
+
     void update(float dt);
     void render(SDL_Renderer* renderer);
 
 private:
-    int playerW;
-    int playerH;
+    float moveSpeed;
     int colliderW;
     int colliderH;
-    float moveSpeed;
 };
 
 #endif
