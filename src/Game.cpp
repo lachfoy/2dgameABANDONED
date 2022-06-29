@@ -12,6 +12,9 @@ void Game::onCreate()
 void Game::onCleanup()
 {
     delete player;
+    delete test_collider;
+    projectiles.clear();
+    enemies.clear();
 }
 
 void Game::handleInput(SDL_Event& e)
@@ -70,6 +73,7 @@ void Game::onUpdate(float dt)
 {
     if (AABB::testOverlap(*player->collider, *test_collider)) {}
 
+    // test projectile collisions
     for (int i = 0; i < projectiles.size(); i++)
     {
         if (AABB::testOverlap(*projectiles[i]->collider, *test_collider)) {}
@@ -81,22 +85,25 @@ void Game::onUpdate(float dt)
             {
                 enemies[j]->doDamage(projectiles[i]->damage);
                 projectiles[i]->removeable = true; // flag that projectile as safe to remove
-                
             }
         }
     }
 
+    // update the player
     player->update(dt);
 
+    // update all the projectiles
     for (int i = 0; i < projectiles.size(); i++)
     {
-        if (projectiles[i]->removeable) projectiles.erase(projectiles.begin() + i); // delete if remove flag is set
         projectiles[i]->update(dt);
+        if (projectiles[i]->removeable) projectiles.erase(projectiles.begin() + i); // delete if remove flag is set
     }
 
+    // update all the enemies
     for (int i = 0; i < enemies.size(); i++)
     {
         enemies[i]->update(dt);
+        if (enemies[i]->removeable) enemies.erase(enemies.begin() + i); // delete if remove flag is set
     }
 }
 

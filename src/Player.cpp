@@ -15,6 +15,11 @@ Player::Player()
     collider = new AABB(pos.x, pos.y, colliderW, colliderH);
 }
 
+Player::~Player()
+{
+    delete collider;
+}
+
 void Player::update(float dt)
 {
     // update the internal position

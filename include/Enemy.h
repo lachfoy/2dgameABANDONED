@@ -10,6 +10,7 @@ class Enemy : public BaseObject
 {
 public:
     Enemy(float x, float y);
+    ~Enemy();
 
     AABB* collider;
     bool colliding;

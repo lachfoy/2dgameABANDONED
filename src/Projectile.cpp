@@ -13,6 +13,11 @@ Projectile::Projectile(float x, float y, int velX, int velY)
     damage = 11;
 }
 
+Projectile::~Projectile()
+{
+    delete collider;
+}
+
 void Projectile::update(float dt)
 {
     // update the internal position

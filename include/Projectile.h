@@ -10,6 +10,7 @@ class Projectile : public BaseObject
 {
 public:
     Projectile(float x, float y, int velX, int velY);
+    ~Projectile();
 
     AABB* collider;
 

@@ -21,24 +21,30 @@ Enemy::Enemy(float x, float y)
     immuneTimer = immuneTime; 
 }
 
+Enemy::~Enemy() { delete collider; }
+
 void Enemy::update(float dt)
 {
-    // update the internal position
-    pos.x += velX * moveSpeed * dt;
-    pos.y += velY * moveSpeed * dt;
-
-    // move the collider as well
-    collider->upperBound.x = pos.x - (colliderW / 2);
-    collider->upperBound.y = pos.y - (colliderH / 2) - (enemyH / 2);
-    collider->lowerBound.x = pos.x + (colliderW / 2);
-    collider->lowerBound.y = pos.y + (colliderH / 2) - (enemyH / 2);
-
-    // set up iframes
-    if (!damageable) immuneTimer -= dt;
-    if (immuneTimer <= 0.0f)
+    if (health <= 0) removeable = true; // if health is below zero, set removeable flag
+    else
     {
-        immuneTimer = immuneTime; // reset to the starting value
-        damageable = true;
+        // update the internal position
+        pos.x += velX * moveSpeed * dt;
+        pos.y += velY * moveSpeed * dt;
+
+        // move the collider as well
+        collider->upperBound.x = pos.x - (colliderW / 2);
+        collider->upperBound.y = pos.y - (colliderH / 2) - (enemyH / 2);
+        collider->lowerBound.x = pos.x + (colliderW / 2);
+        collider->lowerBound.y = pos.y + (colliderH / 2) - (enemyH / 2);
+
+        // set up iframes
+        if (!damageable) immuneTimer -= dt;
+        if (immuneTimer <= 0.0f)
+        {
+            immuneTimer = immuneTime; // reset to the starting value
+            damageable = true;
+        }
     }
 }
 
