@@ -5,6 +5,8 @@
 
 #include <SDL2/SDL.h>
 
+#include "BitmapFont.h"
+
 class Engine
 {
 public:
@@ -19,6 +21,8 @@ protected:
     int height;
     SDL_Window* window;
     SDL_Renderer* renderer;
+
+    BitmapFont* bitmapFont;
     
     virtual void onCreate() = 0;
     virtual void onCleanup() = 0;

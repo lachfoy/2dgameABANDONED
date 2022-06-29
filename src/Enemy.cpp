@@ -21,7 +21,10 @@ Enemy::Enemy(float x, float y)
     immuneTimer = immuneTime; 
 }
 
-Enemy::~Enemy() { delete collider; }
+Enemy::~Enemy()
+{
+    delete collider;
+}
 
 void Enemy::update(float dt)
 {

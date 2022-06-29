@@ -27,6 +27,13 @@ bool Engine::init(int w, int h)
         return false;
     }
 
+    bitmapFont = new BitmapFont(renderer, "../fonts/mig68000_8x16.bmp");
+    if (!bitmapFont)
+    {
+        printf("Bitmap font could not be created: %s\n", SDL_GetError());
+        return false;
+    }
+
     return true;
 }
 
@@ -34,6 +41,7 @@ void Engine::cleanup()
 {
     onCleanup(); // run the games cleanup functions
 
+    delete bitmapFont;
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
 
