@@ -34,7 +34,7 @@ void Projectile::render(SDL_Renderer* renderer)
     debug_point_pos.h = 14;
     debug_point_pos.x = (int)pos.x - (debug_point_pos.w / 2);
     debug_point_pos.y = (int)pos.y - (debug_point_pos.h / 2);
-    SDL_SetRenderDrawColor(renderer, 0xfc, 0x90, 0x03, 0xff); // #fc9003 fire orange
+    SDL_SetRenderDrawColor(renderer, 0x33, 0xe4, 0x33, 0xff); // #fc9003 fire orange
     SDL_RenderFillRect(renderer, &debug_point_pos);
 
     collider->debugRender(renderer);

@@ -2,7 +2,6 @@
 #define GAME_H
 
 #include <vector>
-#include <bits/stdc++.h>
 
 #include <SDL2/SDL.h>
 
