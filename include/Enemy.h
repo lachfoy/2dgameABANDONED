@@ -12,6 +12,7 @@ public:
     Enemy(float x, float y);
 
     AABB* collider;
+    bool colliding;
 
     void update(float dt);
     void render(SDL_Renderer* renderer);
@@ -26,6 +27,8 @@ private:
     int colliderH;
     int health;
     bool damageable;
+    float immuneTimer;
+    float immuneTime; // how many iframes (in seconds though)
 };
 
 #endif

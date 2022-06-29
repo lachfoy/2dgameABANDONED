@@ -15,6 +15,10 @@ Enemy::Enemy(float x, float y)
     collider = new AABB(pos.x, pos.y, colliderW, colliderH);
     health = 100;
     damageable = true;
+    colliding = false;
+    
+    immuneTime = 0.1f; // how many seconds of iframes
+    immuneTimer = immuneTime; 
 }
 
 void Enemy::update(float dt)
@@ -28,6 +32,14 @@ void Enemy::update(float dt)
     collider->upperBound.y = pos.y - (colliderH / 2) - (enemyH / 2);
     collider->lowerBound.x = pos.x + (colliderW / 2);
     collider->lowerBound.y = pos.y + (colliderH / 2) - (enemyH / 2);
+
+    // set up iframes
+    if (!damageable) immuneTimer -= dt;
+    if (immuneTimer <= 0.0f)
+    {
+        immuneTimer = immuneTime; // reset to the starting value
+        damageable = true;
+    }
 }
 
 void Enemy::render(SDL_Renderer* renderer)
@@ -38,11 +50,12 @@ void Enemy::render(SDL_Renderer* renderer)
     player_rect.y = (int)pos.y - enemyH;
     player_rect.w = enemyW;
     player_rect.h = enemyH;
-    SDL_SetRenderDrawColor(renderer, 0xe3, 0x48, 0x36, 0xff); // #e34836 red
+    if (damageable) SDL_SetRenderDrawColor(renderer, 0xe0, 0x26, 0x55, 0xff); // #e02655 pink red
+    else SDL_SetRenderDrawColor(renderer, 0xc9, 0x5d, 0x78, 0xff); // c95d78 brighter color
     SDL_RenderFillRect(renderer, &player_rect);
 
     // draw a rect representing the collider
-    collider->debugRender(renderer);
+    collider->debugRender(renderer, colliding);
 
     // draw the origin position representing the actual x and y positions
     SDL_Rect debug_point_pos;
@@ -56,8 +69,9 @@ void Enemy::render(SDL_Renderer* renderer)
 
 void Enemy::doDamage(int damage)
 {
-    while(damageable)
+    if(damageable)
     {
         health -= damage;
+        damageable = false; // give iframes
     }
 }

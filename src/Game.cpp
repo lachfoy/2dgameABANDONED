@@ -68,6 +68,26 @@ void Game::handleInput(SDL_Event& e)
 
 void Game::onUpdate(float dt)
 {
+    if (AABB::testOverlap(*player->collider, *test_collider)) {}
+
+    for (int i = 0; i < projectiles.size(); i++)
+    {
+        if (AABB::testOverlap(*projectiles[i]->collider, *test_collider)) {}
+        
+        // test projectiles against enemies
+        for (int j = 0; j < enemies.size(); j++)
+        {
+            if (AABB::testOverlap(*projectiles[i]->collider, *enemies[j]->collider))
+            {
+                enemies[j]->doDamage(projectiles[i]->damage);
+                //projectiles[i]->removeable = true; // flag that projectile as safe to remove
+                projectiles.erase(projectiles.begin() + i);
+            }
+        }
+    }
+
+    //projectiles.erase(std::remove_if(projectiles.begin(), projectiles.end(), [](Projectile* proj){ return proj->removeable; }));
+
     player->update(dt);
 
     for (int i = 0; i < projectiles.size(); i++)
@@ -96,22 +116,6 @@ void Game::onRender()
     for (int i = 0; i < enemies.size(); i++)
     {
         enemies[i]->render(renderer);
-    }
-
-    if (AABB::testOverlap(*player->collider, *test_collider)) {}
-
-    for (int i = 0; i < projectiles.size(); i++)
-    {
-        if (AABB::testOverlap(*projectiles[i]->collider, *test_collider)) {}
-        
-        // test projectiles against enemies
-        for (int j = 0; j < enemies.size(); j++)
-        {
-            if (AABB::testOverlap(*projectiles[i]->collider, *enemies[j]->collider))
-            {
-                enemies[j]->doDamage(10);
-            }
-        }
     }
 
     test_collider->debugRender(renderer);

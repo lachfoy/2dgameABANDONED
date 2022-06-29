@@ -15,10 +15,9 @@ struct AABB
     Point2f lowerBound;
 
     static inline bool testOverlap(const AABB& a, const AABB& b); // intersecting?
-    inline void debugRender(SDL_Renderer* renderer);
+    inline void debugRender(SDL_Renderer* renderer, const bool& colliding = false);
     inline void move(float x, float y);
 };
-
 
 AABB::AABB(float x, float y, float w, float h)
 {
@@ -38,21 +37,15 @@ bool AABB::testOverlap(const AABB& a, const AABB& b)
     d2Y = a.upperBound.y - b.lowerBound.y;
   
     if (d1X > 0.0f || d1Y > 0.0f)
-    {
-        
         return false;
-    }
   
     if (d2X > 0.0f || d2Y > 0.0f)
-    {
-        
         return false;
-    }
-  
+
     return true;
 }
 
-void AABB::debugRender(SDL_Renderer* renderer)
+void AABB::debugRender(SDL_Renderer* renderer, const bool& colliding)
 {
     // draw a rect representing the collider
     SDL_Rect collider_rect;
@@ -61,7 +54,7 @@ void AABB::debugRender(SDL_Renderer* renderer)
     collider_rect.w = (int)(lowerBound.x - upperBound.x);
     collider_rect.h = (int)(lowerBound.y - upperBound.y);
 
-    if (false) // never atm
+    if (colliding)
         SDL_SetRenderDrawColor(renderer, 0xff, 0xff, 0x00, 0xff); // yellow
     else
         SDL_SetRenderDrawColor(renderer, 0xff, 0x00, 0x00, 0xff); // red

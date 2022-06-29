@@ -13,6 +13,8 @@ public:
 
     AABB* collider;
 
+    int damage; // pack damage information into a struct so i can have different damage types?
+
     void update(float dt);
     void render(SDL_Renderer* renderer);
 

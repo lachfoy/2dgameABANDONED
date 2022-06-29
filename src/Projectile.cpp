@@ -10,6 +10,7 @@ Projectile::Projectile(float x, float y, int velX, int velY)
     colliderW = 24;
     colliderH = 24;
     collider = new AABB(pos.x, pos.y, colliderW, colliderH);
+    damage = 11;
 }
 
 void Projectile::update(float dt)
