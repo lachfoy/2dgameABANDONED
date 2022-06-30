@@ -63,7 +63,7 @@ void Game::handleInput(SDL_Event& e)
                 break;
 
             case SDLK_SPACE:
-                projectiles.push_back(new Projectile(player->pos.x, player->pos.y - 30, 1, 0));
+                for (int i =0; i < 1000;i++) projectiles.push_back(new Projectile(player->pos.x, player->pos.y - 30, 1, 0));
                 break;
         }
     }
