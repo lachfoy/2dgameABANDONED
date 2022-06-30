@@ -5,8 +5,10 @@ x projectiles and basic entity handling
 x refactor into seperate files. game class, player class, etc.
 x aabb collision detection
 x font for ui and debugging purposes (bitmap font)
-consider implementing ttf fonts with SDL2_ttf or freetype
+consider implementing ttf fonts with SDL2_ttf or freetype?
 simple enemies
+player health bar
+consider wrapping timers into a timer class?
 aabb collision response i.e. sliding response
 controller support (in progress)
 damage types and resistances

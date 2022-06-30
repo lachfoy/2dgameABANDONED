@@ -17,7 +17,7 @@ Enemy::Enemy(float x, float y)
     damageable = true;
     colliding = false;
     
-    immuneTime = 0.1f; // how many seconds of iframes
+    immuneTime = 0.2f; // how many seconds of iframes
     immuneTimer = immuneTime; 
 }
 

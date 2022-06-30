@@ -109,9 +109,6 @@ void Game::onUpdate(float dt)
 
 void Game::onRender()
 {
-    SDL_SetRenderDrawColor(renderer, 0xaa, 0xaa, 0xaa, 0xff);
-    SDL_RenderClear(renderer);
-    
     player->render(renderer);
 
     for (int i = 0; i < projectiles.size(); i++)
@@ -125,11 +122,4 @@ void Game::onRender()
     }
 
     test_collider->debugRender(renderer);
-    
-    bitmapFont->renderText(renderer, 10, 10, "Hello world!\
-    \nThis is my test for a bitmap font renderer :)\
-    \nIt looks a bit ugly but overall I think it suits the requirements.\
-    \nI can display numbers which is the most important part. 0123456789!!!");
-
-    SDL_RenderPresent(renderer);
 }

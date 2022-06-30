@@ -52,13 +52,21 @@ void Engine::run()
 {
     onCreate(); // call the game create functions
 
-    Uint32 now = SDL_GetPerformanceCounter();
-    Uint32 last = 0;
-    float dt = 0;
+    float elapsedMS = 0.0f; // testing my timer
+
+    Uint32 timeNow = SDL_GetPerformanceCounter();
+    Uint32 timeLast = 0;
+    float dt = 0.0f;
+
     bool quit = false;
     SDL_Event e;
     while(!quit)
     {
+        timeLast = timeNow;
+        timeNow = SDL_GetPerformanceCounter();
+        dt = ((timeNow - timeLast) * 1000 / (float)SDL_GetPerformanceFrequency()) * 0.001f;
+        elapsedMS += dt;
+
         // poll events
         while(SDL_PollEvent(&e) != 0)
         {
@@ -70,15 +78,16 @@ void Engine::run()
             handleInput(e);
         }
 
-        last = now;
-        now = SDL_GetPerformanceCounter();
-
         onUpdate(dt); // let the game update all the game logic
 
-        // calculate dt
-        dt = (float)((now - last) * 1000 / (float)SDL_GetPerformanceFrequency()) / 1000.0f;
+        SDL_SetRenderDrawColor(renderer, 0xaa, 0xaa, 0xaa, 0xff);
+        SDL_RenderClear(renderer);
 
-        onRender(); // let the game present everything to the renderer
+        onRender(); // let the game copy everything to the renderer
+
+        bitmapFont->renderText(renderer, 10, 10, "fps: " + std::to_string(1.0f / dt)); // render FPS
+
+        SDL_RenderPresent(renderer);
     }
 
     cleanup(); // cleanup resources
