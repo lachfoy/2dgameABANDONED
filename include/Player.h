@@ -14,9 +14,13 @@ public:
     ~Player();
 
     AABB* collider;
+    int health;
+    int maxHealth;
     
     void update(float dt);
     void render(SDL_Renderer* renderer);
+
+    void doDamage(int damage);
 
 private:
     int playerW;
@@ -24,6 +28,9 @@ private:
     int colliderW;
     int colliderH;
     float moveSpeed;
+    bool damageable;
+    float immuneTimer;
+    float immuneTime; // how many iframes (in seconds though)
 };
 
 #endif

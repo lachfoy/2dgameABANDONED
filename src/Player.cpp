@@ -13,6 +13,12 @@ Player::Player()
     velY = 0;
     moveSpeed = 200.0f;
     collider = new AABB(pos.x, pos.y, colliderW, colliderH);
+
+    maxHealth = 1000;
+    health = maxHealth;
+    damageable = true;
+    immuneTime = 0.2f; // how many seconds of iframes
+    immuneTimer = immuneTime;
 }
 
 Player::~Player()
@@ -22,15 +28,27 @@ Player::~Player()
 
 void Player::update(float dt)
 {
-    // update the internal position
-    pos.x += velX * moveSpeed * dt;
-    pos.y += velY * moveSpeed * dt;
+    if (health <= 0) printf("Player is dead :/\n");
+    else
+    {
+        // update the internal position
+        pos.x += velX * moveSpeed * dt;
+        pos.y += velY * moveSpeed * dt;
 
-    // move the collider as well
-    collider->upperBound.x = pos.x - (colliderW / 2);
-    collider->upperBound.y = pos.y - (colliderH / 2) - (playerH/2);
-    collider->lowerBound.x = pos.x + (colliderW / 2);
-    collider->lowerBound.y = pos.y + (colliderH / 2) - (playerH/2);
+        // move the collider as well
+        collider->upperBound.x = pos.x - (colliderW / 2);
+        collider->upperBound.y = pos.y - (colliderH / 2) - (playerH/2);
+        collider->lowerBound.x = pos.x + (colliderW / 2);
+        collider->lowerBound.y = pos.y + (colliderH / 2) - (playerH/2);
+    
+        // set up iframes
+        if (!damageable) immuneTimer -= dt;
+        if (immuneTimer <= 0.0f)
+        {
+            immuneTimer = immuneTime; // reset to the starting value
+            damageable = true;
+        }
+    }
 }
 
 void Player::render(SDL_Renderer* renderer)
@@ -41,7 +59,8 @@ void Player::render(SDL_Renderer* renderer)
     player_rect.y = (int)pos.y - playerH;
     player_rect.w = playerW;
     player_rect.h = playerH;
-    SDL_SetRenderDrawColor(renderer, 0x29, 0x65, 0xff, 0xff); // #2965ff blue
+    if (damageable) SDL_SetRenderDrawColor(renderer, 0x29, 0x65, 0xff, 0xff); // #2965ff blue
+    else SDL_SetRenderDrawColor(renderer, 0xc9, 0x5d, 0x78, 0xff); // c95d78 brighter color
     SDL_RenderFillRect(renderer, &player_rect);
 
     // draw a rect representing the collider
@@ -55,4 +74,16 @@ void Player::render(SDL_Renderer* renderer)
     debug_point_pos.y = (int)pos.y - (debug_point_pos.h / 2);
     SDL_SetRenderDrawColor(renderer, 0xeb, 0xd5, 0x17, 0xff); // #ebd517 yellow
     SDL_RenderFillRect(renderer, &debug_point_pos);
+}
+
+void Player::doDamage(int damage)
+{
+    printf("Player has %i/%i health\n", health, maxHealth);
+    if(damageable)
+    { 
+        printf("Player is taking %i damage\n", damage);
+        health -= damage;
+        damageable = false; // give iframes
+    }
+    printf("Player has %i/%i health\n", health, maxHealth);
 }

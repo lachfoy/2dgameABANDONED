@@ -82,7 +82,7 @@ void BitmapFont::renderText(SDL_Renderer* renderer, int x, int y, std::string te
 
                 SDL_RenderCopy(renderer, bitmapFontTexture, &chars[ascii], &rect);
 
-                curX += 7;
+                curX += 8;
             }
             
         }

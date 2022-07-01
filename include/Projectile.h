@@ -6,6 +6,8 @@
 #include "BaseObject.h"
 #include "AABB.h"
 
+
+
 class Projectile : public BaseObject
 {
 public:
@@ -23,6 +25,14 @@ private:
     float moveSpeed;
     int colliderW;
     int colliderH;
+    float lifeTime;
+
+    enum
+    {
+        DEFAULT_LIFETIME = 1,
+        DEFAULT_DAMAGE = 10,
+        DEFAULT_MOVESPEED = 200
+    };
 };
 
 #endif

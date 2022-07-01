@@ -21,11 +21,11 @@ public:
     void doDamage(int damage);
 
 private:
-    float moveSpeed;
     int enemyW;
     int enemyH;
     int colliderW;
     int colliderH;
+    float moveSpeed;
     int health;
     bool damageable;
     float immuneTimer;
