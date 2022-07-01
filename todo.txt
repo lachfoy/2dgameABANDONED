@@ -5,11 +5,13 @@ x projectiles and basic entity handling
 x refactor into seperate files. game class, player class, etc.
 x aabb collision detection
 x font for ui and debugging purposes (bitmap font)
+player health bar (in progress)
 consider implementing ttf fonts with SDL2_ttf or freetype?
 simple enemies
-player health bar
 consider wrapping timers into a timer class?
 aabb collision response i.e. sliding response
-controller support (in progress)
+controller support (in progress) note: WSL2 doesn't really support USB devices
 damage types and resistances
 implement image loading and textures (backlog)
+consider creating base class for creatures that have health
+create UI object base class
