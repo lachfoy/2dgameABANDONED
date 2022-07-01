@@ -23,12 +23,20 @@ public:
     void doDamage(int damage);
 
 private:
+    enum
+    {
+        DEFAULT_MAX_HEALTH = 100,
+        DEFAULT_PLAYER_WIDTH = 30,
+        DEFAULT_PLAYER_HEIGHT = 60,
+        DEFAULT_MOVE_SPEED = 200
+    };
+
     int playerW;
     int playerH;
     int colliderW;
     int colliderH;
     float moveSpeed;
-    bool damageable;
+    bool damageable; // if not damageable then they are taking damage
     float immuneTimer;
     float immuneTime; // how many iframes (in seconds though)
 };
