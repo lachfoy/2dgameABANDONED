@@ -4,17 +4,8 @@ Small and simple 2D game that uses SDL2 for rendering. Mainly working on this fo
 
 oh if you want to build it (requires SDL2 and cmake): 
 
-1.
-```shell
-  mkdir build
-```
+1. `mkdir build`
 
-2.
-```shell
-  cmake -S . -B build
-```
+2. `cmake -S . -B build`
 
-3.
-```shell
-  make -C build
-```
+3. `make -C build`
