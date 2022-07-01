@@ -5,7 +5,7 @@ Game::Game(){}
 void Game::onCreate()
 {
     player = new Player();
-    healthBar = new HealthBar(player, 20, 20);
+    playerHealthBar = new HealthBar(20, 20);
     test_collider = new AABB(300, 200, 200, 100);
     enemies.push_back(new Enemy(400, 400));
 }
@@ -45,12 +45,12 @@ void Game::handleInput(SDL_Event& e)
                 break;
             
             case SDLK_SPACE:
-                projectiles.push_back(new Projectile(player->pos.x, player->pos.y - 30, 1, 0));
+                projectiles.push_back(new Fireball(player->pos.x, player->pos.y - 30, 1, 0));
                 break;
 
             case SDLK_k: // deal damage to player
                 player->doDamage(11);
-                healthBar->updateHealth();
+                playerHealthBar->updateHealth(player);
                 break;
         }
     }
@@ -136,5 +136,5 @@ void Game::onRender()
     test_collider->debugRender(renderer);
 
     // render UI objects
-    healthBar->render(renderer);
+    playerHealthBar->render(renderer);
 }

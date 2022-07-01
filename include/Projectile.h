@@ -18,8 +18,8 @@ public:
 
     int damage; // pack damage information into a struct so i can have different damage types?
 
-    void update(float dt);
-    void render(SDL_Renderer* renderer);
+    virtual void update(float dt);
+    virtual void render(SDL_Renderer* renderer) = 0;
 
 private:
     float moveSpeed;

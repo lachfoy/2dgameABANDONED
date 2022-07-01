@@ -12,6 +12,7 @@
 #include "Projectile.h"
 #include "Enemy.h"
 #include "HealthBar.h"
+#include "Fireball.h"
 
 class Game : public Engine
 {
@@ -21,7 +22,7 @@ public:
 private:
     Player* player;
     AABB* test_collider;
-    HealthBar* healthBar;
+    HealthBar* playerHealthBar;
 
     std::vector<Projectile*> projectiles;
     std::vector<Enemy*> enemies;
