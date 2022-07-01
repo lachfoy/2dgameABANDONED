@@ -14,7 +14,7 @@ public:
 
     Point2f pos;
 
-    inline void update();
+    inline void updateHealth();
     inline void render(SDL_Renderer* renderer);
 
 private:
@@ -52,16 +52,20 @@ HealthBar::HealthBar(Player* player, int x, int y)
 }
 
 // it would be cool to have animated healthbars but I dont think I can be bothered yet
-void HealthBar::update()
+void HealthBar::updateHealth()
 {
-    // update the healthbar width using the players health %
-    health_rect.w = (int)(((float)player->health / player->maxHealth) * length);
+    // prevent health rect from renderering a negative width
+    if (player->health <= 0)
+        health_rect.w = 0;
+    else
+        // update the healthbar width using the players health %
+        health_rect.w = (int)(((float)player->health / player->maxHealth) * length);
 }
 
 void HealthBar::render(SDL_Renderer* renderer)
 {
     // draw the bg
-    SDL_SetRenderDrawColor(renderer, 0xee, 0xee, 0xee, 0xff); // #d11515 darkish red
+    SDL_SetRenderDrawColor(renderer, 0xaa, 0xaa, 0xaa, 0xff); // dark grey
     SDL_RenderFillRect(renderer, &bg_rect);
 
     // draw the actual health bar over the bg

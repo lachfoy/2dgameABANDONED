@@ -14,8 +14,6 @@ create UI object base class
 simple enemies
 damage types and resistances
 
-aabb collision response i.e. sliding response
-
 implement image loading and textures (backlog) NOTE: SDL_image or stb_image or just simple bitmaps
 consider implementing ttf fonts (backlog) NOTE: SDL_ttf or freetype 
 controller support (backlog) NOTE: probably will wait for native support of usb devices on WSL2

@@ -14,7 +14,7 @@ Player::Player()
     moveSpeed = 200.0f;
     collider = new AABB(pos.x, pos.y, colliderW, colliderH);
 
-    maxHealth = 1000;
+    maxHealth = 300;
     health = maxHealth;
     damageable = true;
     immuneTime = 0.2f; // how many seconds of iframes
@@ -78,12 +78,9 @@ void Player::render(SDL_Renderer* renderer)
 
 void Player::doDamage(int damage)
 {
-    printf("Player has %i/%i health\n", health, maxHealth);
     if(damageable)
     { 
-        printf("Player is taking %i damage\n", damage);
         health -= damage;
         damageable = false; // give iframes
     }
-    printf("Player has %i/%i health\n", health, maxHealth);
 }

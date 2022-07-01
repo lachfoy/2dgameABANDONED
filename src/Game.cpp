@@ -49,8 +49,8 @@ void Game::handleInput(SDL_Event& e)
                 break;
 
             case SDLK_k: // deal damage to player
-                player->doDamage(15);
-                healthBar->update();
+                player->doDamage(11);
+                healthBar->updateHealth();
                 break;
         }
     }

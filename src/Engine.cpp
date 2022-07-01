@@ -75,7 +75,7 @@ void Engine::run()
 
         start = SDL_GetTicks();
 
-        SDL_SetRenderDrawColor(renderer, 0xaa, 0xaa, 0xaa, 0xff);
+        SDL_SetRenderDrawColor(renderer, 0xd3, 0xd3, 0xd3, 0xff); // lightish grey
         SDL_RenderClear(renderer);
 
         onRender(); // let the game copy everything to the renderer
