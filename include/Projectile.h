@@ -10,7 +10,7 @@ class Projectile : public BaseObject
 {
 public:
     Projectile(float x, float y, int velX, int velY);
-    ~Projectile();
+    virtual ~Projectile(); // must be virtual so that derived projectiles have the option of adding more functionality to destruction
 
     AABB* collider;
     int damage; // todo: pack damage information into a struct so i can have different damage types?

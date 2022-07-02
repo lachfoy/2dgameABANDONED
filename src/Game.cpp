@@ -5,6 +5,7 @@ Game::Game(){}
 void Game::onCreate()
 {
     player = new Player();
+    projectileManager = new ProjectileManager();
     playerHealthBar = new HealthBar(20, 20);
     test_collider = new AABB(300, 200, 200, 100);
     enemies.push_back(new Enemy(400, 400));
@@ -14,7 +15,8 @@ void Game::onCleanup()
 {
     delete player;
     delete test_collider;
-    projectiles.clear();
+    delete projectileManager;
+    //projectiles.clear();
     enemies.clear();
 }
 
@@ -45,7 +47,8 @@ void Game::handleInput(SDL_Event& e)
                 break;
             
             case SDLK_SPACE:
-                projectiles.push_back(new Fireball(player->pos.x, player->pos.y - 30, 1, 0));
+                //projectiles.push_back(new Fireball(player->pos.x, player->pos.y - 30, 1, 0));
+                projectileManager->addProjectile(new Fireball(projectileManager, player->pos.x, player->pos.y - 30, 1, 0));
                 break;
 
             case SDLK_k: // deal damage to player
@@ -83,8 +86,7 @@ void Game::handleInput(SDL_Event& e)
 
 void Game::onUpdate(float dt)
 {
-    if (AABB::testOverlap(*player->collider, *test_collider)) {}
-
+    /* NO COLLISIONS ATM ------- HANDLE THIS IN A DIFFERENT WAY 
     // test projectile collisions
     for (int i = 0; i < projectiles.size(); i++)
     {
@@ -100,40 +102,37 @@ void Game::onUpdate(float dt)
             }
         }
     }
+    */
 
     // update the player
     player->update(dt);
 
     // update all the projectiles
-    for (int i = 0; i < projectiles.size(); i++)
-    {
-        projectiles[i]->update(dt);
-        if (projectiles[i]->removeable) projectiles.erase(projectiles.begin() + i); // delete if remove flag is set
-    }
+    projectileManager->updateProjectiles(dt);
 
     // update all the enemies
-    for (int i = 0; i < enemies.size(); i++)
-    {
-        enemies[i]->update(dt);
-        if (enemies[i]->removeable) enemies.erase(enemies.begin() + i); // delete if remove flag is set
-    }
+    // for (int i = 0; i < enemies.size(); i++)
+    // {
+    //     enemies[i]->update(dt);
+    //     if (enemies[i]->removeable)
+    //     {
+    //         delete enemies[i];
+    //         enemies.erase(enemies.begin() + i); // delete if remove flag is set
+    //     }
+    // }
 }
 
 void Game::onRender()
 {
     player->render(renderer);
 
-    for (int i = 0; i < projectiles.size(); i++)
-    {
-        projectiles[i]->render(renderer);
-    }
+    // render the projectiles
+    projectileManager->renderProjectiles(renderer);
 
-    for (int i = 0; i < enemies.size(); i++)
-    {
-        enemies[i]->render(renderer);
-    }
-
-    test_collider->debugRender(renderer);
+    // for (int i = 0; i < enemies.size(); i++)
+    // {
+    //     enemies[i]->render(renderer);
+    // }
 
     // render UI objects
     playerHealthBar->render(renderer);

@@ -62,6 +62,7 @@ void AABB::debugRender(SDL_Renderer* renderer, const bool& colliding)
     SDL_RenderDrawRect(renderer, &collider_rect);
 }
 
+// unused
 void AABB::move(float x, float y)
 {
     // move the collider as well

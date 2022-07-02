@@ -13,6 +13,7 @@
 #include "Enemy.h"
 #include "HealthBar.h"
 #include "Fireball.h"
+#include "ProjectileManager.h"
 
 class Game : public Engine
 {
@@ -24,7 +25,8 @@ private:
     AABB* test_collider;
     HealthBar* playerHealthBar;
 
-    std::vector<Projectile*> projectiles;
+    //std::vector<Projectile*> projectiles;
+    ProjectileManager* projectileManager;
     std::vector<Enemy*> enemies;
 
     void onCreate();

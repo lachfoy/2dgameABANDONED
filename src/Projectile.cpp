@@ -17,6 +17,7 @@ Projectile::Projectile(float x, float y, int velX, int velY)
 
 Projectile::~Projectile()
 {
+    printf("Deleted Projectile\n");
     delete collider;
 }
 
