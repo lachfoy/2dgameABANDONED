@@ -7,14 +7,12 @@ Projectile::Projectile(float x, float y, int velX, int velY)
     this->velX = velX;
     this->velY = velY;
     
-    colliderW = 24;
-    colliderH = 24;
-    
+    colliderRadius = DEFAULT_COLLIDER_RADIUS;
     moveSpeed = (float)DEFAULT_MOVESPEED;
     damage = DEFAULT_DAMAGE;
     lifeTime = (float)DEFAULT_LIFETIME;
 
-    collider = new AABB(pos.x, pos.y, colliderW, colliderH);
+    collider = new AABB(pos.x, pos.y, colliderRadius, colliderRadius);
 }
 
 Projectile::~Projectile()
@@ -31,10 +29,10 @@ void Projectile::update(float dt)
         pos.y += velY * moveSpeed * dt;
 
         // move the collider as well
-        collider->upperBound.x = pos.x - (colliderW / 2);
-        collider->upperBound.y = pos.y - (colliderH / 2);
-        collider->lowerBound.x = pos.x + (colliderW / 2);
-        collider->lowerBound.y = pos.y + (colliderH / 2);
+        collider->upperBound.x = pos.x - (colliderRadius / 2);
+        collider->upperBound.y = pos.y - (colliderRadius / 2);
+        collider->lowerBound.x = pos.x + (colliderRadius / 2);
+        collider->lowerBound.y = pos.y + (colliderRadius / 2);
 
         lifeTime -= dt;
     }

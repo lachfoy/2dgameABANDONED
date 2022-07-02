@@ -6,8 +6,6 @@
 #include "BaseObject.h"
 #include "AABB.h"
 
-
-
 class Projectile : public BaseObject
 {
 public:
@@ -15,24 +13,24 @@ public:
     ~Projectile();
 
     AABB* collider;
+    int damage; // todo: pack damage information into a struct so i can have different damage types?
 
-    int damage; // pack damage information into a struct so i can have different damage types?
-
-    virtual void update(float dt);
-    virtual void render(SDL_Renderer* renderer) = 0;
+    virtual void update(float dt); // derived projectiles can override update ONLY if they need to
+    virtual void render(SDL_Renderer* renderer) = 0; // derived projectiles MUST provide an implementation for renderering
 
 private:
-    float moveSpeed;
-    int colliderW;
-    int colliderH;
-    float lifeTime;
-
-    enum
+    enum // defaults
     {
-        DEFAULT_LIFETIME = 1,
+        DEFAULT_LIFETIME = 1, // float
         DEFAULT_DAMAGE = 10,
-        DEFAULT_MOVESPEED = 200
+        DEFAULT_MOVESPEED = 300, // float
+        DEFAULT_COLLIDER_RADIUS = 10
     };
+
+protected: // things the derived projectiles can change
+    float moveSpeed;
+    int colliderRadius; // assume all projectiles have uniform width and height even though they are actually rectangles
+    float lifeTime;
 };
 
 #endif
