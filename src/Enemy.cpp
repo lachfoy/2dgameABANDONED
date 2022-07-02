@@ -5,7 +5,7 @@ Enemy::Enemy(float x, float y)
     // initialize everything
     pos.x = x;
     pos.y = y;
-    enemyW = 40;
+    enemyW = 30;
     enemyH = 60;
     colliderW = 50;
     colliderH = 50;

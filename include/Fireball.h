@@ -26,10 +26,11 @@ public:
         : Projectile(x, y, velX = 0, velY = 0)
     {
         colliderRadius = 32;
-        lifeTime = 0.4f;
+        lifeTime = 0.2f;
+        damage = 19;
     }
 
-    ~FireballExplosion() { printf("Deleted Fireball\n"); }
+    ~FireballExplosion() { printf("Deleted Fireball Explosion\n"); }
 
     inline void render(SDL_Renderer* renderer);
 };
@@ -39,9 +40,9 @@ Fireball::Fireball(ProjectileManager* projectileManager, float x, float y, int v
 {   
     this->projectileManager = projectileManager;
     colliderRadius = 24;
-    moveSpeed = 200.0f;
+    moveSpeed = 300.0f;
     damage = 11;
-    lifeTime = 2.0f;
+    lifeTime = 1.6f;
 }
 
 Fireball::~Fireball()
@@ -65,8 +66,6 @@ void Fireball::render(SDL_Renderer* renderer)
     // draw collider ig
     collider->debugRender(renderer);
 }
-
-
 
 void FireballExplosion::render(SDL_Renderer* renderer)
 {

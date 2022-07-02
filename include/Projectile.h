@@ -13,7 +13,7 @@ public:
     virtual ~Projectile(); // must be virtual so that derived projectiles have the option of adding more functionality to destruction
 
     AABB* collider;
-    int damage; // todo: pack damage information into a struct so i can have different damage types?
+    int damage; // TODO: pack damage information into a struct so i can have different damage types?
 
     virtual void update(float dt); // derived projectiles can override update ONLY if they need to
     virtual void render(SDL_Renderer* renderer) = 0; // derived projectiles MUST provide an implementation for renderering
