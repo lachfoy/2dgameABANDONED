@@ -5,9 +5,8 @@
 
 #include "Point2f.h"
 
-class BaseObject
+struct BaseObject
 {
-public:
     BaseObject() { removeable = false; }
 
     Point2f pos;

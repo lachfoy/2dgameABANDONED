@@ -10,17 +10,18 @@
 class Player : public BaseObject
 {
 public:
-    Player();
+    Player(float x, float y);
     ~Player();
 
     AABB* collider;
-    int health;
-    int maxHealth;
+
     
     void update(float dt);
     void render(SDL_Renderer* renderer);
 
     void doDamage(int damage);
+    int getHealth() const { return health; }
+    int getMaxHealth() const { return maxHealth; }
 
 private:
     enum
@@ -35,6 +36,8 @@ private:
     int playerH;
     int colliderW;
     int colliderH;
+    int health;
+    int maxHealth;
     float moveSpeed;
     bool damageable; // if not damageable then they are taking damage
     float immuneTimer;

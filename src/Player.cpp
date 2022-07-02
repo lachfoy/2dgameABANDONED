@@ -1,10 +1,10 @@
 #include "Player.h"
 
-Player::Player()
+Player::Player(float x, float y)
 {
     // initialize everything
-    pos.x = 100.0f;
-    pos.y = 100.0f;
+    pos.x = x;
+    pos.y = y;
     playerW = DEFAULT_PLAYER_WIDTH;
     playerH = DEFAULT_PLAYER_HEIGHT;
     colliderW = 50;
@@ -81,6 +81,8 @@ void Player::doDamage(int damage)
     if(damageable)
     { 
         health -= damage;
+        printf("Player took %i damage\n", damage);
+        printf("Player has %i/%i hp\n", health, maxHealth);
         damageable = false; // give iframes
     }
 }

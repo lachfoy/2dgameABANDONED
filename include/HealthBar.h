@@ -53,11 +53,11 @@ HealthBar::HealthBar(int x, int y)
 void HealthBar::updateHealth(Player* player)
 {
     // prevent health rect from renderering a negative width
-    if (player->health <= 0)
+    if (player->getHealth() <= 0)
         health_rect.w = 0;
     else
         // update the healthbar width using the players health %
-        health_rect.w = (int)(((float)player->health / player->maxHealth) * length);
+        health_rect.w = (int)(((float)player->getHealth() / player->getMaxHealth()) * length);
 }
 
 void HealthBar::render(SDL_Renderer* renderer)

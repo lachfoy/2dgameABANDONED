@@ -19,6 +19,8 @@ public:
     void render(SDL_Renderer* renderer);
 
     void doDamage(int damage);
+    int getHealth() const { return health; }
+    int getMaxHealth() const { return maxHealth; }
 
 private:
     int enemyW;
@@ -27,6 +29,7 @@ private:
     int colliderH;
     float moveSpeed;
     int health;
+    int maxHealth;
     bool damageable;
     float immuneTimer;
     float immuneTime; // how many iframes (in seconds though)

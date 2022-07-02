@@ -13,7 +13,8 @@ Enemy::Enemy(float x, float y)
     velY = 0;
     moveSpeed = 180.0f;
     collider = new AABB(pos.x, pos.y, colliderW, colliderH);
-    health = 100;
+    maxHealth = 100;
+    health = maxHealth;
     damageable = true;
     colliding = false;
     
@@ -23,12 +24,13 @@ Enemy::Enemy(float x, float y)
 
 Enemy::~Enemy()
 {
+    printf("Deleted enemy\n");
     delete collider;
 }
 
 void Enemy::update(float dt)
 {
-    if (health <= 0) removeable = true; // if health is below zero, set removeable flag
+    if (health <= 0) { printf("enemy is dieded :(\n"); removeable = true; } // if health is below zero, set removeable flag
     else
     {
         // update the internal position
@@ -81,6 +83,8 @@ void Enemy::doDamage(int damage)
     if(damageable)
     {
         health -= damage;
+        printf("enemy took %i damage\n", damage);
+        printf("enemy has %i/%i hp\n", health, maxHealth);
         damageable = false; // give iframes
     }
 }

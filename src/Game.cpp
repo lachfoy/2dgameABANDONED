@@ -4,11 +4,11 @@ Game::Game(){}
 
 void Game::onCreate()
 {
-    player = new Player();
+    player = new Player(100.0f, 200.0f);
     projectileManager = new ProjectileManager();
     playerHealthBar = new HealthBar(20, 20);
-    test_collider = new AABB(300, 200, 200, 100);
-    enemies.push_back(new Enemy(400, 400));
+    test_collider = new AABB(300.0f, 200.0f, 200.0f, 100.0f);
+    enemies.push_back(new Enemy(400.0f, 300.0f));
 }
 
 void Game::onCleanup()
@@ -104,6 +104,11 @@ void Game::onUpdate(float dt)
     }
     */
 
+    for (int i = 0; i < enemies.size(); i++)
+    {
+        projectileManager->testOverlapAgainstEnemy(enemies[i]);
+    }
+
     // update the player
     player->update(dt);
 
@@ -111,15 +116,15 @@ void Game::onUpdate(float dt)
     projectileManager->updateProjectiles(dt);
 
     // update all the enemies
-    // for (int i = 0; i < enemies.size(); i++)
-    // {
-    //     enemies[i]->update(dt);
-    //     if (enemies[i]->removeable)
-    //     {
-    //         delete enemies[i];
-    //         enemies.erase(enemies.begin() + i); // delete if remove flag is set
-    //     }
-    // }
+    for (int i = 0; i < enemies.size(); i++)
+    {
+        enemies[i]->update(dt);
+        if (enemies[i]->removeable)
+        {
+            delete enemies[i];
+            enemies.erase(enemies.begin() + i); // delete if remove flag is set
+        }
+    }
 }
 
 void Game::onRender()
@@ -129,10 +134,10 @@ void Game::onRender()
     // render the projectiles
     projectileManager->renderProjectiles(renderer);
 
-    // for (int i = 0; i < enemies.size(); i++)
-    // {
-    //     enemies[i]->render(renderer);
-    // }
+    for (int i = 0; i < enemies.size(); i++)
+    {
+        enemies[i]->render(renderer);
+    }
 
     // render UI objects
     playerHealthBar->render(renderer);
