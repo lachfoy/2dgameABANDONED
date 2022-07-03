@@ -11,10 +11,12 @@ public:
     Skeleton(float x, float y);
     ~Skeleton() {}
 
-    //void update(float dt);
-    void render(SDL_Renderer* renderer);
+    void updateAI(float dt) override;
+    void render(SDL_Renderer* renderer) override;
 
 private:
+    float AiTime;
+    float AiTimer;
 
 };
 

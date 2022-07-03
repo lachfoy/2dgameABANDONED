@@ -2,7 +2,8 @@
 #define FIREBALL_H
 
 #include "Projectile.h"
-#include "ProjectileManager.h"
+
+class ProjectileManager;
 
 class Fireball : public Projectile
 {
@@ -12,7 +13,7 @@ public:
     inline ~Fireball();
 
     //inline void update(float dt); // base class handles updating
-    inline void render(SDL_Renderer* renderer);
+    inline void render(SDL_Renderer* renderer) override;
 
 private:
     ProjectileManager* projectileManager; // needs reference to projectile manager
@@ -32,8 +33,10 @@ public:
 
     ~FireballExplosion() {}
 
-    inline void render(SDL_Renderer* renderer);
+    inline void render(SDL_Renderer* renderer) override;
 };
+
+#include "ProjectileManager.h"
 
 Fireball::Fireball(ProjectileManager* projectileManager, float x, float y, int velX, int velY)
     : Projectile(x, y, velX, velY)

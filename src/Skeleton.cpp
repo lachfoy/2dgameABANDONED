@@ -9,6 +9,13 @@ Skeleton::Skeleton(float x, float y)
     maxHealth = 100;
     immuneTime = 0.2f; // how many seconds of iframes
     moveSpeed = 180.0f;
+
+    AiTimer = 1.0f; // 1 second
+}
+
+void Skeleton::updateAI(float dt)
+{
+    printf("Skelly thinking....\n");
 }
 
 void Skeleton::render(SDL_Renderer* renderer)

@@ -32,7 +32,7 @@ Player::~Player()
 
 void Player::update(float dt)
 {
-    if (health <= 0) printf("Player is dead :/\n");
+    if (health <= 0) printf("Player is dead\n");
     else
     {
         // update the internal position
@@ -86,7 +86,7 @@ void Player::doDamage(int damage)
     { 
         health -= damage;
         printf("Player took %i damage\n", damage);
-        printf("Player has %i/%i hp\n", health, maxHealth);
+        printf("Player has %i/%i HP\n", health, maxHealth);
         damageable = false; // give iframes
     }
 }
