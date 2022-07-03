@@ -6,6 +6,7 @@
 #include "HealthBar.h"
 #include "ProjectileManager.h"
 #include "Fireball.h"
+#include "EnemyManager.h"
 
 Game::Game(){}
 
@@ -13,9 +14,10 @@ void Game::onCreate()
 {
     player = new Player(100.0f, 200.0f);
     projectileManager = new ProjectileManager();
+    enemyManager = new EnemyManager();
     playerHealthBar = new HealthBar(20, 20);
     test_collider = new AABB(300.0f, 200.0f, 200.0f, 100.0f);
-    enemies.push_back(new Skeleton(400.0f, 300.0f));
+    enemyManager->addEnemy(new Skeleton(400.0f, 300.0f));
 }
 
 void Game::onCleanup()
@@ -24,7 +26,7 @@ void Game::onCleanup()
     delete test_collider;
     delete projectileManager;
     //projectiles.clear();
-    enemies.clear();
+    delete enemyManager;
 }
 
 void Game::handleInput(SDL_Event& e)
@@ -93,58 +95,25 @@ void Game::handleInput(SDL_Event& e)
 
 void Game::onUpdate(float dt)
 {
-    /* NO COLLISIONS ATM ------- HANDLE THIS IN A DIFFERENT WAY 
-    // test projectile collisions
-    for (int i = 0; i < projectiles.size(); i++)
-    {
-        if (AABB::testOverlap(*projectiles[i]->collider, *test_collider)) {}
-        
-        // test projectiles against enemies
-        for (int j = 0; j < enemies.size(); j++)
-        {
-            if (AABB::testOverlap(*projectiles[i]->collider, *enemies[j]->collider))
-            {
-                enemies[j]->doDamage(projectiles[i]->damage);
-                projectiles[i]->removeable = true; // flag that projectile as safe to remove
-            }
-        }
-    }
-    */
-
-    for (int i = 0; i < enemies.size(); i++)
-    {
-        projectileManager->resolveEnemyCollisions(enemies[i]);
-    }
+    // resolve projectile vs enemy collisions
+    enemyManager->resolveProjectileCollisions(projectileManager->getProjectiles());
 
     // update the player
     player->update(dt);
 
-    // update all the projectiles
-    projectileManager->updateProjectiles(dt);
+    // update enemies
+    enemyManager->updateEnemies(dt);
 
-    // update all the enemies
-    for (int i = 0; i < enemies.size(); i++)
-    {
-        enemies[i]->update(dt);
-        if (enemies[i]->removeable)
-        {
-            delete enemies[i];
-            enemies.erase(enemies.begin() + i); // delete if remove flag is set
-        }
-    }
+    // update projectiles
+    projectileManager->updateProjectiles(dt);
 }
 
 void Game::onRender()
 {
+    // render game objects
     player->render(renderer);
-
-    // render the projectiles
+    enemyManager->renderEnemies(renderer);
     projectileManager->renderProjectiles(renderer);
-
-    for (int i = 0; i < enemies.size(); i++)
-    {
-        enemies[i]->render(renderer);
-    }
 
     // render UI objects
     playerHealthBar->render(renderer);

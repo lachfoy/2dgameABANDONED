@@ -9,7 +9,7 @@
 
 class Player;
 class AABB;
-class BaseEnemy;
+class EnemyManager;
 class ProjectileManager;
 class HealthBar;
 
@@ -23,9 +23,8 @@ private:
     AABB* test_collider;
     HealthBar* playerHealthBar;
 
-    //std::vector<Projectile*> projectiles;
     ProjectileManager* projectileManager;
-    std::vector<BaseEnemy*> enemies;
+    EnemyManager* enemyManager;
 
     void onCreate();
     void onCleanup();

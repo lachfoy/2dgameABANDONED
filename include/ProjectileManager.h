@@ -14,7 +14,9 @@ public:
     ProjectileManager() {};
     ~ProjectileManager() { projectiles.clear(); }
 
+    std::vector<Projectile*> getProjectiles() const { return projectiles; }
     void addProjectile(Projectile* projectile) { projectiles.push_back(projectile); }
+
     inline void resolveEnemyCollisions(BaseEnemy* enemy);
 
     inline void updateProjectiles(float dt);
