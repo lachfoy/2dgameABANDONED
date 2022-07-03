@@ -1,8 +1,9 @@
 #include "Player.h"
 
-#include "AABB.h"
+#include "BaseEnemy.h"
+#include "HealthBar.h"
 
-Player::Player(float x, float y)
+Player::Player(HealthBar* healthBar, float x, float y)
 {
     // initialize everything
     pos.x = x;
@@ -18,6 +19,7 @@ Player::Player(float x, float y)
 
     maxHealth = DEFAULT_MAX_HEALTH;
     health = maxHealth;
+    this->healthBar = healthBar;
     damageable = true;
     immuneTime = 0.2f; // how many seconds of iframes
     immuneTimer = immuneTime;
@@ -28,6 +30,17 @@ Player::Player(float x, float y)
 Player::~Player()
 {
     delete collider;
+}
+
+void Player::resolveEnemyCollisions(const std::vector<BaseEnemy*>& enemies)
+{
+    for (int i = 0; i < enemies.size(); i++)
+    {
+        if (AABB::testOverlap(enemies[i]->getCollider(), *collider))
+        {
+            doDamage(enemies[i]->damage);
+        }
+    }
 }
 
 void Player::update(float dt)
@@ -85,6 +98,7 @@ void Player::doDamage(int damage)
     if(damageable)
     { 
         health -= damage;
+        healthBar->updateHealth(this);
         printf("Player took %i damage\n", damage);
         printf("Player has %i/%i HP\n", health, maxHealth);
         damageable = false; // give iframes

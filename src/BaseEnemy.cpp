@@ -1,7 +1,5 @@
 #include "BaseEnemy.h"
 
-#include "AABB.h"
-
 BaseEnemy::BaseEnemy(float x, float y)
 {
     // initialize everything
@@ -18,6 +16,7 @@ BaseEnemy::BaseEnemy(float x, float y)
     
     maxHealth = DEFAULT_MAX_HEALTH;
     health = maxHealth;
+    damage = DEFAULT_DAMAGE;
     damageable = true;
     immuneTime = DEFAULT_IMMUNE_TIME; // how many seconds of iframes
     immuneTimer = immuneTime;

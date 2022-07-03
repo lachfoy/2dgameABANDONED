@@ -12,12 +12,12 @@ Game::Game(){}
 
 void Game::onCreate()
 {
-    player = new Player(100.0f, 200.0f);
+    playerHealthBar = new HealthBar(20, 20);
+    player = new Player(playerHealthBar, 100.0f, 200.0f);
     projectileManager = new ProjectileManager();
     enemyManager = new EnemyManager();
-    playerHealthBar = new HealthBar(20, 20);
     test_collider = new AABB(300.0f, 200.0f, 200.0f, 100.0f);
-    enemyManager->addEnemy(new Skeleton(400.0f, 300.0f));
+    enemyManager->addEnemy(new Skeleton(player, 400.0f, 300.0f));
 }
 
 void Game::onCleanup()
@@ -27,6 +27,7 @@ void Game::onCleanup()
     delete projectileManager;
     //projectiles.clear();
     delete enemyManager;
+    delete playerHealthBar;
 }
 
 void Game::handleInput(SDL_Event& e)
@@ -97,6 +98,9 @@ void Game::onUpdate(float dt)
 {
     // resolve projectile vs enemy collisions
     enemyManager->resolveProjectileCollisions(projectileManager->getProjectiles());
+
+    // resolve enemy vs player collisions
+    player->resolveEnemyCollisions(enemyManager->getEnemies());
 
     // update the player
     player->update(dt);

@@ -14,12 +14,13 @@ public:
     EnemyManager() {};
     ~EnemyManager() { enemies.clear(); }
 
-    inline void updateEnemies(float dt);
-    inline void renderEnemies(SDL_Renderer* renderer);
+    std::vector<BaseEnemy*> getEnemies() const { return enemies; }
+    void addEnemy(BaseEnemy* enemy) { enemies.push_back(enemy); }
 
     inline void resolveProjectileCollisions(const std::vector<Projectile*>& projectiles);
 
-    void addEnemy(BaseEnemy* enemy) { enemies.push_back(enemy); }
+    inline void updateEnemies(float dt);
+    inline void renderEnemies(SDL_Renderer* renderer);
 
 private:
     std::vector<BaseEnemy*> enemies;
@@ -35,7 +36,7 @@ void EnemyManager::resolveProjectileCollisions(const std::vector<Projectile*>& p
     {
         for (int j = 0; j < projectiles.size(); j++)
         {
-            if (AABB::testOverlap(*enemies[i]->collider, *projectiles[j]->collider))
+            if (AABB::testOverlap(enemies[i]->getCollider(), *projectiles[j]->collider))
             {
                 enemies[i]->doDamage(projectiles[j]->damage);
                 projectiles[j]->removeable = true;
