@@ -7,13 +7,13 @@ Player::Player(float x, float y)
     // initialize everything
     pos.x = x;
     pos.y = y;
-    playerW = DEFAULT_PLAYER_WIDTH;
-    playerH = DEFAULT_PLAYER_HEIGHT;
-    colliderW = 50;
-    colliderH = 50;
     velX = 0;
     velY = 0;
-    moveSpeed = (float)DEFAULT_MOVE_SPEED;
+
+    playerW = DEFAULT_W;
+    playerH = DEFAULT_H;
+    colliderW = DEFAULT_COLLIDER_W;
+    colliderH = DEFAULT_COLLIDER_H;
     collider = new AABB(pos.x, pos.y, colliderW, colliderH);
 
     maxHealth = DEFAULT_MAX_HEALTH;
@@ -21,6 +21,8 @@ Player::Player(float x, float y)
     damageable = true;
     immuneTime = 0.2f; // how many seconds of iframes
     immuneTimer = immuneTime;
+
+    moveSpeed = (float)DEFAULT_MOVE_SPEED;
 }
 
 Player::~Player()
