@@ -1,5 +1,7 @@
 #include "Engine.h"
 
+#include "BitmapFont.h"
+
 Engine::Engine(){}
 
 bool Engine::init(int w, int h)

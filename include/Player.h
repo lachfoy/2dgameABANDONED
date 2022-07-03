@@ -4,8 +4,8 @@
 #include <SDL2/SDL.h>
 
 #include "BaseObject.h"
-#include "Point2f.h"
-#include "AABB.h"
+
+class AABB;
 
 class Player : public BaseObject
 {

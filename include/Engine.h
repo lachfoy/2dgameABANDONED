@@ -5,7 +5,7 @@
 
 #include <SDL2/SDL.h>
 
-#include "BitmapFont.h"
+class BitmapFont;
 
 class Engine
 {

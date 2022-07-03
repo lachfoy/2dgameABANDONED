@@ -1,5 +1,12 @@
 #include "Game.h"
 
+#include "AABB.h"
+#include "Player.h"
+#include "Enemy.h"
+#include "HealthBar.h"
+#include "ProjectileManager.h"
+#include "Fireball.h"
+
 Game::Game(){}
 
 void Game::onCreate()
@@ -106,7 +113,7 @@ void Game::onUpdate(float dt)
 
     for (int i = 0; i < enemies.size(); i++)
     {
-        projectileManager->testOverlapAgainstEnemy(enemies[i]);
+        projectileManager->resolveEnemyCollisions(enemies[i]);
     }
 
     // update the player

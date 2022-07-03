@@ -5,9 +5,8 @@
 
 #include <SDL2/SDL.h>
 
-#include "Projectile.h"
-#include "AABB.h"
-#include "Enemy.h"
+class Projectile;
+class Enemy;
 
 class ProjectileManager
 {
@@ -16,7 +15,7 @@ public:
     ~ProjectileManager() { projectiles.clear(); }
 
     void addProjectile(Projectile* projectile) { projectiles.push_back(projectile); }
-    inline bool testOverlapAgainstEnemy(Enemy* enemy);
+    inline void resolveEnemyCollisions(Enemy* enemy);
 
     inline void updateProjectiles(float dt);
     inline void renderProjectiles(SDL_Renderer* renderer);
@@ -25,8 +24,11 @@ private:
     std::vector<Projectile*> projectiles;
 };
 
+#include "Projectile.h"
+#include "Enemy.h"
+
 // tests collision against enemy and deals appropriate damage
-bool ProjectileManager::testOverlapAgainstEnemy(Enemy* enemy)
+void ProjectileManager::resolveEnemyCollisions(Enemy* enemy)
 {
     for (int i = 0; i < projectiles.size(); i++)
     {

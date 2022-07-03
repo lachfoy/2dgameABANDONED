@@ -6,14 +6,12 @@
 #include <SDL2/SDL.h>
 
 #include "Engine.h"
-#include "BaseObject.h"
-#include "AABB.h"
-#include "Player.h"
-#include "Projectile.h"
-#include "Enemy.h"
-#include "HealthBar.h"
-#include "Fireball.h"
-#include "ProjectileManager.h"
+
+class Player;
+class AABB;
+class Enemy;
+class ProjectileManager;
+class HealthBar;
 
 class Game : public Engine
 {

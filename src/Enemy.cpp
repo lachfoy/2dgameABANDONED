@@ -1,5 +1,7 @@
 #include "Enemy.h"
 
+#include "AABB.h"
+
 Enemy::Enemy(float x, float y)
 {
     // initialize everything

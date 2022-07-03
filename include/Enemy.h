@@ -4,7 +4,8 @@
 #include <SDL2/SDL.h>
 
 #include "BaseObject.h"
-#include "AABB.h"
+
+class AABB;
 
 class Enemy : public BaseObject
 {
