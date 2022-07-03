@@ -5,17 +5,22 @@
 
 #include "BaseEnemy.h"
 
+class Player;
+
 class Skeleton : public BaseEnemy
 {
 public:
-    Skeleton(float x, float y);
+    Skeleton(Player* player, float x, float y);
     ~Skeleton() {}
 
-    //void update(float dt);
-    void render(SDL_Renderer* renderer);
+    void updateAI(float dt) override;
+    void render(SDL_Renderer* renderer) override;
 
 private:
-
+    Player* player; 
+    bool thinking;
+    float thinkingTime;
+    float thinkingTimer;
 };
 
 #endif
