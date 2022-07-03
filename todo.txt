@@ -6,12 +6,14 @@ x refactor into seperate files. game class, player class, etc.
 x aabb collision detection
 x font for ui and debugging purposes (bitmap font) (in future) refine font renderering by having different spacing per glyph
 x player health bar (in future) animate healthbar similar to dark souls
+x abstract projectile handling to ProjectileManager class
+x create base class for enemies to inherit from
+x abstract enemy handling to EnemyManager class
 
 aabb collision response i.e. sliding response
 damage types and resistances
-consider creating base class for creatures that have health
 create UI object base class
-simple enemies
+simple enemies AI
 damage types and resistances
 
 implement image loading and textures (backlog) NOTE: SDL_image or stb_image or just simple bitmaps
