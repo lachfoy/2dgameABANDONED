@@ -1,5 +1,5 @@
-#ifndef PLAYER_H
-#define PLAYER_H
+#ifndef BASEENEMY_H
+#define BASEENEMY_H
 
 #include <SDL2/SDL.h>
 
@@ -7,16 +7,16 @@
 
 class AABB;
 
-class Player : public BaseObject
+class BaseEnemy : public BaseObject
 {
 public:
-    Player(float x, float y);
-    ~Player();
+    BaseEnemy(float x, float y);
+    virtual ~BaseEnemy(); // derived enemies can add functionality
 
     AABB* collider;
 
-    void update(float dt);
-    void render(SDL_Renderer* renderer);
+    virtual void update(float dt); // derived enemies can add extra functionality
+    virtual void render(SDL_Renderer* renderer) = 0; // derived enemies MUST provide an implementation for renderering
 
     int getHealth() const { return health; }
     int getMaxHealth() const { return maxHealth; }
@@ -35,8 +35,9 @@ private:
         DEFAULT_MOVE_SPEED = 200
     };
 
-    int playerW;
-    int playerH;
+protected:
+    int enemyW;
+    int enemyH;
     int colliderW;
     int colliderH;
     int maxHealth;

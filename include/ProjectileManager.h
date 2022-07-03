@@ -6,7 +6,7 @@
 #include <SDL2/SDL.h>
 
 class Projectile;
-class Enemy;
+class BaseEnemy;
 
 class ProjectileManager
 {
@@ -14,8 +14,10 @@ public:
     ProjectileManager() {};
     ~ProjectileManager() { projectiles.clear(); }
 
+    std::vector<Projectile*> getProjectiles() const { return projectiles; }
     void addProjectile(Projectile* projectile) { projectiles.push_back(projectile); }
-    inline void resolveEnemyCollisions(Enemy* enemy);
+
+    inline void resolveEnemyCollisions(BaseEnemy* enemy);
 
     inline void updateProjectiles(float dt);
     inline void renderProjectiles(SDL_Renderer* renderer);
@@ -25,10 +27,10 @@ private:
 };
 
 #include "Projectile.h"
-#include "Enemy.h"
+#include "BaseEnemy.h"
 
 // tests collision against enemy and deals appropriate damage
-void ProjectileManager::resolveEnemyCollisions(Enemy* enemy)
+void ProjectileManager::resolveEnemyCollisions(BaseEnemy* enemy)
 {
     for (int i = 0; i < projectiles.size(); i++)
     {
