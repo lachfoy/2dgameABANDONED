@@ -18,6 +18,8 @@ public:
     Player(HealthBar* healthBar, float x, float y);
     ~Player();
 
+    enum { LEFT, RIGHT } Facing; // public because its lazy and im late
+
     int getHealth() const { return health; }
     int getMaxHealth() const { return maxHealth; }
     AABB getCollider() const { return *collider; }

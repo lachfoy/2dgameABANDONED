@@ -48,6 +48,9 @@ void Player::update(float dt)
     if (health <= 0) printf("Player is dead\n");
     else
     {
+        if (velX > 0) Facing = RIGHT;
+        else if (velX < 0) Facing = LEFT;
+
         // update the internal position
         pos.x += velX * moveSpeed * dt;
         pos.y += velY * moveSpeed * dt;
