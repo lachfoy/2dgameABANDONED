@@ -18,7 +18,7 @@ public:
     void render(SDL_Renderer* renderer) override;
 
 private:
-    Player* player; 
+    Player* player;
     bool thinking;
     float thinkingTime;
     float thinkingTimer;

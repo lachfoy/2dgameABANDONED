@@ -11,10 +11,14 @@ class HealthBar
 public:
     inline HealthBar(int x, int y, int length, int height);
 
-    Point2f pos;
+    Point2f pos; // internal floating point position
+    bool removeable = false;
 
     // update the healthbar internal length and height as well as the rects
     inline void updateSize(const int& length, const int& height);
+
+    // update the healthbar rects position
+    inline void updatePos(const float& x, const float& y);
 
     // take a current health and a max health and update the UI rects
     inline void updateHealth(const int& health, const int& maxHealth);
@@ -35,22 +39,23 @@ private:
 
 };
 
-HealthBar::HealthBar(int x, int y, int length = DEFAULT_LENGTH, int height = DEFAULT_HEIGHT)
+HealthBar::HealthBar(int x = 0, int y = 0, int length = DEFAULT_LENGTH, int height = DEFAULT_HEIGHT)
 {
-    pos.x = x;
-    pos.y = y;
     this->length = length;
     this->height = height;
 
-    bg_rect.x = pos.x;
-    bg_rect.y = pos.y;
+    bg_rect.x = x;
+    bg_rect.y = y;
     bg_rect.w = length;
     bg_rect.h = height;
 
-    health_rect.x = pos.x;
-    health_rect.y = pos.y;
+    health_rect.x = x;
+    health_rect.y = y;
     health_rect.w = length;
     health_rect.h = height;
+
+    pos.x = x + (length / 2.0f);
+    pos.y = y + (height / 2.0f);
 }
 
 void HealthBar::updateSize(const int& length, const int& height)
@@ -64,6 +69,18 @@ void HealthBar::updateSize(const int& length, const int& height)
 
     health_rect.w = length;
     health_rect.h = height;
+}
+
+void HealthBar::updatePos(const float& x, const float& y)
+{
+    pos.x = x;
+    pos.y = y;
+
+    bg_rect.x = (int)pos.x - (length / 2);
+    bg_rect.y = (int)pos.y - (height / 2);
+
+    health_rect.x = (int)pos.x - (length / 2);
+    health_rect.y = (int)pos.y - (height / 2);
 }
 
 void HealthBar::updateHealth(const int& health, const int& maxHealth)

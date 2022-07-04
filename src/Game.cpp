@@ -17,7 +17,8 @@ void Game::onCreate()
     projectileManager = new ProjectileManager();
     enemyManager = new EnemyManager();
     test_collider = new AABB(300.0f, 200.0f, 200.0f, 100.0f);
-    enemyManager->addEnemy(new Skeleton(player, nullptr, 400.0f, 300.0f));
+    skeletonHealthBar = new HealthBar();
+    enemyManager->addEnemy(new Skeleton(player, skeletonHealthBar, 400.0f, 300.0f));
 }
 
 void Game::onCleanup()
@@ -28,6 +29,7 @@ void Game::onCleanup()
     //projectiles.clear();
     delete enemyManager;
     delete playerHealthBar;
+    delete skeletonHealthBar;
 }
 
 void Game::handleInput(SDL_Event& e)
@@ -63,8 +65,7 @@ void Game::handleInput(SDL_Event& e)
                 break;
 
             case SDLK_k: // deal damage to player
-                //player->doDamage(11);
-                playerHealthBar->updateSize(100, 40);
+                player->doDamage(11);
                 break;
         }
     }
@@ -122,4 +123,5 @@ void Game::onRender()
 
     // render UI objects
     playerHealthBar->render(renderer);
+    skeletonHealthBar->render(renderer);
 }
