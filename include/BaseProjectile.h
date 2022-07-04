@@ -1,20 +1,23 @@
-#ifndef PROJECTILE_H
-#define PROJECTILE_H
+#ifndef BASEPROJECTILE_H
+#define BASEPROJECTILE_H
 
 #include <SDL2/SDL.h>
 
 #include "BaseObject.h"
 #include "AABB.h"
 
-class Projectile : public BaseObject
+class ProjectileManager;
+class BaseProjectile : public BaseObject
 {
 public:
-    Projectile(float x, float y, int velX, int velY);
-    virtual ~Projectile(); // must be virtual so that derived projectiles have the option of adding more functionality to destruction
+    BaseProjectile(float x, float y, int velX, int velY);
+    virtual ~BaseProjectile(); // must be virtual so that derived projectiles have the option of adding more functionality to destruction
 
-    AABB* collider;
-    int damage; // TODO: pack damage information into a struct so i can have different damage types?
+    AABB getCollider() const { return *collider; }
+    int getDamage() const { return damage; }
+    
 
+    //virtual void destroy(ProjectileManager& projectileManager) = 0; // ??????
     virtual void update(float dt); // derived projectiles can override update ONLY if they need to
     virtual void render(SDL_Renderer* renderer) = 0; // derived projectiles MUST provide an implementation for renderering
 
@@ -28,6 +31,8 @@ private:
     };
 
 protected: // things the derived projectiles can change
+    AABB* collider;
+    int damage; // TODO: pack damage information into a struct so i can have different damage types?
     float moveSpeed;
     int colliderRadius; // assume all projectiles have uniform width and height even though they are actually rectangles
     float lifeTime;

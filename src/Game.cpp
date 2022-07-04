@@ -7,6 +7,7 @@
 #include "ProjectileManager.h"
 #include "Fireball.h"
 #include "EnemyManager.h"
+#include "UIManager.h"
 
 Game::Game(){}
 

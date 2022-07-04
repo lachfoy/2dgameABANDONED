@@ -6,7 +6,7 @@
 #include <SDL2/SDL.h>
 
 class BaseEnemy;
-class Projectile;
+class BaseProjectile;
 
 class EnemyManager
 {
@@ -17,7 +17,7 @@ public:
     std::vector<BaseEnemy*> getEnemies() const { return enemies; }
     void addEnemy(BaseEnemy* enemy) { enemies.push_back(enemy); }
 
-    inline void resolveProjectileCollisions(const std::vector<Projectile*>& projectiles);
+    inline void resolveProjectileCollisions(const std::vector<BaseProjectile*>& projectiles);
 
     inline void updateEnemies(float dt);
     inline void renderEnemies(SDL_Renderer* renderer);
@@ -27,18 +27,18 @@ private:
 };
 
 #include "BaseEnemy.h"
-#include "Projectile.h"
+#include "BaseProjectile.h"
 
 // tests collision against a list of projectiles and deals appropriate damage
-void EnemyManager::resolveProjectileCollisions(const std::vector<Projectile*>& projectiles)
+void EnemyManager::resolveProjectileCollisions(const std::vector<BaseProjectile*>& projectiles)
 {
     for (int i = 0; i < enemies.size(); i++)
     {
         for (int j = 0; j < projectiles.size(); j++)
         {
-            if (AABB::testOverlap(enemies[i]->getCollider(), *projectiles[j]->collider))
+            if (AABB::testOverlap(enemies[i]->getCollider(), projectiles[j]->getCollider()))
             {
-                enemies[i]->doDamage(projectiles[j]->damage);
+                enemies[i]->doDamage(projectiles[j]->getDamage());
                 projectiles[j]->removeable = true;
             }
         }

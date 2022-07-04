@@ -1,6 +1,6 @@
-#include "Projectile.h"
+#include "BaseProjectile.h"
 
-Projectile::Projectile(float x, float y, int velX, int velY) : BaseObject(x, y)
+BaseProjectile::BaseProjectile(float x, float y, int velX, int velY) : BaseObject(x, y)
 {
     this->velX = velX;
     this->velY = velY;
@@ -13,13 +13,13 @@ Projectile::Projectile(float x, float y, int velX, int velY) : BaseObject(x, y)
     collider = new AABB(pos.x, pos.y, colliderRadius, colliderRadius);
 }
 
-Projectile::~Projectile()
+BaseProjectile::~BaseProjectile()
 {
     printf("Deleted Projectile\n");
     delete collider;
 }
 
-void Projectile::update(float dt)
+void BaseProjectile::update(float dt)
 {
     if (lifeTime <= 0.0f) removeable = true;
     {

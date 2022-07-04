@@ -7,13 +7,12 @@
 
 #include "Engine.h"
 
-#include "UIManager.h"
-
 class Player;
 class AABB;
 class EnemyManager;
 class ProjectileManager;
 class HealthBar;
+class UIManager;
 
 class Game : public Engine
 {

@@ -1,11 +1,11 @@
 #ifndef FIREBALL_H
 #define FIREBALL_H
 
-#include "Projectile.h"
+#include "BaseProjectile.h"
 
 class ProjectileManager;
 
-class Fireball : public Projectile
+class Fireball : public BaseProjectile
 {
 public:
     inline Fireball(ProjectileManager* projectileManager, float x, float y, int velX, int velY);
@@ -20,11 +20,11 @@ private:
 };
 
 // when the fireball gets removed it spawns a new projectile. How tf I do this I do not know.
-class FireballExplosion : public Projectile
+class FireballExplosion : public BaseProjectile
 {
 public:
     FireballExplosion(float x, float y)
-        : Projectile(x, y, velX = 0, velY = 0)
+        : BaseProjectile(x, y, velX = 0, velY = 0)
     {
         colliderRadius = 38;
         lifeTime = 0.2f;
@@ -39,7 +39,7 @@ public:
 #include "ProjectileManager.h"
 
 Fireball::Fireball(ProjectileManager* projectileManager, float x, float y, int velX, int velY)
-    : Projectile(x, y, velX, velY)
+    : BaseProjectile(x, y, velX, velY)
 {   
     this->projectileManager = projectileManager;
     colliderRadius = 24;

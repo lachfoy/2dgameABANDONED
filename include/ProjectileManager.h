@@ -5,7 +5,7 @@
 
 #include <SDL2/SDL.h>
 
-class Projectile;
+class BaseProjectile;
 class BaseEnemy;
 
 class ProjectileManager
@@ -14,17 +14,17 @@ public:
     ProjectileManager() {};
     ~ProjectileManager() { projectiles.clear(); }
 
-    std::vector<Projectile*> getProjectiles() const { return projectiles; }
-    void addProjectile(Projectile* projectile) { projectiles.push_back(projectile); }
+    std::vector<BaseProjectile*> getProjectiles() const { return projectiles; }
+    void addProjectile(BaseProjectile* projectile) { projectiles.push_back(projectile); }
 
     inline void updateProjectiles(float dt);
     inline void renderProjectiles(SDL_Renderer* renderer);
 
 private:
-    std::vector<Projectile*> projectiles;
+    std::vector<BaseProjectile*> projectiles;
 };
 
-#include "Projectile.h"
+#include "BaseProjectile.h"
 #include "BaseEnemy.h"
 
 void ProjectileManager::updateProjectiles(float dt)
