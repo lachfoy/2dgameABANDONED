@@ -9,7 +9,7 @@
 class HealthBar
 {
 public:
-    inline HealthBar(int x, int y, int length, int height);
+    inline HealthBar(int x = 0, int y = 0, int length = DEFAULT_LENGTH, int height = DEFAULT_HEIGHT);
 
     Point2f pos; // internal floating point position
     bool removeable = false;
@@ -39,7 +39,7 @@ private:
 
 };
 
-HealthBar::HealthBar(int x = 0, int y = 0, int length = DEFAULT_LENGTH, int height = DEFAULT_HEIGHT)
+HealthBar::HealthBar(int x, int y, int length, int height)
 {
     this->length = length;
     this->height = height;
