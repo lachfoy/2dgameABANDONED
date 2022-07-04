@@ -4,7 +4,6 @@
 #include <SDL2/SDL.h>
 
 #include "Point2f.h"
-#include "Player.h"
 
 // should probably inherit from a "BaseUIObject" or something like that.
 class HealthBar
@@ -14,7 +13,9 @@ public:
 
     Point2f pos;
 
-    inline void updateHealth(Player* player);
+    // take a current health and a max health and update the UI rects
+    inline void updateHealth(const int& health, const int& maxHealth);
+
     inline void render(SDL_Renderer* renderer);
 
 private:
@@ -50,14 +51,14 @@ HealthBar::HealthBar(int x, int y)
 }
 
 // it would be cool to have animated healthbars but I dont think I can be bothered yet
-void HealthBar::updateHealth(Player* player)
+void HealthBar::updateHealth(const int& health, const int& maxHealth)
 {
     // prevent health rect from renderering a negative width
-    if (player->getHealth() <= 0)
+    if (health <= 0)
         health_rect.w = 0;
     else
         // update the healthbar width using the players health %
-        health_rect.w = (int)(((float)player->getHealth() / player->getMaxHealth()) * length);
+        health_rect.w = (int)(((float)health / maxHealth) * length);
 }
 
 void HealthBar::render(SDL_Renderer* renderer)
