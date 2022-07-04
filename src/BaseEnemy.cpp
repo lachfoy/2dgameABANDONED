@@ -32,7 +32,7 @@ void BaseEnemy::update(float dt)
         // update the healthbar position
         if (healthBar)
         {
-            healthBar->updatePos((int)pos.x, (int)pos.y - enemyH - 6);
+            healthBar->updateCenterPos((int)pos.x, (int)(pos.y - enemyH - 6));
         }
 
         // move the collider as well

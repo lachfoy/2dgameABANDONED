@@ -7,6 +7,8 @@
 
 #include "Engine.h"
 
+#include "UIManager.h"
+
 class Player;
 class AABB;
 class EnemyManager;
@@ -26,6 +28,7 @@ private:
 
     ProjectileManager* projectileManager;
     EnemyManager* enemyManager;
+    UIManager* _UIManager;
 
     void onCreate();
     void onCleanup();

@@ -3,27 +3,26 @@
 
 #include <SDL2/SDL.h>
 
-#include "Point2f.h"
+#include "BaseUIObject.h"
 
 // should probably inherit from a "BaseUIObject" or something like that.
-class HealthBar
+class HealthBar : public BaseUIObject
 {
 public:
     inline HealthBar(int x = 0, int y = 0, int length = DEFAULT_LENGTH, int height = DEFAULT_HEIGHT);
 
-    Point2f pos; // internal floating point position
     bool removeable = false;
 
     // update the healthbar internal length and height as well as the rects
     inline void updateSize(const int& length, const int& height);
 
-    // update the healthbar rects position
-    inline void updatePos(const float& x, const float& y);
+    // moves the healthbar rects around a central point
+    inline void updateCenterPos(const int& x, const int& y);
 
     // take a current health and a max health and update the UI rects
     inline void updateHealth(const int& health, const int& maxHealth);
 
-    inline void render(SDL_Renderer* renderer);
+    inline void render(SDL_Renderer* renderer) override;
 
 private:
     int length;
@@ -53,9 +52,6 @@ HealthBar::HealthBar(int x, int y, int length, int height)
     health_rect.y = y;
     health_rect.w = length;
     health_rect.h = height;
-
-    pos.x = x + (length / 2.0f);
-    pos.y = y + (height / 2.0f);
 }
 
 void HealthBar::updateSize(const int& length, const int& height)
@@ -71,16 +67,13 @@ void HealthBar::updateSize(const int& length, const int& height)
     health_rect.h = height;
 }
 
-void HealthBar::updatePos(const float& x, const float& y)
+void HealthBar::updateCenterPos(const int& x, const int& y)
 {
-    pos.x = x;
-    pos.y = y;
+    bg_rect.x = x - (int)(length / 2);
+    bg_rect.y = y - (int)(height / 2);
 
-    bg_rect.x = (int)pos.x - (length / 2);
-    bg_rect.y = (int)pos.y - (height / 2);
-
-    health_rect.x = (int)pos.x - (length / 2);
-    health_rect.y = (int)pos.y - (height / 2);
+    health_rect.x = x - (int)(length / 2);
+    health_rect.y = y - (int)(height / 2);
 }
 
 void HealthBar::updateHealth(const int& health, const int& maxHealth)

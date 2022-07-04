@@ -12,11 +12,13 @@ Game::Game(){}
 
 void Game::onCreate()
 {
+    _UIManager = new UIManager();
     playerHealthBar = new HealthBar(20, 20);
-    player = new Player(playerHealthBar, 100.0f, 200.0f);
+    player = new Player(*_UIManager, 100.0f, 200.0f);
     projectileManager = new ProjectileManager();
     enemyManager = new EnemyManager();
     test_collider = new AABB(300.0f, 200.0f, 200.0f, 100.0f);
+
     skeletonHealthBar = new HealthBar();
     enemyManager->addEnemy(new Skeleton(player, skeletonHealthBar, 400.0f, 300.0f));
 }
@@ -30,6 +32,7 @@ void Game::onCleanup()
     delete enemyManager;
     delete playerHealthBar;
     delete skeletonHealthBar;
+    delete _UIManager;
 }
 
 void Game::handleInput(SDL_Event& e)

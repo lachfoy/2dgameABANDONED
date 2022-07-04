@@ -10,12 +10,13 @@
 
 class AABB;
 class BaseEnemy;
+class UIManager;
 class HealthBar;
 
 class Player : public BaseObject
 {
 public:
-    Player(HealthBar* healthBar, float x, float y);
+    Player(UIManager& _UIManager, float x, float y);
     ~Player();
 
     enum { FACING_LEFT, FACING_RIGHT } facingDir; // public because its lazy and im late

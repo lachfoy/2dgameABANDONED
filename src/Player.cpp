@@ -1,9 +1,10 @@
 #include "Player.h"
 
 #include "BaseEnemy.h"
+#include "UIManager.h"
 #include "HealthBar.h"
 
-Player::Player(HealthBar* healthBar, float x, float y) : BaseObject(x, y)
+Player::Player(UIManager& _UIManager, float x, float y) : BaseObject(x, y)
 {
     // initialize everything
     playerW = DEFAULT_W;
@@ -14,7 +15,9 @@ Player::Player(HealthBar* healthBar, float x, float y) : BaseObject(x, y)
 
     maxHealth = DEFAULT_MAX_HEALTH;
     health = maxHealth;
-    this->healthBar = healthBar;
+    //this->_UIManager = _UIManager;
+    healthBar = new HealthBar(20, 20);
+    _UIManager.addUIObject(healthBar);
     damageable = true;
     immuneTime = 0.2f; // how many seconds of iframes
     immuneTimer = immuneTime;
@@ -96,7 +99,7 @@ void Player::doDamage(int damage)
     if(damageable)
     { 
         health -= damage;
-        healthBar->updateHealth(health, maxHealth);
+        //healthBar->updateHealth(health, maxHealth);
         printf("Player took %i damage\n", damage);
         printf("Player has %i/%i HP\n", health, maxHealth);
         damageable = false; // give iframes
