@@ -9,9 +9,12 @@
 class HealthBar
 {
 public:
-    inline HealthBar(int x, int y);
+    inline HealthBar(int x, int y, int length, int height);
 
     Point2f pos;
+
+    // update the healthbar internal length and height as well as the rects
+    inline void updateSize(const int& length, const int& height);
 
     // take a current health and a max health and update the UI rects
     inline void updateHealth(const int& health, const int& maxHealth);
@@ -32,25 +35,37 @@ private:
 
 };
 
-HealthBar::HealthBar(int x, int y)
+HealthBar::HealthBar(int x, int y, int length = DEFAULT_LENGTH, int height = DEFAULT_HEIGHT)
 {
     pos.x = x;
     pos.y = y;
-    length = DEFAULT_LENGTH;
-    height = DEFAULT_HEIGHT;
+    this->length = length;
+    this->height = height;
 
     bg_rect.x = pos.x;
     bg_rect.y = pos.y;
     bg_rect.w = length;
-    bg_rect.h = DEFAULT_HEIGHT;
+    bg_rect.h = height;
 
     health_rect.x = pos.x;
     health_rect.y = pos.y;
     health_rect.w = length;
-    health_rect.h = DEFAULT_HEIGHT;
+    health_rect.h = height;
 }
 
-// it would be cool to have animated healthbars but I dont think I can be bothered yet
+void HealthBar::updateSize(const int& length, const int& height)
+    // if i needed the % to update I could just pass in the health and maxHealth but I don't think its necessary
+{
+    this->length = length;
+    this->height = height;
+
+    bg_rect.w = length;
+    bg_rect.h = height;
+
+    health_rect.w = length;
+    health_rect.h = height;
+}
+
 void HealthBar::updateHealth(const int& health, const int& maxHealth)
 {
     // prevent health rect from renderering a negative width
