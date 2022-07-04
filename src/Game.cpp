@@ -17,7 +17,7 @@ void Game::onCreate()
     projectileManager = new ProjectileManager();
     enemyManager = new EnemyManager();
     test_collider = new AABB(300.0f, 200.0f, 200.0f, 100.0f);
-    enemyManager->addEnemy(new Skeleton(player, 400.0f, 300.0f));
+    enemyManager->addEnemy(new Skeleton(player, nullptr, 400.0f, 300.0f));
 }
 
 void Game::onCleanup()
@@ -58,7 +58,7 @@ void Game::handleInput(SDL_Event& e)
             
             case SDLK_SPACE:
             case SDLK_z:
-                if (player->Facing == Player::RIGHT) projectileManager->addProjectile(new Fireball(projectileManager, player->pos.x, player->pos.y - 30, 1, 0));
+                if (player->facingDir == Player::FACING_RIGHT) projectileManager->addProjectile(new Fireball(projectileManager, player->pos.x, player->pos.y - 30, 1, 0));
                 else projectileManager->addProjectile(new Fireball(projectileManager, player->pos.x, player->pos.y - 30, -1, 0));
                 break;
 
@@ -116,8 +116,8 @@ void Game::onUpdate(float dt)
 void Game::onRender()
 {
     // render game objects
-    player->render(renderer);
     enemyManager->renderEnemies(renderer);
+    player->render(renderer);
     projectileManager->renderProjectiles(renderer);
 
     // render UI objects

@@ -1,9 +1,7 @@
 #include "Projectile.h"
 
-Projectile::Projectile(float x, float y, int velX, int velY)
+Projectile::Projectile(float x, float y, int velX, int velY) : BaseObject(x, y)
 {
-    pos.x = x;
-    pos.y = y;
     this->velX = velX;
     this->velY = velY;
     

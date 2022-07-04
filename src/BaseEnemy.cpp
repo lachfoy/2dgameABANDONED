@@ -1,27 +1,11 @@
 #include "BaseEnemy.h"
 
-BaseEnemy::BaseEnemy(float x, float y)
+#include "HealthBar.h"
+
+BaseEnemy::BaseEnemy(HealthBar* healthBar, float x, float y) : BaseObject(x, y)
 {
-    // initialize everything
-    pos.x = x;
-    pos.y = y;
-    velX = 0;
-    velY = 0;
-
-    enemyW = DEFAULT_W;
-    enemyH = DEFAULT_H;
-    colliderW = DEFAULT_COLLIDER_W;
-    colliderH = DEFAULT_COLLIDER_H;
+    this->healthBar = healthBar;
     collider = new AABB(pos.x, pos.y, colliderW, colliderH);
-    
-    maxHealth = DEFAULT_MAX_HEALTH;
-    health = maxHealth;
-    damage = DEFAULT_DAMAGE;
-    damageable = true;
-    immuneTime = DEFAULT_IMMUNE_TIME; // how many seconds of iframes
-    immuneTimer = immuneTime;
-
-    moveSpeed = (float)DEFAULT_MOVE_SPEED;
 }
 
 BaseEnemy::~BaseEnemy()

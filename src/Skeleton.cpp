@@ -2,20 +2,25 @@
 
 #include "AABB.h"
 #include "Player.h"
+#include "HealthBar.h"
 
-Skeleton::Skeleton(Player* player, float x, float y)
-    : BaseEnemy(x, y)
+Skeleton::Skeleton(Player* player, HealthBar* healthBar, float x, float y)
+    : BaseEnemy(healthBar, x, y)
 {
     // initialize everything
     this->player = player;
     
-    maxHealth = 100;
+    maxHealth = 80;
+    health = maxHealth;
+
     immuneTime = 0.1f; // how many seconds of iframes
+    immuneTimer = immuneTime;
+
     moveSpeed = 40.0f; // slowww
 
     thinking = true;
     thinkingTime = 1.0f; // 3 seconds
-    thinkingTimer = 0.0f; // instant thought
+    thinkingTimer = thinkingTime;
 }
 
 void Skeleton::updateAI(float dt)

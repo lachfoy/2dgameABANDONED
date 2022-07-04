@@ -3,14 +3,9 @@
 #include "BaseEnemy.h"
 #include "HealthBar.h"
 
-Player::Player(HealthBar* healthBar, float x, float y)
+Player::Player(HealthBar* healthBar, float x, float y) : BaseObject(x, y)
 {
     // initialize everything
-    pos.x = x;
-    pos.y = y;
-    velX = 0;
-    velY = 0;
-
     playerW = DEFAULT_W;
     playerH = DEFAULT_H;
     colliderW = DEFAULT_COLLIDER_W;
@@ -38,18 +33,18 @@ void Player::resolveEnemyCollisions(const std::vector<BaseEnemy*>& enemies)
     {
         if (AABB::testOverlap(enemies[i]->getCollider(), *collider))
         {
-            doDamage(enemies[i]->damage);
+            doDamage(enemies[i]->getDamage());
         }
     }
 }
 
 void Player::update(float dt)
 {
-    if (health <= 0) printf("Player is dead\n");
+    if (health <= 0) { printf("Player is dead\n"); removeable = true; }
     else
     {
-        if (velX > 0) Facing = RIGHT;
-        else if (velX < 0) Facing = LEFT;
+        if (velX > 0) facingDir = FACING_RIGHT;
+        else if (velX < 0) facingDir = FACING_LEFT;
 
         // update the internal position
         pos.x += velX * moveSpeed * dt;

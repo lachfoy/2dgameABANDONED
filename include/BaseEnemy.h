@@ -6,17 +6,17 @@
 #include "BaseObject.h"
 #include "AABB.h"
 
+class HealthBar;
 class BaseEnemy : public BaseObject
 {
 public:
-    BaseEnemy(float x, float y);
+    BaseEnemy(HealthBar* healthBar, float x, float y);
     virtual ~BaseEnemy(); // derived enemies can add functionality
 
-    int damage; // public because we are laaaazy
-
+    AABB getCollider() const { return *collider; }
     int getHealth() const { return health; }
     int getMaxHealth() const { return maxHealth; }
-    AABB getCollider() const { return *collider; }
+    int getDamage() const { return damage; }
 
     void doDamage(int damage);
     
@@ -38,17 +38,19 @@ private:
     };
 
 protected:
-    int enemyW;
-    int enemyH;
-    int colliderW;
-    int colliderH;
-    AABB* collider;
-    int maxHealth;
-    int health;
-    bool damageable; // if not damageable then they are taking damage
-    float immuneTimer;
-    float immuneTime; // how many iframes (in seconds though)
-    float moveSpeed;
+    int enemyW = DEFAULT_W;
+    int enemyH = DEFAULT_H;
+    int colliderW = DEFAULT_COLLIDER_W;
+    int colliderH = DEFAULT_COLLIDER_H;
+    AABB* collider = nullptr;
+    int maxHealth = DEFAULT_MAX_HEALTH;
+    int health = DEFAULT_MAX_HEALTH;
+    HealthBar* healthBar = nullptr;
+    int damage = DEFAULT_DAMAGE;
+    bool damageable = true; // if not damageable then they are taking damage
+    float immuneTimer = (float)DEFAULT_IMMUNE_TIME;
+    float immuneTime = 0.0f; // how many iframes (in seconds though)
+    float moveSpeed = (float)DEFAULT_MOVE_SPEED;
 };
 
 #endif

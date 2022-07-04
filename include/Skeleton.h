@@ -6,11 +6,12 @@
 #include "BaseEnemy.h"
 
 class Player;
+class HealthBar;
 
 class Skeleton : public BaseEnemy
 {
 public:
-    Skeleton(Player* player, float x, float y);
+    Skeleton(Player* player, HealthBar* healthBar, float x, float y);
     ~Skeleton() {}
 
     void updateAI(float dt) override;
