@@ -1,3 +1,4 @@
+DONE or MOSTLY DONE
 x basic sdl drawing code
 x simple input
 x framerate independant update
@@ -5,20 +6,30 @@ x projectiles and basic entity handling
 x refactor into seperate files. game class, player class, etc.
 x aabb collision detection
 x font for ui and debugging purposes (bitmap font) (in future) refine font renderering by having different spacing per glyph
-x player health bar (in future) animate healthbar similar to dark souls
+x player health bar (in future) animate healthbar similar to souls games
 x abstract projectile handling to ProjectileManager class
 x create base class for enemies to inherit from
 x abstract enemy handling to EnemyManager class
 x make healthbar more general purpose (kinda still very messy)
 x add ability to have moving healthbars e.g. follow enemies
+x create base UI object and 'UI Object Manager'
 
-create base UI object and 'UI Object Manager'
-aabb collision response i.e. sliding response
+TO DO
 damage types and resistances
-create UI object base class
+  - physical - standard and blunt
+  - poison - slow weak DoT
+  - ice - slows movement
+  - fire - fast strong DoT (spreadable?)
+  - maybe holy or magic something idk
 simple enemies AI
-damage types and resistances
+different enemy types
+  - skeleton
+gamestates: pausing, menu?
+upgrades - system for adding extra abilities to the player
 
-implement image loading and textures (backlog) NOTE: SDL_image or stb_image or just simple bitmaps
+BACKLOG 
+simple particle system (backlog) - try to avoid dealing with any kind of physics or collisions
+implement image loading and textures (backlog) NOTE: SDL_image or stb_image or just SDL bitmaps
 consider implementing ttf fonts (backlog) NOTE: SDL_ttf or freetype 
 controller support (backlog) NOTE: probably will wait for native support of usb devices on WSL2
+proper aabb collision response i.e. sliding response
