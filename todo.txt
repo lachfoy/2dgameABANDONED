@@ -9,9 +9,9 @@ x player health bar (in future) animate healthbar similar to dark souls
 x abstract projectile handling to ProjectileManager class
 x create base class for enemies to inherit from
 x abstract enemy handling to EnemyManager class
+x make healthbar more general purpose
+xadd ability to have moving healthbars e.g. follow enemies
 
-make healthbar more general purpose
-add ability to have moving healthbars e.g. follow enemies
 aabb collision response i.e. sliding response
 damage types and resistances
 create UI object base class
