@@ -11,7 +11,7 @@ public:
     FireballExplosion(float x, float y);
     ~FireballExplosion() {}
 
-    inline void onDestroy(ProjectileManager& projectileManager) {}
+    inline void onDestroy(ProjectileManager& projectileManager) override {}
 
     void render(SDL_Renderer* renderer) override;
 };
