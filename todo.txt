@@ -18,6 +18,7 @@ x move responsibility of creating projectiles to the ProjectileManager
 TODO
 move responsibility of creating enemies to the EnemyManager
 move responsibility of creating ui objects to the UIManager
+organise files into folders
 damage types and resistances
   - physical - standard and blunt
   - poison - slow weak DoT
