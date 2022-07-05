@@ -1,5 +1,7 @@
 #include "Fireball.h"
 
+#include "ProjectileManager.h"
+
 Fireball::Fireball(float x, float y, int velX, int velY)
     : BaseProjectile(x, y, velX, velY)
 {   
@@ -17,6 +19,7 @@ Fireball::~Fireball()
 
 inline void Fireball::onDestroy(ProjectileManager& projectileManager)
 {
+    printf("Executing Fireball::onDestroy\n");
     projectileManager.addFireballExplosion(pos.x, pos.y);
 }
 

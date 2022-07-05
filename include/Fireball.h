@@ -4,6 +4,7 @@
 #include "BaseProjectile.h"
 
 class ProjectileManager;
+
 class Fireball : public BaseProjectile
 {
 public:
