@@ -65,6 +65,7 @@ void Game::handleInput(SDL_Event& e)
 
             case SDLK_k: // deal damage to player
                 player->doDamage(11);
+                projectileManager->addFireballExplosion(player->pos.x, player->pos.y);
                 break;
         }
     }
