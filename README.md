@@ -26,6 +26,8 @@ Oh, if you want to build it (requires SDL2 and cmake):
     ```shell
     build/2dgame
     ```
+### For fun
+Counting all the lines of code `find src/ include/ -regex '.*/.*\.\(cpp\|h\)$' | xargs wc -l`.
 
 ## Considerations for Future Projects
 
