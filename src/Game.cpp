@@ -14,14 +14,11 @@ Game::Game(){}
 void Game::onCreate()
 {
     _UIManager = new UIManager();
-    playerHealthBar = new HealthBar(20, 20);
     player = new Player(*_UIManager, 100.0f, 200.0f);
     projectileManager = new ProjectileManager();
     enemyManager = new EnemyManager();
     test_collider = new AABB(300.0f, 200.0f, 200.0f, 100.0f);
-
-    skeletonHealthBar = new HealthBar();
-    enemyManager->addEnemy(new Skeleton(player, skeletonHealthBar, 400.0f, 300.0f));
+    enemyManager->addEnemy(new Skeleton(player, *_UIManager, 400.0f, 300.0f));
 }
 
 void Game::onCleanup()
@@ -29,10 +26,7 @@ void Game::onCleanup()
     delete player;
     delete test_collider;
     delete projectileManager;
-    //projectiles.clear();
     delete enemyManager;
-    delete playerHealthBar;
-    delete skeletonHealthBar;
     delete _UIManager;
 }
 
@@ -40,6 +34,7 @@ void Game::handleInput(SDL_Event& e)
 {
     if (e.type == SDL_KEYDOWN && e.key.repeat == 0)
     {
+        const SDL_Keycode keyCode = e.key.keysym.sym;
         switch(e.key.keysym.sym)
         {
             case SDLK_UP:
@@ -126,6 +121,5 @@ void Game::onRender()
     projectileManager->renderProjectiles(renderer);
 
     // render UI objects
-    playerHealthBar->render(renderer);
-    skeletonHealthBar->render(renderer);
+    _UIManager->renderUIObjects(renderer);
 }

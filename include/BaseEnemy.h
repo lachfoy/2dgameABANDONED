@@ -6,11 +6,13 @@
 #include "BaseObject.h"
 #include "AABB.h"
 
+class UIManager;
 class HealthBar;
+
 class BaseEnemy : public BaseObject
 {
 public:
-    BaseEnemy(HealthBar* healthBar, float x, float y);
+    BaseEnemy(UIManager& _UIManager, float x, float y);
     virtual ~BaseEnemy(); // derived enemies can add functionality
 
     AABB getCollider() const { return *collider; }

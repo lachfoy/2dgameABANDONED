@@ -1,12 +1,14 @@
 #include "BaseEnemy.h"
 
+#include "UIManager.h"
 #include "HealthBar.h"
 
-BaseEnemy::BaseEnemy(HealthBar* healthBar, float x, float y) : BaseObject(x, y)
+BaseEnemy::BaseEnemy(UIManager& _UIManager, float x, float y) : BaseObject(x, y)
 {
     collider = new AABB(pos.x, pos.y, colliderW, colliderH);
-    this->healthBar = healthBar;
-    if (healthBar) healthBar->updateSize(enemyW + 26, 5);
+    healthBar = new HealthBar();
+    _UIManager.addUIObject(healthBar);
+    healthBar->updateSize(enemyW + 26, 5);
 }
 
 BaseEnemy::~BaseEnemy()
@@ -21,7 +23,7 @@ void BaseEnemy::update(float dt)
     {
         printf("Enemy is dead\n");
         removeable = true;
-        if (healthBar) healthBar->removeable = true;
+        healthBar->removeable = true;
     }
     else
     {
@@ -30,10 +32,7 @@ void BaseEnemy::update(float dt)
         pos.y += velY * moveSpeed * dt;
 
         // update the healthbar position
-        if (healthBar)
-        {
-            healthBar->updateCenterPos((int)pos.x, (int)(pos.y - enemyH - 6));
-        }
+        healthBar->updateCenterPos((int)pos.x, (int)(pos.y - enemyH - 6));
 
         // move the collider as well
         collider->upperBound.x = pos.x - (colliderW / 2);

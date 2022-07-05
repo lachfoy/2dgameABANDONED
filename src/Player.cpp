@@ -99,7 +99,7 @@ void Player::doDamage(int damage)
     if(damageable)
     { 
         health -= damage;
-        //healthBar->updateHealth(health, maxHealth);
+        healthBar->updateHealth(health, maxHealth);
         printf("Player took %i damage\n", damage);
         printf("Player has %i/%i HP\n", health, maxHealth);
         damageable = false; // give iframes

@@ -7,11 +7,12 @@
 
 class Player;
 class HealthBar;
+class UIManager;
 
 class Skeleton : public BaseEnemy
 {
 public:
-    Skeleton(Player* player, HealthBar* healthBar, float x, float y);
+    Skeleton(Player* player, UIManager& _UIManager, float x, float y);
     ~Skeleton() {}
 
     void updateAI(float dt) override;

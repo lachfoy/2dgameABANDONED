@@ -3,9 +3,10 @@
 #include "AABB.h"
 #include "Player.h"
 #include "HealthBar.h"
+#include "UIManager.h"
 
-Skeleton::Skeleton(Player* player, HealthBar* healthBar, float x, float y)
-    : BaseEnemy(healthBar, x, y)
+Skeleton::Skeleton(Player* player, UIManager& _UIManager, float x, float y)
+    : BaseEnemy(_UIManager, x, y)
 {
     // initialize everything
     this->player = player;

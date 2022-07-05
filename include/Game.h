@@ -22,8 +22,6 @@ public:
 private:
     Player* player;
     AABB* test_collider;
-    HealthBar* playerHealthBar;
-    HealthBar* skeletonHealthBar;
 
     ProjectileManager* projectileManager;
     EnemyManager* enemyManager;
