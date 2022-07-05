@@ -7,6 +7,8 @@
 #include "AABB.h"
 
 //class ProjectileManager;
+#include "ProjectileManager.h"
+
 class BaseProjectile : public BaseObject
 {
 public:
@@ -16,8 +18,9 @@ public:
     AABB getCollider() const { return *collider; }
     int getDamage() const { return damage; }
     
-    //virtual void destroy(ProjectileManager& projectileManager) = 0; // ??????
-    inline void onDestroy() { printf("BaseProjectile::onDestroy() called\n"); }
+    // if derived projectiles need to access the manager onDestroy then they can implement this.
+    virtual inline void onDestroy(ProjectileManager& projectileManager) {}
+
     virtual void update(float dt); // derived projectiles can override update ONLY if they need to
     virtual void render(SDL_Renderer* renderer) = 0; // derived projectiles MUST provide an implementation for renderering
 

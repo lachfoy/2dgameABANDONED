@@ -15,6 +15,11 @@ Fireball::~Fireball()
     //projectileManager->addProjectile(new FireballExplosion(pos.x, pos.y));
 }
 
+inline void Fireball::onDestroy(ProjectileManager& projectileManager)
+{
+    projectileManager.addFireballExplosion(pos.x, pos.y);
+}
+
 void Fireball::render(SDL_Renderer* renderer)
 {
     // draw the origin position representing the actual x and y positions

@@ -28,7 +28,7 @@ void ProjectileManager::updateProjectiles(float dt)
         projectiles[i]->update(dt);
         if (projectiles[i]->removeable)
         {
-            projectiles[i]->onDestroy();
+            projectiles[i]->onDestroy(*this);
             delete projectiles[i];
             projectiles.erase(projectiles.begin() + i); // delete if remove flag is set
         }
