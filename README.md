@@ -1,16 +1,31 @@
 # 2dgame
-Small and simple 2D game that uses SDL2 for rendering. Mainly working on this for fun while I have plenty of spare time.
-:)
+~~Small and simple~~ 2D game that uses SDL2 for rendering. Mainly working on this for fun while I have plenty of spare time :).
 
-oh if you want to build it (requires SDL2 and cmake): 
+## Task List
+[todo.txt](todo.txt)
 
-1. create a build directory `mkdir build`
+## Building
+Oh, if you want to build it (requires SDL2 and cmake): 
 
-2. create make files `cmake -S . -B build`
+1. Create a build directory
+```
+  mkdir build
+```
 
-3. build `make -C build`
+2. Create the build files
+```
+  cmake -S . -B build`
+```
 
-4. run `build/2dgame`
+3. Build the program
+```
+  make -C build
+```
+
+4. Run the program :)
+```
+  build/2dgame
+```
 
 ## Considerations for Future Projects
 
