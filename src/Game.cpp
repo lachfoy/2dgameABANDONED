@@ -59,8 +59,8 @@ void Game::handleInput(SDL_Event& e)
             
             case SDLK_SPACE:
             case SDLK_z:
-                if (player->facingDir == Player::FACING_RIGHT) projectileManager->addProjectile(new Fireball(projectileManager, player->pos.x, player->pos.y - 30, 1, 0));
-                else projectileManager->addProjectile(new Fireball(projectileManager, player->pos.x, player->pos.y - 30, -1, 0));
+                if (player->facingDir == Player::FACING_RIGHT) projectileManager->addFireball(player->pos.x, player->pos.y - 30, 1, 0);
+                else projectileManager->addFireball(player->pos.x, player->pos.y - 30, -1, 0);
                 break;
 
             case SDLK_k: // deal damage to player

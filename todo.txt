@@ -13,15 +13,18 @@ x abstract enemy handling to EnemyManager class
 x make healthbar more general purpose (kinda still very messy)
 x add ability to have moving healthbars e.g. follow enemies
 x create base UI object and 'UI Object Manager'
+x move responsibility of creating projectiles to the ProjectileManager
 
-TO DO
+TODO
+move responsibility of creating enemies to the EnemyManager
+move responsibility of creating ui objects to the UIManager
 damage types and resistances
   - physical - standard and blunt
   - poison - slow weak DoT
   - ice - slows movement
   - fire - fast strong DoT (spreadable?)
   - maybe holy or magic something idk
-simple enemies AI
+better simple enemies AI
 different enemy types
   - skeleton
 gamestates: pausing, menu?
