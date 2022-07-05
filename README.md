@@ -11,3 +11,8 @@ oh if you want to build it (requires SDL2 and cmake):
 3. build `make -C build`
 
 4. run `build/2dgame`
+
+## Considerations for Future Projects
+
+- Try using an ECS architecture
+- Look into embedded lua for scripting
