@@ -8,24 +8,24 @@
 Oh, if you want to build it (requires SDL2 and cmake): 
 
 1. Create a build directory
-  ```
-  mkdir build
-  ```
+    ```
+    mkdir build
+    ```
 
 2. Create the build files
-  ```
-  cmake -S . -B build`
-  ```
+    ```
+    cmake -S . -B build`
+    ```
 
 3. Build the program
-  ```
-  make -C build
-  ```
+    ```
+    make -C build
+    ```
 
 4. Run the program :)
-  ```
-  build/2dgame
-  ```
+    ```
+    build/2dgame
+    ```
 
 ## Considerations for Future Projects
 
