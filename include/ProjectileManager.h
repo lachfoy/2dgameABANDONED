@@ -6,49 +6,32 @@
 #include <SDL2/SDL.h>
 
 class BaseProjectile;
-class BaseEnemy;
 
 class ProjectileManager
 {
 public:
-    ProjectileManager() {};
-    ~ProjectileManager() { projectiles.clear(); }
+    ProjectileManager() {}
+    ~ProjectileManager();
 
-    std::vector<BaseProjectile*> getProjectiles() const { return projectiles; }
-    void addProjectile(BaseProjectile* projectile) { projectiles.push_back(projectile); }
+    // Getter for the projectiles vector
+    // Needed so other classes can check collisions and such
+    inline std::vector<BaseProjectile*> getProjectiles() const { return projectiles; }
 
-    inline void updateProjectiles(float dt);
-    inline void renderProjectiles(SDL_Renderer* renderer);
+    // Adding different kinds of projectiles
+    // -------------------------------------
+    // Could be replaced by a template function when I understand how that works
+    // For example, addProjectile<Fireball>()?
+    // -------------------------------------
+    inline void addProjectile(BaseProjectile* projectile) { projectiles.push_back(projectile); } // depracated? dont use this anymore
+    void addFireball(float x, float y, int velX, int velY);
+    void addFireballExplosion(float x, float y);
+
+    void updateProjectiles(float dt);
+    void renderProjectiles(SDL_Renderer* renderer);
 
 private:
     std::vector<BaseProjectile*> projectiles;
+
 };
-
-#include "BaseProjectile.h"
-#include "BaseEnemy.h"
-
-void ProjectileManager::updateProjectiles(float dt)
-{
-    // update all the projectiles
-    for (int i = 0; i < projectiles.size(); i++)
-    {
-        projectiles[i]->update(dt);
-        if (projectiles[i]->removeable)
-        {
-            delete projectiles[i];
-            projectiles.erase(projectiles.begin() + i); // delete if remove flag is set
-            
-        }
-    }
-}
-
-void ProjectileManager::renderProjectiles(SDL_Renderer* renderer)
-{
-    // update all the projectiles
-    for (int i = 0; i < projectiles.size(); i++)
-    {
-        projectiles[i]->render(renderer);
-    }
-}
 
 #endif
