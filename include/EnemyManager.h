@@ -53,9 +53,9 @@ void EnemyManager::updateEnemies(float dt)
         enemies[i]->update(dt);
         if (enemies[i]->removeable)
         {
+            enemies[i]->onDestroy();
             delete enemies[i];
             enemies.erase(enemies.begin() + i); // delete if remove flag is set
-
         }
     }
 }

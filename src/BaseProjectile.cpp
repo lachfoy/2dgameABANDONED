@@ -15,7 +15,7 @@ BaseProjectile::BaseProjectile(float x, float y, int velX, int velY) : BaseObjec
 
 BaseProjectile::~BaseProjectile()
 {
-    printf("Deleting projectile\n");
+    printf("Deleted projectile\n");
     delete collider;
 }
 
