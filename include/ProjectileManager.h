@@ -24,7 +24,7 @@ public:
     // -------------------------------------
     inline void addProjectile(BaseProjectile* projectile) { projectiles.push_back(projectile); } // depracated? dont use this anymore
     void addFireball(float x, float y, int velX, int velY);
-    void addFireballExplosion(float x, float y);
+    void addFireballExplosion(float x, float y) {} // no definition
 
     void updateProjectiles(float dt);
     void renderProjectiles(SDL_Renderer* renderer);

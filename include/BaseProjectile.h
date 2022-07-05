@@ -17,6 +17,7 @@ public:
     int getDamage() const { return damage; }
     
     //virtual void destroy(ProjectileManager& projectileManager) = 0; // ??????
+    inline void onDestroy() { printf("BaseProjectile onDestroy() called\n"); }
     virtual void update(float dt); // derived projectiles can override update ONLY if they need to
     virtual void render(SDL_Renderer* renderer) = 0; // derived projectiles MUST provide an implementation for renderering
 

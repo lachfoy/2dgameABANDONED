@@ -15,11 +15,6 @@ void ProjectileManager::addFireball(float x, float y, int velX, int velY)
     projectiles.push_back(new Fireball(x, y, velX, velY));
 }
 
-void ProjectileManager::addFireballExplosion(float x, float y)
-{
-
-}
-
 void ProjectileManager::updateProjectiles(float dt)
 {
     // update all the projectiles
@@ -28,6 +23,7 @@ void ProjectileManager::updateProjectiles(float dt)
         projectiles[i]->update(dt);
         if (projectiles[i]->removeable)
         {
+            projectiles[i]->onDestroy();
             delete projectiles[i];
             projectiles.erase(projectiles.begin() + i); // delete if remove flag is set
             

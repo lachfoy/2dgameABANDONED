@@ -23,6 +23,7 @@ public:
     void doDamage(int damage);
     
     void update(float dt); // derived enemies cant touch this!
+    inline void onDestroy() { printf("BaseProjectile onDestroy() called\n"); }
     virtual void updateAI(float dt) = 0; // derived enemies can add any AI functionality if they wish 
     virtual void render(SDL_Renderer* renderer) = 0; // derived enemies MUST provide an implementation for renderering
 
