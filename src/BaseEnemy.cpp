@@ -2,6 +2,7 @@
 
 #include "UIManager.h"
 #include "HealthBar.h"
+#include "EnemyManager.h"
 
 BaseEnemy::BaseEnemy(UIManager& _UIManager, float x, float y) : BaseObject(x, y)
 {

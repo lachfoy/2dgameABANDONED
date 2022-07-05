@@ -7,6 +7,8 @@
 
 class BaseEnemy;
 class BaseProjectile;
+class Player;
+class UIManager;
 
 class EnemyManager
 {
@@ -15,58 +17,17 @@ public:
     ~EnemyManager() { enemies.clear(); }
 
     std::vector<BaseEnemy*> getEnemies() const { return enemies; }
-    void addEnemy(BaseEnemy* enemy) { enemies.push_back(enemy); }
+    
+    void addEnemy(BaseEnemy* enemy) { enemies.push_back(enemy); } // deprecated -- don't use this anymore
+    void addSkeleton(Player* player, UIManager& _UIManager, float x, float y);
 
-    inline void resolveProjectileCollisions(const std::vector<BaseProjectile*>& projectiles);
+    void resolveProjectileCollisions(const std::vector<BaseProjectile*>& projectiles);
 
-    inline void updateEnemies(float dt);
-    inline void renderEnemies(SDL_Renderer* renderer);
+    void updateEnemies(float dt);
+    void renderEnemies(SDL_Renderer* renderer);
 
 private:
     std::vector<BaseEnemy*> enemies;
 };
-
-#include "BaseEnemy.h"
-#include "BaseProjectile.h"
-
-// tests collision against a list of projectiles and deals appropriate damage
-void EnemyManager::resolveProjectileCollisions(const std::vector<BaseProjectile*>& projectiles)
-{
-    for (int i = 0; i < enemies.size(); i++)
-    {
-        for (int j = 0; j < projectiles.size(); j++)
-        {
-            if (AABB::testOverlap(enemies[i]->getCollider(), projectiles[j]->getCollider()))
-            {
-                enemies[i]->doDamage(projectiles[j]->getDamage());
-                projectiles[j]->removeable = true;
-            }
-        }
-    }
-}
-
-void EnemyManager::updateEnemies(float dt)
-{
-    // update all the enemies
-    for (int i = 0; i < enemies.size(); i++)
-    {
-        enemies[i]->update(dt);
-        if (enemies[i]->removeable)
-        {
-            enemies[i]->onDestroy();
-            delete enemies[i];
-            enemies.erase(enemies.begin() + i); // delete if remove flag is set
-        }
-    }
-}
-
-void EnemyManager::renderEnemies(SDL_Renderer* renderer)
-{
-    // update all the enemies
-    for (int i = 0; i < enemies.size(); i++)
-    {
-        enemies[i]->render(renderer);
-    }
-}
 
 #endif

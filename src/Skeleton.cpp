@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "HealthBar.h"
 #include "UIManager.h"
+#include "EnemyManager.h"
 
 Skeleton::Skeleton(Player* player, UIManager& _UIManager, float x, float y)
     : BaseEnemy(_UIManager, x, y)
@@ -22,6 +23,11 @@ Skeleton::Skeleton(Player* player, UIManager& _UIManager, float x, float y)
     thinking = true;
     thinkingTime = 1.0f; // 3 seconds
     thinkingTimer = thinkingTime;
+}
+
+void Skeleton::onDestroy(EnemyManager& enemyManager)
+{
+    printf("Executing Skeleton::onDestroy\n");
 }
 
 void Skeleton::updateAI(float dt)

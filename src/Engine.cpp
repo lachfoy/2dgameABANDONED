@@ -82,7 +82,7 @@ void Engine::run()
 
         onRender(); // let the game copy everything to the renderer
 
-        bitmapFont->renderText(renderer, 10, 10, "ms: " + std::to_string((int)(dt * 1000))); // render fps
+        bitmapFont->renderText(renderer, 10, 10, "ms: " + std::to_string((int)(dt * 1000))); // render frametime (ms)
 
         SDL_RenderPresent(renderer);
     }

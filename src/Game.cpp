@@ -2,10 +2,8 @@
 
 #include "AABB.h"
 #include "Player.h"
-#include "Skeleton.h"
 #include "HealthBar.h"
 #include "ProjectileManager.h"
-#include "Fireball.h"
 #include "EnemyManager.h"
 #include "UIManager.h"
 
@@ -18,7 +16,7 @@ void Game::onCreate()
     projectileManager = new ProjectileManager();
     enemyManager = new EnemyManager();
     test_collider = new AABB(300.0f, 200.0f, 200.0f, 100.0f);
-    enemyManager->addEnemy(new Skeleton(player, *_UIManager, 400.0f, 300.0f));
+    enemyManager->addSkeleton(player, *_UIManager, 400.0f, 300.0f);
 }
 
 void Game::onCleanup()

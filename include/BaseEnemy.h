@@ -8,6 +8,7 @@
 
 class UIManager;
 class HealthBar;
+class EnemyManager;
 
 class BaseEnemy : public BaseObject
 {
@@ -22,9 +23,10 @@ public:
 
     void doDamage(int damage);
     
-    void update(float dt); // derived enemies cant touch this!
-    inline void onDestroy() { printf("BaseEnemy::onDestroy() called\n"); }
+    virtual void onDestroy(EnemyManager& enemyManager) = 0;
     virtual void updateAI(float dt) = 0; // derived enemies can add any AI functionality if they wish 
+    
+    void update(float dt); // derived enemies cant touch this!
     virtual void render(SDL_Renderer* renderer) = 0; // derived enemies MUST provide an implementation for renderering
 
 private:
