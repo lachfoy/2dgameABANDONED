@@ -22,7 +22,6 @@ void Game::onCreate()
 void Game::onCleanup()
 {
     delete player;
-    delete test_collider;
     delete projectileManager;
     delete enemyManager;
     delete _UIManager;
@@ -30,67 +29,49 @@ void Game::onCleanup()
 
 void Game::handleInput(SDL_Event& e)
 {
-    if (e.type == SDL_KEYDOWN && e.key.repeat == 0)
+    if (e.type == SDL_KEYDOWN)
     {
         const SDL_Keycode keyCode = e.key.keysym.sym;
-        switch(e.key.keysym.sym)
-        {
-            case SDLK_UP:
-            case SDLK_w:
-                player->velY = -1;
-                break;
 
-            case SDLK_DOWN:
-            case SDLK_s:
-                player->velY = 1;
-                break;
+        if (keyCode == SDLK_UP || keyCode == SDLK_w)
+            player->velY = -1;
 
-            case SDLK_LEFT:
-            case SDLK_a:
-                player->velX = -1;
-                break;
+        if (keyCode == SDLK_DOWN || keyCode == SDLK_s)
+            player->velY = 1;
 
-            case SDLK_RIGHT:
-            case SDLK_d:
-                player->velX = 1;
-                break;
+        if (keyCode == SDLK_LEFT || keyCode == SDLK_a)
+            player->velX = -1;
+
+        if (keyCode == SDLK_RIGHT || keyCode == SDLK_d)
+            player->velX = 1;
             
-            case SDLK_SPACE:
-            case SDLK_z:
-                if (player->facingDir == Player::FACING_RIGHT) projectileManager->addFireball(player->pos.x, player->pos.y - 30, 1, 0);
-                else projectileManager->addFireball(player->pos.x, player->pos.y - 30, -1, 0);
-                break;
+        else if (keyCode == SDLK_SPACE || keyCode == SDLK_z)
+        {
+            if (player->facingDir == Player::FACING_RIGHT) projectileManager->addFireball(player->pos.x, player->pos.y - 30, 1, 0);
+            else projectileManager->addFireball(player->pos.x, player->pos.y - 30, -1, 0);
+        }
 
-            case SDLK_k: // deal damage to player
-                player->doDamage(11);
-                projectileManager->addFireballExplosion(player->pos.x, player->pos.y);
-                break;
+        else if (keyCode == SDLK_k)
+        {
+            player->doDamage(11);
+            projectileManager->addFireballExplosion(player->pos.x, player->pos.y);
         }
     }
-    else if (e.type == SDL_KEYUP && e.key.repeat == 0)
+    else if (e.type == SDL_KEYUP)
     {
-        switch(e.key.keysym.sym)
-        {
-            case SDLK_UP:
-            case SDLK_w:
-                player->velY = 0;
-                break;
+        const SDL_Keycode keyCode = e.key.keysym.sym;
+        
+        if (keyCode == SDLK_UP || keyCode == SDLK_w)
+            player->velY = 0;
 
-            case SDLK_DOWN:
-            case SDLK_s:
-                player->velY = 0;
-                break;
+        if (keyCode == SDLK_DOWN || keyCode == SDLK_s)
+            player->velY = 0;
 
-            case SDLK_LEFT:
-            case SDLK_a:
-                player->velX = 0;
-                break;
+        if (keyCode == SDLK_LEFT || keyCode == SDLK_a)
+            player->velX = 0;
 
-            case SDLK_RIGHT:
-            case SDLK_d:
-                player->velX = 0;
-                break;
-        }
+        if (keyCode == SDLK_RIGHT || keyCode == SDLK_d)
+            player->velX = 0;
     }
 }
 
