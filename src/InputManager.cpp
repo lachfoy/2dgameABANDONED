@@ -37,14 +37,14 @@ void InputManager::update()
         case SDL_KEYDOWN:
         {
             keyState = SDL_GetKeyboardState(NULL);
-            int index = event.key.keysym.scancode;
+            const int index = event.key.keysym.scancode;
             keysDown[index] = true;
         } break;
 
         case SDL_KEYUP:
         {
             keyState = SDL_GetKeyboardState(NULL);
-            int index = event.key.keysym.scancode;
+            const int index = event.key.keysym.scancode;
             keysUp[index] = false;
         } break;
         }
