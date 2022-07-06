@@ -2,16 +2,17 @@ digraph inheritance_diagram {
     node [shape=box]
     edge [dir=back arrowtail=empty]
 
-    BaseEnemy
     BaseObject
+    BaseDamagable
     BaseProjectile
-    Fireball
-    FireballExplosion
     BaseEnemy
     Player
+    Fireball
+    FireballExplosion
     Skeleton
 
-    BaseObject->{BaseEnemy, BaseProjectile, Player}
+    BaseObject->{BaseDamagable, BaseProjectile}
+    BaseDamagable->{Player, BaseEnemy}
     BaseProjectile->{Fireball, FireballExplosion}
     BaseEnemy->Skeleton
 }

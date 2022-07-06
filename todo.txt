@@ -17,6 +17,9 @@ x move responsibility of creating projectiles to the ProjectileManager
 x move responsibility of creating enemies to the EnemyManager
 
 TODO
+create BaseDamagable class and refactor Player and BaseEnemy to inherit from this class.\
+  BaseDamagable should have a concept of having health and resistances, must be able to be damaged,\
+  and must have access to things like the ProjectileManager and UI Manager.
 move responsibility of creating ui objects to the UIManager
 organise files into folders?
 damage types and resistances
