@@ -29,7 +29,6 @@ private:
 
     void onCreate();
     void onCleanup();
-    void handleInput(SDL_Event& e);
     void onUpdate(float dt);
     void onRender();
 };

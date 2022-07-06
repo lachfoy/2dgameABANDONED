@@ -22,8 +22,8 @@ public:
 private:
     static InputManager* instance;
     InputManager();
-    InputManager(InputManager const&) {};
-    void operator=(InputManager const&) {};
+    InputManager(InputManager const&) {}
+    void operator=(InputManager const&) {}
 
     const Uint8* keyState = NULL;
 

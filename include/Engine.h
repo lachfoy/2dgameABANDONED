@@ -26,7 +26,6 @@ protected:
     
     virtual void onCreate() = 0;
     virtual void onCleanup() = 0;
-    virtual void handleInput(SDL_Event& e) = 0;
     virtual void onUpdate(float dt) = 0;
     virtual void onRender() = 0;
 };
