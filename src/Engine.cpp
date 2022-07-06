@@ -1,6 +1,7 @@
 #include "Engine.h"
 
 #include "BitmapFont.h"
+#include "InputManager.h"
 
 Engine::Engine(){}
 
@@ -57,18 +58,21 @@ void Engine::run()
     Uint32 start = 0;
     bool quit = false;
     SDL_Event e;
+    InputManager* inputManager = InputManager::getInstance();
     while(!quit)
     {
+        inputManager->update();
+        if (inputManager->quitRequested()) quit = true;
         // poll events
-        while(SDL_PollEvent(&e) != 0)
-        {
-            if(e.type == SDL_QUIT || e.key.keysym.sym == SDLK_ESCAPE)
-            {
-                quit = true;
-            }
+        // while(SDL_PollEvent(&e) != 0)
+        // {
+        //     if(e.type == SDL_QUIT || e.key.keysym.sym == SDLK_ESCAPE)
+        //     {
+        //         quit = true;
+        //     }
 
-            handleInput(e);
-        }
+        //     handleInput(e);
+        // }
 
         // calculate timestep
         float dt = (SDL_GetTicks() - start) / 1000.0f;

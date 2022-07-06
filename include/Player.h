@@ -28,6 +28,7 @@ public:
     void doDamage(int damage);
     void resolveEnemyCollisions(const std::vector<BaseEnemy*>& enemies);
 
+    void handleInput();
     void update(float dt);
     void render(SDL_Renderer* renderer);
 
