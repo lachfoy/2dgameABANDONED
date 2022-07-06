@@ -2,6 +2,8 @@
 
 InputManager* InputManager::instance = 0;
 
+InputManager::InputManager() {}
+
 InputManager* InputManager::getInstance()
 {
     if (instance == 0)
@@ -15,7 +17,7 @@ InputManager* InputManager::getInstance()
 void InputManager::update()
 {
     keyState = SDL_GetKeyboardState(NULL);
-    for (int i = 0; i < 282; i++)
+    for (int i = 0; i < KEYBOARD_SIZE; i++)
     {
         // reset keys
         keysDown[i] = false;
@@ -54,5 +56,3 @@ bool InputManager::keyPressed(SDL_Scancode key) const
     if (keyState[key]) return true;
     return false;
 }
-
-InputManager::InputManager() {}
