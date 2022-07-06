@@ -6,6 +6,7 @@
 #include <SDL2/SDL.h>
 
 class BitmapFont;
+class InputManager;
 
 class Engine
 {
@@ -23,6 +24,7 @@ protected:
     SDL_Renderer* renderer;
     
     BitmapFont* bitmapFont;
+    InputManager* inputManager;
     
     virtual void onCreate() = 0;
     virtual void onCleanup() = 0;

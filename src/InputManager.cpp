@@ -1,19 +1,5 @@
 #include "InputManager.h"
 
-InputManager* InputManager::instance = 0;
-
-InputManager::InputManager() {}
-
-InputManager* InputManager::getInstance()
-{
-    if (instance == 0)
-    {
-        instance = new InputManager();
-    }
-
-    return instance;
-}
-
 void InputManager::update()
 {
     keyState = SDL_GetKeyboardState(NULL);

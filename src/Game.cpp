@@ -29,6 +29,8 @@ void Game::onCleanup()
 
 void Game::onUpdate(float dt)
 {
+    player->handleInput(*inputManager);
+
     // resolve projectile vs enemy collisions
     enemyManager->resolveProjectileCollisions(projectileManager->getProjectiles());
 

@@ -37,6 +37,8 @@ bool Engine::init(int w, int h)
         return false;
     }
 
+    inputManager = new InputManager();
+
     return true;
 }
 
@@ -45,6 +47,7 @@ void Engine::cleanup()
     onCleanup(); // run the games cleanup functions
 
     delete bitmapFont;
+    delete inputManager;
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
 
@@ -58,21 +61,11 @@ void Engine::run()
     Uint32 start = 0;
     bool quit = false;
     SDL_Event e;
-    InputManager* inputManager = InputManager::getInstance();
     while(!quit)
     {
+        // update the input manager which polls sdl events
         inputManager->update();
-        if (inputManager->quitRequested()) quit = true;
-        // poll events
-        // while(SDL_PollEvent(&e) != 0)
-        // {
-        //     if(e.type == SDL_QUIT || e.key.keysym.sym == SDLK_ESCAPE)
-        //     {
-        //         quit = true;
-        //     }
-
-        //     handleInput(e);
-        // }
+        if (inputManager->quitRequested() | inputManager->keyDown(SDL_SCANCODE_ESCAPE)) quit = true;
 
         // calculate timestep
         float dt = (SDL_GetTicks() - start) / 1000.0f;

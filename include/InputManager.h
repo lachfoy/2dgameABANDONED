@@ -9,7 +9,7 @@
 class InputManager
 {
 public:
-    static InputManager* getInstance();
+    InputManager(){} 
 
     void update();
 
@@ -20,11 +20,6 @@ public:
     bool keyPressed(SDL_Scancode key) const;
 
 private:
-    static InputManager* instance;
-    InputManager();
-    InputManager(InputManager const&) {}
-    void operator=(InputManager const&) {}
-
     const Uint8* keyState = NULL;
 
     static const int KEYBOARD_SIZE = 282;
