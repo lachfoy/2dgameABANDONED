@@ -42,7 +42,7 @@ private:
         DEFAULT_COLLIDER_H = 50,
         DEFAULT_MAX_HEALTH = 100,
         DEFAULT_IMMUNE_TIME = 1,
-        DEFAULT_MOVE_SPEED = 200
+        DEFAULT_MOVE_SPEED = 100
     };
 
     int playerW;

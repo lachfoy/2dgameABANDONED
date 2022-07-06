@@ -18,10 +18,12 @@ Skeleton::Skeleton(Player* player, UIManager& _UIManager, float x, float y)
     immuneTime = 0.1f; // how many seconds of iframes
     immuneTimer = immuneTime;
 
-    moveSpeed = 40.0f; // slowww
+    moveSpeed = 30.0f; // slowww
+
+    damage = 6;
 
     thinking = true;
-    thinkingTime = 1.0f; // 3 seconds
+    thinkingTime = 1.0f;
     thinkingTimer = thinkingTime;
 }
 
@@ -49,23 +51,33 @@ void Skeleton::updateAI(float dt)
 
 void Skeleton::render(SDL_Renderer* renderer)
 {
-    // draw the player rect representing the player
-    SDL_Rect player_rect;
-    player_rect.x = (int)pos.x - (enemyW / 2);
-    player_rect.y = (int)pos.y - enemyH;
-    player_rect.w = enemyW;
-    player_rect.h = enemyH;
-    if (damageable) SDL_SetRenderDrawColor(renderer, 0xb1, 0xb1, 0xb1, 0xff); // #e02655 pink red
-    else SDL_SetRenderDrawColor(renderer, 0xc9, 0x5d, 0x78, 0xff); // c95d78 pink red
-    SDL_RenderFillRect(renderer, &player_rect);
+    // create rect representing the enemy
+    SDL_Rect enemy_rect;
+    enemy_rect.x = (int)pos.x - (enemyW / 2);
+    enemy_rect.y = (int)pos.y - enemyH;
+    enemy_rect.w = enemyW;
+    enemy_rect.h = enemyH;
+    
+    // set draw color
+    SDL_Color enemy_color = { 0xb1, 0xb1, 0xb1, 0xff }; // grey
+    if (!damageable)
+    {
+        enemy_color.a = 0x65;
+        SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+    }
+    else SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_NONE);
+    
+    // draw enemy
+    SDL_SetRenderDrawColor(renderer, enemy_color.r, enemy_color.g, enemy_color.b, enemy_color.a);
+    SDL_RenderFillRect(renderer, &enemy_rect);
 
-    // draw a rect representing the collider
+    // draw collider
     collider->debugRender(renderer);
 
     // draw the origin position representing the actual x and y positions
     SDL_Rect debug_point_pos;
-    debug_point_pos.w = 6;
-    debug_point_pos.h = 6;
+    debug_point_pos.w = 4;
+    debug_point_pos.h = 4;
     debug_point_pos.x = (int)pos.x - (debug_point_pos.w / 2);
     debug_point_pos.y = (int)pos.y - (debug_point_pos.h / 2);
     SDL_SetRenderDrawColor(renderer, 0xeb, 0xd5, 0x17, 0xff); // #ebd517 yellow
