@@ -11,7 +11,7 @@ digraph inheritance_diagram {
     Player
     Skeleton
 
-    BaseObject->{BaseEnemy, BaseProjectile}
+    BaseObject->{BaseEnemy, BaseProjectile, Player}
     BaseProjectile->{Fireball, FireballExplosion}
     BaseEnemy->Skeleton
 }
