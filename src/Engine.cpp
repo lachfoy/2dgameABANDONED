@@ -1,6 +1,7 @@
 #include "Engine.h"
 
 #include "BitmapFont.h"
+#include "InputManager.h"
 
 Engine::Engine(){}
 
@@ -36,6 +37,8 @@ bool Engine::init(int w, int h)
         return false;
     }
 
+    inputManager = new InputManager();
+
     return true;
 }
 
@@ -44,6 +47,7 @@ void Engine::cleanup()
     onCleanup(); // run the games cleanup functions
 
     delete bitmapFont;
+    delete inputManager;
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
 
@@ -59,16 +63,9 @@ void Engine::run()
     SDL_Event e;
     while(!quit)
     {
-        // poll events
-        while(SDL_PollEvent(&e) != 0)
-        {
-            if(e.type == SDL_QUIT || e.key.keysym.sym == SDLK_ESCAPE)
-            {
-                quit = true;
-            }
-
-            handleInput(e);
-        }
+        // update the input manager which polls sdl events
+        inputManager->update();
+        if (inputManager->quitRequested() | inputManager->keyDown(SDL_SCANCODE_ESCAPE)) quit = true;
 
         // calculate timestep
         float dt = (SDL_GetTicks() - start) / 1000.0f;

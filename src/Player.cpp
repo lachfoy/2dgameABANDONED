@@ -3,6 +3,7 @@
 #include "BaseEnemy.h"
 #include "UIManager.h"
 #include "HealthBar.h"
+#include "InputManager.h"
 
 Player::Player(UIManager& _UIManager, float x, float y) : BaseObject(x, y)
 {
@@ -41,6 +42,14 @@ void Player::resolveEnemyCollisions(const std::vector<BaseEnemy*>& enemies)
     }
 }
 
+void Player::handleInput(InputManager& inputManager)
+{
+    if (inputManager.keyPressed(SDL_SCANCODE_UP) | inputManager.keyPressed(SDL_SCANCODE_W)) velY = -1;
+    if (inputManager.keyPressed(SDL_SCANCODE_DOWN) | inputManager.keyPressed(SDL_SCANCODE_S)) velY = 1;
+    if (inputManager.keyPressed(SDL_SCANCODE_LEFT) | inputManager.keyPressed(SDL_SCANCODE_A)) velX = -1;
+    if (inputManager.keyPressed(SDL_SCANCODE_RIGHT) | inputManager.keyPressed(SDL_SCANCODE_D)) velX = 1;
+}
+
 void Player::update(float dt)
 {
     if (health <= 0) { printf("Player is dead\n"); removeable = true; }
@@ -52,6 +61,9 @@ void Player::update(float dt)
         // update the internal position
         pos.x += velX * moveSpeed * dt;
         pos.y += velY * moveSpeed * dt;
+
+        velX = 0;
+        velY = 0;
 
         // move the collider as well
         collider->upperBound.x = pos.x - (colliderW / 2);

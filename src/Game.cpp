@@ -7,7 +7,7 @@
 #include "EnemyManager.h"
 #include "UIManager.h"
 
-Game::Game(){}
+Game::Game() {}
 
 void Game::onCreate()
 {
@@ -27,56 +27,10 @@ void Game::onCleanup()
     delete _UIManager;
 }
 
-void Game::handleInput(SDL_Event& e)
-{
-    if (e.type == SDL_KEYDOWN)
-    {
-        const SDL_Keycode keyCode = e.key.keysym.sym;
-
-        if (keyCode == SDLK_UP || keyCode == SDLK_w)
-            player->velY = -1;
-
-        if (keyCode == SDLK_DOWN || keyCode == SDLK_s)
-            player->velY = 1;
-
-        if (keyCode == SDLK_LEFT || keyCode == SDLK_a)
-            player->velX = -1;
-
-        if (keyCode == SDLK_RIGHT || keyCode == SDLK_d)
-            player->velX = 1;
-            
-        else if (keyCode == SDLK_SPACE || keyCode == SDLK_z)
-        {
-            if (player->facingDir == Player::FACING_RIGHT) projectileManager->addFireball(player->pos.x, player->pos.y - 30, 1, 0);
-            else projectileManager->addFireball(player->pos.x, player->pos.y - 30, -1, 0);
-        }
-
-        else if (keyCode == SDLK_k)
-        {
-            player->doDamage(11);
-            projectileManager->addFireballExplosion(player->pos.x, player->pos.y);
-        }
-    }
-    else if (e.type == SDL_KEYUP)
-    {
-        const SDL_Keycode keyCode = e.key.keysym.sym;
-        
-        if (keyCode == SDLK_UP || keyCode == SDLK_w)
-            player->velY = 0;
-
-        if (keyCode == SDLK_DOWN || keyCode == SDLK_s)
-            player->velY = 0;
-
-        if (keyCode == SDLK_LEFT || keyCode == SDLK_a)
-            player->velX = 0;
-
-        if (keyCode == SDLK_RIGHT || keyCode == SDLK_d)
-            player->velX = 0;
-    }
-}
-
 void Game::onUpdate(float dt)
 {
+    player->handleInput(*inputManager);
+
     // resolve projectile vs enemy collisions
     enemyManager->resolveProjectileCollisions(projectileManager->getProjectiles());
 

@@ -12,6 +12,7 @@ class AABB;
 class BaseEnemy;
 class UIManager;
 class HealthBar;
+class InputManager;
 
 class Player : public BaseObject
 {
@@ -28,6 +29,7 @@ public:
     void doDamage(int damage);
     void resolveEnemyCollisions(const std::vector<BaseEnemy*>& enemies);
 
+    void handleInput(InputManager& inputManager);
     void update(float dt);
     void render(SDL_Renderer* renderer);
 
