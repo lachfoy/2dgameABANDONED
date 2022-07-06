@@ -1,0 +1,19 @@
+digraph inheritance_diagram {
+    node [shape=box]
+    edge [dir=back arrowtail=empty]
+
+    BaseEnemy
+    BaseObject
+    BaseProjectile
+    Fireball
+    FireballExplosion
+    BaseEnemy
+    Player
+    Skeleton
+
+    BaseObject->{BaseEnemy, BaseProjectile}
+    BaseProjectile->{Fireball, FireballExplosion}
+    BaseEnemy->Skeleton
+}
+
+// use `dot -Tpng -O inheritance.gv` to generate a .png
