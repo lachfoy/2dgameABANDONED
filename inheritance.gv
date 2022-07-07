@@ -2,8 +2,8 @@ digraph inheritance {
     node [shape=box fontname="Helvetica,Arial,sans-serif"]
     edge [dir=back arrowtail=empty]
 
-    BaseObject->{BaseDamagable, BaseProjectile}
-    BaseDamagable->{Player, BaseEnemy}
+    BaseObject->{BaseDamageable, BaseProjectile}
+    BaseDamageable->{Player, BaseEnemy}
     BaseProjectile->{Fireball, FireballExplosion}
     BaseEnemy->Skeleton
 

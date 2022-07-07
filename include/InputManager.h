@@ -3,9 +3,6 @@
 
 #include <SDL2/SDL.h>
 
-
-
-// singleton lol
 class InputManager
 {
 public:

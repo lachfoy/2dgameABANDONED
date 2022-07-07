@@ -33,6 +33,8 @@ private:
     };
 
 protected: // things the derived projectiles can change
+    int velX = 0; // normalized x velocity
+    int velY = 0; // normalized y velocity
     AABB* collider;
     int damage; // TODO: pack damage information into a struct so i can have different damage types?
     float moveSpeed;

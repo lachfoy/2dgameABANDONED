@@ -9,7 +9,7 @@
 
 class Player;
 class AABB;
-class EnemyManager;
+//class EnemyManager;
 class ProjectileManager;
 class HealthBar;
 class UIManager;
@@ -24,7 +24,7 @@ private:
     AABB* test_collider;
 
     ProjectileManager* projectileManager;
-    EnemyManager* enemyManager;
+    //EnemyManager* enemyManager;
     UIManager* _UIManager;
 
     void onCreate();

@@ -5,7 +5,7 @@
 
 #include <SDL2/SDL.h>
 
-#include "BaseObject.h"
+#include "BaseDamageable.h"
 #include "AABB.h"
 
 class AABB;
@@ -14,48 +14,34 @@ class UIManager;
 class HealthBar;
 class InputManager;
 
-class Player : public BaseObject
+class Player : public BaseDamageable
 {
 public:
-    Player(UIManager& _UIManager, float x, float y);
-    ~Player();
+    Player(float x, float y);
+    ~Player() override;
 
     enum { FACING_LEFT, FACING_RIGHT } facingDir; // public because its lazy and im late
 
-    int getHealth() const { return health; }
-    int getMaxHealth() const { return maxHealth; }
-    AABB getCollider() const { return *collider; }
+    void onCreate(UIManager& _UIManager) override;
+    void onUpdate(ProjectileManager& projectileManager, float dt) override;
+    void handleInput(InputManager& inputManager);
 
-    void doDamage(int damage);
     void resolveEnemyCollisions(const std::vector<BaseEnemy*>& enemies);
 
-    void handleInput(InputManager& inputManager);
-    void update(float dt);
-    void render(SDL_Renderer* renderer);
+    void render(SDL_Renderer* renderer) override;
 
 private:
     enum
     {
         DEFAULT_W = 30,
         DEFAULT_H = 60,
-        DEFAULT_COLLIDER_W = 50,
-        DEFAULT_COLLIDER_H = 50,
-        DEFAULT_MAX_HEALTH = 100,
-        DEFAULT_IMMUNE_TIME = 1,
         DEFAULT_MOVE_SPEED = 100
     };
 
+    int velX = 0; // normalized x velocity
+    int velY = 0; // normalized y velocity
     int playerW;
     int playerH;
-    int colliderW;
-    int colliderH;
-    AABB* collider;
-    int maxHealth;
-    int health;
-    HealthBar* healthBar;
-    bool damageable; // if not damageable then they are taking damage
-    float immuneTimer;
-    float immuneTime; // how many iframes (in seconds though)
     float moveSpeed;
 };
 

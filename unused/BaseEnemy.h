@@ -3,17 +3,14 @@
 
 #include <SDL2/SDL.h>
 
-#include "BaseObject.h"
-#include "AABB.h"
+#include "BaseDamageable.h"
 
-class UIManager;
-class HealthBar;
 class EnemyManager;
 
-class BaseEnemy : public BaseObject
+class BaseEnemy : public BaseDamageable
 {
 public:
-    BaseEnemy(UIManager& _UIManager, float x, float y);
+    BaseEnemy(float x, float y);
     virtual ~BaseEnemy(); // derived enemies can add functionality
 
     AABB getCollider() const { return *collider; }
@@ -55,6 +52,8 @@ protected:
     bool damageable = true; // if not damageable then they are taking damage
     float immuneTimer = (float)DEFAULT_IMMUNE_TIME;
     float immuneTime = 0.0f; // how many iframes (in seconds though)
+    int velX = 0; // normalized x velocity
+    int velY = 0; // normalized y velocity
     float moveSpeed = (float)DEFAULT_MOVE_SPEED;
 };
 
