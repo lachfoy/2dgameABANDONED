@@ -27,7 +27,7 @@ Oh, if you want to build it (requires SDL2 and cmake):
 
 2. Create the build files
     ```shell
-    cmake -S . -B build`
+    cmake -S . -B build
     ```
 
 3. Build the program
