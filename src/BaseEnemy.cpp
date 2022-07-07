@@ -1,11 +1,11 @@
 #include "BaseEnemy.h"
 
-#include "UIManager.h"
+#include "UiManager.h"
 #include "ProjectileManager.h"
 #include "EnemyManager.h"
 
-BaseEnemy(float x, float y, UIManager* _UIManager, ProjectileManager* projectileManager, EnemyManager* enemyManager)
-     : BaseDamageable(x, y, _UIManager, projectileManager)
+BaseEnemy::BaseEnemy(float x, float y, UiManager* uiManager, ProjectileManager* projectileManager, EnemyManager* enemyManager)
+     : BaseDamageable(x, y, uiManager, projectileManager)
 {
     this->enemyManager = enemyManager;
 }

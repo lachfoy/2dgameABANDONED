@@ -7,14 +7,15 @@
 
 #include "BaseDamageable.h"
 
-class BaseEnemy;
-class UIManager;
+class UiManager;
+class ProjectileManager;
 class InputManager;
+class BaseEnemy;
 
 class Player : public BaseDamageable
 {
 public:
-    Player(float x, float y, UIManager* _UIManager, ProjectileManager* projectileManager);
+    Player(float x, float y, UiManager* uiManager, ProjectileManager* projectileManager);
     ~Player() override;
 
     enum { FACING_LEFT, FACING_RIGHT } facingDir; // public because its lazy and im late

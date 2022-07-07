@@ -3,9 +3,9 @@
 
 #include <SDL2/SDL.h>
 
-struct BaseUIObject
+struct BaseUiObject
 {
-    BaseUIObject() {}
+    BaseUiObject() {}
 
     bool removeable = false;
 

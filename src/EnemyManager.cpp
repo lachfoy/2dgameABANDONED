@@ -3,8 +3,13 @@
 #include "BaseEnemy.h"
 #include "BaseProjectile.h"
 #include "Skeleton.h"
-#include "UIManager.h"
+#include "UiManager.h"
 #include "Player.h"
+
+EnemyManager::EnemyManager(Player* player)
+{
+    this->player = player;
+}
 
 // tests collision against a list of projectiles and deals appropriate damage
 void EnemyManager::resolveProjectileCollisions(const std::vector<BaseProjectile*>& projectiles)

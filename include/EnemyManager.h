@@ -13,7 +13,7 @@ class UIManager;
 class EnemyManager
 {
 public:
-    EnemyManager() {};
+    EnemyManager(Player* player);
     ~EnemyManager() { enemies.clear(); }
 
     std::vector<BaseEnemy*> getEnemies() const { return enemies; }
@@ -27,7 +27,9 @@ public:
     void renderEnemies(SDL_Renderer* renderer);
 
 private:
+    Player* player; // pointer to player
     std::vector<BaseEnemy*> enemies;
+
 };
 
 #endif

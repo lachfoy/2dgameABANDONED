@@ -1,12 +1,12 @@
 #include "Player.h"
 
-#include "UIManager.h"
+#include "UiManager.h"
 #include "HealthBar.h"
 #include "InputManager.h"
 #include "ProjectileManager.h"
 
-Player::Player(float x, float y, UIManager* _UIManager, ProjectileManager* projectileManager)
-    : BaseDamageable(x, y, _UIManager, projectileManager)
+Player::Player(float x, float y, UiManager* uiManager, ProjectileManager* projectileManager)
+    : BaseDamageable(x, y, uiManager, projectileManager)
 {
     // initialize everything
     name = "Player";

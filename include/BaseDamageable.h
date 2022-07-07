@@ -5,7 +5,7 @@
 #include "AABB.h"
 
 class HealthBar;
-class UIManager;
+class UiManager;
 class ProjectileManager;
 
 // create BaseDamagable class and refactor Player and BaseEnemy to inherit from this class.\
@@ -14,7 +14,7 @@ class ProjectileManager;
 class BaseDamageable : public BaseObject
 {
 public:
-    BaseDamageable(float x, float y, UIManager* _UIManager, ProjectileManager* projectileManager);
+    BaseDamageable(float x, float y, UiManager* uiManager, ProjectileManager* projectileManager);
     virtual ~BaseDamageable();
 
     // getters
@@ -37,7 +37,7 @@ private:
     };
 
 protected:
-    UIManager* _UIManager;
+    UiManager* uiManager;
     ProjectileManager* projectileManager;
 
     int colliderW;

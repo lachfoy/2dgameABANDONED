@@ -3,10 +3,10 @@
 
 #include <SDL2/SDL.h>
 
-#include "BaseUIObject.h"
+#include "BaseUiObject.h"
 
 // should probably inherit from a "BaseUIObject" or something like that.
-class HealthBar : public BaseUIObject
+class HealthBar : public BaseUiObject
 {
 public:
     inline HealthBar(int x = 0, int y = 0, int length = DEFAULT_LENGTH, int height = DEFAULT_HEIGHT);

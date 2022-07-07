@@ -1,13 +1,13 @@
 #include "BaseDamageable.h"
 
-#include "UIManager.h"
+#include "UiManager.h"
 #include "HealthBar.h"
 
-BaseDamageable::BaseDamageable(float x, float y, UIManager* _UIManager, ProjectileManager* projectileManager)
+BaseDamageable::BaseDamageable(float x, float y, UiManager* uiManager, ProjectileManager* projectileManager)
     : BaseObject(x, y)
 {
     // assign the references to managers
-    this->_UIManager = _UIManager;
+    this->uiManager = uiManager;
     this->projectileManager = projectileManager;
 
     colliderW = DEFAULT_COLLIDER_W;
@@ -18,7 +18,7 @@ BaseDamageable::BaseDamageable(float x, float y, UIManager* _UIManager, Projecti
     health = maxHealth;
 
     healthBar = new HealthBar();
-    _UIManager->addUIObject(healthBar);
+    uiManager->addUiObject(healthBar);
 
     damageable = true;
     immuneTime = 0.2f; // how many seconds of iframes

@@ -4,26 +4,26 @@
 #include "Player.h"
 #include "HealthBar.h"
 #include "ProjectileManager.h"
-#include "UIManager.h"
+#include "UiManager.h"
 
 Game::Game() {}
 
 void Game::onCreate()
 {
-    _UIManager = new UIManager();
+    uiManager = new UiManager();
     projectileManager = new ProjectileManager();
 
-    player = new Player(100.0f, 200.0f, _UIManager, projectileManager);
+    player = new Player(100.0f, 200.0f, uiManager, projectileManager);
     
     //enemyManager = new EnemyManager();
-    //enemyManager->addSkeleton(player, *_UIManager, 400.0f, 300.0f);
+    //enemyManager->addSkeleton(player, *uiManager, 400.0f, 300.0f);
 }
 
 void Game::onCleanup()
 {
     delete player;
 
-    delete _UIManager;
+    delete uiManager;
     delete projectileManager;
     
     //delete enemyManager;
@@ -58,5 +58,5 @@ void Game::onRender()
     projectileManager->renderProjectiles(renderer);
 
     // render UI objects
-    _UIManager->renderUIObjects(renderer);
+    uiManager->renderUiObjects(renderer);
 }

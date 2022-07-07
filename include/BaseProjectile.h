@@ -18,7 +18,6 @@ public:
     inline int getDamage() const { return damage; }
     
     virtual void update(float dt); // derived projectiles can override update ONLY if they need to
-    virtual void render(SDL_Renderer* renderer) = 0; // derived projectiles MUST provide an implementation for renderering
 
 private:
     enum // defaults
@@ -30,14 +29,14 @@ private:
     };
 
 protected: // things the derived projectiles can change
-    int velX = 0; // normalized x velocity
-    int velY = 0; // normalized y velocity
+    int velX; // normalized x velocity
+    int velY; // normalized y velocity
     ProjectileManager* projectileManager;
     AABB* collider;
-    int damage;
-    float moveSpeed;
-    int colliderRadius; // assume all projectiles have uniform width and height even though they are actually rectangles
-    float lifeTime;
+    int damage = DEFAULT_DAMAGE;
+    float moveSpeed = (float)DEFAULT_MOVESPEED;
+    int colliderRadius = DEFAULT_COLLIDER_RADIUS; // assume all projectiles have uniform width and height even though they are actually rectangles
+    float lifeTime = (float)DEFAULT_LIFETIME;
 };
 
 #endif

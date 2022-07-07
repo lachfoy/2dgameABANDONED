@@ -8,7 +8,7 @@
 class Skeleton : public BaseEnemy
 {
 public:
-    Skeleton(float x, float y, UIManager* _UIManager, ProjectileManager* projectileManager, EnemyManager* enemyManager);
+    Skeleton(float x, float y, UiManager* uiManager, ProjectileManager* projectileManager, EnemyManager* enemyManager);
     ~Skeleton() {}
 
     void updateAI(float dt) override {};

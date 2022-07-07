@@ -8,11 +8,6 @@ BaseProjectile::BaseProjectile(float x, float y, int velX, int velY, ProjectileM
 
     this->projectileManager = projectileManager;
     
-    colliderRadius = DEFAULT_COLLIDER_RADIUS;
-    moveSpeed = (float)DEFAULT_MOVESPEED;
-    damage = DEFAULT_DAMAGE;
-    lifeTime = (float)DEFAULT_LIFETIME;
-
     collider = new AABB(pos.x, pos.y, colliderRadius, colliderRadius);
 }
 

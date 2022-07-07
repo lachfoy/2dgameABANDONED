@@ -7,7 +7,7 @@ digraph inheritance {
     BaseProjectile->{Fireball, FireballExplosion}
     BaseEnemy->Skeleton
 
-    BaseUIObject->HealthBar
+    BaseUiObject->HealthBar
 }
 
 // use `dot -Tpng -O inheritance.gv` to generate a .png

@@ -5,14 +5,14 @@
 
 #include "BaseDamageable.h"
 
-class UIManager;
+class UiManager;
 class ProjectileManager;
 class EnemyManager;
 
 class BaseEnemy : public BaseDamageable
 {
 public:
-    BaseEnemy(float x, float y, UIManager* _UIManager, ProjectileManager* projectileManager, EnemyManager* enemyManager);
+    BaseEnemy(float x, float y, UiManager* uiManager, ProjectileManager* projectileManager, EnemyManager* enemyManager);
     virtual ~BaseEnemy(); // derived enemies can add functionality
 
     int getDamage() const { return damage; }
@@ -20,7 +20,6 @@ public:
     virtual void updateAI(float dt) = 0; // derived enemies can add any AI functionality if they wish 
     
     void update(float dt) override;
-    void render(SDL_Renderer* renderer) = 0;
 
 private:
     enum
