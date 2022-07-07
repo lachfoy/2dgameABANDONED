@@ -27,7 +27,7 @@ Oh, if you want to build it (requires SDL2 and cmake):
 
 2. Create the build files
     ```shell
-    cmake -S . -B build`
+    cmake -S . -B build
     ```
 
 3. Build the program
@@ -42,7 +42,7 @@ Oh, if you want to build it (requires SDL2 and cmake):
 
 ### For fun
 
-Counting all the lines of code `find src/ include/ -regex '.*/.*\.\(cpp\|h\)$' | xargs wc -l`.
+Counting all the lines of code `find include/ src/ -regex '.*/.*\.\(h\|cpp\)$' | xargs wc -l`.
 
 ## Considerations for Future Projects
 
