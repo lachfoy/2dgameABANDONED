@@ -4,7 +4,8 @@
 #include "HealthBar.h"
 #include "InputManager.h"
 
-Player::Player(UIManager& _UIManager, float x, float y) : BaseDamageable(_UIManager, x, y)
+Player::Player(float x, float y, UIManager* _UIManager, ProjectileManager* projectileManager)
+    : BaseDamageable(x, y, _UIManager, projectileManager)
 {
     // initialize everything
     name = "Player";
@@ -44,10 +45,16 @@ void Player::handleInput(InputManager& inputManager)
     {
         
     }
+    if (inputManager.keyDown(SDL_SCANCODE_K))
+    {
+        doDamage(1);
+    }
 }
 
-void Player::onUpdate(float dt)
+void Player::update(float dt)
 {
+    updateHealth(dt);
+
     // update the internal position
     pos.x += velX * moveSpeed * dt;
     pos.y += velY * moveSpeed * dt;

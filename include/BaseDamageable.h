@@ -14,7 +14,7 @@ class ProjectileManager;
 class BaseDamageable : public BaseObject
 {
 public:
-    BaseDamageable(UIManager& _UIManager, float x, float y);
+    BaseDamageable(float x, float y, UIManager* _UIManager, ProjectileManager* projectileManager);
     virtual ~BaseDamageable();
 
     // getters
@@ -22,14 +22,10 @@ public:
     int getMaxHealth() const { return maxHealth; }
     AABB getCollider() const { return *collider; }
 
-    virtual void onCreate(UIManager& _UIManager) = 0;
-    virtual void onUpdate(ProjectileManager& projectileManager, float dt) = 0; // implement by derived class
-
-    // deals damage to this object
     void doDamage(int damage);
+    void updateHealth(float dt);
 
-    void update(ProjectileManager& projectileManager, float dt);
-    // void render() can be implemented by any derived class
+    virtual void update(float dt) = 0; // implement by derived class
 
 private:
     enum
@@ -41,6 +37,9 @@ private:
     };
 
 protected:
+    UIManager* _UIManager;
+    ProjectileManager* projectileManager;
+
     int colliderW;
     int colliderH;
     AABB* collider;

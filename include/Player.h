@@ -17,17 +17,16 @@ class InputManager;
 class Player : public BaseDamageable
 {
 public:
-    Player(float x, float y);
+    Player(float x, float y, UIManager* _UIManager, ProjectileManager* projectileManager);
     ~Player() override;
 
     enum { FACING_LEFT, FACING_RIGHT } facingDir; // public because its lazy and im late
 
-    void onCreate(UIManager& _UIManager) override;
-    void onUpdate(ProjectileManager& projectileManager, float dt) override;
     void handleInput(InputManager& inputManager);
 
     void resolveEnemyCollisions(const std::vector<BaseEnemy*>& enemies);
 
+    void update(float dt) override;
     void render(SDL_Renderer* renderer) override;
 
 private:

@@ -11,19 +11,23 @@ Game::Game() {}
 void Game::onCreate()
 {
     _UIManager = new UIManager();
-    player = new Player(100.0f, 200.0f);
     projectileManager = new ProjectileManager();
+
+    player = new Player(100.0f, 200.0f, _UIManager, projectileManager);
+    
     //enemyManager = new EnemyManager();
-    test_collider = new AABB(300.0f, 200.0f, 200.0f, 100.0f);
     //enemyManager->addSkeleton(player, *_UIManager, 400.0f, 300.0f);
 }
 
 void Game::onCleanup()
 {
     delete player;
-    delete projectileManager;
-    //delete enemyManager;
+
     delete _UIManager;
+    delete projectileManager;
+    
+    //delete enemyManager;
+    
 }
 
 void Game::onUpdate(float dt)
@@ -37,7 +41,7 @@ void Game::onUpdate(float dt)
     //player->resolveEnemyCollisions(enemyManager->getEnemies());
 
     // update the player
-    player->onUpdate(*projectileManager, dt);
+    player->update(dt);
 
     // update enemies
     //enemyManager->updateEnemies(dt);

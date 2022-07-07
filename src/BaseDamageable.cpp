@@ -3,9 +3,13 @@
 #include "UIManager.h"
 #include "HealthBar.h"
 
-BaseDamageable::BaseDamageable(UIManager& _UIManager, float x, float y)
+BaseDamageable::BaseDamageable(float x, float y, UIManager* _UIManager, ProjectileManager* projectileManager)
     : BaseObject(x, y)
 {
+    // assign the references to managers
+    this->_UIManager = _UIManager;
+    this->projectileManager = projectileManager;
+
     colliderW = DEFAULT_COLLIDER_W;
     colliderH = DEFAULT_COLLIDER_H;
     collider = new AABB(pos.x, pos.y, colliderW, colliderH);
@@ -14,7 +18,7 @@ BaseDamageable::BaseDamageable(UIManager& _UIManager, float x, float y)
     health = maxHealth;
 
     healthBar = new HealthBar();
-    _UIManager.addUIObject(healthBar);
+    _UIManager->addUIObject(healthBar);
 
     damageable = true;
     immuneTime = 0.2f; // how many seconds of iframes
@@ -40,11 +44,11 @@ void BaseDamageable::doDamage(int damage)
     }
 }
 
-void BaseDamageable::update(ProjectileManager& projectileManager, float dt)
+void BaseDamageable::updateHealth(float dt)
 {
     if (health <= 0) { printf("%s is dead\n", name.c_str()); removeable = true; }
     else
-    {    
+    {
         // set up iframes
         if (!damageable) immuneTimer -= dt;
         if (immuneTimer <= 0.0f)

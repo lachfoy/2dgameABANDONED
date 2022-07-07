@@ -7,14 +7,14 @@
 
 #include "Point2f.h"
 
-struct BaseObject
+class BaseObject
 {
+public:
     BaseObject(float x, float y) { pos.x = x; pos.y = y; }
 
     Point2f pos;
     bool removeable = false;
 
-    virtual void update(float dt) {};
     virtual void render(SDL_Renderer* renderer) = 0;
 
 protected:
