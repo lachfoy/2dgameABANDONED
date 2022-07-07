@@ -5,24 +5,18 @@
 
 #include "BaseEnemy.h"
 
-class Player;
-class HealthBar;
-class UIManager;
-class EnemyManager;
-
 class Skeleton : public BaseEnemy
 {
 public:
-    Skeleton(Player* player, UIManager& _UIManager, float x, float y);
+    Skeleton(float x, float y, UIManager* _UIManager, ProjectileManager* projectileManager, EnemyManager* enemyManager);
     ~Skeleton() {}
 
-    void onDestroy(EnemyManager& enemyManager) override;
-    void updateAI(float dt) override;
+    void updateAI(float dt) override {};
 
     void render(SDL_Renderer* renderer) override;
 
 private:
-    Player* player;
+    //Player* player;
     bool thinking;
     float thinkingTime;
     float thinkingTimer;

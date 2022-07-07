@@ -22,10 +22,10 @@ void EnemyManager::resolveProjectileCollisions(const std::vector<BaseProjectile*
     }
 }
 
-void EnemyManager::addSkeleton(Player* player, UIManager& _UIManager, float x, float y)
-{
-    enemies.push_back(new Skeleton(x, y, player, _UIManager, ));
-}
+// void EnemyManager::addSkeleton(Player* player, UIManager& _UIManager, float x, float y)
+// {
+//     //enemies.push_back(new Skeleton(x, y, player, _UIManager, ));
+// }
 
 void EnemyManager::updateEnemies(float dt)
 {

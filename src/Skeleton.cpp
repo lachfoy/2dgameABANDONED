@@ -6,11 +6,11 @@
 #include "UIManager.h"
 #include "EnemyManager.h"
 
-Skeleton::Skeleton(Player* player, UIManager& _UIManager, float x, float y)
-    : BaseEnemy(_UIManager, x, y)
+Skeleton::Skeleton(float x, float y, UIManager* _UIManager, ProjectileManager* projectileManager, EnemyManager* enemyManager)
+    : BaseEnemy(x, y, _UIManager, projectileManager, enemyManager)
 {
     // initialize everything
-    this->player = player;
+    //this->player = player;
     
     maxHealth = 80;
     health = maxHealth;
@@ -27,22 +27,22 @@ Skeleton::Skeleton(Player* player, UIManager& _UIManager, float x, float y)
     thinkingTimer = thinkingTime;
 }
 
-void Skeleton::updateAI(float dt)
-{
-    // do thinking. this is really messy :/
-    if (thinking) thinkingTimer -= dt;
-    if (thinkingTimer <= 0.0f)
-    {
-        thinking = false;
+// void Skeleton::updateAI(float dt)
+// {
+//     // do thinking. this is really messy :/
+//     if (thinking) thinkingTimer -= dt;
+//     if (thinkingTimer <= 0.0f)
+//     {
+//         thinking = false;
 
-        if (player->pos.x > pos.x) velX = 1;
-        else velX = -1;
-        printf("Skeleton had a thought...\n");
+//         if (player->pos.x > pos.x) velX = 1;
+//         else velX = -1;
+//         printf("Skeleton had a thought...\n");
 
-        thinkingTimer = thinkingTime;  // reset to the starting value
-        thinking = true;
-    }
-}
+//         thinkingTimer = thinkingTime;  // reset to the starting value
+//         thinking = true;
+//     }
+// }
 
 void Skeleton::render(SDL_Renderer* renderer)
 {

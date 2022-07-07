@@ -19,7 +19,7 @@ public:
     std::vector<BaseEnemy*> getEnemies() const { return enemies; }
     
     void addEnemy(BaseEnemy* enemy) { enemies.push_back(enemy); } // deprecated -- don't use this anymore
-    void addSkeleton(Player* player, UIManager& _UIManager, float x, float y);
+    //void addSkeleton(Player* player, UIManager& _UIManager, float x, float y);
 
     void resolveProjectileCollisions(const std::vector<BaseProjectile*>& projectiles);
 
