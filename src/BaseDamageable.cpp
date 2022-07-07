@@ -29,7 +29,7 @@ BaseDamageable::~BaseDamageable()
 {
     delete collider;
     delete healthBar;
-    printf("deleted %s", name.c_str());
+    printf("deleted %s\n", name.c_str());
 }
 
 void BaseDamageable::doDamage(int damage)

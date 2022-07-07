@@ -1,9 +1,12 @@
 #include "BaseProjectile.h"
 
-BaseProjectile::BaseProjectile(float x, float y, int velX, int velY) : BaseObject(x, y)
+BaseProjectile::BaseProjectile(float x, float y, int velX, int velY, ProjectileManager* projectileManager)
+    : BaseObject(x, y)
 {
     this->velX = velX;
     this->velY = velY;
+
+    this->projectileManager = projectileManager;
     
     colliderRadius = DEFAULT_COLLIDER_RADIUS;
     moveSpeed = (float)DEFAULT_MOVESPEED;
@@ -15,8 +18,8 @@ BaseProjectile::BaseProjectile(float x, float y, int velX, int velY) : BaseObjec
 
 BaseProjectile::~BaseProjectile()
 {
-    printf("Deleted projectile\n");
     delete collider;
+    printf("deleted %s\n", name.c_str());
 }
 
 void BaseProjectile::update(float dt)

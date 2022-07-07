@@ -3,6 +3,7 @@
 #include "UIManager.h"
 #include "HealthBar.h"
 #include "InputManager.h"
+#include "ProjectileManager.h"
 
 Player::Player(float x, float y, UIManager* _UIManager, ProjectileManager* projectileManager)
     : BaseDamageable(x, y, _UIManager, projectileManager)
@@ -43,7 +44,7 @@ void Player::handleInput(InputManager& inputManager)
         velX = 1;
     if (inputManager.keyDown(SDL_SCANCODE_SPACE) | inputManager.keyDown(SDL_SCANCODE_Z))
     {
-        
+        projectileManager->addFireball(pos.x, pos.y, 1, 0);
     }
     if (inputManager.keyDown(SDL_SCANCODE_K))
     {
