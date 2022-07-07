@@ -6,12 +6,9 @@
 #include <SDL2/SDL.h>
 
 #include "BaseDamageable.h"
-#include "AABB.h"
 
-class AABB;
 class BaseEnemy;
 class UIManager;
-class HealthBar;
 class InputManager;
 
 class Player : public BaseDamageable

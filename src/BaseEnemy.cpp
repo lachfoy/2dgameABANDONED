@@ -3,19 +3,17 @@
 #include "UIManager.h"
 #include "HealthBar.h"
 #include "EnemyManager.h"
+#include "ProjectileManager.h"
 
-BaseEnemy::BaseEnemy(UIManager& _UIManager, float x, float y) : BaseObject(x, y)
+BaseEnemy(float x, float y, UIManager* _UIManager, ProjectileManager* projectileManager, EnemyManager* enemyManager)
+     : BaseDamageable(x, y, _UIManager, projectileManager)
 {
-    collider = new AABB(pos.x, pos.y, colliderW, colliderH);
-    healthBar = new HealthBar();
-    _UIManager.addUIObject(healthBar);
-    healthBar->updateSize(enemyW + 26, 5);
+    this->enemyManager = enemyManager;
 }
 
 BaseEnemy::~BaseEnemy()
 {
-    printf("Deleted enemy\n");
-    delete collider;
+
 }
 
 void BaseEnemy::update(float dt)

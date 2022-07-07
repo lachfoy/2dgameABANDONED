@@ -24,7 +24,7 @@ void EnemyManager::resolveProjectileCollisions(const std::vector<BaseProjectile*
 
 void EnemyManager::addSkeleton(Player* player, UIManager& _UIManager, float x, float y)
 {
-    enemies.push_back(new Skeleton(player, _UIManager, x, y));
+    enemies.push_back(new Skeleton(x, y, player, _UIManager, ));
 }
 
 void EnemyManager::updateEnemies(float dt)
@@ -35,7 +35,6 @@ void EnemyManager::updateEnemies(float dt)
         enemies[i]->update(dt);
         if (enemies[i]->removeable)
         {
-            enemies[i]->onDestroy(*this);
             delete enemies[i];
             enemies.erase(enemies.begin() + i); // delete if remove flag is set
         }

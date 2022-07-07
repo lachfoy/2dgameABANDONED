@@ -44,7 +44,7 @@ void Player::handleInput(InputManager& inputManager)
         velX = 1;
     if (inputManager.keyDown(SDL_SCANCODE_SPACE) | inputManager.keyDown(SDL_SCANCODE_Z))
     {
-        projectileManager->addFireball(pos.x, pos.y, 1, 0);
+        projectileManager->addFireball(pos.x, pos.y - (playerH / 2), 1, 0);
     }
     if (inputManager.keyDown(SDL_SCANCODE_K))
     {

@@ -27,11 +27,6 @@ Skeleton::Skeleton(Player* player, UIManager& _UIManager, float x, float y)
     thinkingTimer = thinkingTime;
 }
 
-void Skeleton::onDestroy(EnemyManager& enemyManager)
-{
-    printf("Executing Skeleton::onDestroy\n");
-}
-
 void Skeleton::updateAI(float dt)
 {
     // do thinking. this is really messy :/
