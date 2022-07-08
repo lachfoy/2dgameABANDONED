@@ -29,8 +29,8 @@ private:
     };
 
 protected: // things the derived projectiles can change
-    int velX; // normalized x velocity
-    int velY; // normalized y velocity
+    int velX = 0; // normalized x velocity
+    int velY = 0; // normalized y velocity
     ProjectileManager* projectileManager;
     AABB* collider;
     int damage = DEFAULT_DAMAGE;

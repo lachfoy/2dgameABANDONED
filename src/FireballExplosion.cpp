@@ -1,7 +1,7 @@
 #include "FireballExplosion.h"
 
 FireballExplosion::FireballExplosion(float x, float y, ProjectileManager* projectileManager)
-    : BaseProjectile(x, y, velX = 0, velY = 0, projectileManager)
+    : BaseProjectile(x, y, 0, 0, projectileManager)
 {
     name = "FireballExplosion";
     colliderRadius = 38;
