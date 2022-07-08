@@ -25,7 +25,7 @@ void ProjectileManager::updateProjectiles(float dt)
     // update all the projectiles
     for (int i = 0; i < projectiles.size(); i++)
     {
-        projectiles[i]->update(dt);
+        projectiles[i]->updatePosition(dt);
         if (projectiles[i]->removeable)
         {
             delete projectiles[i];

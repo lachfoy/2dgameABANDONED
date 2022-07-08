@@ -9,9 +9,8 @@ class Fireball : public BaseProjectile
 {
 public:
     Fireball(float x, float y, int velX, int velY, ProjectileManager* projectileManager);
-    ~Fireball();
+    ~Fireball() override;
 
-    //inline void update(float dt); // base class handles updating
     void render(SDL_Renderer* renderer) override;
 
 private:

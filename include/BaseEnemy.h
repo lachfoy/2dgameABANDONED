@@ -21,16 +21,10 @@ public:
     // derived enemies can add any AI functionality if they wish
     virtual void updateAI(float dt) = 0;
 
-private:
-    enum
-    {
-        DEFAULT_DAMAGE = 10,
-    };
-
 protected:
     EnemyManager* enemyManager;
     Player* player;
-    int damage = DEFAULT_DAMAGE;
+    int damage;
 };
 
 #endif

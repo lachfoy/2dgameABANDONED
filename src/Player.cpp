@@ -12,6 +12,12 @@ Player::Player(float x, float y, UiManager* uiManager, ProjectileManager* projec
     // initialize everything
     name = "Player";
 
+    width = 30;
+    height = 60;
+
+    colliderW = 50;
+    colliderH = 50;
+
     maxHealth = 80;
     health = maxHealth;
 

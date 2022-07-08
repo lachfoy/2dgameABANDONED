@@ -17,7 +17,7 @@ BaseProjectile::~BaseProjectile()
     printf("deleted %s\n", name.c_str());
 }
 
-void BaseProjectile::update(float dt)
+void BaseProjectile::updatePosition(float dt)
 {
     if (lifeTime <= 0.0f) removeable = true;
     {

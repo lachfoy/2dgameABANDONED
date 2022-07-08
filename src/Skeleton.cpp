@@ -12,6 +12,12 @@ Skeleton::Skeleton(float x, float y, UiManager* uiManager, ProjectileManager* pr
     // initialize everything
     name = "Skeleton";
     
+    width = 30;
+    height = 60;
+
+    colliderW = 50;
+    colliderH = 50;
+
     maxHealth = 80;
     health = maxHealth;
 
