@@ -8,7 +8,9 @@
 class BaseEnemy;
 class BaseProjectile;
 class Player;
-class UIManager;
+class UiManager;
+class Skeleton;
+class ProjectileManager;
 
 class EnemyManager
 {
@@ -19,7 +21,7 @@ public:
     std::vector<BaseEnemy*> getEnemies() const { return enemies; }
     
     void addEnemy(BaseEnemy* enemy) { enemies.push_back(enemy); } // deprecated -- don't use this anymore
-    //void addSkeleton(Player* player, UIManager& _UIManager, float x, float y);
+    void addSkeleton(float x, float y, UiManager* uiManager, ProjectileManager* projectileManager);
 
     void resolveProjectileCollisions(const std::vector<BaseProjectile*>& projectiles);
 
@@ -29,7 +31,6 @@ public:
 private:
     Player* player; // pointer to player
     std::vector<BaseEnemy*> enemies;
-
 };
 
 #endif

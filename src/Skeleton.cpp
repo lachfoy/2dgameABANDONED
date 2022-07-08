@@ -6,11 +6,13 @@
 #include "UiManager.h"
 #include "EnemyManager.h"
 
-Skeleton::Skeleton(float x, float y, UiManager* uiManager, ProjectileManager* projectileManager, EnemyManager* enemyManager)
-    : BaseEnemy(x, y, uiManager, projectileManager, enemyManager)
+Skeleton::Skeleton(float x, float y, UiManager* uiManager, ProjectileManager* projectileManager, EnemyManager* enemyManager, Player* player)
+    : BaseEnemy(x, y, uiManager, projectileManager, enemyManager, player)
 {
     // initialize everything
     //this->player = player;
+
+    name = "Skeleton";
     
     maxHealth = 80;
     health = maxHealth;

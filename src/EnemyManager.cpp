@@ -5,6 +5,7 @@
 #include "Skeleton.h"
 #include "UiManager.h"
 #include "Player.h"
+#include "ProjectileManager.h"
 
 EnemyManager::EnemyManager(Player* player)
 {
@@ -27,10 +28,10 @@ void EnemyManager::resolveProjectileCollisions(const std::vector<BaseProjectile*
     }
 }
 
-// void EnemyManager::addSkeleton(Player* player, UIManager& _UIManager, float x, float y)
-// {
-//     //enemies.push_back(new Skeleton(x, y, player, _UIManager, ));
-// }
+void EnemyManager::addSkeleton(float x, float y, UiManager* uiManager, ProjectileManager* projectileManager)
+{
+    enemies.push_back(new Skeleton(x, y, uiManager, projectileManager, this, player));
+}
 
 void EnemyManager::updateEnemies(float dt)
 {
