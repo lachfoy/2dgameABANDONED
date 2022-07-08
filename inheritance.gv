@@ -2,11 +2,12 @@ digraph inheritance {
     node [shape=box fontname="Helvetica,Arial,sans-serif"]
     edge [dir=back arrowtail=empty]
 
-    BaseObject->{Player, BaseEnemy, BaseProjectile}
+    BaseObject->{BaseDamageable, BaseProjectile}
+    BaseDamageable->{Player, BaseEnemy}
     BaseProjectile->{Fireball, FireballExplosion}
     BaseEnemy->Skeleton
 
-    BaseUIObject->HealthBar
+    BaseUiObject->HealthBar
 }
 
 // use `dot -Tpng -O inheritance.gv` to generate a .png
