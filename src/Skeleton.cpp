@@ -3,14 +3,14 @@
 #include "AABB.h"
 #include "Player.h"
 #include "HealthBar.h"
-#include "UIManager.h"
+#include "UiManager.h"
 #include "EnemyManager.h"
 
-Skeleton::Skeleton(Player* player, UIManager& _UIManager, float x, float y)
-    : BaseEnemy(_UIManager, x, y)
+Skeleton::Skeleton(float x, float y, UiManager* uiManager, ProjectileManager* projectileManager, EnemyManager* enemyManager, Player* player)
+    : BaseEnemy(x, y, uiManager, projectileManager, enemyManager, player)
 {
     // initialize everything
-    this->player = player;
+    name = "Skeleton";
     
     maxHealth = 80;
     health = maxHealth;
@@ -18,18 +18,13 @@ Skeleton::Skeleton(Player* player, UIManager& _UIManager, float x, float y)
     immuneTime = 0.1f; // how many seconds of iframes
     immuneTimer = immuneTime;
 
-    moveSpeed = 30.0f; // slowww
+    moveSpeed = 60.0f; // slowww
 
     damage = 6;
 
     thinking = true;
     thinkingTime = 1.0f;
     thinkingTimer = thinkingTime;
-}
-
-void Skeleton::onDestroy(EnemyManager& enemyManager)
-{
-    printf("Executing Skeleton::onDestroy\n");
 }
 
 void Skeleton::updateAI(float dt)
@@ -53,10 +48,10 @@ void Skeleton::render(SDL_Renderer* renderer)
 {
     // create rect representing the enemy
     SDL_Rect enemy_rect;
-    enemy_rect.x = (int)pos.x - (enemyW / 2);
-    enemy_rect.y = (int)pos.y - enemyH;
-    enemy_rect.w = enemyW;
-    enemy_rect.h = enemyH;
+    enemy_rect.x = (int)pos.x - (width / 2);
+    enemy_rect.y = (int)pos.y - height;
+    enemy_rect.w = width;
+    enemy_rect.h = height;
     
     // set draw color
     SDL_Color enemy_color = { 0xb1, 0xb1, 0xb1, 0xff }; // grey

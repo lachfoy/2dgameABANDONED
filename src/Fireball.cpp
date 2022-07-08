@@ -2,9 +2,10 @@
 
 #include "ProjectileManager.h"
 
-Fireball::Fireball(float x, float y, int velX, int velY)
-    : BaseProjectile(x, y, velX, velY)
-{   
+Fireball::Fireball(float x, float y, int velX, int velY, ProjectileManager* projectileManager)
+    : BaseProjectile(x, y, velX, velY, projectileManager)
+{
+    name = "Fireball";
     colliderRadius = 24;
     moveSpeed = 220.0f;
     damage = 11;
@@ -13,14 +14,7 @@ Fireball::Fireball(float x, float y, int velX, int velY)
 
 Fireball::~Fireball()
 {
-    // Fireball should spawn a 'FireballExplosion' when it is destroyed
-    //projectileManager->addProjectile(new FireballExplosion(pos.x, pos.y));
-}
-
-inline void Fireball::onDestroy(ProjectileManager& projectileManager)
-{
-    printf("Executing Fireball::onDestroy\n");
-    projectileManager.addFireballExplosion(pos.x, pos.y);
+    projectileManager->addFireballExplosion(pos.x, pos.y);
 }
 
 void Fireball::render(SDL_Renderer* renderer)

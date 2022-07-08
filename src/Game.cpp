@@ -5,18 +5,19 @@
 #include "HealthBar.h"
 #include "ProjectileManager.h"
 #include "EnemyManager.h"
-#include "UIManager.h"
+#include "UiManager.h"
 
 Game::Game() {}
 
 void Game::onCreate()
 {
-    _UIManager = new UIManager();
-    player = new Player(*_UIManager, 100.0f, 200.0f);
+    uiManager = new UiManager();
     projectileManager = new ProjectileManager();
-    enemyManager = new EnemyManager();
-    test_collider = new AABB(300.0f, 200.0f, 200.0f, 100.0f);
-    enemyManager->addSkeleton(player, *_UIManager, 400.0f, 300.0f);
+
+    player = new Player(100.0f, 200.0f, uiManager, projectileManager);
+    
+    enemyManager = new EnemyManager(player);
+    enemyManager->addSkeleton(400.0f, 300.0f, uiManager, projectileManager, player);
 }
 
 void Game::onCleanup()
@@ -24,7 +25,7 @@ void Game::onCleanup()
     delete player;
     delete projectileManager;
     delete enemyManager;
-    delete _UIManager;
+    delete uiManager;
 }
 
 void Game::onUpdate(float dt)
@@ -55,5 +56,5 @@ void Game::onRender()
     projectileManager->renderProjectiles(renderer);
 
     // render UI objects
-    _UIManager->renderUIObjects(renderer);
+    uiManager->renderUiObjects(renderer);
 }

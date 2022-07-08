@@ -11,17 +11,13 @@ class ProjectileManager;
 class BaseProjectile : public BaseObject
 {
 public:
-    BaseProjectile(float x, float y, int velX, int velY);
+    BaseProjectile(float x, float y, int velX, int velY, ProjectileManager* projectileManager);
     virtual ~BaseProjectile(); // must be virtual so that derived projectiles have the option of adding more functionality to destruction
 
     inline AABB getCollider() const { return *collider; }
     inline int getDamage() const { return damage; }
     
-    // if derived projectiles need to access the manager onDestroy then they can implement this.
-    virtual void onDestroy(ProjectileManager& projectileManager) = 0;
-
     virtual void update(float dt); // derived projectiles can override update ONLY if they need to
-    virtual void render(SDL_Renderer* renderer) = 0; // derived projectiles MUST provide an implementation for renderering
 
 private:
     enum // defaults
@@ -33,11 +29,14 @@ private:
     };
 
 protected: // things the derived projectiles can change
+    int velX = 0; // normalized x velocity
+    int velY = 0; // normalized y velocity
+    ProjectileManager* projectileManager;
     AABB* collider;
-    int damage; // TODO: pack damage information into a struct so i can have different damage types?
-    float moveSpeed;
-    int colliderRadius; // assume all projectiles have uniform width and height even though they are actually rectangles
-    float lifeTime;
+    int damage = DEFAULT_DAMAGE;
+    float moveSpeed = (float)DEFAULT_MOVESPEED;
+    int colliderRadius = DEFAULT_COLLIDER_RADIUS; // assume all projectiles have uniform width and height even though they are actually rectangles
+    float lifeTime = (float)DEFAULT_LIFETIME;
 };
 
 #endif

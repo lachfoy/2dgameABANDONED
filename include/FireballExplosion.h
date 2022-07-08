@@ -8,10 +8,8 @@ class ProjectileManager;
 class FireballExplosion : public BaseProjectile
 {
 public:
-    FireballExplosion(float x, float y);
+    FireballExplosion(float x, float y, ProjectileManager* projectileManager);
     ~FireballExplosion() {}
-
-    inline void onDestroy(ProjectileManager& projectileManager) override {}
 
     void render(SDL_Renderer* renderer) override;
 };

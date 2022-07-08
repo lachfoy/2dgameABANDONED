@@ -3,8 +3,14 @@
 #include "BaseEnemy.h"
 #include "BaseProjectile.h"
 #include "Skeleton.h"
-#include "UIManager.h"
+#include "UiManager.h"
 #include "Player.h"
+#include "ProjectileManager.h"
+
+EnemyManager::EnemyManager(Player* player)
+{
+    //this->player = player;
+}
 
 // tests collision against a list of projectiles and deals appropriate damage
 void EnemyManager::resolveProjectileCollisions(const std::vector<BaseProjectile*>& projectiles)
@@ -22,9 +28,9 @@ void EnemyManager::resolveProjectileCollisions(const std::vector<BaseProjectile*
     }
 }
 
-void EnemyManager::addSkeleton(Player* player, UIManager& _UIManager, float x, float y)
+void EnemyManager::addSkeleton(float x, float y, UiManager* uiManager, ProjectileManager* projectileManager, Player* player)
 {
-    enemies.push_back(new Skeleton(player, _UIManager, x, y));
+    enemies.push_back(new Skeleton(x, y, uiManager, projectileManager, this, player));
 }
 
 void EnemyManager::updateEnemies(float dt)
@@ -32,10 +38,12 @@ void EnemyManager::updateEnemies(float dt)
     // update all the enemies
     for (int i = 0; i < enemies.size(); i++)
     {
-        enemies[i]->update(dt);
+        enemies[i]->updateHealth(dt);
+        enemies[i]->updateAI(dt);
+        enemies[i]->updatePosition(dt);
+        
         if (enemies[i]->removeable)
         {
-            enemies[i]->onDestroy(*this);
             delete enemies[i];
             enemies.erase(enemies.begin() + i); // delete if remove flag is set
         }

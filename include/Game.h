@@ -8,11 +8,9 @@
 #include "Engine.h"
 
 class Player;
-class AABB;
-class EnemyManager;
 class ProjectileManager;
-class HealthBar;
-class UIManager;
+class EnemyManager;
+class UiManager;
 
 class Game : public Engine
 {
@@ -21,11 +19,9 @@ public:
 
 private:
     Player* player;
-    AABB* test_collider;
-
     ProjectileManager* projectileManager;
     EnemyManager* enemyManager;
-    UIManager* _UIManager;
+    UiManager* uiManager;
 
     void onCreate();
     void onCleanup();
