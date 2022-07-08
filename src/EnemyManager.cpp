@@ -12,6 +12,13 @@ EnemyManager::EnemyManager(Player* player)
     //this->player = player;
 }
 
+EnemyManager::~EnemyManager()
+{
+    // delete all the pointers and clear the enemies vector
+    for (int i = 0; i < enemies.size(); i++) delete enemies[i];
+    enemies.clear();
+}
+
 // tests collision against a list of projectiles and deals appropriate damage
 void EnemyManager::resolveProjectileCollisions(const std::vector<BaseProjectile*>& projectiles)
 {
@@ -38,9 +45,10 @@ void EnemyManager::updateEnemies(float dt)
     // update all the enemies
     for (int i = 0; i < enemies.size(); i++)
     {
-        enemies[i]->updateHealth(dt);
+        enemies[i]->updateImmuneTimer(dt);
         enemies[i]->updateAI(dt);
         enemies[i]->updatePosition(dt);
+        enemies[i]->updateHealthBarPosition();
         
         if (enemies[i]->removeable)
         {

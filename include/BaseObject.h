@@ -5,14 +5,13 @@
 
 #include <SDL2/SDL.h>
 
-#include "Point2f.h"
-
 class BaseObject
 {
 public:
-    BaseObject(float x, float y) { pos.x = x; pos.y = y; }
+    BaseObject(float x, float y) { posX = x; posY = y; }
 
-    Point2f pos;
+    float posX;
+    float posY;
     bool removeable = false;
 
     virtual void render(SDL_Renderer* renderer) = 0;

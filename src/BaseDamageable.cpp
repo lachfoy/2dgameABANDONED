@@ -10,7 +10,7 @@ BaseDamageable::BaseDamageable(float x, float y, UiManager* uiManager, Projectil
     this->uiManager = uiManager;
     this->projectileManager = projectileManager;
 
-    collider = new AABB(pos.x, pos.y, colliderW, colliderH);
+    collider = new AABB(posX, posY, colliderW, colliderH);
 
     healthBar = new HealthBar();
     uiManager->addUiObject(healthBar);
@@ -35,7 +35,7 @@ void BaseDamageable::doDamage(int damage)
     }
 }
 
-void BaseDamageable::updateHealth(float dt)
+void BaseDamageable::updateImmuneTimer(float dt)
 {
     if (health <= 0) { printf("%s is dead\n", name.c_str()); removeable = true; }
     else
@@ -53,8 +53,8 @@ void BaseDamageable::updateHealth(float dt)
 void BaseDamageable::updatePosition(float dt)
 {
     // update the internal position
-    pos.x += velX * moveSpeed * dt;
-    pos.y += velY * moveSpeed * dt;
+    posX += velX * moveSpeed * dt;
+    posY += velY * moveSpeed * dt;
 
     // reset velocity
     velX = 0;
@@ -62,8 +62,8 @@ void BaseDamageable::updatePosition(float dt)
 
     // move the collider as well
     // note: origin for NPCs/players is always bottom center
-    collider->upperBound.x = pos.x - (colliderW / 2);
-    collider->upperBound.y = pos.y - (colliderH / 2) - (height / 2);
-    collider->lowerBound.x = pos.x + (colliderW / 2);
-    collider->lowerBound.y = pos.y + (colliderH / 2) - (height / 2);
+    collider->upperBound[0] = posX - (colliderW / 2);
+    collider->upperBound[1] = posY - (colliderH / 2) - (height / 2);
+    collider->lowerBound[0] = posX + (colliderW / 2);
+    collider->lowerBound[1] = posY + (colliderH / 2) - (height / 2);
 }

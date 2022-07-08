@@ -16,7 +16,7 @@ class EnemyManager
 {
 public:
     EnemyManager(Player* player);
-    ~EnemyManager() { enemies.clear(); }
+    ~EnemyManager();
 
     std::vector<BaseEnemy*> getEnemies() const { return enemies; }
     

@@ -8,7 +8,7 @@ BaseProjectile::BaseProjectile(float x, float y, int velX, int velY, ProjectileM
 
     this->projectileManager = projectileManager;
     
-    collider = new AABB(pos.x, pos.y, colliderRadius, colliderRadius);
+    collider = new AABB(posX, posY, colliderRadius, colliderRadius);
 }
 
 BaseProjectile::~BaseProjectile()
@@ -22,14 +22,14 @@ void BaseProjectile::updatePosition(float dt)
     if (lifeTime <= 0.0f) removeable = true;
     {
         // update the internal position
-        pos.x += velX * moveSpeed * dt;
-        pos.y += velY * moveSpeed * dt;
+        posX += velX * moveSpeed * dt;
+        posY += velY * moveSpeed * dt;
 
         // move the collider as well
-        collider->upperBound.x = pos.x - (colliderRadius / 2);
-        collider->upperBound.y = pos.y - (colliderRadius / 2);
-        collider->lowerBound.x = pos.x + (colliderRadius / 2);
-        collider->lowerBound.y = pos.y + (colliderRadius / 2);
+        collider->upperBound[0] = posX - (colliderRadius / 2);
+        collider->upperBound[1] = posY - (colliderRadius / 2);
+        collider->lowerBound[0] = posX + (colliderRadius / 2);
+        collider->lowerBound[1] = posY + (colliderRadius / 2);
 
         lifeTime -= dt;
     }

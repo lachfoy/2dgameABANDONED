@@ -3,38 +3,36 @@
 
 #include <SDL2/SDL.h>
 
-#include "Point2f.h"
-
 //simple aabb AABB
 struct AABB
 {
     AABB() {}
     inline AABB(float x, float y, float w, float h);
 
-    Point2f upperBound;
-    Point2f lowerBound;
+    float upperBound[2];
+    float lowerBound[2];
 
     static inline bool testOverlap(const AABB& a, const AABB& b); // intersecting?
-    inline void debugRender(SDL_Renderer* renderer, const bool& colliding = false);
-    inline void move(float x, float y);
+    inline void debugRender(SDL_Renderer* renderer);
+    inline void move(float x, float y); // not used
 };
 
 AABB::AABB(float x, float y, float w, float h)
 {
-    upperBound.x = x;
-    upperBound.y = y;
-    lowerBound.x = x + w;
-    lowerBound.y = y + h;
+    upperBound[0] = x;
+    upperBound[1] = y;
+    lowerBound[0] = x + w;
+    lowerBound[1] = y + h;
 }
 
 // for collision response we will need to return a manifest with more information
 bool AABB::testOverlap(const AABB& a, const AABB& b)
 {
     float  d1X, d1Y, d2X, d2Y;
-    d1X = b.upperBound.x - a.lowerBound.x;
-    d1Y = b.upperBound.y - a.lowerBound.y;
-    d2X = a.upperBound.x - b.lowerBound.x;
-    d2Y = a.upperBound.y - b.lowerBound.y;
+    d1X = b.upperBound[0] - a.lowerBound[0];
+    d1Y = b.upperBound[1] - a.lowerBound[1];
+    d2X = a.upperBound[0] - b.lowerBound[0];
+    d2Y = a.upperBound[1] - b.lowerBound[1];
   
     if (d1X > 0.0f || d1Y > 0.0f)
         return false;
@@ -45,20 +43,16 @@ bool AABB::testOverlap(const AABB& a, const AABB& b)
     return true;
 }
 
-void AABB::debugRender(SDL_Renderer* renderer, const bool& colliding)
+void AABB::debugRender(SDL_Renderer* renderer)
 {
     // draw a rect representing the collider
     SDL_Rect collider_rect;
-    collider_rect.x = (int)upperBound.x;
-    collider_rect.y = (int)upperBound.y;
-    collider_rect.w = (int)(lowerBound.x - upperBound.x);
-    collider_rect.h = (int)(lowerBound.y - upperBound.y);
+    collider_rect.x = (int)upperBound[0];
+    collider_rect.y = (int)upperBound[1];
+    collider_rect.w = (int)(lowerBound[0] - upperBound[0]);
+    collider_rect.h = (int)(lowerBound[1] - upperBound[1]);
 
-    if (colliding)
-        SDL_SetRenderDrawColor(renderer, 0xff, 0xff, 0x00, 0xff); // yellow
-    else
-        SDL_SetRenderDrawColor(renderer, 0xff, 0x00, 0x00, 0xff); // red
-
+    SDL_SetRenderDrawColor(renderer, 0xff, 0x00, 0x00, 0xff); // red
     SDL_RenderDrawRect(renderer, &collider_rect);
 }
 
@@ -66,10 +60,10 @@ void AABB::debugRender(SDL_Renderer* renderer, const bool& colliding)
 void AABB::move(float x, float y)
 {
     // move the collider as well
-    upperBound.x = x;
-    upperBound.y = y;
-    lowerBound.x = x + (lowerBound.x - upperBound.x);
-    lowerBound.y = y + (lowerBound.y - upperBound.y);
+    upperBound[0] = x;
+    upperBound[1] = y;
+    lowerBound[0] = x + (lowerBound[0] - upperBound[0]);
+    lowerBound[1] = y + (lowerBound[1] - upperBound[1]);
 }
 
 #endif

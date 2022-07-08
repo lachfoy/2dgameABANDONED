@@ -20,6 +20,7 @@ public:
     
     // derived enemies can add any AI functionality if they wish
     virtual void updateAI(float dt) = 0;
+    void updateHealthBarPosition();
 
 protected:
     EnemyManager* enemyManager;

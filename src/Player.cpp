@@ -54,7 +54,7 @@ void Player::handleInput(InputManager& inputManager)
         velX = 1;
     if (inputManager.keyDown(SDL_SCANCODE_SPACE) | inputManager.keyDown(SDL_SCANCODE_Z))
     {
-        projectileManager->addFireball(pos.x, pos.y - (height / 2), 1, 0);
+        projectileManager->addFireball(posX, posY - (height / 2), 1, 0);
     }
     if (inputManager.keyDown(SDL_SCANCODE_K))
     {
@@ -64,7 +64,7 @@ void Player::handleInput(InputManager& inputManager)
 
 void Player::update(float dt)
 {
-    updateHealth(dt);
+    updateImmuneTimer(dt);
     updatePosition(dt);
 }
 
@@ -72,13 +72,15 @@ void Player::render(SDL_Renderer* renderer)
 {
     // create rect to represent the player
     SDL_Rect player_rect;
-    player_rect.x = (int)pos.x - (width / 2);
-    player_rect.y = (int)pos.y - height;
+    player_rect.x = (int)posX - (width / 2);
+    player_rect.y = (int)posY - height;
     player_rect.w = width;
     player_rect.h = height;
 
     // set draw color
     SDL_Color player_color = { 0x29, 0x65, 0xff, 0xff }; // #2965ff blue
+
+    // set alpha depending on damageable status
     if (!damageable)
     {
         player_color.a = 0x65;
@@ -90,15 +92,15 @@ void Player::render(SDL_Renderer* renderer)
     SDL_SetRenderDrawColor(renderer, player_color.r, player_color.g, player_color.b, player_color.a);
     SDL_RenderFillRect(renderer, &player_rect);
 
-    // draw collider
-    collider->debugRender(renderer);
-
     // draw the origin position representing the actual x and y positions
     SDL_Rect debug_point_pos;
     debug_point_pos.w = 4;
     debug_point_pos.h = 4;
-    debug_point_pos.x = (int)pos.x - (debug_point_pos.w / 2);
-    debug_point_pos.y = (int)pos.y - (debug_point_pos.h / 2);
+    debug_point_pos.x = (int)posX - (debug_point_pos.w / 2);
+    debug_point_pos.y = (int)posY - (debug_point_pos.h / 2);
     SDL_SetRenderDrawColor(renderer, 0xeb, 0xd5, 0x17, 0xff); // #ebd517 yellow
     SDL_RenderFillRect(renderer, &debug_point_pos);
+
+    // draw collider
+    collider->debugRender(renderer);
 }

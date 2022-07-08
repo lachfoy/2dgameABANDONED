@@ -36,31 +36,33 @@ Skeleton::Skeleton(float x, float y, UiManager* uiManager, ProjectileManager* pr
 void Skeleton::updateAI(float dt)
 {
     // do thinking. this is really messy :/
-    if (thinking) thinkingTimer -= dt;
-    if (thinkingTimer <= 0.0f)
-    {
-        thinking = false;
+    // if (thinking) thinkingTimer -= dt;
+    // if (thinkingTimer <= 0.0f)
+    // {
+    //     thinking = false;
 
-        if (player->pos.x > pos.x) velX = 1;
-        else velX = -1;
-        printf("Skeleton had a thought...\n");
+    //     if (player->posX > posX) velX = 1;
+    //     else velX = -1;
+    //     printf("Skeleton had a thought...\n");
 
-        thinkingTimer = thinkingTime;  // reset to the starting value
-        thinking = true;
-    }
+    //     thinkingTimer = thinkingTime;  // reset to the starting value
+    //     thinking = true;
+    // }
 }
 
 void Skeleton::render(SDL_Renderer* renderer)
 {
     // create rect representing the enemy
     SDL_Rect enemy_rect;
-    enemy_rect.x = (int)pos.x - (width / 2);
-    enemy_rect.y = (int)pos.y - height;
+    enemy_rect.x = (int)posX - (width / 2);
+    enemy_rect.y = (int)posY - height;
     enemy_rect.w = width;
     enemy_rect.h = height;
     
     // set draw color
     SDL_Color enemy_color = { 0xb1, 0xb1, 0xb1, 0xff }; // grey
+
+    // set alpha depending on damageable status
     if (!damageable)
     {
         enemy_color.a = 0x65;
@@ -72,15 +74,15 @@ void Skeleton::render(SDL_Renderer* renderer)
     SDL_SetRenderDrawColor(renderer, enemy_color.r, enemy_color.g, enemy_color.b, enemy_color.a);
     SDL_RenderFillRect(renderer, &enemy_rect);
 
-    // draw collider
-    collider->debugRender(renderer);
-
     // draw the origin position representing the actual x and y positions
     SDL_Rect debug_point_pos;
     debug_point_pos.w = 4;
     debug_point_pos.h = 4;
-    debug_point_pos.x = (int)pos.x - (debug_point_pos.w / 2);
-    debug_point_pos.y = (int)pos.y - (debug_point_pos.h / 2);
+    debug_point_pos.x = (int)posX - (debug_point_pos.w / 2);
+    debug_point_pos.y = (int)posY - (debug_point_pos.h / 2);
     SDL_SetRenderDrawColor(renderer, 0xeb, 0xd5, 0x17, 0xff); // #ebd517 yellow
     SDL_RenderFillRect(renderer, &debug_point_pos);
+
+    // draw collider
+    collider->debugRender(renderer);
 }

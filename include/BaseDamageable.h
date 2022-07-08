@@ -23,7 +23,7 @@ public:
     AABB getCollider() const { return *collider; }
 
     void doDamage(int damage);
-    void updateHealth(float dt);
+    void updateImmuneTimer(float dt);
     void updatePosition(float dt);
 
 protected:

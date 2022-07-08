@@ -9,7 +9,7 @@
 class HealthBar : public BaseUiObject
 {
 public:
-    inline HealthBar(int x = 0, int y = 0, int length = DEFAULT_LENGTH, int height = DEFAULT_HEIGHT);
+    inline HealthBar(int x = 20, int y = 20, int length = 400, int height = 16);
 
     bool removeable = false;
 
@@ -22,6 +22,8 @@ public:
     // take a current health and a max health and update the UI rects
     inline void updateHealth(const int& health, const int& maxHealth);
 
+    void updatePosition() override {} // this should be called 
+
     inline void render(SDL_Renderer* renderer) override;
 
 private:
@@ -29,12 +31,6 @@ private:
     int height;
     SDL_Rect bg_rect;
     SDL_Rect health_rect;
-
-    enum
-    {
-        DEFAULT_LENGTH = 400,
-        DEFAULT_HEIGHT = 16
-    };
 
 };
 
