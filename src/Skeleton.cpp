@@ -10,8 +10,6 @@ Skeleton::Skeleton(float x, float y, UiManager* uiManager, ProjectileManager* pr
     : BaseEnemy(x, y, uiManager, projectileManager, enemyManager, player)
 {
     // initialize everything
-    //this->player = player;
-
     name = "Skeleton";
     
     maxHealth = 80;
@@ -20,7 +18,7 @@ Skeleton::Skeleton(float x, float y, UiManager* uiManager, ProjectileManager* pr
     immuneTime = 0.1f; // how many seconds of iframes
     immuneTimer = immuneTime;
 
-    moveSpeed = 30.0f; // slowww
+    moveSpeed = 60.0f; // slowww
 
     damage = 6;
 
@@ -29,31 +27,31 @@ Skeleton::Skeleton(float x, float y, UiManager* uiManager, ProjectileManager* pr
     thinkingTimer = thinkingTime;
 }
 
-// void Skeleton::updateAI(float dt)
-// {
-//     // do thinking. this is really messy :/
-//     if (thinking) thinkingTimer -= dt;
-//     if (thinkingTimer <= 0.0f)
-//     {
-//         thinking = false;
+void Skeleton::updateAI(float dt)
+{
+    // do thinking. this is really messy :/
+    if (thinking) thinkingTimer -= dt;
+    if (thinkingTimer <= 0.0f)
+    {
+        thinking = false;
 
-//         if (player->pos.x > pos.x) velX = 1;
-//         else velX = -1;
-//         printf("Skeleton had a thought...\n");
+        if (player->pos.x > pos.x) velX = 1;
+        else velX = -1;
+        printf("Skeleton had a thought...\n");
 
-//         thinkingTimer = thinkingTime;  // reset to the starting value
-//         thinking = true;
-//     }
-// }
+        thinkingTimer = thinkingTime;  // reset to the starting value
+        thinking = true;
+    }
+}
 
 void Skeleton::render(SDL_Renderer* renderer)
 {
     // create rect representing the enemy
     SDL_Rect enemy_rect;
-    enemy_rect.x = (int)pos.x - (enemyW / 2);
-    enemy_rect.y = (int)pos.y - enemyH;
-    enemy_rect.w = enemyW;
-    enemy_rect.h = enemyH;
+    enemy_rect.x = (int)pos.x - (width / 2);
+    enemy_rect.y = (int)pos.y - height;
+    enemy_rect.w = width;
+    enemy_rect.h = height;
     
     // set draw color
     SDL_Color enemy_color = { 0xb1, 0xb1, 0xb1, 0xff }; // grey

@@ -9,14 +9,12 @@ class Skeleton : public BaseEnemy
 {
 public:
     Skeleton(float x, float y, UiManager* uiManager, ProjectileManager* projectileManager, EnemyManager* enemyManager, Player* player);
-    ~Skeleton() {}
+    ~Skeleton() override {}
 
-    void updateAI(float dt) override {};
-
+    void updateAI(float dt) override;
     void render(SDL_Renderer* renderer) override;
 
 private:
-    //Player* player;
     bool thinking;
     float thinkingTime;
     float thinkingTimer;

@@ -24,22 +24,11 @@ public:
 
     void resolveEnemyCollisions(const std::vector<BaseEnemy*>& enemies);
 
-    void update(float dt) override;
+    void update(float dt);
     void render(SDL_Renderer* renderer) override;
 
 private:
-    enum
-    {
-        DEFAULT_W = 30,
-        DEFAULT_H = 60,
-        DEFAULT_MOVE_SPEED = 100
-    };
 
-    int velX = 0; // normalized x velocity
-    int velY = 0; // normalized y velocity
-    int playerW;
-    int playerH;
-    float moveSpeed;
 };
 
 #endif

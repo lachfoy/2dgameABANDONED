@@ -24,31 +24,39 @@ public:
 
     void doDamage(int damage);
     void updateHealth(float dt);
-
-    virtual void update(float dt) = 0; // implement by derived class
+    void updatePosition(float dt);
 
 private:
     enum
     {
+        DEFAULT_W = 30,
+        DEFAULT_H = 60,
         DEFAULT_COLLIDER_W = 50,
         DEFAULT_COLLIDER_H = 50,
         DEFAULT_MAX_HEALTH = 100,
-        DEFAULT_IMMUNE_TIME = 1 // float
+        DEFAULT_IMMUNE_TIME = 1, // float
+        DEFAULT_MOVE_SPEED = 100 // float
     };
 
 protected:
     UiManager* uiManager;
     ProjectileManager* projectileManager;
 
-    int colliderW;
-    int colliderH;
+    int velX = 0;
+    int velY = 0;
+
+    int width = DEFAULT_W;
+    int height = DEFAULT_H;
+    int colliderW = DEFAULT_COLLIDER_W;
+    int colliderH = DEFAULT_COLLIDER_H;
     AABB* collider;
-    int maxHealth;
-    int health;
+    int maxHealth = DEFAULT_MAX_HEALTH;
+    int health = DEFAULT_MAX_HEALTH;
     HealthBar* healthBar;
-    bool damageable; // if not damageable then they are taking damage
-    float immuneTimer;
-    float immuneTime; // how many iframes (in seconds though)
+    bool damageable = true; // if not damageable then they are taking damage
+    float immuneTime = (float)DEFAULT_IMMUNE_TIME; // how many iframes (in seconds though)
+    float immuneTimer = (float)DEFAULT_IMMUNE_TIME;
+    float moveSpeed = (float)DEFAULT_MOVE_SPEED;
 };
 
 #endif

@@ -9,7 +9,7 @@
 
 EnemyManager::EnemyManager(Player* player)
 {
-    this->player = player;
+    //this->player = player;
 }
 
 // tests collision against a list of projectiles and deals appropriate damage
@@ -28,7 +28,7 @@ void EnemyManager::resolveProjectileCollisions(const std::vector<BaseProjectile*
     }
 }
 
-void EnemyManager::addSkeleton(float x, float y, UiManager* uiManager, ProjectileManager* projectileManager)
+void EnemyManager::addSkeleton(float x, float y, UiManager* uiManager, ProjectileManager* projectileManager, Player* player)
 {
     enemies.push_back(new Skeleton(x, y, uiManager, projectileManager, this, player));
 }
@@ -38,7 +38,10 @@ void EnemyManager::updateEnemies(float dt)
     // update all the enemies
     for (int i = 0; i < enemies.size(); i++)
     {
-        enemies[i]->update(dt);
+        enemies[i]->updateHealth(dt);
+        enemies[i]->updateAI(dt);
+        enemies[i]->updatePosition(dt);
+        
         if (enemies[i]->removeable)
         {
             delete enemies[i];

@@ -4,6 +4,7 @@
 #include "HealthBar.h"
 #include "InputManager.h"
 #include "ProjectileManager.h"
+#include "BaseEnemy.h"
 
 Player::Player(float x, float y, UiManager* uiManager, ProjectileManager* projectileManager)
     : BaseDamageable(x, y, uiManager, projectileManager)
@@ -11,26 +12,29 @@ Player::Player(float x, float y, UiManager* uiManager, ProjectileManager* projec
     // initialize everything
     name = "Player";
 
-    playerW = DEFAULT_W;
-    playerH = DEFAULT_H;
-    
-    moveSpeed = (float)DEFAULT_MOVE_SPEED;
+    maxHealth = 80;
+    health = maxHealth;
+
+    immuneTime = 0.1f; // how many seconds of iframes
+    immuneTimer = immuneTime;
+
+    moveSpeed = 100.0f; // slowww
 }
 
 Player::~Player()
 {
 }
 
-// void Player::resolveEnemyCollisions(const std::vector<BaseEnemy*>& enemies)
-// {
-//     for (int i = 0; i < enemies.size(); i++)
-//     {
-//         if (AABB::testOverlap(enemies[i]->getCollider(), *collider))
-//         {
-//             doDamage(enemies[i]->getDamage());
-//         }
-//     }
-// }
+void Player::resolveEnemyCollisions(const std::vector<BaseEnemy*>& enemies)
+{
+    for (int i = 0; i < enemies.size(); i++)
+    {
+        if (AABB::testOverlap(enemies[i]->getCollider(), *collider))
+        {
+            doDamage(enemies[i]->getDamage());
+        }
+    }
+}
 
 void Player::handleInput(InputManager& inputManager)
 {
@@ -44,40 +48,28 @@ void Player::handleInput(InputManager& inputManager)
         velX = 1;
     if (inputManager.keyDown(SDL_SCANCODE_SPACE) | inputManager.keyDown(SDL_SCANCODE_Z))
     {
-        projectileManager->addFireball(pos.x, pos.y - (playerH / 2), 1, 0);
+        projectileManager->addFireball(pos.x, pos.y - (height / 2), 1, 0);
     }
     if (inputManager.keyDown(SDL_SCANCODE_K))
     {
-        doDamage(1);
+        doDamage(10);
     }
 }
 
 void Player::update(float dt)
 {
     updateHealth(dt);
-
-    // update the internal position
-    pos.x += velX * moveSpeed * dt;
-    pos.y += velY * moveSpeed * dt;
-
-    velX = 0;
-    velY = 0;
-
-    // move the collider as well
-    collider->upperBound.x = pos.x - (colliderW / 2);
-    collider->upperBound.y = pos.y - (colliderH / 2) - (playerH / 2);
-    collider->lowerBound.x = pos.x + (colliderW / 2);
-    collider->lowerBound.y = pos.y + (colliderH / 2) - (playerH / 2);
+    updatePosition(dt);
 }
 
 void Player::render(SDL_Renderer* renderer)
 {
     // create rect to represent the player
     SDL_Rect player_rect;
-    player_rect.x = (int)pos.x - (playerW / 2);
-    player_rect.y = (int)pos.y - playerH;
-    player_rect.w = playerW;
-    player_rect.h = playerH;
+    player_rect.x = (int)pos.x - (width / 2);
+    player_rect.y = (int)pos.y - height;
+    player_rect.w = width;
+    player_rect.h = height;
 
     // set draw color
     SDL_Color player_color = { 0x29, 0x65, 0xff, 0xff }; // #2965ff blue

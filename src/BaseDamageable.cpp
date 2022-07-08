@@ -10,19 +10,10 @@ BaseDamageable::BaseDamageable(float x, float y, UiManager* uiManager, Projectil
     this->uiManager = uiManager;
     this->projectileManager = projectileManager;
 
-    colliderW = DEFAULT_COLLIDER_W;
-    colliderH = DEFAULT_COLLIDER_H;
     collider = new AABB(pos.x, pos.y, colliderW, colliderH);
-
-    maxHealth = DEFAULT_MAX_HEALTH;
-    health = maxHealth;
 
     healthBar = new HealthBar();
     uiManager->addUiObject(healthBar);
-
-    damageable = true;
-    immuneTime = 0.2f; // how many seconds of iframes
-    immuneTimer = immuneTime;
 }
 
 BaseDamageable::~BaseDamageable()
@@ -57,4 +48,22 @@ void BaseDamageable::updateHealth(float dt)
             damageable = true;
         }
     }
+}
+
+void BaseDamageable::updatePosition(float dt)
+{
+    // update the internal position
+    pos.x += velX * moveSpeed * dt;
+    pos.y += velY * moveSpeed * dt;
+
+    // reset velocity
+    velX = 0;
+    velY = 0;
+
+    // move the collider as well
+    // note: origin for NPCs/players is always bottom center
+    collider->upperBound.x = pos.x - (colliderW / 2);
+    collider->upperBound.y = pos.y - (colliderH / 2) - (height / 2);
+    collider->lowerBound.x = pos.x + (colliderW / 2);
+    collider->lowerBound.y = pos.y + (colliderH / 2) - (height / 2);
 }
