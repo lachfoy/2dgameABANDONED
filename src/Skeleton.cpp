@@ -28,7 +28,7 @@ Skeleton::Skeleton(float x, float y, UiManager* uiManager, ProjectileManager* pr
     damage = 6;
 
     thinkingTime = 2.0f;
-    thinkingTimer = thinkingTime;
+    thinkingTimer = (float)((rand() % 2) + 1);
 }
 
 void Skeleton::updateAI(float dt)

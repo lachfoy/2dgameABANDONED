@@ -57,6 +57,8 @@ void Engine::cleanup()
 
 void Engine::run()
 {
+    srand((unsigned) time(0)); // initialize prng
+
     onCreate(); // call the game create functions
 
     Uint32 start = 0;

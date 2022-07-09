@@ -25,7 +25,7 @@ Player::Player(float x, float y, UiManager* uiManager, ProjectileManager* projec
     health = maxHealth;
     uiManager->addHealthbar(16, 16, 200, 14, this);
 
-    immuneTime = 0.1f; // how many seconds of iframes
+    immuneTime = 0.2f; // how many seconds of iframes
     immuneTimer = immuneTime;
 
     moveSpeed = 100.0f; // slowww
