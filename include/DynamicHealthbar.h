@@ -20,11 +20,17 @@ public:
 
 void DynamicHealthbar::updatePosition()
 {
-    bg_rect.x = damageable->posX - (int)(length / 2);
-    bg_rect.y = damageable->posY - (int)(height / 2);
+    int newX = (int)damageable->posX;
+    int newY = (int)damageable->posY - damageable->getHeight() - height - 2; // newY - objH - healthbarH - some padding value
 
-    health_rect.x = damageable->posX - (int)(length / 2);
-    health_rect.y = damageable->posY - (int)(height / 2);
+    this->x = newX - (int)(length / 2);
+    this->y = newY - (int)(height / 2);
+
+    bg_rect.x = this->x;
+    bg_rect.y = this->y;
+
+    health_rect.x = this->x;
+    health_rect.y = this->y;
 } 
 
 #endif

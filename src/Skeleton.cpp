@@ -23,7 +23,7 @@ Skeleton::Skeleton(float x, float y, UiManager* uiManager, ProjectileManager* pr
     immuneTime = 0.1f; // how many seconds of iframes
     immuneTimer = immuneTime;
 
-    moveSpeed = 60.0f; // slowww
+    moveSpeed = 10.0f; // slowww
 
     damage = 6;
 
@@ -47,6 +47,8 @@ void Skeleton::updateAI(float dt)
     //     thinkingTimer = thinkingTime;  // reset to the starting value
     //     thinking = true;
     // }
+
+    velX = 1;
 }
 
 void Skeleton::render(SDL_Renderer* renderer)

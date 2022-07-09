@@ -48,7 +48,6 @@ void EnemyManager::updateEnemies(float dt)
         enemies[i]->updateImmuneTimer(dt);
         enemies[i]->updateAI(dt);
         enemies[i]->updatePosition(dt);
-        enemies[i]->updateHealthBarPosition();
         
         if (enemies[i]->removeable)
         {

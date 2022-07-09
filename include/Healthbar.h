@@ -35,10 +35,13 @@ protected:
 
 Healthbar::Healthbar(int x, int y, int length, int height, BaseDamageable* damageable)
 {
-    this->damageable = damageable;
+    this->x = x;
+    this->x = y;
 
     this->length = length;
     this->height = height;
+
+    this->damageable = damageable;
 
     bg_rect.x = x;
     bg_rect.y = y;
@@ -52,7 +55,6 @@ Healthbar::Healthbar(int x, int y, int length, int height, BaseDamageable* damag
 }
 
 void Healthbar::setSize(const int& length, const int& height)
-    // if i needed the % to update I could just pass in the health and maxHealth but I don't think its necessary
 {
     this->length = length;
     this->height = height;

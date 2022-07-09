@@ -4,9 +4,6 @@
 #include "BaseObject.h"
 #include "AABB.h"
 
-// create BaseDamagable class and refactor Player and BaseEnemy to inherit from this class.\
-    BaseDamagable should have a concept of having health and resistances, must be able to be damaged,\
-    and must have access to things like the ProjectileManager and UI Manager.
 class BaseDamageable : public BaseObject
 {
 public:
@@ -16,6 +13,8 @@ public:
     // getters
     int getHealth() const { return health; }
     int getMaxHealth() const { return maxHealth; }
+    int getWidth() const { return width; }
+    int getHeight() const { return height; }
     AABB getCollider() const { return *collider; }
 
     void doDamage(int damage);
@@ -25,7 +24,6 @@ public:
 protected:
     int velX = 0;
     int velY = 0;
-
     int width;
     int height;
     int colliderW;
