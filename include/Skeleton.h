@@ -15,7 +15,8 @@ public:
     void render(SDL_Renderer* renderer) override;
 
 private:
-    bool thinking;
+    float targetX;
+    float targetY;
     float thinkingTime;
     float thinkingTimer;
 };

@@ -9,7 +9,7 @@
 
 EnemyManager::EnemyManager(Player* player)
 {
-    //this->player = player;
+    this->player = player;
 }
 
 EnemyManager::~EnemyManager()
@@ -35,7 +35,7 @@ void EnemyManager::resolveProjectileCollisions(const std::vector<BaseProjectile*
     }
 }
 
-void EnemyManager::addSkeleton(float x, float y, UiManager* uiManager, ProjectileManager* projectileManager, Player* player)
+void EnemyManager::addSkeleton(float x, float y, UiManager* uiManager, ProjectileManager* projectileManager)
 {
     enemies.push_back(new Skeleton(x, y, uiManager, projectileManager, this, player));
 }

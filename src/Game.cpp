@@ -20,7 +20,9 @@ void Game::onCreate()
     player = new Player(100.0f, 200.0f, uiManager, projectileManager);
     
     enemyManager = new EnemyManager(player);
-    enemyManager->addSkeleton(400.0f, 300.0f, uiManager, projectileManager, player);
+    enemyManager->addSkeleton(400.0f, 300.0f, uiManager, projectileManager);
+    enemyManager->addSkeleton(600.0f, 400.0f, uiManager, projectileManager);
+    enemyManager->addSkeleton(500.0f, 500.0f, uiManager, projectileManager);
 }
 
 void Game::onCleanup()

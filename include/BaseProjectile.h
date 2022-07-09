@@ -14,8 +14,8 @@ public:
     BaseProjectile(float x, float y, int velX, int velY, ProjectileManager* projectileManager);
     virtual ~BaseProjectile(); // must be virtual so that derived projectiles have the option of adding more functionality to destruction
 
-    inline AABB getCollider() const { return *collider; }
-    inline int getDamage() const { return damage; }
+    AABB getCollider() const { return *collider; }
+    int getDamage() const { return damage; }
     
     virtual void updatePosition(float dt); // derived projectiles can override update ONLY if they need to
 

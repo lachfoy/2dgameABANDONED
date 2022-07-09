@@ -27,28 +27,25 @@ Skeleton::Skeleton(float x, float y, UiManager* uiManager, ProjectileManager* pr
 
     damage = 6;
 
-    thinking = true;
-    thinkingTime = 1.0f;
+    thinkingTime = 2.0f;
     thinkingTimer = thinkingTime;
 }
 
 void Skeleton::updateAI(float dt)
 {
     // do thinking. this is really messy :/
-    // if (thinking) thinkingTimer -= dt;
-    // if (thinkingTimer <= 0.0f)
-    // {
-    //     thinking = false;
+    thinkingTimer -= dt;
+    if (thinkingTimer <= 0.0f)
+    {
+        printf("Skeleton had a thought...\n");
+        targetX = player->posX;
+        targetY = player->posY;
+        
+        thinkingTimer = thinkingTime;  // reset to the starting value
+    }
 
-    //     if (player->posX > posX) velX = 1;
-    //     else velX = -1;
-    //     printf("Skeleton had a thought...\n");
-
-    //     thinkingTimer = thinkingTime;  // reset to the starting value
-    //     thinking = true;
-    // }
-
-    velX = 1;
+    velX = ((targetX - posX) > 0.0f) ? 1 : -1;
+    velY = ((targetY - posY) > 0.0f) ? 1 : -1;
 }
 
 void Skeleton::render(SDL_Renderer* renderer)
