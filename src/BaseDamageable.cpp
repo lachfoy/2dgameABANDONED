@@ -50,8 +50,8 @@ void BaseDamageable::updatePosition(float dt)
 
     // move the collider as well
     // note: origin for NPCs/players is always bottom center
-    collider->upperBound[0] = posX - (colliderW / 2);
-    collider->upperBound[1] = posY - (colliderH / 2) - (height / 2);
-    collider->lowerBound[0] = posX + (colliderW / 2);
-    collider->lowerBound[1] = posY + (colliderH / 2) - (height / 2);
+    collider->upperBoundX = posX - (colliderW / 2);
+    collider->upperBoundY = posY - (colliderH / 2) - (height / 2);
+    collider->lowerBoundX = posX + (colliderW / 2);
+    collider->lowerBoundY = posY + (colliderH / 2) - (height / 2);
 }

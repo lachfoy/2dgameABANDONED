@@ -35,23 +35,19 @@ void Game::onCleanup()
 
 void Game::onUpdate(float dt)
 {
+    // handle input
     player->handleInput(*inputManager);
 
-    // resolve projectile vs enemy collisions
-    enemyManager->resolveProjectileCollisions(projectileManager->getProjectiles());
-
-    // resolve enemy vs player collisions
-    player->resolveEnemyCollisions(enemyManager->getEnemies());
-
-    // update the player
+    // update game objects
     player->update(dt);
-
-    // update enemies
     enemyManager->updateEnemies(dt);
-
-    // update projectiles
     projectileManager->updateProjectiles(dt);
 
+    // collision resolution
+    enemyManager->resolveProjectileCollisions(projectileManager->getProjectiles());
+    player->resolveEnemyCollisions(enemyManager->getEnemies());
+
+    // update ui objects
     uiManager->updateUiObjects(dt);
 }
 
@@ -62,6 +58,6 @@ void Game::onRender()
     player->render(renderer);
     projectileManager->renderProjectiles(renderer);
 
-    // render UI objects
+    // render ui objects
     uiManager->renderUiObjects(renderer);
 }
