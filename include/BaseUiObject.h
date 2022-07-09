@@ -6,11 +6,11 @@
 struct BaseUiObject
 {
     BaseUiObject() {}
+    virtual ~BaseUiObject() {}
 
     bool removeable = false;
 
-    virtual void updatePosition() = 0;
-
+    virtual void update(float dt) = 0;
     virtual void render(SDL_Renderer* renderer) = 0;
 };
 

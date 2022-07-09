@@ -23,6 +23,8 @@ public:
     void updateHealthBarPosition();
 
 protected:
+    UiManager* uiManager;
+    ProjectileManager* projectileManager;
     EnemyManager* enemyManager;
     Player* player;
     int damage;

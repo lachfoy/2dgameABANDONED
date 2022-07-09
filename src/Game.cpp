@@ -1,8 +1,6 @@
 #include "Game.h"
 
-#include "AABB.h"
 #include "Player.h"
-#include "HealthBar.h"
 #include "ProjectileManager.h"
 #include "EnemyManager.h"
 #include "UiManager.h"
@@ -46,6 +44,8 @@ void Game::onUpdate(float dt)
 
     // update projectiles
     projectileManager->updateProjectiles(dt);
+
+    uiManager->updateUiObjects(dt);
 }
 
 void Game::onRender()

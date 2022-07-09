@@ -2,7 +2,6 @@
 
 #include "AABB.h"
 #include "Player.h"
-#include "HealthBar.h"
 #include "UiManager.h"
 #include "EnemyManager.h"
 

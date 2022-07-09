@@ -1,25 +1,14 @@
 #include "BaseDamageable.h"
 
-#include "UiManager.h"
-#include "HealthBar.h"
-
-BaseDamageable::BaseDamageable(float x, float y, UiManager* uiManager, ProjectileManager* projectileManager)
+BaseDamageable::BaseDamageable(float x, float y)
     : BaseObject(x, y)
 {
-    // assign the references to managers
-    this->uiManager = uiManager;
-    this->projectileManager = projectileManager;
-
     collider = new AABB(posX, posY, colliderW, colliderH);
-
-    healthBar = new HealthBar();
-    uiManager->addUiObject(healthBar);
 }
 
 BaseDamageable::~BaseDamageable()
 {
     delete collider;
-    delete healthBar;
     printf("deleted %s\n", name.c_str());
 }
 
@@ -28,7 +17,6 @@ void BaseDamageable::doDamage(int damage)
     if(damageable)
     { 
         health -= damage;
-        healthBar->updateHealth(health, maxHealth);
         printf("%s took %i damage\n", name.c_str(), damage);
         printf("%s has %i/%i HP\n", name.c_str(), health, maxHealth);
         damageable = false; // give iframes

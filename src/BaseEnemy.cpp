@@ -4,17 +4,21 @@
 #include "ProjectileManager.h"
 #include "EnemyManager.h"
 #include "Player.h"
-#include "HealthBar.h"
+#include "DynamicHealthbar.h"
 
 BaseEnemy::BaseEnemy(float x, float y, UiManager* uiManager, ProjectileManager* projectileManager, EnemyManager* enemyManager, Player* player)
-     : BaseDamageable(x, y, uiManager, projectileManager)
+     : BaseDamageable(x, y)
 {
+    this->uiManager = uiManager;
+    this->projectileManager = projectileManager;
     this->enemyManager = enemyManager;
     this->player = player; // not sure I want to give the player to every enemy or just delegate that responsibility to the enemy manager...
-    healthBar->updateSize(42, 4);
+    //healthBar->setSize(42, 4);
+
+    uiManager->addDynamicHealthbar(60, 5, this);
 }
 
 void BaseEnemy::updateHealthBarPosition()
 {
-    healthBar->updateCenterPos(posX, posY - height - 6);
+    //healthBar->setCenterPosition(posX, posY - height - 6);
 }
