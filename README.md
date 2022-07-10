@@ -42,7 +42,10 @@ Oh, if you want to build it (requires SDL2 and cmake):
 
 ### For fun
 
-Counting all the lines of code `find include/ src/ -regex '.*/.*\.\(h\|cpp\)$' | xargs wc -l`.
+Counting all the lines of code
+```shell
+find include/ src/ -regex '.*/.*\.\(h\|cpp\)$' | xargs wc -l
+```
 
 ## Considerations for Future Projects
 
