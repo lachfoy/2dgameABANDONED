@@ -17,19 +17,15 @@ x move responsibility of creating projectiles to the ProjectileManager
 x move responsibility of creating enemies to the EnemyManager
 x Player and Enemy classes to inherit from a BaseDamagable class
 x move responsibility of creating ui objects to the UIManager
+x think about how to handle damage and resistances
+x better(ish) enemy AI
 
 TODO
-think about how to handle damage and resistances
-  - physical - standard and blunt
-  - poison - slow weak DoT
-  - ice - slows movement
-  - fire - fast strong DoT (spreadable?)
-  - maybe holy or magic something idk
-better enemy AI
-different enemy types
-  - skeleton
-gamestates: pausing, menu?
-upgrades - system for adding extra abilities to the player
+add melee weapon -- initial thoughts were to add as a derived projectile (in progress) but may be easier to create as a new BaseMeleeWeapon class or some such
+consider status effects -- burning, poisoned
+more enemy types/abilities
+gamestates -- pausing, menu?
+upgrades -- system for adding extra abilities to the player
 
 BACKLOG 
 simple particle system (backlog) - try to avoid dealing with any kind of physics or collisions

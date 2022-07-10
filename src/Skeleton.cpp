@@ -19,7 +19,9 @@ Skeleton::Skeleton(float x, float y, UiManager* uiManager, ProjectileManager* pr
 
     maxHealth = 80;
     health = maxHealth;
-    resistance = { .standardResistance = 50, .crushingResistance = 50 };
+
+    resistance = {0};
+    resistance = { .standardResistance = 0, .crushingResistance = -80, .fireResistance = 0 };
 
     immuneTime = 0.1f; // how many seconds of iframes
     immuneTimer = immuneTime;

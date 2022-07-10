@@ -4,6 +4,7 @@ BaseDamageable::BaseDamageable(float x, float y)
     : BaseObject(x, y)
 {
     collider = new AABB(posX, posY, colliderW, colliderH);
+    resistance = {0};
 }
 
 BaseDamageable::~BaseDamageable()

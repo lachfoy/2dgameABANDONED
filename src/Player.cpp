@@ -26,7 +26,8 @@ Player::Player(float x, float y, UiManager* uiManager, ProjectileManager* projec
     uiManager->addHealthbar(16, 16, 200, 14, this);
 
     // set the resistance values
-    resistance = { .standardResistance = 50, .crushingResistance = 50 };
+    resistance = {0};
+    resistance = { .standardResistance = 0, .crushingResistance = 0, .fireResistance = 0 };
 
     immuneTime = 0.2f; // how many seconds of iframes
     immuneTimer = immuneTime;
@@ -62,6 +63,10 @@ void Player::handleInput(InputManager& inputManager)
     if (inputManager.keyDown(SDL_SCANCODE_SPACE) | inputManager.keyDown(SDL_SCANCODE_Z))
     {
         projectileManager->addFireball(posX, posY - (height / 2), 1, 0);
+    }
+    if (inputManager.keyDown(SDL_SCANCODE_X))
+    {
+        projectileManager->addSword(posX + 32, posY - (height / 2));
     }
     if (inputManager.keyDown(SDL_SCANCODE_K))
     {

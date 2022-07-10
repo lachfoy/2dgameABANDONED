@@ -2,6 +2,7 @@
 
 #include "Fireball.h"
 #include "FireballExplosion.h"
+#include "Sword.h"
 
 ProjectileManager::~ProjectileManager()
 {
@@ -17,7 +18,12 @@ void ProjectileManager::addFireball(float x, float y, int velX, int velY)
 
 void ProjectileManager::addFireballExplosion(float x, float y)
 {
-    projectiles.push_back(new FireballExplosion(x, y, this));
+    projectiles.push_back(new FireballExplosion(x, y));
+}
+
+void ProjectileManager::addSword(float x, float y)
+{
+    projectiles.push_back(new Sword(x, y));
 }
 
 void ProjectileManager::updateProjectiles(float dt)
