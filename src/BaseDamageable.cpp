@@ -12,12 +12,13 @@ BaseDamageable::~BaseDamageable()
     printf("deleted %s\n", name.c_str());
 }
 
-void BaseDamageable::doDamage(int damage)
+void BaseDamageable::takeDamage(const Damage& damage)
 {
     if(damageable)
-    { 
-        health -= damage;
-        printf("%s took %i damage\n", name.c_str(), damage);
+    {
+        int damageTaken = resistance.damageAfterRestistance(damage);
+        health -= damageTaken;
+        printf("%s took %i damage\n", name.c_str(), damageTaken);
         printf("%s has %i/%i HP\n", name.c_str(), health, maxHealth);
         damageable = false; // give iframes
     }

@@ -4,16 +4,11 @@
 #include "ProjectileManager.h"
 #include "EnemyManager.h"
 #include "UiManager.h"
-#include "DamageCalculations.h"
 
 Game::Game() {}
 
 void Game::onCreate()
 {
-    Damage dmg = { .standard = 10, .crushing = 80 };
-    Resistance rst = { .standard = 0, .crushing = 100 };
-    DamageCalculations::damageAfterRestistance(dmg, rst);
-
     uiManager = new UiManager();
     projectileManager = new ProjectileManager();
 

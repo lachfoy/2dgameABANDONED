@@ -6,7 +6,7 @@ FireballExplosion::FireballExplosion(float x, float y, ProjectileManager* projec
     name = "FireballExplosion";
     colliderRadius = 38;
     lifeTime = 0.2f;
-    damage = 23;
+    damage = { .standard = 60, .crushing = 10 };
 }
 
 void FireballExplosion::render(SDL_Renderer* renderer)

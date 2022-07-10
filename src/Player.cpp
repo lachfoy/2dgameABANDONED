@@ -25,6 +25,9 @@ Player::Player(float x, float y, UiManager* uiManager, ProjectileManager* projec
     health = maxHealth;
     uiManager->addHealthbar(16, 16, 200, 14, this);
 
+    // set the resistance values
+    resistance = { .standardResistance = 50, .crushingResistance = 50 };
+
     immuneTime = 0.2f; // how many seconds of iframes
     immuneTimer = immuneTime;
 
@@ -41,7 +44,7 @@ void Player::resolveEnemyCollisions(const std::vector<BaseEnemy*>& enemies)
     {
         if (AABB::testOverlap(enemies[i]->getCollider(), *collider))
         {
-            doDamage(enemies[i]->getDamage());
+            takeDamage(enemies[i]->getDamage());
         }
     }
 }
@@ -62,7 +65,7 @@ void Player::handleInput(InputManager& inputManager)
     }
     if (inputManager.keyDown(SDL_SCANCODE_K))
     {
-        doDamage(10);
+        takeDamage({ .standard = 10, .crushing = 10 });
     }
 }
 

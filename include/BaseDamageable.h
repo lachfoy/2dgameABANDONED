@@ -3,6 +3,7 @@
 
 #include "BaseObject.h"
 #include "AABB.h"
+#include "Resistance.h"
 
 class BaseDamageable : public BaseObject
 {
@@ -17,7 +18,7 @@ public:
     int getHeight() const { return height; }
     AABB getCollider() const { return *collider; }
 
-    void doDamage(int damage);
+    void takeDamage(const Damage& damage);
     void updateImmuneTimer(float dt);
     void updatePosition(float dt);
 
@@ -35,6 +36,7 @@ protected:
     float immuneTime; // how many iframes (in seconds though)
     float immuneTimer;
     float moveSpeed;
+    Resistance resistance;
 };
 
 #endif
