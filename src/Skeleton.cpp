@@ -26,8 +26,8 @@ Skeleton::Skeleton(float x, float y, UiManager* uiManager, ProjectileManager* pr
 
     moveSpeed = 10.0f; // slowww
 
-    //damage = 6;
-    damage = { .standard = 6, .crushing = 2 };
+    damage = {0};
+    damage = { .crushing = 6 };
 
     thinkingTime = 2.0f;
     thinkingTimer = (float)((rand() % 2) + 1);

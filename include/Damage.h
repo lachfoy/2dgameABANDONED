@@ -5,6 +5,7 @@ struct Damage
 {
     int standard;
     int crushing;
+    int fire;
 };
 
 #endif

@@ -8,19 +8,15 @@ struct Resistance
 {
     int standardResistance;
     int crushingResistance;
+    int fireResistance;
 
     int damageAfterRestistance(const Damage& damage) const
     {
-        printf("taking %i standard damage\n", damage.standard);
-        printf("taking %i crushing damage\n", damage.crushing);
+        int standardDmg = damage.standard - (int)((standardResistance / 100.0f) * damage.standard);
+        int crushingDmg = damage.crushing - (int)((crushingResistance / 100.0f) * damage.crushing);  
+        int fireDmg = damage.fire - (int)((fireResistance / 100.0f) * damage.fire);   
 
-        int standardDmgAvoided = (int)((standardResistance / 100.0f) * damage.standard);
-        int crushingDmgAvoided = (int)((crushingResistance / 100.0f) * damage.crushing);    
-        printf("avoided %i standard damage\n", standardDmgAvoided);
-        printf("avoided %i crushing damage\n", crushingDmgAvoided);
-
-        int total = damage.standard + damage.crushing - standardDmgAvoided - crushingDmgAvoided;
-        printf("took %i total damage\n", total);
+        int total = standardDmg + crushingDmg + fireDmg;
 
         return total;
     }

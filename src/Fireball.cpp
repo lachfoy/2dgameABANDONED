@@ -8,8 +8,9 @@ Fireball::Fireball(float x, float y, int velX, int velY, ProjectileManager* proj
     name = "Fireball";
     colliderRadius = 24;
     moveSpeed = 220.0f;
-    damage = { .standard = 10, .crushing = 0 };
-    lifeTime = 1.6f;
+    damage = {0};
+    damage = { .fire = 11 };
+    lifeTime = 0.8f;
 }
 
 Fireball::~Fireball()
