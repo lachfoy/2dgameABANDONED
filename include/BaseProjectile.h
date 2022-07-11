@@ -8,16 +8,20 @@
 #include "Damage.h"
 
 class ProjectileManager;
+class BaseDamageable; // damageable object can be passed in for some purposes (follow player) but is usually nullptr
 
 class BaseProjectile : public BaseObject
 {
 public:
-    BaseProjectile(float x, float y, int velX, int velY, ProjectileManager* projectileManager);
+    BaseProjectile(float x, float y, int velX, int velY, ProjectileManager* projectileManager, BaseDamageable* damageable);
     virtual ~BaseProjectile(); // must be virtual so that derived projectiles have the option of adding more functionality to destruction
+
+    bool removeOnCollision = false;
 
     AABB getCollider() const { return *collider; }
     Damage getDamage() const { return damage; }
     
+    void updateLifetime(float dt);
     virtual void updatePosition(float dt); // derived projectiles can override update ONLY if they need to
 
 protected: // things the derived projectiles can change
@@ -26,6 +30,7 @@ protected: // things the derived projectiles can change
     ProjectileManager* projectileManager;
     AABB* collider;
     Damage damage;
+    BaseDamageable* damageable;
     float moveSpeed;
     int colliderRadius; // assume all projectiles have uniform width and height even though they are actually rectangles
     float lifeTime;

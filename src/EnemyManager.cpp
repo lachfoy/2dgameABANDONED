@@ -29,7 +29,7 @@ void EnemyManager::resolveProjectileCollisions(const std::vector<BaseProjectile*
             if (AABB::testOverlap(enemies[i]->getCollider(), projectiles[j]->getCollider()))
             {
                 enemies[i]->takeDamage(projectiles[j]->getDamage());
-                projectiles[j]->removeable = true;
+                if (projectiles[j]->removeOnCollision) projectiles[j]->removeable = true;
             }
         }
     }

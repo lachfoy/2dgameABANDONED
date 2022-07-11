@@ -60,13 +60,15 @@ void Player::handleInput(InputManager& inputManager)
         velX = -1;
     if (inputManager.keyPressed(SDL_SCANCODE_RIGHT) | inputManager.keyPressed(SDL_SCANCODE_D))
         velX = 1;
-    if (inputManager.keyDown(SDL_SCANCODE_SPACE) | inputManager.keyDown(SDL_SCANCODE_Z))
+    if (inputManager.keyDown(SDL_SCANCODE_SPACE))
     {
-        projectileManager->addFireball(posX, posY - (height / 2), 1, 0);
+        float swordOffsetX = (facingDir == FACING_RIGHT) ? 32.0f : -32.0f; // silly 
+        projectileManager->addSword(posX, posY, swordOffsetX, -(height / 2), this);
     }
-    if (inputManager.keyDown(SDL_SCANCODE_X))
+    if (inputManager.keyDown(SDL_SCANCODE_Z))
     {
-        projectileManager->addSword(posX + 32, posY - (height / 2));
+        int fireballVelX = (facingDir == FACING_RIGHT) ? 1 : -1; // silly
+        projectileManager->addFireball(posX, posY - (height / 2), fireballVelX, 0);
     }
     if (inputManager.keyDown(SDL_SCANCODE_K))
     {
@@ -76,6 +78,11 @@ void Player::handleInput(InputManager& inputManager)
 
 void Player::update(float dt)
 {
+    // update facing dir
+    // TODO: add this functionality to all Damageables 
+    if (velX == 1) facingDir = FACING_RIGHT;
+    else if (velX == -1) facingDir = FACING_LEFT;
+
     updateImmuneTimer(dt);
     updatePosition(dt);
 }

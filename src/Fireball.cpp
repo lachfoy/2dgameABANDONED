@@ -3,7 +3,7 @@
 #include "ProjectileManager.h"
 
 Fireball::Fireball(float x, float y, int velX, int velY, ProjectileManager* projectileManager)
-    : BaseProjectile(x, y, velX, velY, projectileManager)
+    : BaseProjectile(x, y, velX, velY, projectileManager, nullptr)
 {
     name = "Fireball";
     colliderRadius = 24;
