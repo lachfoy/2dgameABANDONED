@@ -3,27 +3,13 @@
 #include "BaseDamageable.h"
 
 Sword::Sword(float x, float y, float offsetX, float offsetY, BaseDamageable* damageable)
-     : BaseProjectile(x, y, 0, 0, nullptr, damageable)
+     : BaseMeleeWeapon(x, y, offsetX, offsetY, damageable)
 {
     name = "Sword";
-    this->offsetX = offsetX;
-    this->offsetY = offsetY;
-    colliderRadius = 44;
+    colliderRadius = 48;
     damage = {0};
     damage = { .standard = 11 };
     lifeTime = 0.4f;
-}
-
-Sword::~Sword() {}
-
-void Sword::updatePosition(float dt)
-{
-    posX = damageable->posX + offsetX;
-    posY = damageable->posY + offsetY;
-    collider->upperBoundX = posX - (colliderRadius / 2);
-    collider->upperBoundY = posY - (colliderRadius / 2);
-    collider->lowerBoundX = posX + (colliderRadius / 2);
-    collider->lowerBoundY = posY + (colliderRadius / 2);
 }
 
 void Sword::render(SDL_Renderer* renderer)
