@@ -17,6 +17,8 @@ public:
     virtual ~BaseProjectile(); // must be virtual so that derived projectiles have the option of adding more functionality to destruction
 
     bool removeOnCollision = false;
+    bool onlyDamageOnce = true;
+    bool hasDealtDamage = false;
 
     AABB getCollider() const { return *collider; }
     Damage getDamage() const { return damage; }

@@ -62,8 +62,8 @@ void Player::handleInput(InputManager& inputManager)
         velX = 1;
     if (inputManager.keyDown(SDL_SCANCODE_SPACE))
     {
-        float swordOffsetX = (facingDir == FACING_RIGHT) ? 32.0f : -32.0f; // silly 
-        projectileManager->addSword(posX, posY, swordOffsetX, -(height / 2), this);
+        float swordOffsetX = (facingDir == FACING_RIGHT) ? 28.0f : -28.0f; // silly 
+        projectileManager->addSword(posX, posY, swordOffsetX, -(height / 2) - 3.0f, this);
     }
     if (inputManager.keyDown(SDL_SCANCODE_Z))
     {
