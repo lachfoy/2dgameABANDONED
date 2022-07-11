@@ -6,7 +6,8 @@ Fireball::Fireball(float x, float y, int velX, int velY, ProjectileManager* proj
     : BaseProjectile(x, y, velX, velY, projectileManager, nullptr)
 {
     name = "Fireball";
-    colliderRadius = 24;
+    colliderW = 24;
+    colliderH = 24;
     moveSpeed = 220.0f;
     damage = {0};
     damage = { .fire = 11 };
@@ -15,6 +16,7 @@ Fireball::Fireball(float x, float y, int velX, int velY, ProjectileManager* proj
 
 Fireball::~Fireball()
 {
+    // when destroyed, create an explosion
     projectileManager->addFireballExplosion(posX, posY);
 }
 

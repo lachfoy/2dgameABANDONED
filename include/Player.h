@@ -18,13 +18,12 @@ public:
     Player(float x, float y, UiManager* uiManager, ProjectileManager* projectileManager);
     ~Player() override;
 
-    enum { FACING_LEFT, FACING_RIGHT } facingDir; // public because its lazy and im late
-
     void handleInput(InputManager& inputManager);
 
     void resolveEnemyCollisions(const std::vector<BaseEnemy*>& enemies);
 
-    void update(float dt);
+    void updatePlayer(float dt);
+
     void render(SDL_Renderer* renderer) override;
 
 private:

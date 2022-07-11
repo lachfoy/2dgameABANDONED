@@ -42,6 +42,12 @@ void BaseDamageable::updateImmuneTimer(float dt)
 
 void BaseDamageable::updatePosition(float dt)
 {
+    // update facing direction
+    if (velX == 1)
+        facingDirection = FACING_RIGHT;
+    else if (velX == -1)
+        facingDirection = FACING_LEFT;
+
     // update the internal position
     posX += velX * moveSpeed * dt;
     posY += velY * moveSpeed * dt;

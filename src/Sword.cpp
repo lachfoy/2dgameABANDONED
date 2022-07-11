@@ -6,7 +6,8 @@ Sword::Sword(float x, float y, float offsetX, float offsetY, BaseDamageable* dam
      : BaseMeleeWeapon(x, y, offsetX, offsetY, damageable)
 {
     name = "Sword";
-    colliderRadius = 48;
+    colliderW = 50;
+    colliderH = 26;
     damage = {0};
     damage = { .standard = 11 };
     lifeTime = 0.4f;

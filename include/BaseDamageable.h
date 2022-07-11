@@ -37,6 +37,7 @@ protected:
     float immuneTimer;
     float moveSpeed;
     Resistance resistance;
+    enum FacingDirection { FACING_LEFT, FACING_RIGHT } facingDirection;
 };
 
 #endif

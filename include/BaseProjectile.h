@@ -34,7 +34,8 @@ protected: // things the derived projectiles can change
     Damage damage;
     BaseDamageable* damageable;
     float moveSpeed;
-    int colliderRadius; // assume all projectiles have uniform width and height even though they are actually rectangles
+    int colliderW;
+    int colliderH;
     float lifeTime;
 };
 

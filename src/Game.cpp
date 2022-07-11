@@ -34,7 +34,7 @@ void Game::onUpdate(float dt)
     player->handleInput(*inputManager);
 
     // update game objects
-    player->update(dt);
+    player->updatePlayer(dt);
     enemyManager->updateEnemies(dt);
     projectileManager->updateProjectiles(dt);
 
