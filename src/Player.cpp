@@ -32,7 +32,7 @@ Player::Player(float x, float y, UiManager* uiManager, ProjectileManager* projec
     immuneTime = 0.2f; // how many seconds of iframes
     immuneTimer = immuneTime;
 
-    moveSpeed = 100.0f; // slowww
+    moveSpeed = defaultMoveSpeed;
 }
 
 Player::~Player()
@@ -60,24 +60,52 @@ void Player::handleInput(InputManager& inputManager)
         velX = -1;
     if (inputManager.keyPressed(SDL_SCANCODE_RIGHT) | inputManager.keyPressed(SDL_SCANCODE_D))
         velX = 1;
+    
     if (inputManager.keyDown(SDL_SCANCODE_SPACE))
     {
-        float swordOffsetX = (facingDirection == FACING_RIGHT) ? 28.0f : -28.0f; // silly 
-        projectileManager->addSword(posX, posY, swordOffsetX, -(height / 2) - 3.0f, this);
+        dodgeRolling = true;
     }
-    if (inputManager.keyDown(SDL_SCANCODE_Z))
+    else if (inputManager.keyDown(SDL_SCANCODE_Z))
     {
         int fireballVelX = (facingDirection == FACING_RIGHT) ? 1 : -1; // silly
         projectileManager->addFireball(posX, posY - (height / 2), fireballVelX, 0);
     }
-    if (inputManager.keyDown(SDL_SCANCODE_K))
+    else if (inputManager.keyDown(SDL_SCANCODE_X))
+    {
+        float swordOffsetX = (facingDirection == FACING_RIGHT) ? 28.0f : -28.0f; // silly 
+        projectileManager->addSword(posX, posY, swordOffsetX, -(height / 2) - 3.0f, this);
+    }
+    else if (inputManager.keyDown(SDL_SCANCODE_K))
     {
         takeDamage({ .standard = 10, .crushing = 10 });
     }
 }
 
+void Player::doDodgeRoll(float dt)
+{
+    if (dodgeRolling)
+    {
+        int dodgeVelX = (facingDirection == FACING_RIGHT) ? 1 : -1; // silly
+        if (dodgeRollTimer > 0.0f)
+        {
+            velX = dodgeVelX;
+            moveSpeed = dodgeRollMoveSpeed;
+            damageable = false;
+            dodgeRollTimer -= dt;
+            // override input
+        }
+        else
+        {
+            dodgeRolling = false;
+            moveSpeed = defaultMoveSpeed;
+            dodgeRollTimer = dodgeRollTime; // reset timer
+        }
+    }
+}
+
 void Player::updatePlayer(float dt)
 {
+    doDodgeRoll(dt);
     updateImmuneTimer(dt);
     updatePosition(dt);
 }

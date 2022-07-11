@@ -22,6 +22,7 @@ x better(ish) enemy AI
 x add melee weapons
 
 TODO
+add dodge roll with iframes
 consider status effects -- burning, poisoned
 more enemy types/abilities
 gamestates -- pausing, menu?
