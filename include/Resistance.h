@@ -3,7 +3,7 @@
 
 #include "Damage.h"
 
-// resistance is a value from 0 to 100 that determines the percent of damage that goes through
+// resistance is a value from -100 to 100 that determines the percent of damage that goes through
 struct Resistance
 {
     int standardResistance;

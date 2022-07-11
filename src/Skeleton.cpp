@@ -23,7 +23,7 @@ Skeleton::Skeleton(float x, float y, UiManager* uiManager, ProjectileManager* pr
     resistance = {0};
     resistance = { .standardResistance = 0, .crushingResistance = -80, .fireResistance = 0 };
 
-    immuneTime = 0.1f; // how many seconds of iframes
+    immuneTime = 0.3f; // how many seconds of iframes
     immuneTimer = immuneTime;
 
     moveSpeed = 10.0f; // slowww

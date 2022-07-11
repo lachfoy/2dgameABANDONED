@@ -1,13 +1,14 @@
 #ifndef SWORD_H
 #define SWORD_H
 
-#include "BaseProjectile.h"
+#include "BaseMeleeWeapon.h"
 
-class Sword : public BaseProjectile
+class BaseDamageable;
+
+class Sword : public BaseMeleeWeapon
 {
 public:
-    Sword(float x, float y);
-    ~Sword() override;
+    Sword(float x, float y, float offsetX, float offsetY, BaseDamageable* damageable);
 
     void render(SDL_Renderer* renderer) override;
     

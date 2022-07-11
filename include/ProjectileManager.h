@@ -6,6 +6,7 @@
 #include <SDL2/SDL.h>
 
 class BaseProjectile;
+class BaseDamageable;
 
 class ProjectileManager
 {
@@ -25,7 +26,7 @@ public:
     inline void addProjectile(BaseProjectile* projectile) { projectiles.push_back(projectile); } // depracated? dont use this anymore
     void addFireball(float x, float y, int velX, int velY);
     void addFireballExplosion(float x, float y);
-    void addSword(float x, float y);
+    void addSword(float x, float y, float offsetX, float offsetY, BaseDamageable* wielder);
 
     void updateProjectiles(float dt);
     void renderProjectiles(SDL_Renderer* renderer);

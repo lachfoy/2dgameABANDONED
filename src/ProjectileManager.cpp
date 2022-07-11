@@ -3,6 +3,7 @@
 #include "Fireball.h"
 #include "FireballExplosion.h"
 #include "Sword.h"
+#include "BaseDamageable.h"
 
 ProjectileManager::~ProjectileManager()
 {
@@ -21,9 +22,9 @@ void ProjectileManager::addFireballExplosion(float x, float y)
     projectiles.push_back(new FireballExplosion(x, y));
 }
 
-void ProjectileManager::addSword(float x, float y)
+void ProjectileManager::addSword(float x, float y, float offsetX, float offsetY, BaseDamageable* wielder)
 {
-    projectiles.push_back(new Sword(x, y));
+    projectiles.push_back(new Sword(x, y, offsetX, offsetY, wielder));
 }
 
 void ProjectileManager::updateProjectiles(float dt)
@@ -32,6 +33,7 @@ void ProjectileManager::updateProjectiles(float dt)
     for (int i = 0; i < projectiles.size(); i++)
     {
         projectiles[i]->updatePosition(dt);
+        projectiles[i]->updateLifetime(dt);
         if (projectiles[i]->removeable)
         {
             delete projectiles[i];
