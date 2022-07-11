@@ -19,9 +19,9 @@ x Player and Enemy classes to inherit from a BaseDamagable class
 x move responsibility of creating ui objects to the UIManager
 x think about how to handle damage and resistances
 x better(ish) enemy AI
+x add melee weapons
 
 TODO
-add melee weapon -- initial thoughts were to add as a derived projectile (in progress) but may be easier to create as a new BaseMeleeWeapon class or some such
 consider status effects -- burning, poisoned
 more enemy types/abilities
 gamestates -- pausing, menu?
