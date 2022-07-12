@@ -48,8 +48,10 @@ protected:
     // fire
     bool canBeSetOnFire = true;
     bool onFire = false;
-    float burningTime = 0.4f; // how many iframes (in seconds though)
-    float burningTimer = burningTime;
+    float fireTime = 3.0f; // how many seconds of fire
+    float fireTimer = fireTime;
+    float fireTickTime = 0.4f; // how many seconds before each tick of fire damage
+    float fireTickTimer = fireTickTime;
 };
 
 #endif

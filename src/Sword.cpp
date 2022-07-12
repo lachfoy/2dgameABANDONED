@@ -16,7 +16,7 @@ Sword::Sword(float x, float y, float offsetX, float offsetY, ProjectileManager* 
 
 Sword::~Sword()
 {
-    projectileManager->addSwordSlash(posX, posY, offsetX * 1.5f, offsetY, damageable);
+    projectileManager->addSwordSlash(posX, posY, offsetX * 1.2f, offsetY, damageable);
 }
 
 void Sword::render(SDL_Renderer* renderer)

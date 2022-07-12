@@ -30,13 +30,23 @@ void BaseDamageable::updateBurning(float dt)
 {
     if (canBeSetOnFire)
     {
-        if (onFire) // they stay on fire forever which is kinda mean
+        if (onFire) // they stay on fire not forever :)
         {
-            if (burningTimer > 0.0f) burningTimer -= dt;
+            if (fireTimer > 0.0f)
+            {
+                fireTimer -= dt;
+
+                if (fireTickTimer > 0.0f) fireTickTimer -= dt;
+                else
+                {
+                    takeDamage(StatusDamage::burning);
+                    fireTickTimer = fireTickTime; // reset to the starting value
+                }
+            }
             else
             {
-                takeDamage(StatusDamage::burning);
-                burningTimer = burningTime; // reset to the starting value
+                onFire = false;
+                fireTimer = fireTime;
             }
         }
     }

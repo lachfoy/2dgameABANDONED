@@ -23,7 +23,7 @@ Skeleton::Skeleton(float x, float y, UiManager* uiManager, ProjectileManager* pr
     resistance = {0};
     resistance = { .standardResistance = 0, .crushingResistance = -80, .fireResistance = 0 };
 
-    immuneTime = 0.4f; // how many seconds of iframes
+    immuneTime = 0.1f; // how many seconds of iframes
     immuneTimer = immuneTime;
 
     moveSpeed = 10.0f; // slowww
@@ -65,7 +65,7 @@ void Skeleton::render(SDL_Renderer* renderer)
     SDL_Color enemy_color = { 0xb1, 0xb1, 0xb1, 0xff }; // grey
 
     // set on fire ???
-    if (onFire) enemy_color = { 0xff, 0x4b, 0x1f, 0xff }; // #ff4b1f red
+    if (onFire) enemy_color = { 0xff, 0x6a, 0x0d, 0xff }; // #ff6a0d more intense fire orange
 
     // set alpha depending on damageable status
     if (!damageable)

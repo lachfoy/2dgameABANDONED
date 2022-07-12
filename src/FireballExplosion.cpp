@@ -10,7 +10,7 @@ FireballExplosion::FireballExplosion(float x, float y)
     damage = { .fire = 43, .setBurning = true };
     lifeTime = 0.2f;
     removeOnCollision = false;
-    onlyDamageOnce = false;
+    onlyDamageOnce = true;
 }
 
 void FireballExplosion::render(SDL_Renderer* renderer)
