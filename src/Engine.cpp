@@ -76,7 +76,7 @@ void Engine::run()
         onUpdate(dt); // let the game update all the game logic
 
         start = SDL_GetTicks();
-        int dt_ms = (int)(dt * 1000);
+        Uint32 dt_ms = (Uint32)(dt * 1000);
         if (33 > dt_ms) SDL_Delay(33 - dt_ms); // 30fps framecap
 
         SDL_SetRenderDrawColor(renderer, 0xd3, 0xd3, 0xd3, 0xff); // lightish grey
