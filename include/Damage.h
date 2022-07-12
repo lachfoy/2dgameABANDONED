@@ -6,6 +6,12 @@ struct Damage
     int standard;
     int crushing;
     int fire;
+    bool setBurning;
+};
+
+namespace StatusDamage
+{
+    static const Damage burning = { .standard = 0, .crushing = 0, .fire = 2, .setBurning = false };
 };
 
 #endif

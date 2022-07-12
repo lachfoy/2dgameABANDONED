@@ -19,6 +19,7 @@ public:
     AABB getCollider() const { return *collider; }
 
     void takeDamage(const Damage& damage);
+    void updateBurning(float dt);
     void updateImmuneTimer(float dt);
     void updatePosition(float dt);
 
@@ -38,6 +39,8 @@ protected:
     float moveSpeed;
     Resistance resistance;
     enum FacingDirection { FACING_LEFT, FACING_RIGHT } facingDirection;
+    bool canBeSetOnFire = true;
+    bool onFire = false;
 };
 
 #endif

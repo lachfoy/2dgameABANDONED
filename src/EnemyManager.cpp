@@ -49,6 +49,8 @@ void EnemyManager::updateEnemies(float dt)
     // update all the enemies
     for (int i = 0; i < enemies.size(); i++)
     {
+        
+        enemies[i]->updateBurning(dt);
         enemies[i]->updateImmuneTimer(dt);
         enemies[i]->updateAI(dt);
         enemies[i]->updatePosition(dt);

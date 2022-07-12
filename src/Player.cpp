@@ -60,32 +60,39 @@ void Player::handleInput(InputManager& inputManager)
         velX = -1;
     if (inputManager.keyPressed(SDL_SCANCODE_RIGHT) | inputManager.keyPressed(SDL_SCANCODE_D))
         velX = 1;
-    
-    if (inputManager.keyDown(SDL_SCANCODE_SPACE))
+    if (inputManager.keyPressed(SDL_SCANCODE_Z))
+    {
+        if (canShoot)
+        {
+            int fireballVelX = (facingDirection == FACING_RIGHT) ? 1 : -1;
+            projectileManager->addFireball(posX, posY - (height / 2), fireballVelX, 0);
+            canShoot = false;
+        }
+    }
+    if (inputManager.keyPressed(SDL_SCANCODE_X))
+    {
+        if (canAttack)
+        {
+            float swordOffsetX = (facingDirection == FACING_RIGHT) ? 28.0f : -28.0f;
+            projectileManager->addSword(posX, posY, swordOffsetX, -(height / 2) - 3.0f, this);
+            canAttack = false;
+        }
+    }
+    if (inputManager.keyPressed(SDL_SCANCODE_C))
     {
         dodgeRolling = true;
     }
-    else if (inputManager.keyDown(SDL_SCANCODE_Z))
+    if (inputManager.keyPressed(SDL_SCANCODE_K))
     {
-        int fireballVelX = (facingDirection == FACING_RIGHT) ? 1 : -1; // silly
-        projectileManager->addFireball(posX, posY - (height / 2), fireballVelX, 0);
-    }
-    else if (inputManager.keyDown(SDL_SCANCODE_X))
-    {
-        float swordOffsetX = (facingDirection == FACING_RIGHT) ? 28.0f : -28.0f; // silly 
-        projectileManager->addSword(posX, posY, swordOffsetX, -(height / 2) - 3.0f, this);
-    }
-    else if (inputManager.keyDown(SDL_SCANCODE_K))
-    {
-        takeDamage({ .standard = 10, .crushing = 10 });
+        takeDamage({ .standard = 10, .crushing = 10, .fire = 10 });
     }
 }
 
-void Player::doDodgeRoll(float dt)
+void Player::updateDodgeRoll(float dt)
 {
     if (dodgeRolling)
     {
-        int dodgeVelX = (facingDirection == FACING_RIGHT) ? 1 : -1; // silly
+        int dodgeVelX = (facingDirection == FACING_RIGHT) ? 1 : -1;
         if (dodgeRollTimer > 0.0f)
         {
             velX = dodgeVelX;
@@ -103,9 +110,43 @@ void Player::doDodgeRoll(float dt)
     }
 }
 
+void Player::updateShootingTimer(float dt)
+{
+    if (!canShoot) // if we can't shoot then run a cooldown
+    {
+        if (shootingTimer < shootingTime)
+        {
+            shootingTimer += dt;
+        }
+        else
+        {
+            canShoot = true;
+            shootingTimer = 0.0f; // reset cooldown to 0
+        }
+    }
+}
+
+void Player::updateAttackingTimer(float dt)
+{
+    if (!canAttack) // if we can't attack then run a cooldown
+    {
+        if (attackingTimer < attackingTime)
+        {
+            attackingTimer += dt;
+        }
+        else
+        {
+            canAttack = true;
+            attackingTimer = 0.0f; // reset cooldown to 0
+        }
+    }
+}
+
 void Player::updatePlayer(float dt)
 {
-    doDodgeRoll(dt);
+    updateDodgeRoll(dt);
+    updateShootingTimer(dt);
+    updateAttackingTimer(dt);
     updateImmuneTimer(dt);
     updatePosition(dt);
 }

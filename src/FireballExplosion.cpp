@@ -7,7 +7,7 @@ FireballExplosion::FireballExplosion(float x, float y)
     colliderW = 68;
     colliderH = 68;
     damage = {0};
-    damage = { .fire = 43 };
+    damage = { .fire = 43, .setBurning = true };
     lifeTime = 0.2f;
 }
 

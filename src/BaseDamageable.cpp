@@ -17,11 +17,24 @@ void BaseDamageable::takeDamage(const Damage& damage)
 {
     if(damageable)
     {
+        if (damage.setBurning) onFire = true;
         int damageTaken = resistance.damageAfterRestistance(damage);
         health -= damageTaken;
         printf("%s took %i damage\n", name.c_str(), damageTaken);
         printf("%s has %i/%i HP\n", name.c_str(), health, maxHealth);
         damageable = false; // give iframes
+    }
+}
+
+void BaseDamageable::updateBurning(float dt)
+{
+    if (canBeSetOnFire)
+    {
+        if (onFire) // they stay on fire forever which is kinda mean
+        {
+            // should also have some kind of tick timer instead of just constant damage
+            takeDamage(StatusDamage::burning);
+        }
     }
 }
 
