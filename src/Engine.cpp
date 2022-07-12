@@ -72,17 +72,19 @@ void Engine::run()
 
         // calculate timestep
         float dt = (SDL_GetTicks() - start) / 1000.0f;
-
+        
         onUpdate(dt); // let the game update all the game logic
 
         start = SDL_GetTicks();
+        int dt_ms = (int)(dt * 1000);
+        if (33 > dt_ms) SDL_Delay(33 - dt_ms); // 30fps framecap
 
         SDL_SetRenderDrawColor(renderer, 0xd3, 0xd3, 0xd3, 0xff); // lightish grey
         SDL_RenderClear(renderer);
 
         onRender(); // let the game copy everything to the renderer
 
-        bitmapFont->renderText(renderer, 10, 10, "ms: " + std::to_string((int)(dt * 1000))); // render frametime (ms)
+        bitmapFont->renderText(renderer, 10, 10, "ms: " + std::to_string(dt_ms)); // render frametime (ms)
 
         SDL_RenderPresent(renderer);
     }
