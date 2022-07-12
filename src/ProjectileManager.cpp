@@ -4,6 +4,7 @@
 #include "FireballExplosion.h"
 #include "Sword.h"
 #include "BaseDamageable.h"
+#include "SwordSlash.h"
 
 ProjectileManager::~ProjectileManager()
 {
@@ -24,7 +25,12 @@ void ProjectileManager::addFireballExplosion(float x, float y)
 
 void ProjectileManager::addSword(float x, float y, float offsetX, float offsetY, BaseDamageable* wielder)
 {
-    projectiles.push_back(new Sword(x, y, offsetX, offsetY, wielder));
+    projectiles.push_back(new Sword(x, y, offsetX, offsetY, this, wielder));
+}
+
+void ProjectileManager::addSwordSlash(float x, float y, float offsetX, float offsetY, BaseDamageable* wielder)
+{
+    projectiles.push_back(new SwordSlash(x, y, offsetX, offsetY, wielder));
 }
 
 void ProjectileManager::updateProjectiles(float dt)

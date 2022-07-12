@@ -32,8 +32,12 @@ void BaseDamageable::updateBurning(float dt)
     {
         if (onFire) // they stay on fire forever which is kinda mean
         {
-            // should also have some kind of tick timer instead of just constant damage
-            takeDamage(StatusDamage::burning);
+            if (burningTimer > 0.0f) burningTimer -= dt;
+            else
+            {
+                takeDamage(StatusDamage::burning);
+                burningTimer = burningTime; // reset to the starting value
+            }
         }
     }
 }

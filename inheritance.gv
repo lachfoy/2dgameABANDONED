@@ -5,7 +5,7 @@ digraph inheritance {
     BaseObject->{BaseDamageable, BaseProjectile}
     BaseDamageable->{Player, BaseEnemy}
     BaseProjectile->{Fireball, FireballExplosion, BaseMeleeWeapon}
-    BaseMeleeWeapon->Sword
+    BaseMeleeWeapon->{Sword, SwordSlash}
     BaseEnemy->Skeleton
 
     BaseUiObject->Healthbar

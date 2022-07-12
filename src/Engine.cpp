@@ -62,6 +62,8 @@ void Engine::run()
     onCreate(); // call the game create functions
 
     Uint32 start = 0;
+    float dt = 0.0f;
+    Uint32 dt_ms = 0;
     bool quit = false;
     SDL_Event e;
     while(!quit)
@@ -71,13 +73,9 @@ void Engine::run()
         if (inputManager->quitRequested() | inputManager->keyDown(SDL_SCANCODE_ESCAPE)) quit = true;
 
         // calculate timestep
-        float dt = (SDL_GetTicks() - start) / 1000.0f;
+        dt = (SDL_GetTicks() - start) / 1000.0f;
         
         onUpdate(dt); // let the game update all the game logic
-
-        start = SDL_GetTicks();
-        Uint32 dt_ms = (Uint32)(dt * 1000);
-        if (33 > dt_ms) SDL_Delay(33 - dt_ms); // 30fps framecap
 
         SDL_SetRenderDrawColor(renderer, 0xd3, 0xd3, 0xd3, 0xff); // lightish grey
         SDL_RenderClear(renderer);
@@ -87,6 +85,10 @@ void Engine::run()
         bitmapFont->renderText(renderer, 10, 10, "ms: " + std::to_string(dt_ms)); // render frametime (ms)
 
         SDL_RenderPresent(renderer);
+
+        start = SDL_GetTicks();
+        dt_ms = (Uint32)(dt * 1000);
+        if (16 > dt_ms) SDL_Delay(16 - dt_ms); // 30fps framecap
     }
 
     cleanup(); // cleanup resources

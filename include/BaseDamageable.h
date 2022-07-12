@@ -26,21 +26,30 @@ public:
 protected:
     int velX = 0;
     int velY = 0;
+    
     int width;
     int height;
+    
     int colliderW;
     int colliderH;
     AABB* collider;
+    
     int maxHealth;
     int health;
     bool damageable; // if not damageable then they are taking damage
     float immuneTime; // how many iframes (in seconds though)
     float immuneTimer;
+
     float moveSpeed;
-    Resistance resistance;
     enum FacingDirection { FACING_LEFT, FACING_RIGHT } facingDirection;
+
+    Resistance resistance;
+
+    // fire
     bool canBeSetOnFire = true;
     bool onFire = false;
+    float burningTime = 0.4f; // how many iframes (in seconds though)
+    float burningTimer = burningTime;
 };
 
 #endif

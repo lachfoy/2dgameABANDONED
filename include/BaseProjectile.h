@@ -16,8 +16,8 @@ public:
     BaseProjectile(float x, float y, int velX, int velY, ProjectileManager* projectileManager, BaseDamageable* damageable);
     virtual ~BaseProjectile(); // must be virtual so that derived projectiles have the option of adding more functionality to destruction
 
-    bool removeOnCollision = false;
-    bool onlyDamageOnce = true;
+    bool removeOnCollision;
+    bool onlyDamageOnce;
     bool hasDealtDamage = false;
 
     AABB getCollider() const { return *collider; }

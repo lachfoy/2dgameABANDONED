@@ -8,7 +8,7 @@ class BaseDamageable;
 class BaseMeleeWeapon : public BaseProjectile
 {
 public:
-    BaseMeleeWeapon(float x, float y, float offsetX, float offsetY, BaseDamageable* damageable);
+    BaseMeleeWeapon(float x, float y, float offsetX, float offsetY, ProjectileManager* projectileManager, BaseDamageable* damageable);
 
     void updatePosition(float dt) override;
     

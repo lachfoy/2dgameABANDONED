@@ -27,6 +27,7 @@ public:
     void addFireball(float x, float y, int velX, int velY);
     void addFireballExplosion(float x, float y);
     void addSword(float x, float y, float offsetX, float offsetY, BaseDamageable* wielder);
+    void addSwordSlash(float x, float y, float offsetX, float offsetY, BaseDamageable* wielder);
 
     void updateProjectiles(float dt);
     void renderProjectiles(SDL_Renderer* renderer);

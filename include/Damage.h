@@ -11,7 +11,7 @@ struct Damage
 
 namespace StatusDamage
 {
-    static const Damage burning = { .standard = 0, .crushing = 0, .fire = 2, .setBurning = false };
+    static const Damage burning = { .standard = 0, .crushing = 0, .fire = 4, .setBurning = false };
 };
 
 #endif

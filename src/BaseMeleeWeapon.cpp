@@ -2,11 +2,14 @@
 
 #include "BaseDamageable.h"
 
-BaseMeleeWeapon::BaseMeleeWeapon(float x, float y, float offsetX, float offsetY, BaseDamageable* damageable)
-     : BaseProjectile(x, y, 0, 0, nullptr, damageable)
+BaseMeleeWeapon::BaseMeleeWeapon(float x, float y, float offsetX, float offsetY, ProjectileManager* projectileManager, BaseDamageable* damageable)
+     : BaseProjectile(x, y, 0, 0, projectileManager, damageable)
 {
     this->offsetX = offsetX;
     this->offsetY = offsetY;
+
+    removeOnCollision = false;
+    onlyDamageOnce = true;
 }
 
 void BaseMeleeWeapon::updatePosition(float dt)

@@ -12,6 +12,8 @@ Fireball::Fireball(float x, float y, int velX, int velY, ProjectileManager* proj
     damage = {0};
     damage = { .fire = 11 };
     lifeTime = 0.8f;
+    removeOnCollision = true;
+    onlyDamageOnce = true;
 }
 
 Fireball::~Fireball()
