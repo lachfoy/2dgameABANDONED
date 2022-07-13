@@ -7,7 +7,7 @@
 UiManager::~UiManager()
 {
     // delete all the pointers and clear the uiObjects vector
-    for (int i = 0; i < uiObjects.size(); i++) delete uiObjects[i];
+    for (const auto& uiObject : uiObjects) delete uiObject;
     uiObjects.clear();
 }
 
@@ -23,23 +23,25 @@ void UiManager::addDynamicHealthbar(int length, int height, BaseDamageable* dama
 
 void UiManager::renderUiObjects(SDL_Renderer* renderer)
 {
-    // update all the UiObjects
-    for (int i = 0; i < uiObjects.size(); i++)
+    // render UiObjects
+    for (const auto& uiObject : uiObjects)
     {
-        uiObjects[i]->render(renderer);
+        uiObject->render(renderer);
     }
 }
 
 void UiManager::updateUiObjects(float dt)
 {
-    // update all the uiObjects
-    for (int i = 0; i < uiObjects.size(); i++)
+    // update uiObjects
+    int i = 0;
+    for (const auto& uiObject : uiObjects)
     {
-        uiObjects[i]->update(dt);
-        if (uiObjects[i]->removeable)
+        uiObject->update(dt);
+        if (uiObject->removeable)
         {
-            delete uiObjects[i];
+            delete uiObject;
             uiObjects.erase(uiObjects.begin() + i); // delete if remove flag is set
         }
+        i++;
     }
 }

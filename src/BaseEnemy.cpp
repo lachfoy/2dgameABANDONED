@@ -12,7 +12,7 @@ BaseEnemy::BaseEnemy(float x, float y, UiManager* uiManager, ProjectileManager* 
     this->uiManager = uiManager;
     this->projectileManager = projectileManager;
     this->enemyManager = enemyManager;
-    this->player = player; // not sure I want to give the player to every enemy or just delegate that responsibility to the enemy manager...
+    this->player = player;
 
     uiManager->addDynamicHealthbar(44, 4, this);
 }

@@ -35,10 +35,6 @@ Player::Player(float x, float y, UiManager* uiManager, ProjectileManager* projec
     moveSpeed = defaultMoveSpeed;
 }
 
-Player::~Player()
-{
-}
-
 void Player::resolveEnemyCollisions(const std::vector<BaseEnemy*>& enemies)
 {
     for (int i = 0; i < enemies.size(); i++)

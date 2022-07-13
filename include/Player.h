@@ -16,7 +16,6 @@ class Player : public BaseDamageable
 {
 public:
     Player(float x, float y, UiManager* uiManager, ProjectileManager* projectileManager);
-    ~Player() override;
 
     void handleInput(InputManager& inputManager);
 

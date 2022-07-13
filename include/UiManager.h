@@ -18,7 +18,7 @@ public:
 
     std::vector<BaseUiObject*> getUiObjects() const { return uiObjects; }
     
-    void addUiObject(BaseUiObject* uiObject) { uiObjects.push_back(uiObject); } // dont use this
+    //void addUiObject(BaseUiObject* uiObject) { uiObjects.push_back(uiObject); } // dont use this
     void addHealthbar(int x, int y, int length, int height, BaseDamageable* damageable);
     void addDynamicHealthbar(int length, int height, BaseDamageable* damageable);
 
