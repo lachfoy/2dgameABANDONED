@@ -23,7 +23,7 @@ public:
     void addEnemy(BaseEnemy* enemy) { enemies.push_back(enemy); } // deprecated -- don't use this anymore
     void addSkeleton(float x, float y, UiManager* uiManager, ProjectileManager* projectileManager);
 
-    void resolveProjectileCollisions(const std::vector<BaseProjectile*>& projectiles);
+    void resolvePlayerProjectileCollisions(const std::vector<BaseProjectile*>& playerProjectiles);
 
     void updateEnemies(float dt);
     void renderEnemies(SDL_Renderer* renderer);

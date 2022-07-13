@@ -18,6 +18,8 @@ void Game::onCreate()
     enemyManager->addSkeleton(400.0f, 300.0f, uiManager, projectileManager);
     enemyManager->addSkeleton(600.0f, 400.0f, uiManager, projectileManager);
     enemyManager->addSkeleton(500.0f, 500.0f, uiManager, projectileManager);
+    enemyManager->addSkeleton(300.0f, 400.0f, uiManager, projectileManager);
+    enemyManager->addSkeleton(700.0f, 200.0f, uiManager, projectileManager);
 }
 
 void Game::onCleanup()
@@ -39,7 +41,7 @@ void Game::onUpdate(float dt)
     projectileManager->updateProjectiles(dt);
 
     // collision resolution
-    enemyManager->resolveProjectileCollisions(projectileManager->getProjectiles());
+    enemyManager->resolvePlayerProjectileCollisions(projectileManager->getPlayerProjectiles());
     player->resolveEnemyCollisions(enemyManager->getEnemies());
 
     // update ui objects

@@ -8,51 +8,76 @@
 
 ProjectileManager::~ProjectileManager()
 {
+    // // delete all the pointers and clear the projectiles vector
+    // for (int i = 0; i < projectiles.size(); i++) delete projectiles[i];
+    // projectiles.clear();
+
     // delete all the pointers and clear the projectiles vector
-    for (int i = 0; i < projectiles.size(); i++) delete projectiles[i];
-    projectiles.clear();
+    for (int i = 0; i < enemyProjectiles.size(); i++) delete enemyProjectiles[i];
+    enemyProjectiles.clear();
+
+    // delete all the pointers and clear the projectiles vector
+    for (int i = 0; i < playerProjectiles.size(); i++) delete playerProjectiles[i];
+    playerProjectiles.clear();
 }
 
 void ProjectileManager::addFireball(float x, float y, int velX, int velY)
 {
-    projectiles.push_back(new Fireball(x, y, velX, velY, this));
+    playerProjectiles.push_back(new Fireball(x, y, velX, velY, this));
 }
 
 void ProjectileManager::addFireballExplosion(float x, float y)
 {
-    projectiles.push_back(new FireballExplosion(x, y));
+    playerProjectiles.push_back(new FireballExplosion(x, y));
 }
 
 void ProjectileManager::addSword(float x, float y, float offsetX, float offsetY, BaseDamageable* wielder)
 {
-    projectiles.push_back(new Sword(x, y, offsetX, offsetY, this, wielder));
+    playerProjectiles.push_back(new Sword(x, y, offsetX, offsetY, this, wielder));
 }
 
 void ProjectileManager::addSwordSlash(float x, float y, float offsetX, float offsetY, BaseDamageable* wielder)
 {
-    projectiles.push_back(new SwordSlash(x, y, offsetX, offsetY, wielder));
+    playerProjectiles.push_back(new SwordSlash(x, y, offsetX, offsetY, wielder));
 }
 
 void ProjectileManager::updateProjectiles(float dt)
 {
     // update all the projectiles
-    for (int i = 0; i < projectiles.size(); i++)
+    for (int i = 0; i < enemyProjectiles.size(); i++)
     {
-        projectiles[i]->updatePosition(dt);
-        projectiles[i]->updateLifetime(dt);
-        if (projectiles[i]->removeable)
+        enemyProjectiles[i]->updatePosition(dt);
+        enemyProjectiles[i]->updateLifetime(dt);
+        if (enemyProjectiles[i]->removeable)
         {
-            delete projectiles[i];
-            projectiles.erase(projectiles.begin() + i); // delete if remove flag is set
+            delete enemyProjectiles[i];
+            enemyProjectiles.erase(enemyProjectiles.begin() + i); // delete if remove flag is set
+        }
+    }
+
+    for (int i = 0; i < playerProjectiles.size(); i++)
+    {
+        playerProjectiles[i]->updatePosition(dt);
+        playerProjectiles[i]->updateLifetime(dt);
+        if (playerProjectiles[i]->removeable)
+        {
+            delete playerProjectiles[i];
+            playerProjectiles.erase(playerProjectiles.begin() + i); // delete if remove flag is set
         }
     }
 }
 
 void ProjectileManager::renderProjectiles(SDL_Renderer* renderer)
 {
-    // update all the projectiles
-    for (int i = 0; i < projectiles.size(); i++)
+    // render all the projectiles
+    for (int i = 0; i < enemyProjectiles.size(); i++)
     {
-        projectiles[i]->render(renderer);
+        enemyProjectiles[i]->render(renderer);
+    }
+
+    // render the player projectiles in front
+    for (int i = 0; i < playerProjectiles.size(); i++)
+    {
+        playerProjectiles[i]->render(renderer);
     }
 }

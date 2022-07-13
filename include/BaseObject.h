@@ -16,7 +16,6 @@ public:
 
     virtual void render(SDL_Renderer* renderer) = 0;
 
-protected:
     std::string name = ""; // use for debug purposes ONLY!
 };
 
