@@ -15,7 +15,7 @@ EnemyManager::EnemyManager(Player* player)
 EnemyManager::~EnemyManager()
 {
     // delete all the pointers and clear the enemies vector
-    for (int i = 0; i < enemies.size(); i++) delete enemies[i];
+    for (const auto& enemy : enemies) delete enemy;
     enemies.clear();
 }
 
@@ -56,27 +56,29 @@ void EnemyManager::addSkeleton(float x, float y, UiManager* uiManager, Projectil
 void EnemyManager::updateEnemies(float dt)
 {
     // update all the enemies
-    for (int i = 0; i < enemies.size(); i++)
+    int i = 0;
+    for (const auto& enemy : enemies)
     {
+        enemy->updateBurning(dt);
+        enemy->updateImmuneTimer(dt);
+        enemy->updateAI(dt);
+        enemy->updatePosition(dt);
         
-        enemies[i]->updateBurning(dt);
-        enemies[i]->updateImmuneTimer(dt);
-        enemies[i]->updateAI(dt);
-        enemies[i]->updatePosition(dt);
-        
-        if (enemies[i]->removeable)
+        if (enemy->removeable)
         {
-            delete enemies[i];
+            delete enemy;
             enemies.erase(enemies.begin() + i); // delete if remove flag is set
         }
+
+        i++;
     }
 }
 
 void EnemyManager::renderEnemies(SDL_Renderer* renderer)
 {
-    // update all the enemies
-    for (int i = 0; i < enemies.size(); i++)
+    // render enemies
+    for (const auto& enemy : enemies)
     {
-        enemies[i]->render(renderer);
+        enemy->render(renderer);
     }
 }
