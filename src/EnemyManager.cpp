@@ -42,7 +42,7 @@ void EnemyManager::resolvePlayerProjectileCollisions(const std::vector<BaseProje
             {
                 projectile->hasDealtDamage = true;
                 if (projectile->removeOnCollision) projectile->removeable = true;
-                printf("%s hit %i enemies", projectile->name, enemiesHit);
+                printf("%s hit %i enemies\n", projectile->name.c_str(), enemiesHit);
             }
         }
     }
