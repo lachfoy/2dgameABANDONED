@@ -25,5 +25,5 @@ void FireballExplosion::render(SDL_Renderer* renderer)
     SDL_RenderFillRect(renderer, &fireball_explosion_rect);
 
     // draw collider ig
-    collider->debugRender(renderer);
+    collider.debugRender(renderer);
 }

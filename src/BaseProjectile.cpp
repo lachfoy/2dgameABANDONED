@@ -11,12 +11,11 @@ BaseProjectile::BaseProjectile(float x, float y, int velX, int velY, ProjectileM
     this->projectileManager = projectileManager;
     this->damageable = damageable;
     
-    collider = new AABB(posX, posY, colliderW, colliderH);
+    collider = AABB(posX, posY, colliderW, colliderH);
 }
 
 BaseProjectile::~BaseProjectile()
 {
-    delete collider;
     printf("deleted %s\n", name.c_str());
 }
 
@@ -35,8 +34,8 @@ void BaseProjectile::updatePosition(float dt)
     posY += velY * moveSpeed * dt;
 
     // move the collider as well
-    collider->upperBoundX = posX - (colliderW / 2);
-    collider->upperBoundY = posY - (colliderH / 2);
-    collider->lowerBoundX = posX + (colliderW / 2);
-    collider->lowerBoundY = posY + (colliderH / 2);
+    collider.upperBoundX = posX - (colliderW / 2);
+    collider.upperBoundY = posY - (colliderH / 2);
+    collider.lowerBoundX = posX + (colliderW / 2);
+    collider.lowerBoundY = posY + (colliderH / 2);
 }

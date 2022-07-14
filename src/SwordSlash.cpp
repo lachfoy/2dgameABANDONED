@@ -25,5 +25,5 @@ void SwordSlash::render(SDL_Renderer* renderer)
     // SDL_RenderFillRect(renderer, &sword_rect);
 
     // draw collider ig
-    collider->debugRender(renderer);
+    collider.debugRender(renderer);
 }

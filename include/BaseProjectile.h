@@ -20,7 +20,7 @@ public:
     bool onlyDamageOnce;
     bool hasDealtDamage = false;
 
-    AABB getCollider() const { return *collider; }
+    AABB getCollider() const { return collider; }
     Damage getDamage() const { return damage; }
     
     void updateLifetime(float dt);
@@ -30,7 +30,7 @@ protected: // things the derived projectiles can change
     int velX; // normalized x velocity
     int velY; // normalized y velocity
     ProjectileManager* projectileManager;
-    AABB* collider;
+    AABB collider;
     Damage damage;
     BaseDamageable* damageable;
     float moveSpeed;

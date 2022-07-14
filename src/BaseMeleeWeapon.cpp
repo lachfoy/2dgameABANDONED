@@ -19,8 +19,8 @@ void BaseMeleeWeapon::updatePosition(float dt)
     posY = damageable->posY + offsetY;
 
     // move the collider as well
-    collider->upperBoundX = posX - (colliderW / 2);
-    collider->upperBoundY = posY - (colliderH / 2);
-    collider->lowerBoundX = posX + (colliderW / 2);
-    collider->lowerBoundY = posY + (colliderH / 2);
+    collider.upperBoundX = posX - (colliderW / 2);
+    collider.upperBoundY = posY - (colliderH / 2);
+    collider.lowerBoundX = posX + (colliderW / 2);
+    collider.lowerBoundY = posY + (colliderH / 2);
 }
