@@ -20,22 +20,27 @@ public:
     bool onlyDamageOnce;
     bool hasDealtDamage = false;
 
-    AABB getCollider() const { return collider; }
-    Damage getDamage() const { return damage; }
+    AABB const& getCollider() const { return collider; }
+    Damage const& getDamage() const { return damage; }
     
     void updateLifetime(float dt);
     virtual void updatePosition(float dt); // derived projectiles can override update ONLY if they need to
 
 protected: // things the derived projectiles can change
+    ProjectileManager* projectileManager;
+    BaseDamageable* damageable;
+
     int velX; // normalized x velocity
     int velY; // normalized y velocity
-    ProjectileManager* projectileManager;
+    
     AABB collider;
-    Damage damage;
-    BaseDamageable* damageable;
-    float moveSpeed;
     int colliderW;
     int colliderH;
+    
+    Damage damage;
+    
+    float moveSpeed;
+    
     float lifeTime;
 };
 
