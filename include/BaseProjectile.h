@@ -13,6 +13,7 @@ class BaseProjectile : public BaseObject
 {
 public:
     BaseProjectile(float x, float y, int velX, int velY);
+    virtual ~BaseProjectile() {}
 
     bool removeOnCollision;
     bool onlyDamageOnce;
