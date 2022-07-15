@@ -3,8 +3,8 @@
 #include "ProjectileManager.h"
 
 Fireball::Fireball(float x, float y, int velX, int velY, ProjectileManager* projectileManager)
-    : BaseProjectile(x, y, velX, velY, nullptr, nullptr)
-{
+    : BaseProjectile(x, y, velX, velY, nullptr /* bug occurs here when projectile is passed in */, nullptr)
+{ // because im messing up DIP principle by passing the PM to the base projectile in the first place lmao
     name = "Fireball";
     colliderW = 24;
     colliderH = 24;
