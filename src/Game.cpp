@@ -35,13 +35,16 @@ void Game::onUpdate(float dt)
     // handle input
     player->handleInput(*inputManager);
 
+    // remove unused projectiles
+    projectileManager->removeUnusedProjectiles();
+
     // update game objects
     player->updatePlayer(dt);
     enemyManager->updateEnemies(dt);
     projectileManager->updateProjectiles(dt);
 
     // collision resolution
-    enemyManager->resolvePlayerProjectileCollisions(projectileManager->getPlayerProjectiles());
+    //enemyManager->resolvePlayerProjectileCollisions(projectileManager->getPlayerProjectiles());
     player->resolveEnemyCollisions(enemyManager->getEnemies());
 
     // update ui objects

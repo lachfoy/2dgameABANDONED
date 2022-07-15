@@ -2,10 +2,12 @@
 #define PROJECTILEMANAGER_H
 
 #include <vector>
+#include <algorithm>
 
 #include <SDL2/SDL.h>
 
-class BaseProjectile;
+#include "BaseProjectile.h"
+
 class BaseDamageable;
 
 class ProjectileManager
@@ -17,8 +19,8 @@ public:
     // Getter for the projectiles vector
     // Needed so other classes can check collisions and such
     //inline std::vector<BaseProjectile*> getProjectiles() const { return projectiles; }
-    inline std::vector<BaseProjectile*> getPlayerProjectiles() const { return playerProjectiles; }
-    inline std::vector<BaseProjectile*> getEnemyProjectiles() const { return enemyProjectiles; }
+    std::vector<BaseProjectile*> const& getPlayerProjectiles() const { return playerProjectiles; }
+    std::vector<BaseProjectile*> const& getEnemyProjectiles() const { return enemyProjectiles; }
 
     // Adding different kinds of projectiles
     // -------------------------------------
@@ -32,6 +34,7 @@ public:
     void addSwordSlash(float x, float y, float offsetX, float offsetY, BaseDamageable* wielder);
 
     void updateProjectiles(float dt);
+    void removeUnusedProjectiles();
     void renderProjectiles(SDL_Renderer* renderer);
 
 private:

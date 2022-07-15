@@ -51,3 +51,4 @@ find include/ src/ -regex '.*/.*\.\(h\|cpp\)$' | xargs wc -l
 
 - Try using an ECS architecture
 - Look into embedded lua for scripting
+- Try using smart pointers to save headaches
