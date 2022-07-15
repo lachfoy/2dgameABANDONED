@@ -3,21 +3,19 @@
 
 #include <SDL2/SDL.h>
 
-//simple aabb AABB
+//simple aabb
 struct AABB
 {
     AABB() {}
     inline AABB(float x, float y, float w, float h);
-    ~AABB() {}
 
-    float upperBoundX;
-    float upperBoundY;
-    float lowerBoundX;
-    float lowerBoundY;
+    float upperBoundX = 0.0f;
+    float upperBoundY = 0.0f;
+    float lowerBoundX = 0.0f;
+    float lowerBoundY = 0.0f;
 
     static inline bool testOverlap(const AABB& a, const AABB& b); // intersecting?
     inline void debugRender(SDL_Renderer* renderer);
-    inline void move(float x, float y); // not used
 };
 
 AABB::AABB(float x, float y, float w, float h)
@@ -57,16 +55,6 @@ void AABB::debugRender(SDL_Renderer* renderer)
 
     SDL_SetRenderDrawColor(renderer, 0xff, 0x00, 0x00, 0xff); // red
     SDL_RenderDrawRect(renderer, &collider_rect);
-}
-
-// unused
-void AABB::move(float x, float y)
-{
-    // move the collider as well
-    upperBoundX = x;
-    upperBoundY = y;
-    lowerBoundX = x + (lowerBoundX - upperBoundX);
-    lowerBoundY = y + (lowerBoundY - upperBoundY);
 }
 
 #endif

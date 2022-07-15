@@ -4,7 +4,7 @@
 
 Fireball::Fireball(float x, float y, int velX, int velY)
     : BaseProjectile(x, y, velX, velY)
-{ // because im messing up DIP principle by passing the PM to the base projectile in the first place lmao
+{
     name = "Fireball";
     colliderW = 24;
     colliderH = 24;
@@ -18,7 +18,6 @@ Fireball::Fireball(float x, float y, int velX, int velY)
 
 void Fireball::destroy(ProjectileManager& projectileManager)
 {
-    // we KNOW that this is where the bug occurs
     // when destroyed, create an explosion
     projectileManager.addFireballExplosion(posX, posY);
 }

@@ -37,9 +37,8 @@ void Healthbar::setSize(const int& length, const int& height)
 
 void Healthbar::updateHealth()
 {
-    // prevent health rect from renderering a negative width
     if (damageable->getHealth() <= 0)
-        health_rect.w = 0;
+        removable = true;
     else
         // update the healthbar width using the players health %
         health_rect.w = (int)(((float)damageable->getHealth() / damageable->getMaxHealth()) * length);

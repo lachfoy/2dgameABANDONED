@@ -9,13 +9,12 @@
 
 class UiManager;
 class ProjectileManager;
-class EnemyManager;
 class Player;
 
 class BaseEnemy : public BaseDamageable
 {
 public:
-    BaseEnemy(float x, float y, UiManager* uiManager, ProjectileManager* projectileManager, EnemyManager* enemyManager, Player* player);
+    BaseEnemy(float x, float y, UiManager* uiManager, ProjectileManager* projectileManager, Player* player);
     virtual ~BaseEnemy() {} // derived enemies can add functionality to their destructors
 
     Damage getDamage() const { return damage; }
@@ -26,9 +25,9 @@ public:
 protected:
     UiManager* uiManager;
     ProjectileManager* projectileManager;
-    EnemyManager* enemyManager;
     Player* player;
     Damage damage;
+    
 };
 
 #endif

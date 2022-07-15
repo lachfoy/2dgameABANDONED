@@ -5,8 +5,8 @@
 #include "UiManager.h"
 #include "EnemyManager.h"
 
-Skeleton::Skeleton(float x, float y, UiManager* uiManager, ProjectileManager* projectileManager, EnemyManager* enemyManager, Player* player)
-    : BaseEnemy(x, y, uiManager, projectileManager, enemyManager, player)
+Skeleton::Skeleton(float x, float y, UiManager* uiManager, ProjectileManager* projectileManager, Player* player)
+    : BaseEnemy(x, y, uiManager, projectileManager, player)
 {
     // initialize everything
     name = "Skeleton";

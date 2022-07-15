@@ -16,17 +16,18 @@ public:
     UiManager() {};
     ~UiManager();
 
-    std::vector<BaseUiObject*> getUiObjects() const { return uiObjects; }
+    std::vector<BaseUiObject*> const& getUiObjects() const { return uiObjects; }
     
-    //void addUiObject(BaseUiObject* uiObject) { uiObjects.push_back(uiObject); } // dont use this
     void addHealthbar(int x, int y, int length, int height, BaseDamageable* damageable);
     void addDynamicHealthbar(int length, int height, BaseDamageable* damageable);
 
     void updateUiObjects(float dt);
+    void removeUnusedUiObjects();
     void renderUiObjects(SDL_Renderer* renderer);
 
 private:
     std::vector<BaseUiObject*> uiObjects;
+    
 };
 
 #endif

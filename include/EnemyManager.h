@@ -18,14 +18,14 @@ public:
     EnemyManager(Player* player);
     ~EnemyManager();
 
-    std::vector<BaseEnemy*> getEnemies() const { return enemies; }
+    std::vector<BaseEnemy*> const& getEnemies() const { return enemies; }
     
-    void addEnemy(BaseEnemy* enemy) { enemies.push_back(enemy); } // deprecated -- don't use this anymore
     void addSkeleton(float x, float y, UiManager* uiManager, ProjectileManager* projectileManager);
 
     void resolvePlayerProjectileCollisions(const std::vector<BaseProjectile*>& playerProjectiles);
 
     void updateEnemies(float dt);
+    void removeUnusedEnemies();
     void renderEnemies(SDL_Renderer* renderer);
 
 private:

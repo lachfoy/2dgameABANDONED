@@ -19,6 +19,11 @@ EnemyManager::~EnemyManager()
     enemies.clear();
 }
 
+void EnemyManager::addSkeleton(float x, float y, UiManager* uiManager, ProjectileManager* projectileManager)
+{
+    enemies.push_back(new Skeleton(x, y, uiManager, projectileManager, player));
+}
+
 // tests collision against a list of projectiles and deals appropriate damage
 void EnemyManager::resolvePlayerProjectileCollisions(const std::vector<BaseProjectile*>& playerProjectiles)
 {
@@ -48,29 +53,30 @@ void EnemyManager::resolvePlayerProjectileCollisions(const std::vector<BaseProje
     }
 }
 
-void EnemyManager::addSkeleton(float x, float y, UiManager* uiManager, ProjectileManager* projectileManager)
-{
-    enemies.push_back(new Skeleton(x, y, uiManager, projectileManager, this, player));
-}
-
 void EnemyManager::updateEnemies(float dt)
 {
     // update all the enemies
-    int i = 0;
     for (const auto& enemy : enemies)
     {
         enemy->updateBurning(dt);
         enemy->updateImmuneTimer(dt);
         enemy->updateAI(dt);
         enemy->updatePosition(dt);
-        
-        if (enemy->removable)
-        {
-            delete enemy;
-            enemies.erase(enemies.begin() + i); // delete if remove flag is set
-        }
+    }
+}
 
-        i++;
+
+void EnemyManager::removeUnusedEnemies()
+{
+    for (int i = 0; i < enemies.size(); i++)
+    {
+        if (enemies[i]->removable)
+        {
+            //enemies[i]->destroy(*this);
+            delete enemies[i];
+            enemies.erase(enemies.begin() + i);
+            i--;
+        }
     }
 }
 

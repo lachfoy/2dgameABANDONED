@@ -55,38 +55,8 @@ void ProjectileManager::updateProjectiles(float dt)
     }
 }
 
-// tests collision against a list of projectiles and deals appropriate damage
-void ProjectileManager::resolveProjectileVsEnemyCollisions(const std::vector<BaseDamageable*>& enemies)
-{
-    for (const auto& projectile : playerProjectiles)
-    {
-        if (!projectile->hasDealtDamage) // if projectile hasnt dealt damage yet, test collisions against all enemies
-        {
-            // loop through enemies and deal appropriate damage
-            int enemiesHit = 0;
-            for (const auto& enemy : enemies)
-            {
-                if (AABB::testOverlap(projectile->getCollider(), enemy->getCollider()))
-                {
-                    enemy->takeDamage(projectile->getDamage());
-                    enemiesHit++;
-                }
-            }
-
-            // deal with projectile according to flags
-            if (projectile->onlyDamageOnce && (enemiesHit > 0))
-            {
-                projectile->hasDealtDamage = true;
-                if (projectile->removeOnCollision) projectile->removable; // set removable
-                printf("%s hit %i enemies\n", projectile->name.c_str(), enemiesHit);
-            }
-        }
-    }
-}
-
 void ProjectileManager::removeUnusedProjectiles()
 {
-    // this actually works im like 90% sure holy shit
     // enemy projectiles
     for (int i = 0; i < enemyProjectiles.size(); i++)
     {

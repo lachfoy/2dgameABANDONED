@@ -11,11 +11,11 @@ public:
     BaseDamageable(float x, float y);
 
     // getters
-    int getHealth() const { return health; }
-    int getMaxHealth() const { return maxHealth; }
-    int getWidth() const { return width; }
-    int getHeight() const { return height; }
-    AABB const& getCollider() const { return collider; }
+    inline int getHealth() const { return health; }
+    inline int getMaxHealth() const { return maxHealth; }
+    inline int getWidth() const { return width; }
+    inline int getHeight() const { return height; }
+    inline AABB const& getCollider() const { return collider; }
 
     void takeDamage(const Damage& damage);
     void updateBurning(float dt);
@@ -25,23 +25,18 @@ public:
 protected:
     int velX = 0;
     int velY = 0;
-    
     int width;
     int height;
-    
     int colliderW;
     int colliderH;
     AABB collider;
-    
     int maxHealth;
     int health;
     bool damageable; // if not damageable then they are taking damage
     float immuneTime; // how many iframes (in seconds though)
     float immuneTimer;
-
     float moveSpeed;
     enum FacingDirection { FACING_LEFT, FACING_RIGHT } facingDirection;
-
     Resistance resistance;
 
     // fire

@@ -8,7 +8,7 @@ struct BaseUiObject
     BaseUiObject() {}
     virtual ~BaseUiObject() {}
 
-    bool removeable = false;
+    bool removable = false;
     int x;
     int y;
 

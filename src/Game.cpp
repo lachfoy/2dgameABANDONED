@@ -47,8 +47,10 @@ void Game::onUpdate(float dt)
     // update ui objects
     uiManager->updateUiObjects(dt);
 
-    // remove unused projectiles
+    // remove unused objects
+    enemyManager->removeUnusedEnemies();
     projectileManager->removeUnusedProjectiles();
+    uiManager->removeUnusedUiObjects();
 }
 
 void Game::onRender()
