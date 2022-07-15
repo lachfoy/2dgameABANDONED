@@ -3,7 +3,7 @@
 #include "ProjectileManager.h"
 
 Fireball::Fireball(float x, float y, int velX, int velY, ProjectileManager* projectileManager)
-    : BaseProjectile(x, y, velX, velY, projectileManager, nullptr)
+    : BaseProjectile(x, y, velX, velY, nullptr, nullptr)
 {
     name = "Fireball";
     colliderW = 24;
@@ -16,10 +16,13 @@ Fireball::Fireball(float x, float y, int velX, int velY, ProjectileManager* proj
     onlyDamageOnce = true;
 }
 
-Fireball::~Fireball()
+void Fireball::destroy()
 {
+    // we KNOW that this is where the bug occurs
+
     // when destroyed, create an explosion
-    projectileManager->addFireballExplosion(posX, posY);
+    //projectileManager->addFireballExplosion(posX, posY);
+    removable = true;
 }
 
 void Fireball::render(SDL_Renderer* renderer)

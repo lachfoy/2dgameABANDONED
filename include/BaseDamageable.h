@@ -9,14 +9,13 @@ class BaseDamageable : public BaseObject
 {
 public:
     BaseDamageable(float x, float y);
-    virtual ~BaseDamageable();
 
     // getters
     int getHealth() const { return health; }
     int getMaxHealth() const { return maxHealth; }
     int getWidth() const { return width; }
     int getHeight() const { return height; }
-    AABB getCollider() const { return *collider; }
+    AABB const& getCollider() const { return collider; }
 
     void takeDamage(const Damage& damage);
     void updateBurning(float dt);
@@ -32,7 +31,7 @@ protected:
     
     int colliderW;
     int colliderH;
-    AABB* collider;
+    AABB collider;
     
     int maxHealth;
     int health;
@@ -52,6 +51,7 @@ protected:
     float fireTimer = fireTime;
     float fireTickTime = 0.4f; // how many seconds before each tick of fire damage
     float fireTickTimer = fireTickTime;
+
 };
 
 #endif

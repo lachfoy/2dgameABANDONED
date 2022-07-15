@@ -14,15 +14,10 @@ BaseProjectile::BaseProjectile(float x, float y, int velX, int velY, ProjectileM
     collider = AABB(posX, posY, colliderW, colliderH);
 }
 
-BaseProjectile::~BaseProjectile()
-{
-    printf("deleted %s\n", name.c_str());
-}
-
 void BaseProjectile::updateLifetime(float dt)
 {
     if (lifeTime <= 0.0f)
-        removeable = true;
+        destroy();
     else
         lifeTime -= dt;
 }

@@ -40,7 +40,7 @@ void Player::resolveEnemyCollisions(const std::vector<BaseEnemy*>& enemies)
 {
     for (int i = 0; i < enemies.size(); i++)
     {
-        if (AABB::testOverlap(enemies[i]->getCollider(), *collider))
+        if (AABB::testOverlap(enemies[i]->getCollider(), collider))
         {
             takeDamage(enemies[i]->getDamage());
         }
@@ -182,5 +182,5 @@ void Player::render(SDL_Renderer* renderer)
     SDL_RenderFillRect(renderer, &debug_point_pos);
 
     // draw collider
-    collider->debugRender(renderer);
+    collider.debugRender(renderer);
 }

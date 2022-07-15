@@ -89,5 +89,5 @@ void Skeleton::render(SDL_Renderer* renderer)
     SDL_RenderFillRect(renderer, &debug_point_pos);
 
     // draw collider
-    collider->debugRender(renderer);
+    collider.debugRender(renderer);
 }

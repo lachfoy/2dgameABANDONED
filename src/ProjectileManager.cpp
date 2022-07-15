@@ -61,7 +61,7 @@ void ProjectileManager::removeUnusedProjectiles()
     // enemy projectiles
     for (int i = 0; i < enemyProjectiles.size(); i++)
     {
-        if (enemyProjectiles[i]->removeable)
+        if (enemyProjectiles[i]->getRemovable())
         {
             delete enemyProjectiles[i];
             enemyProjectiles.erase(enemyProjectiles.begin() + i);
@@ -72,7 +72,7 @@ void ProjectileManager::removeUnusedProjectiles()
     // player projectiles
     for (int i = 0; i < playerProjectiles.size(); i++)
     {
-        if (playerProjectiles[i]->removeable)
+        if (playerProjectiles[i]->getRemovable())
         {
             delete playerProjectiles[i];
             playerProjectiles.erase(playerProjectiles.begin() + i);

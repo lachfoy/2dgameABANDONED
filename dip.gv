@@ -10,5 +10,4 @@ digraph dip {
     edge [style="" dir=back arrowtail=empty]
     BaseProjectile->{Fireball, FireballExplosion}
 
-
 }

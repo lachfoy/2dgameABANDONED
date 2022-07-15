@@ -3,14 +3,8 @@
 BaseDamageable::BaseDamageable(float x, float y)
     : BaseObject(x, y)
 {
-    collider = new AABB(posX, posY, colliderW, colliderH);
+    collider = AABB(posX, posY, colliderW, colliderH);
     resistance = {0};
-}
-
-BaseDamageable::~BaseDamageable()
-{
-    delete collider;
-    printf("deleted %s\n", name.c_str());
 }
 
 void BaseDamageable::takeDamage(const Damage& damage)
@@ -54,7 +48,7 @@ void BaseDamageable::updateBurning(float dt)
 
 void BaseDamageable::updateImmuneTimer(float dt)
 {
-    if (health <= 0) { printf("%s is dead\n", name.c_str()); removeable = true; }
+    if (health <= 0) { printf("%s is dead\n", name.c_str()); removable = true; }
     else
     {
         // set up iframes
@@ -85,8 +79,8 @@ void BaseDamageable::updatePosition(float dt)
 
     // move the collider as well
     // note: origin for NPCs/players is always bottom center
-    collider->upperBoundX = posX - (colliderW / 2);
-    collider->upperBoundY = posY - (colliderH / 2) - (height / 2);
-    collider->lowerBoundX = posX + (colliderW / 2);
-    collider->lowerBoundY = posY + (colliderH / 2) - (height / 2);
+    collider.upperBoundX = posX - (colliderW / 2);
+    collider.upperBoundY = posY - (colliderH / 2) - (height / 2);
+    collider.lowerBoundX = posX + (colliderW / 2);
+    collider.lowerBoundY = posY + (colliderH / 2) - (height / 2);
 }

@@ -14,7 +14,7 @@ Sword::Sword(float x, float y, float offsetX, float offsetY, ProjectileManager* 
     lifeTime = 0.1f;
 }
 
-Sword::~Sword()
+void Sword::destroy()
 {
     projectileManager->addSwordSlash(posX, posY, offsetX * 1.2f, offsetY, damageable);
 }

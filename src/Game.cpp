@@ -35,9 +35,6 @@ void Game::onUpdate(float dt)
     // handle input
     player->handleInput(*inputManager);
 
-    // remove unused projectiles
-    projectileManager->removeUnusedProjectiles();
-
     // update game objects
     player->updatePlayer(dt);
     enemyManager->updateEnemies(dt);
@@ -49,6 +46,9 @@ void Game::onUpdate(float dt)
 
     // update ui objects
     uiManager->updateUiObjects(dt);
+
+    // remove unused projectiles
+    projectileManager->removeUnusedProjectiles();
 }
 
 void Game::onRender()

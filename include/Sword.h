@@ -9,8 +9,8 @@ class Sword : public BaseMeleeWeapon
 {
 public:
     Sword(float x, float y, float offsetX, float offsetY, ProjectileManager* projectileManager, BaseDamageable* damageable);
-    ~Sword() override;
 
+    void destroy() override;
     void render(SDL_Renderer* renderer) override;
     
 };

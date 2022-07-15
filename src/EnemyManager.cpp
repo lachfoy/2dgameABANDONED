@@ -41,7 +41,7 @@ void EnemyManager::resolvePlayerProjectileCollisions(const std::vector<BaseProje
             if (projectile->onlyDamageOnce && (enemiesHit > 0))
             {
                 projectile->hasDealtDamage = true;
-                if (projectile->removeOnCollision) projectile->removeable = true;
+                if (projectile->removeOnCollision) projectile->destroy();
                 printf("%s hit %i enemies\n", projectile->name.c_str(), enemiesHit);
             }
         }
@@ -64,7 +64,7 @@ void EnemyManager::updateEnemies(float dt)
         enemy->updateAI(dt);
         enemy->updatePosition(dt);
         
-        if (enemy->removeable)
+        if (enemy->getRemovable())
         {
             delete enemy;
             enemies.erase(enemies.begin() + i); // delete if remove flag is set
