@@ -41,7 +41,7 @@ void Game::onUpdate(float dt)
     projectileManager->updateProjectiles(dt);
 
     // collision resolution
-    //enemyManager->resolvePlayerProjectileCollisions(projectileManager->getPlayerProjectiles());
+    enemyManager->resolvePlayerProjectileCollisions(projectileManager->getPlayerProjectiles());
     player->resolveEnemyCollisions(enemyManager->getEnemies());
 
     // update ui objects

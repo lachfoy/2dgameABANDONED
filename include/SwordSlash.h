@@ -8,8 +8,9 @@ class BaseDamageable;
 class SwordSlash : public BaseMeleeWeapon
 {
 public:
-    SwordSlash(float x, float y, float offsetX, float offsetY, BaseDamageable* damageable);
+    SwordSlash(float x, float y, float offsetX, float offsetY, BaseDamageable* wielder);
 
+    void destroy(ProjectileManager& projectileManager) override {}
     void render(SDL_Renderer* renderer) override;
     
 };

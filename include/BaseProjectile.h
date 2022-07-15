@@ -8,12 +8,11 @@
 #include "Damage.h"
 
 class ProjectileManager;
-class BaseDamageable;
 
 class BaseProjectile : public BaseObject
 {
 public:
-    BaseProjectile(float x, float y, int velX, int velY, ProjectileManager* projectileManager, BaseDamageable* damageable);
+    BaseProjectile(float x, float y, int velX, int velY);
 
     bool removeOnCollision;
     bool onlyDamageOnce;
@@ -23,12 +22,10 @@ public:
     Damage const& getDamage() const { return damage; }
     
     void updateLifetime(float dt);
-    virtual void destroy() { removable = true; };
+    virtual void destroy(ProjectileManager& projectileManager) = 0;
     virtual void updatePosition(float dt); // derived projectiles can override update ONLY if they need to
 
 protected: // things the derived projectiles can change
-    ProjectileManager* projectileManager;
-    BaseDamageable* damageable;
     int velX; // normalized x velocity
     int velY; // normalized y velocity
     AABB collider;

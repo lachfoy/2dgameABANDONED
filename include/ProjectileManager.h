@@ -34,6 +34,7 @@ public:
     void addSwordSlash(float x, float y, float offsetX, float offsetY, BaseDamageable* wielder);
 
     void updateProjectiles(float dt);
+    void resolveProjectileVsEnemyCollisions(const std::vector<BaseDamageable*>& enemies);
     void removeUnusedProjectiles();
     void renderProjectiles(SDL_Renderer* renderer);
 

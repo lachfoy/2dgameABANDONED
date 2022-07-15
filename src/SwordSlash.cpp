@@ -2,8 +2,8 @@
 
 #include "BaseDamageable.h"
 
-SwordSlash::SwordSlash(float x, float y, float offsetX, float offsetY, BaseDamageable* damageable)
-     : BaseMeleeWeapon(x, y, offsetX, offsetY, nullptr, damageable)
+SwordSlash::SwordSlash(float x, float y, float offsetX, float offsetY, BaseDamageable* wielder)
+     : BaseMeleeWeapon(x, y, offsetX, offsetY, wielder)
 {
     name = "SwordSlash";
     colliderW = 40;

@@ -3,14 +3,12 @@
 
 #include "BaseMeleeWeapon.h"
 
-class BaseDamageable;
-
 class Sword : public BaseMeleeWeapon
 {
 public:
-    Sword(float x, float y, float offsetX, float offsetY, ProjectileManager* projectileManager, BaseDamageable* damageable);
+    Sword(float x, float y, float offsetX, float offsetY, BaseDamageable* wielder);
 
-    void destroy() override;
+    void destroy(ProjectileManager& projectileManager) override;
     void render(SDL_Renderer* renderer) override;
     
 };

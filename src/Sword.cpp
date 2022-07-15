@@ -3,8 +3,8 @@
 #include "BaseDamageable.h"
 #include "ProjectileManager.h"
 
-Sword::Sword(float x, float y, float offsetX, float offsetY, ProjectileManager* projectileManager, BaseDamageable* damageable)
-     : BaseMeleeWeapon(x, y, offsetX, offsetY, projectileManager, damageable)
+Sword::Sword(float x, float y, float offsetX, float offsetY, BaseDamageable* wielder)
+     : BaseMeleeWeapon(x, y, offsetX, offsetY, wielder)
 {
     name = "Sword";
     colliderW = 50;
@@ -14,9 +14,9 @@ Sword::Sword(float x, float y, float offsetX, float offsetY, ProjectileManager* 
     lifeTime = 0.1f;
 }
 
-void Sword::destroy()
+void Sword::destroy(ProjectileManager& projectileManager)
 {
-    projectileManager->addSwordSlash(posX, posY, offsetX * 1.2f, offsetY, damageable);
+    projectileManager.addSwordSlash(posX, posY, offsetX * 1.2f, offsetY, wielder);
 }
 
 void Sword::render(SDL_Renderer* renderer)

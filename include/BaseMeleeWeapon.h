@@ -8,11 +8,13 @@ class BaseDamageable;
 class BaseMeleeWeapon : public BaseProjectile
 {
 public:
-    BaseMeleeWeapon(float x, float y, float offsetX, float offsetY, ProjectileManager* projectileManager, BaseDamageable* damageable);
+    BaseMeleeWeapon(float x, float y, float offsetX, float offsetY, BaseDamageable* wielder);
 
+    // problem if this doesnt implement void destroy(ProjectileManager& projectileManager) ?
     void updatePosition(float dt) override;
     
 protected:
+    BaseDamageable* wielder;
     float offsetX;
     float offsetY;
 

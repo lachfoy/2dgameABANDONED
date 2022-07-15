@@ -2,14 +2,11 @@
 
 #include "BaseDamageable.h"
 
-BaseProjectile::BaseProjectile(float x, float y, int velX, int velY, ProjectileManager* projectileManager, BaseDamageable* damageable)
+BaseProjectile::BaseProjectile(float x, float y, int velX, int velY)
     : BaseObject(x, y)
 {
     this->velX = velX;
     this->velY = velY;
-
-    this->projectileManager = projectileManager;
-    this->damageable = damageable;
     
     collider = AABB(posX, posY, colliderW, colliderH);
 }
@@ -17,7 +14,7 @@ BaseProjectile::BaseProjectile(float x, float y, int velX, int velY, ProjectileM
 void BaseProjectile::updateLifetime(float dt)
 {
     if (lifeTime <= 0.0f)
-        destroy();
+        removable = true;
     else
         lifeTime -= dt;
 }
