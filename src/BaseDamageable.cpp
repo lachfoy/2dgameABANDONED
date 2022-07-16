@@ -11,7 +11,10 @@ void BaseDamageable::takeDamage(const Damage& damage)
 {
     if(damageable)
     {
+        // set status
         if (damage.setBurning) onFire = true;
+
+        // take damage
         int damageTaken = resistance.damageAfterRestistance(damage);
         health -= damageTaken;
         printf("%s took %i damage\n", name.c_str(), damageTaken);
@@ -33,7 +36,7 @@ void BaseDamageable::updateBurning(float dt)
                 if (fireTickTimer > 0.0f) fireTickTimer -= dt;
                 else
                 {
-                    takeDamage(StatusDamage::burning);
+                    takeDamage(statusBurning);
                     fireTickTimer = fireTickTime; // reset to the starting value
                 }
             }
@@ -42,6 +45,38 @@ void BaseDamageable::updateBurning(float dt)
                 onFire = false;
                 fireTimer = fireTime;
             }
+        }
+    }
+}
+
+void BaseDamageable::push(int pushVelX, int pushVelY, float pushMoveSpeed)
+{
+    if (!beingPushed)
+    {
+        this->pushVelX = pushVelX;
+        this->pushVelY = pushVelY;
+        this->pushMoveSpeed = pushMoveSpeed;
+        beingPushed = true;
+    }
+}
+
+void BaseDamageable::updatePush(float dt)
+{
+    if (beingPushed)
+    {
+        if (pushTimer > 0.0f)
+        {
+            velX = pushVelX;
+            velY = pushVelY;
+            moveSpeed = pushMoveSpeed;
+            pushTimer -= dt;
+        }
+        else
+        {
+            // reset back to normal
+            beingPushed = false;
+            moveSpeed = startingMoveSpeed;
+            pushTimer = pushTime;
         }
     }
 }

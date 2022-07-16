@@ -33,7 +33,8 @@ Player::Player(float x, float y, UiManager* uiManager, ProjectileManager* projec
     immuneTime = 0.2f; // how many seconds of iframes
     immuneTimer = immuneTime;
 
-    moveSpeed = defaultMoveSpeed;
+    startingMoveSpeed = 100.0f;
+    moveSpeed = startingMoveSpeed;
 }
 
 void Player::resolveEnemyCollisions(const std::vector<BaseEnemy*>& enemies)
@@ -92,16 +93,15 @@ void Player::updateDodgeRoll(float dt)
         int dodgeVelX = (facingDirection == FACING_RIGHT) ? 1 : -1;
         if (dodgeRollTimer > 0.0f)
         {
-            velX = dodgeVelX;
+            velX = dodgeVelX; // override input
             moveSpeed = dodgeRollMoveSpeed;
             damageable = false;
             dodgeRollTimer -= dt;
-            // override input
         }
         else
         {
             dodgeRolling = false;
-            moveSpeed = defaultMoveSpeed;
+            moveSpeed = startingMoveSpeed;
             dodgeRollTimer = dodgeRollTime; // reset timer
         }
     }
@@ -142,6 +142,7 @@ void Player::updateAttackingTimer(float dt)
 void Player::updatePlayer(float dt)
 {
     updateDodgeRoll(dt);
+    updatePush(dt);
     updateShootingTimer(dt);
     updateAttackingTimer(dt);
     updateImmuneTimer(dt);

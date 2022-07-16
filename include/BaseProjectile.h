@@ -21,6 +21,8 @@ public:
 
     AABB const& getCollider() const { return collider; }
     Damage const& getDamage() const { return damage; }
+    int getVelX() const { return velX; }
+    int getVelY() const { return velY; }
     
     void updateLifetime(float dt);
     virtual void destroy(ProjectileManager& projectileManager) = 0;

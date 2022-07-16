@@ -6,12 +6,19 @@ struct Damage
     int standard;
     int crushing;
     int fire;
-    bool setBurning;
+    int magic;
+    int poison;
+    bool setBurning; // should this projectile set the burning status
 };
 
-namespace StatusDamage
-{
-    static const Damage burning = { .standard = 0, .crushing = 0, .fire = 4, .setBurning = false };
+// predefined status damages
+static const Damage statusBurning = {
+    .standard = 0,
+    .crushing = 0,
+    .fire = 4, // only deals a small tick of fire damage
+    .magic = 0,
+    .poison = 0,
+    .setBurning = false,
 };
 
 #endif

@@ -20,10 +20,11 @@ x move responsibility of creating ui objects to the UIManager
 x think about how to handle damage and resistances
 x better(ish) enemy AI
 x add melee weapons
+x add dodge roll with iframes
+x add burning effect
 
 TODO
-add dodge roll with iframes
-consider status effects -- burning, poisoned
+poison effect
 more enemy types/abilities
 gamestates -- pausing, menu?
 upgrades -- system for adding extra abilities to the player

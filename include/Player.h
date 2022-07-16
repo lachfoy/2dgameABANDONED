@@ -37,7 +37,6 @@ private:
     bool dodgeRolling = false;
     float dodgeRollTime = 0.3f;
     float dodgeRollTimer = dodgeRollTime;
-    float defaultMoveSpeed = 100.0f;
     float dodgeRollMoveSpeed = 340.0f;
 
     // Shooting
@@ -49,6 +48,7 @@ private:
     bool canAttack = true;
     float attackingTime = 0.4f;
     float attackingTimer = 0.0f; // time before able to attack again "cool down"
+    
 };
 
 #endif

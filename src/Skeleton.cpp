@@ -26,7 +26,8 @@ Skeleton::Skeleton(float x, float y, UiManager* uiManager, ProjectileManager* pr
     immuneTime = 0.1f; // how many seconds of iframes
     immuneTimer = immuneTime;
 
-    moveSpeed = 10.0f; // slowww
+    startingMoveSpeed = 10.0f; // slowww
+    moveSpeed = startingMoveSpeed;
 
     damage = {0};
     damage = { .crushing = 6 };
