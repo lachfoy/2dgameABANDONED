@@ -5,6 +5,7 @@
 #include "Sword.h"
 #include "BaseDamageable.h"
 #include "SwordSlash.h"
+#include "ResourceManager.h"
 
 ProjectileManager::~ProjectileManager()
 {
@@ -20,7 +21,7 @@ ProjectileManager::~ProjectileManager()
 
 void ProjectileManager::addFireball(float x, float y, int velX, int velY)
 {
-    playerProjectiles.push_back(new Fireball(x, y, velX, velY));
+    playerProjectiles.push_back(new Fireball(x, y, velX, velY, resourceManager->getTexture("FireballTexture")));
 }
 
 void ProjectileManager::addFireballExplosion(float x, float y)

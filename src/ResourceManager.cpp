@@ -8,6 +8,7 @@ ResourceManager::ResourceManager(SDL_Renderer* renderer)
 ResourceManager::~ResourceManager()
 {
     // clear the textures from the map
+    printf("ResourceManager: deallocating textures...\n");
     for (const auto& it : textures)
     {
         printf("destroying %s\n", it.first.c_str());

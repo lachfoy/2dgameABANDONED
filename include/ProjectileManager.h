@@ -9,11 +9,16 @@
 #include "BaseProjectile.h"
 
 class BaseDamageable;
+class ResourceManager;
 
 class ProjectileManager
 {
 public:
-    ProjectileManager() {}
+    ProjectileManager(ResourceManager* resourceManager)
+    {
+        this->resourceManager = resourceManager; // ptr to resource manager, used when creating projectiles to give them the appropriate textures
+    }
+
     ~ProjectileManager();
 
     // Getter for the projectiles vector
@@ -42,6 +47,8 @@ private:
     //std::vector<BaseProjectile*> projectiles;
     std::vector<BaseProjectile*> playerProjectiles;
     std::vector<BaseProjectile*> enemyProjectiles;
+
+    ResourceManager* resourceManager;
 
 };
 

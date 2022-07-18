@@ -10,7 +10,7 @@ Game::Game() {}
 void Game::onCreate()
 {
     uiManager = new UiManager();
-    projectileManager = new ProjectileManager();
+    projectileManager = new ProjectileManager(resourceManager);
 
     player = new Player(100.0f, 200.0f, uiManager, projectileManager);
     

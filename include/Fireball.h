@@ -8,10 +8,13 @@ class ProjectileManager;
 class Fireball : public BaseProjectile
 {
 public:
-    Fireball(float x, float y, int velX, int velY);
+    Fireball(float x, float y, int velX, int velY, SDL_Texture* texture);
 
     void destroy(ProjectileManager& projectileManager) override;
     void render(SDL_Renderer* renderer) override;
+
+private:
+    SDL_Texture* texture; // temp
 
 };
 
