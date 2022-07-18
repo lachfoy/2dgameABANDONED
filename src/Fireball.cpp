@@ -3,7 +3,7 @@
 #include "ProjectileManager.h"
 
 Fireball::Fireball(float x, float y, int velX, int velY, SDL_Texture* texture)
-    : BaseProjectile(x, y, velX, velY)
+    : BaseProjectile(x, y, velX, velY, texture)
 {
     name = "Fireball";
     colliderW = 24;
@@ -14,8 +14,6 @@ Fireball::Fireball(float x, float y, int velX, int velY, SDL_Texture* texture)
     lifeTime = 0.8f;
     removeOnCollision = true;
     onlyDamageOnce = true;
-
-    this->texture = texture; // temp for now
 }
 
 void Fireball::destroy(ProjectileManager& projectileManager)
@@ -27,20 +25,20 @@ void Fireball::destroy(ProjectileManager& projectileManager)
 void Fireball::render(SDL_Renderer* renderer)
 {
     // draw the origin position representing the actual x and y positions
-    SDL_Rect debug_point_pos;
-    debug_point_pos.w = 12;
-    debug_point_pos.h = 12;
-    debug_point_pos.x = (int)posX - (debug_point_pos.w / 2);
-    debug_point_pos.y = (int)posY - (debug_point_pos.h / 2);
+    SDL_Rect fireball_rect;
+    fireball_rect.w = 20;
+    fireball_rect.h = 20;
+    fireball_rect.x = (int)posX - (fireball_rect.w / 2);
+    fireball_rect.y = (int)posY - (fireball_rect.h / 2);
 
     if (texture)
     {
-        SDL_RenderCopy(renderer, texture, NULL, &debug_point_pos);
+        SDL_RenderCopy(renderer, texture, NULL, &fireball_rect);
     }
     else
     {
         SDL_SetRenderDrawColor(renderer, 0xfc, 0x90, 0x03, 0xff); // #fc9003 fire orange
-        SDL_RenderFillRect(renderer, &debug_point_pos);
+        SDL_RenderFillRect(renderer, &fireball_rect);
     }
 
     // draw collider ig

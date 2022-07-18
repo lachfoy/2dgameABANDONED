@@ -19,7 +19,8 @@ ResourceManager::~ResourceManager()
 bool ResourceManager::loadTextures() // in future this could take a list of paths and iterate through that.\
     this way, the game manages which textures it wants, rather than hardcoding them.
 {
-    textures["FireballTexture"] = loadTextureFromFile("../images/Fireball.bmp");
+    textures["FireballTexture"] = loadTextureFromFile("../images/Fireball.bmp", SDL_BLENDMODE_ADD);
+    textures["FireballExplosionTexture"] = loadTextureFromFile("../images/FireballExplosion.bmp", SDL_BLENDMODE_ADD);
 
     return true;
 }
@@ -29,7 +30,7 @@ SDL_Texture* ResourceManager::getTexture(std::string key)
     return textures[key];
 }
 
-SDL_Texture* ResourceManager::loadTextureFromFile(const char* path)
+SDL_Texture* ResourceManager::loadTextureFromFile(const char* path, SDL_BlendMode blendMode = SDL_BLENDMODE_NONE)
 {
     bool success; // not used rn
 
@@ -49,6 +50,8 @@ SDL_Texture* ResourceManager::loadTextureFromFile(const char* path)
 
     SDL_FreeSurface(surface);
     surface = NULL;
+
+    SDL_SetTextureBlendMode(texture, blendMode);
 
     return texture;
 }

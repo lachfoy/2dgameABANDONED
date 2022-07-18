@@ -13,9 +13,6 @@ public:
     void destroy(ProjectileManager& projectileManager) override;
     void render(SDL_Renderer* renderer) override;
 
-private:
-    SDL_Texture* texture; // temp
-
 };
 
 #endif

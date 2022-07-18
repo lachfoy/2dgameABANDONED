@@ -3,7 +3,7 @@
 #include "BaseDamageable.h"
 
 BaseMeleeWeapon::BaseMeleeWeapon(float x, float y, float offsetX, float offsetY, BaseDamageable* wielder)
-     : BaseProjectile(x, y, 0, 0)
+     : BaseProjectile(x, y, 0, 0) // no texture for now
 {
     this->offsetX = offsetX;
     this->offsetY = offsetY;

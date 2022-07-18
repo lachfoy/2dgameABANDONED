@@ -20,7 +20,7 @@ private:
     SDL_Renderer* renderer; // ptr to renderer for texture loading, resource manager does not have ownership
     std::map<std::string, SDL_Texture*> textures;
 
-    SDL_Texture* loadTextureFromFile(const char* path);
+    SDL_Texture* loadTextureFromFile(const char* path, SDL_BlendMode blendMode);
 
 };
 

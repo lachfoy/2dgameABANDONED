@@ -12,7 +12,7 @@ class ProjectileManager;
 class BaseProjectile : public BaseObject
 {
 public:
-    BaseProjectile(float x, float y, int velX, int velY);
+    BaseProjectile(float x, float y, int velX, int velY, SDL_Texture* texture = nullptr);
     virtual ~BaseProjectile() {}
 
     bool removeOnCollision;
@@ -37,6 +37,7 @@ protected: // things the derived projectiles can change
     Damage damage;
     float moveSpeed;
     float lifeTime;
+    SDL_Texture* texture; // texture to use for rendering, projectile does not have ownership
 
 };
 

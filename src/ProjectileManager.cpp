@@ -26,7 +26,7 @@ void ProjectileManager::addFireball(float x, float y, int velX, int velY)
 
 void ProjectileManager::addFireballExplosion(float x, float y)
 {
-    playerProjectiles.push_back(new FireballExplosion(x, y));
+    playerProjectiles.push_back(new FireballExplosion(x, y, resourceManager->getTexture("FireballExplosionTexture")));
 }
 
 void ProjectileManager::addSword(float x, float y, float offsetX, float offsetY, BaseDamageable* wielder)
