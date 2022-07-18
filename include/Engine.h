@@ -7,6 +7,7 @@
 
 class BitmapFont;
 class InputManager;
+class ResourceManager;
 
 class Engine
 {
@@ -25,6 +26,7 @@ protected:
     
     BitmapFont* bitmapFont;
     InputManager* inputManager;
+    ResourceManager* resourceManager;
     
     virtual void onCreate() = 0;
     virtual void onCleanup() = 0;

@@ -2,6 +2,7 @@
 
 #include "BitmapFont.h"
 #include "InputManager.h"
+#include "ResourceManager.h"
 
 Engine::Engine(){}
 
@@ -39,6 +40,9 @@ bool Engine::init(int w, int h)
 
     inputManager = new InputManager();
 
+    resourceManager = new ResourceManager(renderer);
+    resourceManager->loadTextures();
+
     return true;
 }
 
@@ -48,6 +52,7 @@ void Engine::cleanup()
 
     delete bitmapFont;
     delete inputManager;
+    delete resourceManager; // deallocate the resources
     
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
