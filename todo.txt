@@ -24,6 +24,9 @@ x add dodge roll with iframes
 x add burning effect
 
 TODO
+resource manager (in progress)
+convert unit vector for velocity to floating point
+damage can haves a "push" effect
 poison effect
 more enemy types/abilities
 gamestates -- pausing, menu?
