@@ -21,6 +21,8 @@ bool ResourceManager::loadTextures() // in future this could take a list of path
 {
     textures["FireballTexture"] = loadTextureFromFile("../images/Fireball.bmp", SDL_BLENDMODE_ADD);
     textures["FireballExplosionTexture"] = loadTextureFromFile("../images/FireballExplosion.bmp", SDL_BLENDMODE_ADD);
+    textures["SwordTexture"] = loadTextureFromFile("../images/Sword.bmp", SDL_BLENDMODE_BLEND);
+    textures["SwordSlashTexture"] = loadTextureFromFile("../images/SwordSlash.bmp", SDL_BLENDMODE_BLEND);
 
     return true;
 }

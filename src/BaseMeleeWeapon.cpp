@@ -2,8 +2,8 @@
 
 #include "BaseDamageable.h"
 
-BaseMeleeWeapon::BaseMeleeWeapon(float x, float y, float offsetX, float offsetY, BaseDamageable* wielder)
-     : BaseProjectile(x, y, 0, 0) // no texture for now
+BaseMeleeWeapon::BaseMeleeWeapon(float x, float y, float offsetX, float offsetY, SDL_Texture* texture, BaseDamageable* wielder)
+     : BaseProjectile(x, y, 0, 0, texture) // no texture for now
 {
     this->offsetX = offsetX;
     this->offsetY = offsetY;

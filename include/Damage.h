@@ -9,6 +9,10 @@ struct Damage
     int magic;
     int poison;
     bool setBurning; // should this projectile set the burning status
+    
+    // where the damage came from as coordinates
+    int originX;
+    int originY;
 };
 
 // predefined status damages

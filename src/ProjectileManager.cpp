@@ -31,12 +31,12 @@ void ProjectileManager::addFireballExplosion(float x, float y)
 
 void ProjectileManager::addSword(float x, float y, float offsetX, float offsetY, BaseDamageable* wielder)
 {
-    playerProjectiles.push_back(new Sword(x, y, offsetX, offsetY, wielder));
+    playerProjectiles.push_back(new Sword(x, y, offsetX, offsetY, resourceManager->getTexture("SwordTexture"), wielder));
 }
 
 void ProjectileManager::addSwordSlash(float x, float y, float offsetX, float offsetY, BaseDamageable* wielder)
 {
-    playerProjectiles.push_back(new SwordSlash(x, y, offsetX, offsetY, wielder));
+    playerProjectiles.push_back(new SwordSlash(x, y, offsetX, offsetY, resourceManager->getTexture("SwordSlashTexture"), wielder));
 }
 
 void ProjectileManager::updateProjectiles(float dt)
