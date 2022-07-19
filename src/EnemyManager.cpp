@@ -37,7 +37,13 @@ void EnemyManager::resolvePlayerProjectileCollisions(const std::vector<BaseProje
             {
                 if (AABB::testOverlap(projectile->getCollider(), enemy->getCollider()))
                 {
-                    enemy->takeDamage(projectile->getDamage());
+                    enemy->takeDamage(projectile->getDamage());// make the enemy take damage
+
+                    // also push the enemy away
+                    int pushVelX = ((enemy->posX - projectile->posX) > 0.0f) ? 1 : -1;
+                    int pushVelY = ((enemy->posY - projectile->posY) > 0.0f) ? 1 : -1;
+                    enemy->push(pushVelX, pushVelY, -100.0f);
+                    
                     enemiesHit++;
                 }
             }

@@ -49,6 +49,8 @@ void BaseDamageable::updateBurning(float dt)
     }
 }
 
+// instead we should take in an origin pos, then do the velocity calculation.\
+    we should also use some kind of calculation based on a "mass" attribute
 void BaseDamageable::push(int pushVelX, int pushVelY, float pushMoveSpeed)
 {
     if (!beingPushed)

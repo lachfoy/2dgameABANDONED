@@ -16,6 +16,8 @@ public:
     inline int getWidth() const { return width; }
     inline int getHeight() const { return height; }
     inline AABB const& getCollider() const { return collider; }
+    int getVelX() const { return velX; }
+    int getVelY() const { return velY; }
 
     void takeDamage(const Damage& damage);
     void updateBurning(float dt);
@@ -52,7 +54,7 @@ protected:
 
     // push
     bool beingPushed = false;
-    float pushTime = 1.0f;
+    float pushTime = 0.1f;
     float pushTimer = pushTime;
     int pushVelX;
     int pushVelY;
