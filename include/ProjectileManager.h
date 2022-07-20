@@ -42,6 +42,7 @@ public:
     void resolveProjectileVsEnemyCollisions(const std::vector<BaseDamageable*>& enemies);
     void removeUnusedProjectiles();
     void renderProjectiles(SDL_Renderer* renderer);
+    void renderDebug(SDL_Renderer* renderer);
 
 private:
     //std::vector<BaseProjectile*> projectiles;

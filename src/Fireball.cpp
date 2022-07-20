@@ -26,8 +26,8 @@ void Fireball::render(SDL_Renderer* renderer)
 {
     // draw the origin position representing the actual x and y positions
     SDL_Rect fireball_rect;
-    fireball_rect.w = 20;
-    fireball_rect.h = 20;
+    fireball_rect.w = 24;
+    fireball_rect.h = 24;
     fireball_rect.x = (int)posX - (fireball_rect.w / 2);
     fireball_rect.y = (int)posY - (fireball_rect.h / 2);
 
@@ -42,5 +42,5 @@ void Fireball::render(SDL_Renderer* renderer)
     }
 
     // draw collider
-    collider.debugRender(renderer);
+    //collider.debugRender(renderer);
 }

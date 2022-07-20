@@ -22,11 +22,12 @@ x better(ish) enemy AI
 x add melee weapons
 x add dodge roll with iframes
 x add burning effect
+x better organised debug drawing
 
 TODO
 resource manager (in progress)
-convert unit vector for velocity to floating point
-damage can haves a "push" effect
+convert unit vector for velocity to floating point (in progress)
+damage can haves a "push" effect (in progress)
 poison effect
 more enemy types/abilities
 gamestates -- pausing, menu?

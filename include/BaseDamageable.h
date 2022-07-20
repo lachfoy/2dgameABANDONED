@@ -16,19 +16,22 @@ public:
     inline int getWidth() const { return width; }
     inline int getHeight() const { return height; }
     inline AABB const& getCollider() const { return collider; }
-    int getVelX() const { return velX; }
-    int getVelY() const { return velY; }
+    float getVelX() const { return velX; }
+    float getVelY() const { return velY; }
 
     void takeDamage(const Damage& damage);
     void updateBurning(float dt);
-    void push(int pushVelX, int pushVelY, float pushMoveSpeed);
+    void push(float pushVelX, float pushVelY, float pushMoveSpeed);
     void updatePush(float dt);
     void updateImmuneTimer(float dt);
     void updatePosition(float dt);
 
+    // debug
+    void renderCollider(SDL_Renderer* renderer);
+
 protected:
-    int velX = 0;
-    int velY = 0;
+    float velX = 0.0f;
+    float velY = 0.0f;
     int width;
     int height;
     int colliderW;
@@ -56,9 +59,12 @@ protected:
     bool beingPushed = false;
     float pushTime = 0.1f;
     float pushTimer = pushTime;
-    int pushVelX;
-    int pushVelY;
+    float pushVelX;
+    float pushVelY;
     float pushMoveSpeed;
+
+    // debug
+    
 
 };
 

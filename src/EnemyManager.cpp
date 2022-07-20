@@ -95,3 +95,12 @@ void EnemyManager::renderEnemies(SDL_Renderer* renderer)
         enemy->render(renderer);
     }
 }
+
+void EnemyManager::renderDebug(SDL_Renderer* renderer)
+{
+    for (const auto& enemy : enemies)
+    {
+        enemy->renderCollider(renderer);
+        enemy->renderOrigin(renderer);
+    }
+}

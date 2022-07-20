@@ -28,6 +28,9 @@ public:
     virtual void destroy(ProjectileManager& projectileManager) = 0;
     virtual void updatePosition(float dt); // derived projectiles can override update ONLY if they need to
 
+    // debug
+    void renderCollider(SDL_Renderer* renderer);
+
 protected: // things the derived projectiles can change
     int velX; // normalized x velocity
     int velY; // normalized y velocity

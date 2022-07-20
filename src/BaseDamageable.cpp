@@ -51,7 +51,7 @@ void BaseDamageable::updateBurning(float dt)
 
 // instead we should take in an origin pos, then do the velocity calculation.\
     we should also use some kind of calculation based on a "mass" attribute
-void BaseDamageable::push(int pushVelX, int pushVelY, float pushMoveSpeed)
+void BaseDamageable::push(float pushVelX, float pushVelY, float pushMoveSpeed)
 {
     if (!beingPushed)
     {
@@ -101,18 +101,18 @@ void BaseDamageable::updateImmuneTimer(float dt)
 void BaseDamageable::updatePosition(float dt)
 {
     // update facing direction
-    if (velX == 1)
+    if (velX > 0.0f)
         facingDirection = FACING_RIGHT;
-    else if (velX == -1)
+    else if (velX < 0.0f)
         facingDirection = FACING_LEFT;
 
     // update the internal position
     posX += velX * moveSpeed * dt;
-    posY += velY * moveSpeed * dt;
+    posY += velY * (moveSpeed * 0.5f) * dt; // moving in the Y direction is slower
 
     // reset velocity
-    velX = 0;
-    velY = 0;
+    velX = 0.0f;
+    velY = 0.0f;
 
     // move the collider as well
     // note: origin for NPCs/players is always bottom center
@@ -121,3 +121,10 @@ void BaseDamageable::updatePosition(float dt)
     collider.lowerBoundX = posX + (colliderW / 2);
     collider.lowerBoundY = posY + (colliderH / 2) - (height / 2);
 }
+
+void BaseDamageable::renderCollider(SDL_Renderer* renderer)
+{
+    // draw collider
+    collider.debugRender(renderer);
+}
+

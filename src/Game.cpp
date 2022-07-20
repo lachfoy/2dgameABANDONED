@@ -5,6 +5,8 @@
 #include "EnemyManager.h"
 #include "UiManager.h"
 
+#define DEBUG_DRAW 1
+
 Game::Game() {}
 
 void Game::onCreate()
@@ -62,4 +64,12 @@ void Game::onRender()
 
     // render ui objects
     uiManager->renderUiObjects(renderer);
+
+    // debug
+    if (DEBUG_DRAW)
+    {
+        enemyManager->renderDebug(renderer);
+        player->renderDebug(renderer);
+        projectileManager->renderDebug(renderer);
+    }
 }

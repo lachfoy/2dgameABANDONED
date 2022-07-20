@@ -97,3 +97,20 @@ void ProjectileManager::renderProjectiles(SDL_Renderer* renderer)
         projectile->render(renderer);
     }
 }
+
+void ProjectileManager::renderDebug(SDL_Renderer* renderer)
+{
+    // enemy projectiles
+    for (const auto& projectile : enemyProjectiles)
+    {
+        projectile->renderCollider(renderer);
+        projectile->renderOrigin(renderer);
+    }
+
+    // player projectiles
+    for (const auto& projectile : playerProjectiles)
+    {
+        projectile->renderCollider(renderer);
+        projectile->renderOrigin(renderer);
+    }
+}

@@ -33,5 +33,5 @@ void FireballExplosion::render(SDL_Renderer* renderer)
     }
 
     // draw collider
-    collider.debugRender(renderer);
+    //collider.debugRender(renderer);
 }

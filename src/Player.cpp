@@ -19,8 +19,8 @@ Player::Player(float x, float y, UiManager* uiManager, ProjectileManager* projec
     width = 30;
     height = 60;
 
-    colliderW = 50;
-    colliderH = 50;
+    colliderW = 40;
+    colliderH = 30;
 
     maxHealth = 80;
     health = maxHealth;
@@ -51,13 +51,13 @@ void Player::resolveEnemyCollisions(const std::vector<BaseEnemy*>& enemies)
 void Player::handleInput(InputManager& inputManager)
 {
     if (inputManager.keyPressed(SDL_SCANCODE_UP) | inputManager.keyPressed(SDL_SCANCODE_W))
-        velY = -1;
+        velY = -1.0f;
     if (inputManager.keyPressed(SDL_SCANCODE_DOWN) | inputManager.keyPressed(SDL_SCANCODE_S))
-        velY = 1;
+        velY = 1.0f;
     if (inputManager.keyPressed(SDL_SCANCODE_LEFT) | inputManager.keyPressed(SDL_SCANCODE_A))
-        velX = -1;
+        velX = -1.0f;
     if (inputManager.keyPressed(SDL_SCANCODE_RIGHT) | inputManager.keyPressed(SDL_SCANCODE_D))
-        velX = 1;
+        velX = 1.0f;
     if (inputManager.keyPressed(SDL_SCANCODE_Z))
     {
         if (canShoot)
@@ -90,10 +90,11 @@ void Player::updateDodgeRoll(float dt)
 {
     if (dodgeRolling)
     {
-        int dodgeVelX = (facingDirection == FACING_RIGHT) ? 1 : -1;
+        // dodge rolling doesnt disable input -- maybe it should??????
+        float dodgeVelX = (facingDirection == FACING_RIGHT) ? 1.0f : -1.0f;
         if (dodgeRollTimer > 0.0f)
         {
-            velX = dodgeVelX; // override input
+            velX = dodgeVelX; // override left/right input
             moveSpeed = dodgeRollMoveSpeed;
             damageable = false;
             dodgeRollTimer -= dt;
@@ -172,16 +173,10 @@ void Player::render(SDL_Renderer* renderer)
     // draw player
     SDL_SetRenderDrawColor(renderer, player_color.r, player_color.g, player_color.b, player_color.a);
     SDL_RenderFillRect(renderer, &player_rect);
+}
 
-    // draw the origin position representing the actual x and y positions
-    SDL_Rect debug_point_pos;
-    debug_point_pos.w = 4;
-    debug_point_pos.h = 4;
-    debug_point_pos.x = (int)posX - (debug_point_pos.w / 2);
-    debug_point_pos.y = (int)posY - (debug_point_pos.h / 2);
-    SDL_SetRenderDrawColor(renderer, 0xeb, 0xd5, 0x17, 0xff); // #ebd517 yellow
-    SDL_RenderFillRect(renderer, &debug_point_pos);
-
-    // draw collider
-    collider.debugRender(renderer);
+void Player::renderDebug(SDL_Renderer* renderer)
+{
+    renderCollider(renderer);
+    renderOrigin(renderer);
 }

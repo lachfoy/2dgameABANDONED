@@ -27,6 +27,7 @@ public:
     void updateEnemies(float dt);
     void removeUnusedEnemies();
     void renderEnemies(SDL_Renderer* renderer);
+    void renderDebug(SDL_Renderer* renderer);
 
 private:
     Player* player; // pointer to player

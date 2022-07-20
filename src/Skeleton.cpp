@@ -14,8 +14,8 @@ Skeleton::Skeleton(float x, float y, UiManager* uiManager, ProjectileManager* pr
     width = 30;
     height = 60;
 
-    colliderW = 50;
-    colliderH = 50;
+    colliderW = 40;
+    colliderH = 30;
 
     maxHealth = 80;
     health = maxHealth;
@@ -79,16 +79,4 @@ void Skeleton::render(SDL_Renderer* renderer)
     // draw enemy
     SDL_SetRenderDrawColor(renderer, enemy_color.r, enemy_color.g, enemy_color.b, enemy_color.a);
     SDL_RenderFillRect(renderer, &enemy_rect);
-
-    // draw the origin position representing the actual x and y positions
-    SDL_Rect debug_point_pos;
-    debug_point_pos.w = 4;
-    debug_point_pos.h = 4;
-    debug_point_pos.x = (int)posX - (debug_point_pos.w / 2);
-    debug_point_pos.y = (int)posY - (debug_point_pos.h / 2);
-    SDL_SetRenderDrawColor(renderer, 0xeb, 0xd5, 0x17, 0xff); // #ebd517 yellow
-    SDL_RenderFillRect(renderer, &debug_point_pos);
-
-    // draw collider
-    collider.debugRender(renderer);
 }

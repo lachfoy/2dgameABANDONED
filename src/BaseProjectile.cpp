@@ -32,3 +32,9 @@ void BaseProjectile::updatePosition(float dt)
     collider.lowerBoundX = posX + (colliderW / 2);
     collider.lowerBoundY = posY + (colliderH / 2);
 }
+
+void BaseProjectile::renderCollider(SDL_Renderer* renderer)
+{
+    // draw collider
+    collider.debugRender(renderer);
+}

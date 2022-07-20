@@ -4,8 +4,9 @@
 #include <SDL2/SDL.h>
 
 //simple aabb
-struct AABB
+class AABB
 {
+public:
     AABB() {}
     inline AABB(float x, float y, float w, float h);
 
@@ -16,6 +17,10 @@ struct AABB
 
     static inline bool testOverlap(const AABB& a, const AABB& b); // intersecting?
     inline void debugRender(SDL_Renderer* renderer);
+
+private:
+    SDL_Rect collider_debug_rect;
+
 };
 
 AABB::AABB(float x, float y, float w, float h)
@@ -47,14 +52,13 @@ bool AABB::testOverlap(const AABB& a, const AABB& b)
 void AABB::debugRender(SDL_Renderer* renderer)
 {
     // draw a rect representing the collider
-    SDL_Rect collider_rect;
-    collider_rect.x = (int)upperBoundX;
-    collider_rect.y = (int)upperBoundY;
-    collider_rect.w = (int)(lowerBoundX - upperBoundX);
-    collider_rect.h = (int)(lowerBoundY - upperBoundY);
+    collider_debug_rect.x = (int)upperBoundX; // have to update the x and y
+    collider_debug_rect.y = (int)upperBoundY;
+    collider_debug_rect.w = (int)(lowerBoundX - upperBoundX);
+    collider_debug_rect.h = (int)(lowerBoundY - upperBoundY);
 
     SDL_SetRenderDrawColor(renderer, 0xff, 0x00, 0x00, 0xff); // red
-    SDL_RenderDrawRect(renderer, &collider_rect);
+    SDL_RenderDrawRect(renderer, &collider_debug_rect);
 }
 
 #endif

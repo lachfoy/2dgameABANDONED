@@ -28,6 +28,7 @@ public:
     void updatePlayer(float dt);
 
     void render(SDL_Renderer* renderer) override;
+    void renderDebug(SDL_Renderer* renderer);
 
 private:
     UiManager* uiManager;
