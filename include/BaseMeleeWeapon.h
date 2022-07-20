@@ -18,6 +18,11 @@ protected:
     float offsetX;
     float offsetY;
 
+    float angle = 0.0f;
+    float rotationSpeed = 0.0f;
+    
+    SDL_RendererFlip flip;
+
 };
 
 #endif

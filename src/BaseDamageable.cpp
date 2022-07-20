@@ -108,7 +108,7 @@ void BaseDamageable::updatePosition(float dt)
 
     // update the internal position
     posX += velX * moveSpeed * dt;
-    posY += velY * (moveSpeed * 0.5f) * dt; // moving in the Y direction is slower
+    posY += velY * (moveSpeed * 0.7f) * dt; // moving in the Y direction is a bit slower
 
     // reset velocity
     velX = 0.0f;

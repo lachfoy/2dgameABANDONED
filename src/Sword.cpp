@@ -12,6 +12,9 @@ Sword::Sword(float x, float y, float offsetX, float offsetY, SDL_Texture* textur
     damage = {0};
     damage = { .standard = 11 };
     lifeTime = 0.1f;
+
+    angle = -80.0f; // starting angle
+    rotationSpeed = 500.0f;
 }
 
 void Sword::destroy(ProjectileManager& projectileManager)
@@ -29,9 +32,10 @@ void Sword::render(SDL_Renderer* renderer)
     sword_rect.y = (int)posY - (sword_rect.h / 2);
 
     // draw texture
-    SDL_RenderCopy(renderer, texture, NULL, &sword_rect);
+    //SDL_RenderCopy(renderer, texture, NULL, &sword_rect);
 
-
-    // draw collider
-    //collider.debugRender(renderer);
+    SDL_Point rotationOrigin;
+    rotationOrigin.x = 3;
+    rotationOrigin.y = sword_rect.h / 2;
+    SDL_RenderCopyEx(renderer, texture, NULL, &sword_rect, angle, &rotationOrigin, flip);
 }

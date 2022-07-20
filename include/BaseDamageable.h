@@ -18,6 +18,7 @@ public:
     inline AABB const& getCollider() const { return collider; }
     float getVelX() const { return velX; }
     float getVelY() const { return velY; }
+    bool facingRight() const { return facingDirection; }
 
     void takeDamage(const Damage& damage);
     void updateBurning(float dt);
