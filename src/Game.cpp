@@ -5,8 +5,6 @@
 #include "EnemyManager.h"
 #include "UiManager.h"
 
-#define DEBUG_DRAW 1
-
 Game::Game() {}
 
 void Game::onCreate()

@@ -7,6 +7,8 @@
 
 #include "Engine.h"
 
+#define DEBUG_DRAW 0
+
 class Player;
 class ProjectileManager;
 class EnemyManager;

@@ -21,7 +21,7 @@ protected:
     float angle = 0.0f;
     float rotationSpeed = 0.0f;
     
-    SDL_RendererFlip flip;
+    bool flip;
 
 };
 

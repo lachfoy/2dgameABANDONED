@@ -37,5 +37,6 @@ void Sword::render(SDL_Renderer* renderer)
     SDL_Point rotationOrigin;
     rotationOrigin.x = 3;
     rotationOrigin.y = sword_rect.h / 2;
-    SDL_RenderCopyEx(renderer, texture, NULL, &sword_rect, angle, &rotationOrigin, flip);
+    const SDL_RendererFlip rendererFlip = flip ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
+    SDL_RenderCopyEx(renderer, texture, NULL, &sword_rect, angle, &rotationOrigin, rendererFlip);
 }

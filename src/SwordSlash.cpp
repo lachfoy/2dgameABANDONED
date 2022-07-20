@@ -22,8 +22,8 @@ void SwordSlash::render(SDL_Renderer* renderer)
     sword_slash_rect.x = (int)posX - (sword_slash_rect.w / 2);
     sword_slash_rect.y = (int)posY - (sword_slash_rect.h / 2);
 
-    SDL_RenderCopy(renderer, texture, NULL, &sword_slash_rect);
+    const SDL_RendererFlip rendererFlip = flip ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
+    SDL_RenderCopyEx(renderer, texture, NULL, &sword_slash_rect, (double)0, NULL, rendererFlip);
 
-    // draw collider
-    //collider.debugRender(renderer);
+    //SDL_RenderCopy(renderer, texture, NULL, &sword_slash_rect);
 }

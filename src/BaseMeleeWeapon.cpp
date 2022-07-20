@@ -20,10 +20,10 @@ void BaseMeleeWeapon::updatePosition(float dt)
     posX = wielder->posX + offsetX;
     posY = wielder->posY + offsetY;
 
-    // flip sprite based on wielder's facing direction
-    flip = (wielder->facingRight()) ? SDL_FLIP_NONE : SDL_FLIP_HORIZONTAL;
-
     angle += rotationSpeed * dt;
+
+    // flip based on wielder's facing direction
+    flip = !wielder->facingRight();
 
     // move the collider as well
     collider.upperBoundX = posX - (colliderW / 2);
