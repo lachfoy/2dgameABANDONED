@@ -8,7 +8,7 @@
 class Skeleton : public BaseEnemy
 {
 public:
-    Skeleton(float x, float y, UiManager* uiManager, ProjectileManager* projectileManager, Player* player);
+    Skeleton(float x, float y, ResourceManager* resourceManager, UiManager* uiManager, ProjectileManager* projectileManager, Player* player);
 
     void updateAI(float dt) override;
     void render(SDL_Renderer* renderer) override;

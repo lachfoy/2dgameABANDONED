@@ -11,16 +11,17 @@ class Player;
 class UiManager;
 class Skeleton;
 class ProjectileManager;
+class ResourceManager;
 
 class EnemyManager
 {
 public:
-    EnemyManager(Player* player);
+    EnemyManager(ResourceManager* resourceManager, UiManager* uiManager, ProjectileManager* projectileManager, Player* player);
     ~EnemyManager();
 
     std::vector<BaseEnemy*> const& getEnemies() const { return enemies; }
     
-    void addSkeleton(float x, float y, UiManager* uiManager, ProjectileManager* projectileManager);
+    void addSkeleton(float x, float y);
 
     void resolvePlayerProjectileCollisions(const std::vector<BaseProjectile*>& playerProjectiles);
 
@@ -30,8 +31,12 @@ public:
     void renderDebug(SDL_Renderer* renderer);
 
 private:
+    ResourceManager* resourceManager; // pointer to resource manager
+    UiManager* uiManager; // pointer to ui manager
+    ProjectileManager* projectileManager; // pointer to projectile manager
     Player* player; // pointer to player
     std::vector<BaseEnemy*> enemies;
+    
 };
 
 #endif

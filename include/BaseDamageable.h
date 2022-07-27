@@ -5,10 +5,12 @@
 #include "AABB.h"
 #include "Resistance.h"
 
+class ResourceManager;
+
 class BaseDamageable : public BaseObject
 {
 public:
-    BaseDamageable(float x, float y);
+    BaseDamageable(float x, float y, ResourceManager* ResourceManager); // we assume that every damageable gets created with a pointer to the resource manager
 
     // getters
     inline int getHealth() const { return health; }
@@ -26,6 +28,8 @@ public:
     void updatePush(float dt);
     void updateImmuneTimer(float dt);
     void updatePosition(float dt);
+
+    void renderShadow(SDL_Renderer* renderer);
 
     // debug
     void renderCollider(SDL_Renderer* renderer);
@@ -47,6 +51,9 @@ protected:
     float moveSpeed;
     enum FacingDirection { FACING_LEFT, FACING_RIGHT } facingDirection;
     Resistance resistance;
+
+    // resources
+    ResourceManager* resourceManager = nullptr;
 
     // fire
     bool canBeSetOnFire = true;

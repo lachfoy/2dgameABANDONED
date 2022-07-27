@@ -6,9 +6,13 @@
 #include "UiManager.h"
 #include "Player.h"
 #include "ProjectileManager.h"
+#include "ResourceManager.h"
 
-EnemyManager::EnemyManager(Player* player)
+EnemyManager::EnemyManager(ResourceManager* resourceManager, UiManager* uiManager, ProjectileManager* projectileManager, Player* player)
 {
+    this->resourceManager = resourceManager;
+    this->uiManager = uiManager;
+    this->projectileManager = projectileManager;
     this->player = player;
 }
 
@@ -19,9 +23,9 @@ EnemyManager::~EnemyManager()
     enemies.clear();
 }
 
-void EnemyManager::addSkeleton(float x, float y, UiManager* uiManager, ProjectileManager* projectileManager)
+void EnemyManager::addSkeleton(float x, float y)
 {
-    enemies.push_back(new Skeleton(x, y, uiManager, projectileManager, player));
+    enemies.push_back(new Skeleton(x, y, resourceManager, uiManager, projectileManager, player));
 }
 
 // tests collision against a list of projectiles and deals appropriate damage
@@ -92,6 +96,7 @@ void EnemyManager::renderEnemies(SDL_Renderer* renderer)
     // render enemies
     for (const auto& enemy : enemies)
     {
+        enemy->renderShadow(renderer);
         enemy->render(renderer);
     }
 }

@@ -7,8 +7,8 @@
 #include "ProjectileManager.h"
 #include "BaseEnemy.h"
 
-Player::Player(float x, float y, UiManager* uiManager, ProjectileManager* projectileManager)
-    : BaseDamageable(x, y)
+Player::Player(float x, float y, ResourceManager* resourceManager, UiManager* uiManager, ProjectileManager* projectileManager)
+    : BaseDamageable(x, y, resourceManager)
 {
     // initialize everything
     name = "Player";

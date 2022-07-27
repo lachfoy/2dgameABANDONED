@@ -15,7 +15,7 @@ class BaseEnemy;
 class Player : public BaseDamageable
 {
 public:
-    Player(float x, float y, UiManager* uiManager, ProjectileManager* projectileManager);
+    Player(float x, float y, ResourceManager* resourceManager, UiManager* uiManager, ProjectileManager* projectileManager);
 
     void handleInput(InputManager& inputManager);
 

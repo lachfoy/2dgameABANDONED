@@ -1,8 +1,11 @@
 #include "BaseDamageable.h"
 
-BaseDamageable::BaseDamageable(float x, float y)
+#include "ResourceManager.h"
+
+BaseDamageable::BaseDamageable(float x, float y, ResourceManager* resourceManager)
     : BaseObject(x, y)
 {
+    this->resourceManager = resourceManager;
     collider = AABB(posX, posY, colliderW, colliderH);
     resistance = {0};
 }
@@ -120,6 +123,22 @@ void BaseDamageable::updatePosition(float dt)
     collider.upperBoundY = posY - (colliderH / 2) - (height / 2);
     collider.lowerBoundX = posX + (colliderW / 2);
     collider.lowerBoundY = posY + (colliderH / 2) - (height / 2);
+}
+
+void BaseDamageable::renderShadow(SDL_Renderer* renderer)
+{
+    // draw the origin position representing the actual x and y positions
+    SDL_Rect shadow_rect;
+    const int max_width = 40; // set a max width for damageable objects, scale the shadow rect by a % of the width to the max width
+    const int shadow_default_width = 60;
+    const int shadow_default_height = 24;
+    shadow_rect.w = (int)(shadow_default_width * (width / (float)max_width));
+    shadow_rect.h = (int)(shadow_default_height * (width / (float)max_width));
+    shadow_rect.x = (int)posX - (shadow_rect.w / 2);
+    shadow_rect.y = (int)posY - (shadow_rect.h / 2);
+
+    // draw texture
+    SDL_RenderCopy(renderer, resourceManager->getTexture("ShadowTexture"), NULL, &shadow_rect);
 }
 
 void BaseDamageable::renderCollider(SDL_Renderer* renderer)
