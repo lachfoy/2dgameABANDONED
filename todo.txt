@@ -23,6 +23,7 @@ x add melee weapons
 x add dodge roll with iframes
 x add burning effect
 x better organised debug drawing
+x add shadow sprites
 
 TODO
 resource manager (in progress)
