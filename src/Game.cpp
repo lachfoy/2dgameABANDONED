@@ -24,7 +24,7 @@ void Game::onCreate()
     enemyManager->addSkeleton(300.0f, 400.0f);
     enemyManager->addSkeleton(700.0f, 200.0f);
 
-    uiManager->addCrosshair(200, 200, 30, 30);
+    uiManager->addCrosshair(200, 200, 40, 40);
 }
 
 void Game::onCleanup()

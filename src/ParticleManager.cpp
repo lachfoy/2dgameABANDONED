@@ -12,15 +12,15 @@ ParticleManager::~ParticleManager()
 
 void ParticleManager::addFireballParticle(float x, float y)
 {
-    particles.push_back(new FireballParticle(x, y, resourceManager->getTexture("FireballTexture")));
+    particles.push_back(new FireballParticle(x, y, resourceManager->getTexture("FireballParticleTexture")));
 }
 
 void ParticleManager::updateParticles(float dt)
 {
     for (const auto& particle : particles)
     {
-        particle->updatePosition(dt);
         particle->updateLifetime(dt);
+        particle->updatePosition(dt);
     }
 }
 

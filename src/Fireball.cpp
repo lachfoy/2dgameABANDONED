@@ -9,7 +9,7 @@ Fireball::Fireball(float x, float y, float velX, float velY, SDL_Texture* textur
     name = "Fireball";
     colliderW = 24;
     colliderH = 24;
-    moveSpeed = 350.0f;
+    moveSpeed = 420.0f;
     damage = {0};
     damage = { .fire = 11 };
     lifeTime = 0.8f;
@@ -26,8 +26,13 @@ void Fireball::destroy(ProjectileManager& projectileManager)
 // this should be redone in a better way... im just not sure how
 void Fireball::updatePosition(float dt)
 {
-    // spawn a particle at the old position
-    particleManager->addFireballParticle(posX, posY);
+    if (trailSpawnTimer > 0.0f) trailSpawnTimer -= dt;
+    else
+    {
+        // spawn a particle at the old position
+        particleManager->addFireballParticle(posX, posY);
+        trailSpawnTimer = trailSpawnTime; // reset timer
+    }
 
     // update the internal position
     posX += velX * moveSpeed * dt;

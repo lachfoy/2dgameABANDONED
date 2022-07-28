@@ -20,7 +20,7 @@ FireballParticle::FireballParticle(float x, float y, SDL_Texture* texture)
 {
     width = 24;
     height = 24;
-    lifeTime = 0.4f;
+    lifeTime = 0.2f;
 }
 
 void FireballParticle::render(SDL_Renderer* renderer)
@@ -33,7 +33,8 @@ void FireballParticle::render(SDL_Renderer* renderer)
     fireball_particle_rect.y = (int)posY - (fireball_particle_rect.h / 2);
 
     // render the fireball particle
-    SDL_SetTextureAlphaMod(texture, 30);
+    Uint8 alpha = (lifeTime * 635) > 0.0f ? (Uint8)(lifeTime * 635) : 0;
+    SDL_SetTextureAlphaMod(texture, alpha);
     SDL_RenderCopy(renderer, texture, NULL, &fireball_particle_rect);
 
 }
