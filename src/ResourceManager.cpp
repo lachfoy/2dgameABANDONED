@@ -20,6 +20,7 @@ bool ResourceManager::loadTextures() // in future this could take a list of path
     this way, the game manages which textures it wants, rather than hardcoding them.
 {
     textures["ShadowTexture"] = loadTextureFromFile("../images/Shadow.bmp", SDL_BLENDMODE_BLEND);
+    textures["CrosshairTexture"] = loadTextureFromFile("../images/Crosshair.bmp", SDL_BLENDMODE_BLEND);
     textures["FireballTexture"] = loadTextureFromFile("../images/Fireball.bmp", SDL_BLENDMODE_BLEND);
     textures["FireballExplosionTexture"] = loadTextureFromFile("../images/FireballExplosion.bmp", SDL_BLENDMODE_BLEND);
     textures["SwordTexture"] = loadTextureFromFile("../images/Sword.bmp", SDL_BLENDMODE_BLEND);

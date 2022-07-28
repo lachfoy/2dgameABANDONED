@@ -6,6 +6,7 @@
 #include <SDL2/SDL.h>
 
 #include "InputManager.h"
+#include "ResourceManager.h"
 
 class BaseUiObject;
 class Healthbar;
@@ -16,7 +17,11 @@ class Crosshair;
 class UiManager
 {
 public:
-    UiManager(InputManager* inputManager) { this->inputManager = inputManager; }
+    UiManager(InputManager* inputManager, ResourceManager* resourceManager)
+    {
+        this->inputManager = inputManager;
+        this->resourceManager = resourceManager;
+    }
     ~UiManager();
 
     std::vector<BaseUiObject*> const& getUiObjects() const { return uiObjects; }
@@ -32,6 +37,7 @@ public:
 private:
     std::vector<BaseUiObject*> uiObjects;
     InputManager* inputManager;
+    ResourceManager* resourceManager;
     
 };
 

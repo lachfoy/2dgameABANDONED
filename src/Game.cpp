@@ -10,7 +10,7 @@ Game::Game() {}
 
 void Game::onCreate()
 {
-    uiManager = new UiManager(inputManager);
+    uiManager = new UiManager(inputManager ,resourceManager);
     projectileManager = new ProjectileManager(resourceManager);
 
     player = new Player(100.0f, 200.0f, resourceManager, uiManager, projectileManager);
@@ -22,7 +22,7 @@ void Game::onCreate()
     enemyManager->addSkeleton(300.0f, 400.0f);
     enemyManager->addSkeleton(700.0f, 200.0f);
 
-    uiManager->addCrosshair(200, 200, 20, 20);
+    uiManager->addCrosshair(200, 200, 30, 30);
 }
 
 void Game::onCleanup()

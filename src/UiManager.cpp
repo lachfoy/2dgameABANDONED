@@ -24,7 +24,7 @@ void UiManager::addDynamicHealthbar(int length, int height, BaseDamageable* dama
 
 void UiManager::addCrosshair(int x, int y, int w, int h)
 {
-    uiObjects.push_back(new Crosshair(x, y, w, h, inputManager));
+    uiObjects.push_back(new Crosshair(x, y, w, h, inputManager, resourceManager->getTexture("CrosshairTexture")));
 }
 
 void UiManager::updateUiObjects(float dt)

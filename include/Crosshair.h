@@ -10,7 +10,7 @@
 class Crosshair : public BaseUiObject
 {
 public:
-    inline Crosshair(int x, int y, int w, int h, InputManager* inputManager);
+    inline Crosshair(int x, int y, int w, int h, InputManager* inputManager, SDL_Texture* texture);
 
     inline void updatePosition(const int& newX, const int& newY); // update center position
     inline void update(float dt) override;
@@ -19,10 +19,11 @@ public:
 private:
     SDL_Rect crosshair_rect;
     InputManager* inputManager;
+    SDL_Texture* texture;
 
 };
 
-Crosshair::Crosshair(int x, int y, int w, int h, InputManager* inputManager)
+Crosshair::Crosshair(int x, int y, int w, int h, InputManager* inputManager, SDL_Texture* texture)
 {
     this->x = x - (int)(w / 2.0f);
     this->y = y - (int)(h / 2.0f);
@@ -33,6 +34,7 @@ Crosshair::Crosshair(int x, int y, int w, int h, InputManager* inputManager)
     crosshair_rect.h = h;
 
     this->inputManager = inputManager;
+    this->texture = texture;
 }
 
 void Crosshair::updatePosition(const int& newX, const int& newY)
@@ -51,8 +53,10 @@ void Crosshair::update(float dt)
 
 void Crosshair::render(SDL_Renderer* renderer)
 {
-    SDL_SetRenderDrawColor(renderer, 0x00, 0xff, 0x00, 0xff);
-    SDL_RenderDrawRect(renderer, &crosshair_rect);
+    //SDL_SetRenderDrawColor(renderer, 0x00, 0xff, 0x00, 0xff);
+    //SDL_RenderDrawRect(renderer, &crosshair_rect);
+
+    SDL_RenderCopy(renderer, texture, NULL, &crosshair_rect);
 }
 
 #endif

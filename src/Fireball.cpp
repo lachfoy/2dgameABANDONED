@@ -8,7 +8,7 @@ Fireball::Fireball(float x, float y, float velX, float velY, SDL_Texture* textur
     name = "Fireball";
     colliderW = 24;
     colliderH = 24;
-    moveSpeed = 220.0f;
+    moveSpeed = 350.0f;
     damage = {0};
     damage = { .fire = 11 };
     lifeTime = 0.8f;
