@@ -129,7 +129,7 @@ void BaseDamageable::renderShadow(SDL_Renderer* renderer)
 {
     // draw the origin position representing the actual x and y positions
     SDL_Rect shadow_rect;
-    const int max_width = 40; // set a max width for damageable objects, scale the shadow rect by a % of the width to the max width
+    const int max_width = 32; // set a max width for damageable objects, scale the shadow rect by a % of the width to the max width
     const int shadow_default_width = 60;
     const int shadow_default_height = 24;
     shadow_rect.w = (int)(shadow_default_width * (width / (float)max_width));

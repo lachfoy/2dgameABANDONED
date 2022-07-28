@@ -2,7 +2,7 @@
 
 #include "BaseDamageable.h"
 
-BaseProjectile::BaseProjectile(float x, float y, int velX, int velY, SDL_Texture* texture)
+BaseProjectile::BaseProjectile(float x, float y, float velX, float velY, SDL_Texture* texture)
     : BaseObject(x, y)
 {
     this->velX = velX;

@@ -2,7 +2,7 @@
 
 #include "ProjectileManager.h"
 
-Fireball::Fireball(float x, float y, int velX, int velY, SDL_Texture* texture)
+Fireball::Fireball(float x, float y, float velX, float velY, SDL_Texture* texture)
     : BaseProjectile(x, y, velX, velY, texture)
 {
     name = "Fireball";

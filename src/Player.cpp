@@ -84,6 +84,28 @@ void Player::handleInput(InputManager& inputManager)
     {
         takeDamage({ .standard = 10, .crushing = 10, .fire = 10 });
     }
+
+    if (inputManager.mousePressed(0))
+    {
+        if (canShoot)
+        {
+            // get direction vector from player to mouse position
+            float fireballDirX = (inputManager.getMouseX() - posX);
+            float fireballDirY = (inputManager.getMouseY() - posY);
+
+            // use pythag to get distance between the player and mouse
+            // d = sqrt((x2 - x1)^2 + (y2 - y1)^2)
+            float distance = sqrtf((fireballDirX * fireballDirX) + (fireballDirY * fireballDirY));
+
+            // use distance to normalize the velocity vector
+            float fireballVelX = fireballDirX / distance;
+            float fireballVelY = fireballDirY / distance;
+
+            projectileManager->addFireball(posX, posY - (height / 2), fireballVelX, fireballVelY);
+
+            canShoot = false;
+        }
+    }
 }
 
 void Player::updateDodgeRoll(float dt)

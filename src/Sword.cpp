@@ -14,7 +14,7 @@ Sword::Sword(float x, float y, float offsetX, float offsetY, SDL_Texture* textur
     lifeTime = 0.1f;
 
     angle = -80.0f; // starting angle
-    rotationSpeed = 500.0f;
+    rotationSpeed = 600.0f;
 }
 
 void Sword::destroy(ProjectileManager& projectileManager)

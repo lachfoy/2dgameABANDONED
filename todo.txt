@@ -24,11 +24,17 @@ x add dodge roll with iframes
 x add burning effect
 x better organised debug drawing
 x add shadow sprites
+x add mouse support
 
 TODO
+add "trail" effect for projectiles 
+rework player controls -- twinstick shooter style (in progress)
+add crosshair (in progress)
 resource manager (in progress)
 convert unit vector for velocity to floating point (in progress)
 damage can haves a "push" effect (in progress)
+
+// kinda backlog
 poison effect
 more enemy types/abilities
 gamestates -- pausing, menu?

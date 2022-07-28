@@ -33,7 +33,7 @@ public:
     // For example, addProjectile<Fireball>()?
     // -------------------------------------
     //inline void addProjectile(BaseProjectile* projectile) { projectiles.push_back(projectile); } // depracated? dont use this anymore
-    void addFireball(float x, float y, int velX, int velY);
+    void addFireball(float x, float y, float velX, float velY);
     void addFireballExplosion(float x, float y);
     void addSword(float x, float y, float offsetX, float offsetY, BaseDamageable* wielder);
     void addSwordSlash(float x, float y, float offsetX, float offsetY, BaseDamageable* wielder);

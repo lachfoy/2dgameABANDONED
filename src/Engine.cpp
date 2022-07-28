@@ -14,6 +14,11 @@ bool Engine::init(int w, int h)
         return false;
     }
 
+    if(!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear"))
+    {
+      printf("Linear filtering not supported\n");
+    }  
+
     width = w;
     height = h;
 

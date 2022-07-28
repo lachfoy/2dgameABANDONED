@@ -3,6 +3,7 @@
 #include "BaseUiObject.h"
 #include "Healthbar.h"
 #include "DynamicHealthbar.h"
+#include "Crosshair.h"
 
 UiManager::~UiManager()
 {
@@ -19,6 +20,11 @@ void UiManager::addHealthbar(int x, int y, int length, int height, BaseDamageabl
 void UiManager::addDynamicHealthbar(int length, int height, BaseDamageable* damageable)
 {
     uiObjects.push_back(new DynamicHealthbar(length, height, damageable));
+}
+
+void UiManager::addCrosshair(int x, int y, int w, int h)
+{
+    uiObjects.push_back(new Crosshair(x, y, w, h, inputManager));
 }
 
 void UiManager::updateUiObjects(float dt)

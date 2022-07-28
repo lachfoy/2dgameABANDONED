@@ -12,7 +12,7 @@ class ProjectileManager;
 class BaseProjectile : public BaseObject
 {
 public:
-    BaseProjectile(float x, float y, int velX, int velY, SDL_Texture* texture = nullptr);
+    BaseProjectile(float x, float y, float velX, float velY, SDL_Texture* texture = nullptr);
     virtual ~BaseProjectile() {}
 
     bool removeOnCollision;
@@ -21,8 +21,8 @@ public:
 
     AABB const& getCollider() const { return collider; }
     Damage const& getDamage() const { return damage; }
-    int getVelX() const { return velX; }
-    int getVelY() const { return velY; }
+    float getVelX() const { return velX; }
+    float getVelY() const { return velY; }
     
     void updateLifetime(float dt);
     virtual void destroy(ProjectileManager& projectileManager) = 0;
@@ -32,8 +32,8 @@ public:
     void renderCollider(SDL_Renderer* renderer);
 
 protected: // things the derived projectiles can change
-    int velX; // normalized x velocity
-    int velY; // normalized y velocity
+    float velX; // normalized x velocity
+    float velY; // normalized y velocity
     AABB collider;
     int colliderW;
     int colliderH;

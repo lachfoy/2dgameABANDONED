@@ -4,12 +4,13 @@
 #include "ProjectileManager.h"
 #include "EnemyManager.h"
 #include "UiManager.h"
+#include "Crosshair.h"
 
 Game::Game() {}
 
 void Game::onCreate()
 {
-    uiManager = new UiManager();
+    uiManager = new UiManager(inputManager);
     projectileManager = new ProjectileManager(resourceManager);
 
     player = new Player(100.0f, 200.0f, resourceManager, uiManager, projectileManager);
@@ -20,6 +21,8 @@ void Game::onCreate()
     enemyManager->addSkeleton(500.0f, 500.0f);
     enemyManager->addSkeleton(300.0f, 400.0f);
     enemyManager->addSkeleton(700.0f, 200.0f);
+
+    uiManager->addCrosshair(200, 200, 20, 20);
 }
 
 void Game::onCleanup()

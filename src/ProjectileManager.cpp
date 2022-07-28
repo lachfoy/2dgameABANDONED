@@ -19,7 +19,7 @@ ProjectileManager::~ProjectileManager()
     playerProjectiles.clear();
 }
 
-void ProjectileManager::addFireball(float x, float y, int velX, int velY)
+void ProjectileManager::addFireball(float x, float y, float velX, float velY)
 {
     playerProjectiles.push_back(new Fireball(x, y, velX, velY, resourceManager->getTexture("FireballTexture")));
 }

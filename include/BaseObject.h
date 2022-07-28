@@ -9,7 +9,7 @@ class BaseObject
 {
 public:
     BaseObject(float x, float y) { posX = x; posY = y; }
-    ~BaseObject() { printf("deleted %s\n", name.c_str()); }
+    ~BaseObject() { printf("deleting %s\n", name.c_str()); removable = true; }
 
     std::string name = ""; // use for debug purposes
     float posX;

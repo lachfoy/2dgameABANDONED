@@ -2,6 +2,7 @@
 #define PLAYER_H
 
 #include <vector>
+#include <cmath> // ONLY USED FOR CALC PYTHAG IN ONE PLACE
 
 #include <SDL2/SDL.h>
 

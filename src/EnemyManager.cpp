@@ -97,6 +97,9 @@ void EnemyManager::renderEnemies(SDL_Renderer* renderer)
     for (const auto& enemy : enemies)
     {
         enemy->renderShadow(renderer);
+    }
+    for (const auto& enemy : enemies)
+    {
         enemy->render(renderer);
     }
 }
