@@ -28,7 +28,7 @@ x add mouse support
 
 TODO
 add "trail" effect for projectiles 
-rework player controls -- twinstick shooter style (in progress)
+rework player controls -- twinstick shooter style (in progress) -- make sure crosshair can be moved with arrowkeys as well
 add crosshair (in progress)
 resource manager (in progress)
 convert unit vector for velocity to floating point (in progress)
