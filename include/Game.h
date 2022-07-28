@@ -13,6 +13,7 @@ class Player;
 class ProjectileManager;
 class EnemyManager;
 class UiManager;
+class ParticleManager;
 
 class Game : public Engine
 {
@@ -24,6 +25,7 @@ private:
     ProjectileManager* projectileManager;
     EnemyManager* enemyManager;
     UiManager* uiManager;
+    ParticleManager* particleManager;
 
     void onCreate();
     void onCleanup();

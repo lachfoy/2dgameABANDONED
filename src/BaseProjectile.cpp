@@ -2,12 +2,13 @@
 
 #include "BaseDamageable.h"
 
-BaseProjectile::BaseProjectile(float x, float y, float velX, float velY, SDL_Texture* texture)
+BaseProjectile::BaseProjectile(float x, float y, float velX, float velY, SDL_Texture* texture, ParticleManager* particleManager)
     : BaseObject(x, y)
 {
     this->velX = velX;
     this->velY = velY;
     this->texture = texture;
+    this->particleManager = particleManager;
     
     collider = AABB(posX, posY, colliderW, colliderH);
 }

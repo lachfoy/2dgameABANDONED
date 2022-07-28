@@ -10,13 +10,15 @@
 
 class BaseDamageable;
 class ResourceManager;
+class ParticleManager;
 
 class ProjectileManager
 {
 public:
-    ProjectileManager(ResourceManager* resourceManager)
+    ProjectileManager(ResourceManager* resourceManager, ParticleManager* particleManager)
     {
         this->resourceManager = resourceManager; // ptr to resource manager, used when creating projectiles to give them the appropriate textures
+        this->particleManager = particleManager;
     }
 
     ~ProjectileManager();
@@ -50,6 +52,7 @@ private:
     std::vector<BaseProjectile*> enemyProjectiles;
 
     ResourceManager* resourceManager;
+    ParticleManager* particleManager;
 
 };
 

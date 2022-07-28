@@ -5,13 +5,15 @@
 #include "EnemyManager.h"
 #include "UiManager.h"
 #include "Crosshair.h"
+#include "ParticleManager.h"
 
 Game::Game() {}
 
 void Game::onCreate()
 {
     uiManager = new UiManager(inputManager ,resourceManager);
-    projectileManager = new ProjectileManager(resourceManager);
+    particleManager = new ParticleManager(resourceManager);
+    projectileManager = new ProjectileManager(resourceManager, particleManager);
 
     player = new Player(100.0f, 200.0f, resourceManager, uiManager, projectileManager);
     
@@ -22,7 +24,7 @@ void Game::onCreate()
     enemyManager->addSkeleton(300.0f, 400.0f);
     enemyManager->addSkeleton(700.0f, 200.0f);
 
-    uiManager->addCrosshair(200, 200, 30, 30);
+    uiManager->addCrosshair(200, 200, 40, 40);
 }
 
 void Game::onCleanup()
@@ -30,6 +32,7 @@ void Game::onCleanup()
     delete player;
     delete projectileManager;
     delete enemyManager;
+    delete particleManager;
     delete uiManager;
 }
 
@@ -42,6 +45,7 @@ void Game::onUpdate(float dt)
     player->updatePlayer(dt);
     enemyManager->updateEnemies(dt);
     projectileManager->updateProjectiles(dt);
+    particleManager->updateParticles(dt);
 
     // collision resolution
     enemyManager->resolvePlayerProjectileCollisions(projectileManager->getPlayerProjectiles());
@@ -54,6 +58,7 @@ void Game::onUpdate(float dt)
     enemyManager->removeUnusedEnemies();
     projectileManager->removeUnusedProjectiles();
     uiManager->removeUnusedUiObjects();
+    particleManager->removeUnusedParticles();
 }
 
 void Game::onRender()
@@ -62,6 +67,7 @@ void Game::onRender()
     enemyManager->renderEnemies(renderer);
     player->renderShadow(renderer);
     player->render(renderer);
+    particleManager->renderParticles(renderer);
     projectileManager->renderProjectiles(renderer);
 
     // render ui objects

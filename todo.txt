@@ -27,7 +27,7 @@ x add shadow sprites
 x add mouse support
 
 TODO
-add "trail" effect for projectiles 
+add "trail" effect for projectiles ------ this will require a kind of particle system, and particle manager
 rework player controls -- twinstick shooter style (in progress) -- make sure crosshair can be moved with arrowkeys as well
 add crosshair (in progress)
 resource manager (in progress)
