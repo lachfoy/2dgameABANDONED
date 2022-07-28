@@ -31,6 +31,7 @@ void Fireball::render(SDL_Renderer* renderer)
     fireball_rect.x = (int)posX - (fireball_rect.w / 2);
     fireball_rect.y = (int)posY - (fireball_rect.h / 2);
 
+    // draw the fireball
     if (texture)
     {
         SDL_RenderCopy(renderer, texture, NULL, &fireball_rect);
