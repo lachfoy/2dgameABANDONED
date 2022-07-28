@@ -1,9 +1,10 @@
 #include "Fireball.h"
 
 #include "ProjectileManager.h"
+#include "ParticleManager.h"
 
-Fireball::Fireball(float x, float y, float velX, float velY, SDL_Texture* texture)
-    : BaseProjectile(x, y, velX, velY, texture)
+Fireball::Fireball(float x, float y, float velX, float velY, SDL_Texture* texture, ParticleManager* particleManager)
+    : BaseProjectile(x, y, velX, velY, texture, particleManager)
 {
     name = "Fireball";
     colliderW = 24;
@@ -20,6 +21,23 @@ void Fireball::destroy(ProjectileManager& projectileManager)
 {
     // when destroyed, create an explosion
     projectileManager.addFireballExplosion(posX, posY);
+}
+
+// this should be redone in a better way... im just not sure how
+void Fireball::updatePosition(float dt)
+{
+    // spawn a particle at the old position
+    particleManager->addFireballParticle(posX, posY);
+
+    // update the internal position
+    posX += velX * moveSpeed * dt;
+    posY += velY * moveSpeed * dt;
+
+    // move the collider as well
+    collider.upperBoundX = posX - (colliderW / 2);
+    collider.upperBoundY = posY - (colliderH / 2);
+    collider.lowerBoundX = posX + (colliderW / 2);
+    collider.lowerBoundY = posY + (colliderH / 2);
 }
 
 void Fireball::render(SDL_Renderer* renderer)

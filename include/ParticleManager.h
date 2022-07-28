@@ -8,6 +8,7 @@
 #include "ResourceManager.h"
 
 class BaseParticle;
+class FireballParticle;
 
 class ParticleManager
 {
@@ -19,7 +20,7 @@ public:
 
     ~ParticleManager();
 
-    std::vector<BaseParticle*> const& getParticles() const { return particles; }
+    void addFireballParticle(float x, float y);
 
     void updateParticles(float dt);
     void removeUnusedParticles();

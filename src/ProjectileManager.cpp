@@ -21,7 +21,7 @@ ProjectileManager::~ProjectileManager()
 
 void ProjectileManager::addFireball(float x, float y, float velX, float velY)
 {
-    playerProjectiles.push_back(new Fireball(x, y, velX, velY, resourceManager->getTexture("FireballTexture")));
+    playerProjectiles.push_back(new Fireball(x, y, velX, velY, resourceManager->getTexture("FireballTexture"), particleManager));
 }
 
 void ProjectileManager::addFireballExplosion(float x, float y)
