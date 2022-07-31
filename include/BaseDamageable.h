@@ -6,11 +6,12 @@
 #include "Resistance.h"
 
 class ResourceManager;
+class ParticleManager;
 
 class BaseDamageable : public BaseObject
 {
 public:
-    BaseDamageable(float x, float y, ResourceManager* ResourceManager); // we assume that every damageable gets created with a pointer to the resource manager
+    BaseDamageable(float x, float y, ResourceManager* ResourceManager, ParticleManager* particleManager); // we assume that every damageable gets created with a pointer to the resource manager
 
     // getters
     inline int getHealth() const { return health; }
@@ -55,6 +56,9 @@ protected:
     // resources
     ResourceManager* resourceManager = nullptr;
 
+    // particles
+    ParticleManager* particleManager = nullptr;
+
     // fire
     bool canBeSetOnFire = true;
     bool onFire = false;
@@ -62,6 +66,8 @@ protected:
     float fireTimer = fireTime;
     float fireTickTime = 0.4f; // how many seconds before each tick of fire damage
     float fireTickTimer = fireTickTime;
+    float smokeParticleSpawnTime = 0.2f;
+    float smokeParticleSpawnTimer = smokeParticleSpawnTime;
 
     // push
     bool beingPushed = false;

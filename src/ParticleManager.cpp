@@ -15,6 +15,11 @@ void ParticleManager::addFireballParticle(float x, float y)
     particles.push_back(new FireballParticle(x, y, resourceManager->getTexture("FireballParticleTexture")));
 }
 
+void ParticleManager::addSmokeParticle(float x, float y)
+{
+    particles.push_back(new FireballParticle(x, y, resourceManager->getTexture("FireballParticleTexture")));
+}
+
 void ParticleManager::updateParticles(float dt)
 {
     for (const auto& particle : particles)

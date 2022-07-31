@@ -21,6 +21,7 @@ public:
     ~ParticleManager();
 
     void addFireballParticle(float x, float y);
+    void addSmokeParticle(float x, float y);
 
     void updateParticles(float dt);
     void removeUnusedParticles();
