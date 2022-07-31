@@ -6,7 +6,7 @@
 #include "DynamicHealthbar.h"
 
 BaseEnemy::BaseEnemy(float x, float y, ResourceManager* resourceManager, UiManager* uiManager, ProjectileManager* projectileManager, Player* player)
-     : BaseDamageable(x, y, resourceManager)
+     : BaseDamageable(x, y, resourceManager, nullptr)
 {
     this->uiManager = uiManager;
     this->projectileManager = projectileManager;

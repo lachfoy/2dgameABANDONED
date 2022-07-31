@@ -1,11 +1,13 @@
 #include "BaseDamageable.h"
 
 #include "ResourceManager.h"
+#include "ParticleManager.h"
 
-BaseDamageable::BaseDamageable(float x, float y, ResourceManager* resourceManager)
+BaseDamageable::BaseDamageable(float x, float y, ResourceManager* resourceManager, ParticleManager* particleManager)
     : BaseObject(x, y)
 {
     this->resourceManager = resourceManager;
+    this->particleManager = particleManager;
     collider = AABB(posX, posY, colliderW, colliderH);
     resistance = {0};
 }
@@ -41,6 +43,14 @@ void BaseDamageable::updateBurning(float dt)
                 {
                     takeDamage(statusBurning);
                     fireTickTimer = fireTickTime; // reset to the starting value
+                }
+
+                if (smokeParticleSpawnTimer > 0.0f) smokeParticleSpawnTime -= dt;
+                else
+                {
+                    // spawn a particle at the old position
+                    particleManager->addSmokeParticle(posX, posY);
+                    smokeParticleSpawnTimer = smokeParticleSpawnTime; // reset timer
                 }
             }
             else
