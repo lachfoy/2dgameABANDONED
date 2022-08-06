@@ -71,6 +71,8 @@ void Engine::run()
 
     onCreate(); // call the game create functions
 
+    SDL_ShowCursor(SDL_DISABLE); // hide the cursor (doesn't work on WSL window)
+
     Uint32 start = 0;
     float dt = 0.0f;
     Uint32 dt_ms = 0;
