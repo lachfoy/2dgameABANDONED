@@ -1,7 +1,7 @@
 #include "Game.h"
 
-#define SCREEN_WIDTH 800
-#define SCREEN_HEIGHT 600
+#define SCREEN_WIDTH 960
+#define SCREEN_HEIGHT 540
 
 int main(int argc, char* argv[])
 {
