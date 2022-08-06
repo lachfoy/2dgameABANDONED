@@ -22,7 +22,6 @@
 
 - [x] simple input
 - [x] add mouse support
-
 - [ ] rework player controls -- twinstick shooter style (in progress) -- make sure crosshair can be moved with arrowkeys as well
 
 ## Refactor
@@ -36,7 +35,6 @@
 - [x] move responsibility of creating enemies to the EnemyManager
 - [x] Player and Enemy classes to inherit from a BaseDamagable class
 - [x] move responsibility of creating ui objects to the UIManager
-
 - [ ] resource manager (in progress)
 - [ ] remove Engine class and just consolodate everything into Game
 
@@ -51,28 +49,21 @@
 - [ ] implement ttf fonts (SDL_ttf or freetype)
 - [ ] implement audio (OpenAL or SDL_Mixer)
 - [ ] controller support - probably will wait for native support of usb devices on WSL2
-- [ ] ~~proper aabb collision response i.e. sliding response~~
+- ~~[ ] proper aabb collision response i.e. sliding response~~
 
 
 # //////// ignore
 ## Done (or done enough)
 
-
-
 - [x] aabb collision detection
 - [x] font for ui and debugging purposes (bitmap font) (in future) refine font renderering by having different spacing per glyph
 - [x] player health bar (in future) animate healthbar similar to souls games
-
-
 - [x] make healthbar more general purpose (kinda still very messy)
 - [x] add ability to have moving healthbars e.g. follow enemies
 - [x] create base UI object and 'UI Object Manager'
-
 - [x] think about how to handle damage and resistances
 - [x] better(ish) enemy AI
 - [x] add melee weapons
 - [x] add dodge roll with iframes
-
 - [x] better organised debug drawing
 - [x] add shadow sprites
-
