@@ -6,8 +6,8 @@
 
 - [x] basic sdl drawing code
 - [ ] simple particle system - avoid any kind of physics or collisions
-      - [ ] add "trail" effect for projectiles
-      - [ ] smoke effect (in progress)
+  - [ ] add "trail" effect for projectiles
+  - [ ] smoke effect (in progress)
 - [ ] add crosshair (in progress)
 
 ### Gameplay
