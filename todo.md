@@ -30,6 +30,8 @@
 - [x] add mouse support
 - [ ] rework player controls (in progress)
   - [ ] crosshair can be moved with arrowkeys as well
+  - [ ] account for offset when aiming with crosshair
+  - [ ] should projectiles only follow as far as the crosshair?? 
 
 ## Engine/Refactor
 

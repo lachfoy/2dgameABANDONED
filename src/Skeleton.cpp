@@ -49,8 +49,17 @@ void Skeleton::updateAI(float dt)
         thinkingTimer = thinkingTime;  // reset to the starting value
     }
 
-    velX = ((targetX - posX) > 0.0f) ? 1 : -1;
-    velY = ((targetY - posY) > 0.0f) ? 1 : -1;
+    // get direction vector from pos to target
+    float dirToTargetX = (targetX - posX);
+    float dirToTargetY = (targetY - posY);
+
+    // use pythag to get distance
+    // d = sqrt((x2 - x1)^2 + (y2 - y1)^2)
+    float distance = sqrtf((dirToTargetX * dirToTargetX) + (dirToTargetY * dirToTargetY));
+
+    // use distance to normalize the velocity vector
+    velX = dirToTargetX / distance;
+    velY = dirToTargetY / distance;
 }
 
 void Skeleton::render(SDL_Renderer* renderer)

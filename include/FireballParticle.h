@@ -18,6 +18,7 @@ public:
 FireballParticle::FireballParticle(float x, float y, SDL_Texture* texture)
      : BaseParticle(x, y, 0.0f, 0.0f, texture)
 {
+    name = "FireballParticle";
     width = 24;
     height = 24;
     lifeTime = 0.2f;
