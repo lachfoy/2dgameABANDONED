@@ -25,27 +25,27 @@ bool Game::init(int w, int h)
 
     // initialize sdl_image
     int imgFlags = IMG_INIT_PNG;
-    if(!(IMG_Init(imgFlags) & imgFlags))
+    if (!(IMG_Init(imgFlags) & imgFlags))
     {
         printf("Unable to initialize SDL_image: %s\n", IMG_GetError());
         return false;
     }
 
     // initialize sdl_ttf
-    if(TTF_Init() == -1)
+    if (TTF_Init() == -1)
     {
         printf("Unable to initialize SDL_ttf: %s\n", TTF_GetError());
         return false;
     }
 
     // initialize SDL_mixer
-    if(Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 ) < 0)
+    if (Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 ) < 0)
     {
         printf("Unable to initialize SDL_mixer: %s\n", Mix_GetError());
         return false;
     }
 
-    if(!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear"))
+    if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear"))
     {
       printf("Linear filtering not supported\n");
     }  
@@ -54,14 +54,14 @@ bool Game::init(int w, int h)
     windowHeight = h;
 
     window = SDL_CreateWindow("sdl2 window", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, windowWidth, windowHeight, 0);
-    if(window == NULL)
+    if (window == NULL)
     {
         printf("Window could not be created: %s\n", SDL_GetError());
         return false;
     }
 
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-    if(window == NULL)
+    if (renderer == NULL)
     {
         printf("Renderer could not be created: %s\n", SDL_GetError());
         return false;
