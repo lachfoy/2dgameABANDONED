@@ -16,9 +16,32 @@ Game::Game() {}
 
 bool Game::init(int w, int h)
 {
+    // initialize sdl
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) != 0)
     {
         printf("Unable to initialize SDL: %s\n", SDL_GetError());
+        return false;
+    }
+
+    // initialize sdl_image
+    int imgFlags = IMG_INIT_PNG;
+    if(!(IMG_Init(imgFlags) & imgFlags))
+    {
+        printf("Unable to initialize SDL_image: %s\n", IMG_GetError());
+        return false;
+    }
+
+    // initialize sdl_ttf
+    if(TTF_Init() == -1)
+    {
+        printf("Unable to initialize SDL_ttf: %s\n", TTF_GetError());
+        return false;
+    }
+
+    // initialize SDL_mixer
+    if(Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 ) < 0)
+    {
+        printf("Unable to initialize SDL_mixer: %s\n", Mix_GetError());
         return false;
     }
 
@@ -45,14 +68,7 @@ bool Game::init(int w, int h)
     }
 
     bitmapFont = new BitmapFont(renderer, "../fonts/mig68000_8x16.bmp");
-    if (!bitmapFont)
-    {
-        printf("Bitmap font could not be created: %s\n", SDL_GetError());
-        return false;
-    }
-
     inputManager = new InputManager();
-
     resourceManager = new ResourceManager(renderer);
     resourceManager->loadTextures();
 
@@ -115,7 +131,7 @@ void Game::onCreate()
     enemyManager->addSkeleton(300.0f, 400.0f);
     enemyManager->addSkeleton(700.0f, 200.0f);
 
-    uiManager->addCrosshair(200, 200, 40, 40);
+    //uiManager->addCrosshair(200, 200, 40, 40);
 }
 
 void Game::onDestroy()
