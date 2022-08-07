@@ -5,7 +5,10 @@
 ### Visuals
 
 - [x] basic sdl drawing code
-- [ ] simple particle system - avoid any kind of physics or collisions
+- [x] player health bar
+- [x] add ability to have moving healthbars e.g. follow enemies
+- [x] add shadow sprites
+- [ ] simple particle system - avoid any kind of physics or collisions (in progress)
   - [ ] add "trail" effect for projectiles
   - [ ] smoke effect (in progress)
 - [ ] add crosshair (in progress)
@@ -14,17 +17,23 @@
 
 - [x] projectiles and basic entity handling
 - [x] add burning effect
+- [x] add melee weapons
+- [x] add dodge roll with iframes
 - [ ] convert unit vector for velocity to floating point (in progress)
 - [ ] damage can haves a "push" effect (in progress)
 - [ ] Create generic "skill" system
+- [ ] Should enemies have iFrames at all??
 
 ### Controls
 
 - [x] simple input
 - [x] add mouse support
-- [ ] rework player controls -- twinstick shooter style (in progress) -- make sure crosshair can be moved with arrowkeys as well
+- [ ] rework player controls (in progress)
+  - [ ] crosshair can be moved with arrowkeys as well
+  - [ ] account for offset when aiming with crosshair
+  - [ ] should projectiles only follow as far as the crosshair?? 
 
-## Refactor
+## Engine/Refactor
 
 - [x] framerate independant update
 - [x] refactor into seperate files. game class, player class, etc.
@@ -33,10 +42,18 @@
 - [x] abstract enemy handling to EnemyManager class
 - [x] move responsibility of creating projectiles to the ProjectileManager
 - [x] move responsibility of creating enemies to the EnemyManager
+- [x] aabb collision detection
+- [x] font for ui and debugging purposes (bitmap font)
 - [x] Player and Enemy classes to inherit from a BaseDamagable class
+- [x] create base UI object
 - [x] move responsibility of creating ui objects to the UIManager
+- [x] remove Engine class and just consolodate everything into Game
 - [ ] resource manager (in progress)
-- [ ] remove Engine class and just consolodate everything into Game
+  - [x] support texture loading and retrieval
+- [ ] implement ttf fonts (SDL_ttf or freetype) ***PRIORITY***
+- [ ] implement actual image library (SDL_image or stb_image)
+- [ ] implement audio (OpenAL or SDL_Mixer)
+- [ ] controller support (probably will wait for native support of usb devices on WSL2)
 
 ## Backlog
 
@@ -44,26 +61,4 @@
 - [ ] more enemy types/abilities
 - [ ] gamestates - pausing, menu?
 - [ ] upgrades - system for adding extra abilities to the player
-
-- [ ] implement actual image library (SDL_image or stb_image)
-- [ ] implement ttf fonts (SDL_ttf or freetype)
-- [ ] implement audio (OpenAL or SDL_Mixer)
-- [ ] controller support - probably will wait for native support of usb devices on WSL2
 - ~~[ ] proper aabb collision response i.e. sliding response~~
-
-
-# //////// ignore
-## Done (or done enough)
-
-- [x] aabb collision detection
-- [x] font for ui and debugging purposes (bitmap font) (in future) refine font renderering by having different spacing per glyph
-- [x] player health bar (in future) animate healthbar similar to souls games
-- [x] make healthbar more general purpose (kinda still very messy)
-- [x] add ability to have moving healthbars e.g. follow enemies
-- [x] create base UI object and 'UI Object Manager'
-- [x] think about how to handle damage and resistances
-- [x] better(ish) enemy AI
-- [x] add melee weapons
-- [x] add dodge roll with iframes
-- [x] better organised debug drawing
-- [x] add shadow sprites

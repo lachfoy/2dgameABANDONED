@@ -19,6 +19,7 @@ ResourceManager::~ResourceManager()
 bool ResourceManager::loadTextures() // in future this could take a list of paths and iterate through that.\
     this way, the game manages which textures it wants, rather than hardcoding them.
 {
+    printf("ResourceManager: loading textures...\n");
     textures["ShadowTexture"] = loadTextureFromFile("../images/Shadow.bmp", SDL_BLENDMODE_BLEND);
     textures["CrosshairTexture"] = loadTextureFromFile("../images/Crosshair.bmp", SDL_BLENDMODE_BLEND);
     textures["FireballTexture"] = loadTextureFromFile("../images/Fireball.bmp", SDL_BLENDMODE_BLEND);
@@ -57,6 +58,8 @@ SDL_Texture* ResourceManager::loadTextureFromFile(const char* path, SDL_BlendMod
     surface = NULL;
 
     SDL_SetTextureBlendMode(texture, blendMode);
+
+    printf("loaded %s\n", path);
 
     return texture;
 }
