@@ -31,6 +31,7 @@ include_directories(
 target_link_libraries(
     ${PROJECT_NAME} PRIVATE
     ${SDL2_LIBRARIES}
+    -L/usr/local/lib -lSDL2 # needed for mac also??
     ${SDL2IMAGE_LIBRARIES}
     ${SDL2TTF_LIBRARIES}
     ${SDL2MIXER_LIBRARIES}
