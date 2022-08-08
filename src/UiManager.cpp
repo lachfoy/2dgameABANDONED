@@ -1,10 +1,21 @@
 #include "UiManager.h"
 
+#include "InputManager.h"
+#include "ResourceManager.h"
 #include "BaseUiObject.h"
 #include "Healthbar.h"
 #include "DynamicHealthbar.h"
 #include "Crosshair.h"
 #include "TextObject.h"
+#include "PlayerDebugText.h"
+
+UiManager::UiManager(InputManager* inputManager, ResourceManager* resourceManager)
+{
+    this->inputManager = inputManager;
+    this->resourceManager = resourceManager;
+
+    font = TTF_OpenFont("../fonts/arial.ttf", 28);
+}
 
 UiManager::~UiManager()
 {
@@ -33,6 +44,11 @@ void UiManager::addCrosshair(int x, int y, int w, int h)
 void UiManager::addTextObject(int x, int y, std::string text)
 {
     uiObjects.push_back(new TextObject(x, y, text, font));
+}
+
+void UiManager::addPlayerDebugText(int x, int y, Player* player)
+{
+    uiObjects.push_back(new PlayerDebugText(x, y, "", font, player));  
 }
 
 void UiManager::updateUiObjects(float dt)

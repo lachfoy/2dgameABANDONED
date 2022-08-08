@@ -27,6 +27,8 @@ public:
     void updateShootingRechargeTimer(float dt);
     void updateAttackingTimer(float dt);
 
+    int getAmmo() const { return ammo; }
+
     void updatePlayer(float dt);
 
     void render(SDL_Renderer* renderer) override;

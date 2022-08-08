@@ -133,7 +133,7 @@ void Game::onCreate()
     enemyManager->addSkeleton(700.0f, 200.0f);
 
     //uiManager->addCrosshair(200, 200, 40, 40);
-    uiManager->addTextObject(200, 200, "Hello World");
+    //uiManager->addTextObject(200, 200, "Hello World");
 }
 
 void Game::onDestroy()

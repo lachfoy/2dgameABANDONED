@@ -7,27 +7,16 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 
-#include "InputManager.h"
-#include "ResourceManager.h"
-
+class InputManager;
+class ResourceManager;
 class BaseUiObject;
-class Healthbar;
-class DynamicHealthbar;
 class BaseDamageable;
-class Crosshair;
-class TextObject;
+class Player;
 
 class UiManager
 {
 public:
-    UiManager(InputManager* inputManager, ResourceManager* resourceManager)
-    {
-        this->inputManager = inputManager;
-        this->resourceManager = resourceManager;
-
-        font = TTF_OpenFont("../fonts/arial.ttf", 28);
-    }
-
+    UiManager(InputManager* inputManager, ResourceManager* resourceManager);
     ~UiManager();
 
     std::vector<BaseUiObject*> const& getUiObjects() const { return uiObjects; }
@@ -36,6 +25,7 @@ public:
     void addDynamicHealthbar(int length, int height, BaseDamageable* damageable);
     void addCrosshair(int x, int y, int w, int h);
     void addTextObject(int x, int y, std::string text);
+    void addPlayerDebugText(int x, int y, Player* player);
 
     void updateUiObjects(float dt);
     void removeUnusedUiObjects();

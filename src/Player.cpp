@@ -25,6 +25,7 @@ Player::Player(float x, float y, ResourceManager* resourceManager, UiManager* ui
     maxHealth = 80;
     health = maxHealth;
     uiManager->addHealthbar(16, 16, 200, 14, this);
+    uiManager->addPlayerDebugText(32, 32, this);
 
     // set the resistance values
     resistance = {0};

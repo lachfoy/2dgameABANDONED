@@ -17,13 +17,13 @@ public:
         SDL_DestroyTexture(texture);
     }
 
-    inline void updateString(std::string string);
-    inline void updatePosition(const int& newX, const int& newY);
+    //inline void updateString(std::string string); // these should be added as a derived class
+    //inline void updatePosition(const int& newX, const int& newY); // these should be added as a derived class
 
-    inline void update(float dt) override;
+    inline void update(float dt) override; // these should be added as a derived class
     inline void render(SDL_Renderer* renderer) override;
 
-private:
+protected:
     std::string string;
     SDL_Texture* texture;
     SDL_Rect text_rect;
@@ -43,11 +43,11 @@ TextObject::TextObject(int x, int y, std::string string, TTF_Font* font)
     this->font = font;
 }
 
-void TextObject::updatePosition(const int& newX, const int& newY)
-{
-    this->x = newX;
-    this->y = newY;
-}
+// void TextObject::updatePosition(const int& newX, const int& newY)
+// {
+//     this->x = newX;
+//     this->y = newY;
+// }
 
 void TextObject::update(float dt)
 {
