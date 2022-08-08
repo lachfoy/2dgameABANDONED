@@ -24,6 +24,7 @@ public:
 
     void updateDodgeRoll(float dt);
     void updateShootingTimer(float dt);
+    void updateShootingRechargeTimer(float dt);
     void updateAttackingTimer(float dt);
 
     void updatePlayer(float dt);
@@ -42,14 +43,18 @@ private:
     float dodgeRollMoveSpeed = 340.0f;
 
     // Shooting
+    const int AMMO_MAX = 3;
+    int ammo = AMMO_MAX;
     bool canShoot = true;
-    float shootingTime = 0.6f;
-    float shootingTimer = 0.0f; // time before able to shoot again "cool down"
+    float shootingTime = 0.1f; // time before able to shoot again "cool down"
+    float shootingTimer = 0.0f;
+    float shootRechargeTime = 2.0f;
+    float shootRechargeTimer = shootRechargeTime;
 
     // Attacking
     bool canAttack = true;
-    float attackingTime = 0.4f;
-    float attackingTimer = 0.0f; // time before able to attack again "cool down"
+    float attackingTime = 0.4f; // time before able to attack again "cool down"
+    float attackingTimer = 0.0f;
     
 };
 

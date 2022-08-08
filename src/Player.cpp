@@ -101,8 +101,10 @@ void Player::handleInput(InputManager& inputManager)
             float fireballVelX = fireballDirX / distance;
             float fireballVelY = fireballDirY / distance;
 
+            // add a new fireball with some offset from the origin
             projectileManager->addFireball(posX, posY - (height / 2), fireballVelX, fireballVelY);
 
+            ammo--; // subtract ammo
             canShoot = false;
         }
     }
@@ -132,7 +134,7 @@ void Player::updateDodgeRoll(float dt)
 
 void Player::updateShootingTimer(float dt)
 {
-    if (!canShoot) // if we can't shoot then run a cooldown
+    if (!canShoot && (ammo > 0)) // if we can't shoot then run a cooldown
     {
         if (shootingTimer < shootingTime)
         {
@@ -142,6 +144,23 @@ void Player::updateShootingTimer(float dt)
         {
             canShoot = true;
             shootingTimer = 0.0f; // reset cooldown to 0
+        }
+    }
+}
+
+void Player::updateShootingRechargeTimer(float dt)
+{
+    if (ammo < AMMO_MAX) // if we dont have maximum amount of ammo
+    {
+        if (shootRechargeTimer > 0.0f)
+        {
+            shootRechargeTimer -= dt;
+        }
+        else
+        {
+            printf("regained 1 ammo!\n");
+            ammo++;
+            shootRechargeTimer = shootRechargeTime; // reset cooldown
         }
     }
 }
@@ -167,6 +186,7 @@ void Player::updatePlayer(float dt)
     updateDodgeRoll(dt);
     updatePush(dt);
     updateShootingTimer(dt);
+    updateShootingRechargeTimer(dt);
     updateAttackingTimer(dt);
     updateImmuneTimer(dt);
     updatePosition(dt);

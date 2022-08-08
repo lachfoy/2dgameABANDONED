@@ -19,10 +19,12 @@
 - [x] add burning effect
 - [x] add melee weapons
 - [x] add dodge roll with iframes
+- [x] spell cooldown with 3 charges for something interesting
 - [ ] convert unit vector for velocity to floating point (in progress)
 - [ ] damage can haves a "push" effect (in progress)
-- [ ] Create generic "skill" system
+- [ ] Create generic "skill/spell" system
 - [ ] Should enemies have iFrames at all??
+
 
 ### Controls
 
