@@ -63,4 +63,5 @@
 - [ ] more enemy types/abilities
 - [ ] gamestates - pausing, menu?
 - [ ] upgrades - system for adding extra abilities to the player
+- [ ] A BOSS!!
 - ~~[ ] proper aabb collision response i.e. sliding response~~

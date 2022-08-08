@@ -44,7 +44,6 @@ private:
     void onDestroy(); // deallocate window and renderer
     void onUpdate(float dt);
     void onRender();
-
 };
 
 #endif

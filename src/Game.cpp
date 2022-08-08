@@ -14,6 +14,7 @@
 
 Game::Game() {}
 
+// init all the framework resources - SDL2, ttf etc.
 bool Game::init(int w, int h)
 {
     // initialize sdl
@@ -67,11 +68,6 @@ bool Game::init(int w, int h)
         return false;
     }
 
-    bitmapFont = new BitmapFont(renderer, "../fonts/mig68000_8x16.bmp");
-    inputManager = new InputManager();
-    resourceManager = new ResourceManager(renderer);
-    resourceManager->loadTextures();
-
     return true;
 }
 
@@ -81,7 +77,7 @@ void Game::run()
 
     onCreate(); // call the game create functions
 
-    SDL_ShowCursor(SDL_DISABLE); // hide the cursor (doesn't work on WSL window)
+    //SDL_ShowCursor(SDL_DISABLE); // hide the cursor (doesn't work on WSL window)
 
     Uint32 start = 0;
     float dt = 0.0f;
@@ -118,7 +114,12 @@ void Game::run()
 
 void Game::onCreate()
 {
-    uiManager = new UiManager(inputManager ,resourceManager);
+    bitmapFont = new BitmapFont(renderer, "../fonts/mig68000_8x16.bmp");
+    inputManager = new InputManager();
+    resourceManager = new ResourceManager(renderer);
+    resourceManager->loadTextures();
+
+    uiManager = new UiManager(inputManager, resourceManager);
     particleManager = new ParticleManager(resourceManager);
     projectileManager = new ProjectileManager(resourceManager, particleManager);
 
@@ -132,6 +133,7 @@ void Game::onCreate()
     enemyManager->addSkeleton(700.0f, 200.0f);
 
     //uiManager->addCrosshair(200, 200, 40, 40);
+    uiManager->addTextObject(200, 200, "Hello World");
 }
 
 void Game::onDestroy()
@@ -149,6 +151,8 @@ void Game::onDestroy()
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
 
+    TTF_Quit();
+    IMG_Quit();
     SDL_Quit();
 }
 

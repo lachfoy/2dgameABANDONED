@@ -4,12 +4,15 @@
 #include "Healthbar.h"
 #include "DynamicHealthbar.h"
 #include "Crosshair.h"
+#include "TextObject.h"
 
 UiManager::~UiManager()
 {
     // delete all the pointers and clear the uiObjects vector
     for (const auto& uiObject : uiObjects) delete uiObject;
     uiObjects.clear();
+
+    TTF_CloseFont(font);
 }
 
 void UiManager::addHealthbar(int x, int y, int length, int height, BaseDamageable* damageable)
@@ -25,6 +28,11 @@ void UiManager::addDynamicHealthbar(int length, int height, BaseDamageable* dama
 void UiManager::addCrosshair(int x, int y, int w, int h)
 {
     uiObjects.push_back(new Crosshair(x, y, w, h, inputManager, resourceManager->getTexture("CrosshairTexture")));
+}
+
+void UiManager::addTextObject(int x, int y, std::string text)
+{
+    uiObjects.push_back(new TextObject(x, y, text, font));
 }
 
 void UiManager::updateUiObjects(float dt)
