@@ -13,11 +13,7 @@ class FireballParticle;
 class ParticleManager
 {
 public:
-    ParticleManager(ResourceManager* resourceManager)
-    {
-        this->resourceManager = resourceManager;
-    }
-
+    ParticleManager(ResourceManager* resourceManager);
     ~ParticleManager();
 
     void addFireballParticle(float x, float y);

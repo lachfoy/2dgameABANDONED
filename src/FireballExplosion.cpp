@@ -8,7 +8,7 @@ FireballExplosion::FireballExplosion(float x, float y, SDL_Texture* texture)
     colliderH = 200;
     damage = {0};
     damage = { .fire = 43, .setBurning = true };
-    lifeTime = 0.2f;
+    lifeTime = 0.3f;
     removeOnCollision = false;
     onlyDamageOnce = true;
 }

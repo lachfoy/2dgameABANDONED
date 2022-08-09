@@ -8,8 +8,8 @@
 class BaseObject
 {
 public:
-    BaseObject(float x, float y) { posX = x; posY = y; }
-    ~BaseObject() { printf("deleting %s\n", name.c_str()); removable = true; }
+    inline BaseObject(float x, float y);
+    inline ~BaseObject();
 
     std::string name = ""; // use for debug purposes
     float posX;
@@ -26,6 +26,16 @@ private:
     SDL_Rect debug_origin_rect;
 
 };
+
+BaseObject::BaseObject(float x, float y)
+{
+    posX = x; posY = y;
+}
+
+BaseObject::~BaseObject()
+{
+    printf("deleting %s\n", name.c_str()); removable = true;
+}
 
 void BaseObject::renderOrigin(SDL_Renderer* renderer)
 {

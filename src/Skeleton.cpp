@@ -21,12 +21,12 @@ Skeleton::Skeleton(float x, float y, ResourceManager* resourceManager, UiManager
     health = maxHealth;
 
     resistance = {0};
-    resistance = { .standardResistance = 0, .crushingResistance = -80, .fireResistance = 0 };
+    resistance = { .crushingResistance = -80 };
 
     immuneTime = 0.0f; // how many seconds of iframes
     immuneTimer = immuneTime;
 
-    startingMoveSpeed = 10.0f; // slowww
+    startingMoveSpeed = 20.0f; // slowww
     moveSpeed = startingMoveSpeed;
 
     damage = {0};

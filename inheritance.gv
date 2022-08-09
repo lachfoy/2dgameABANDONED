@@ -9,9 +9,9 @@ digraph inheritance {
     BaseMeleeWeapon->{Sword, SwordSlash}
     BaseEnemy->Skeleton
 
-    BaseUiObject->{Healthbar, TextObject}
+    BaseUiObject->{Healthbar, BaseTextObject}
     Healthbar->DynamicHealthbar
-    TextObject->PlayerDebugText
+    BaseTextObject->PlayerDebugText
 }
 
 // use `dot -Tpng -O inheritance.gv` to generate a .png

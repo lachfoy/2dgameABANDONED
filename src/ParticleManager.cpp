@@ -3,6 +3,11 @@
 #include "BaseParticle.h"
 #include "FireballParticle.h"
 
+ParticleManager::ParticleManager(ResourceManager* resourceManager)
+{
+    this->resourceManager = resourceManager;
+}
+
 ParticleManager::~ParticleManager()
 {
     // clear the particles vector and delete the pointers

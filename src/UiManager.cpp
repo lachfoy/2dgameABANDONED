@@ -6,7 +6,7 @@
 #include "Healthbar.h"
 #include "DynamicHealthbar.h"
 #include "Crosshair.h"
-#include "TextObject.h"
+#include "BaseTextObject.h"
 #include "PlayerDebugText.h"
 
 UiManager::UiManager(InputManager* inputManager, ResourceManager* resourceManager)
@@ -43,7 +43,7 @@ void UiManager::addCrosshair(int x, int y, int w, int h)
 
 void UiManager::addTextObject(int x, int y, std::string text)
 {
-    uiObjects.push_back(new TextObject(x, y, text, font));
+    uiObjects.push_back(new BaseTextObject(x, y, text, font));
 }
 
 void UiManager::addPlayerDebugText(int x, int y, Player* player)

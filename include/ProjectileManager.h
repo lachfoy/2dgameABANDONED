@@ -15,12 +15,7 @@ class ParticleManager;
 class ProjectileManager
 {
 public:
-    ProjectileManager(ResourceManager* resourceManager, ParticleManager* particleManager)
-    {
-        this->resourceManager = resourceManager; // ptr to resource manager, used when creating projectiles to give them the appropriate textures
-        this->particleManager = particleManager;
-    }
-
+    ProjectileManager(ResourceManager* resourceManager, ParticleManager* particleManager);
     ~ProjectileManager();
 
     // Getter for the projectiles vector

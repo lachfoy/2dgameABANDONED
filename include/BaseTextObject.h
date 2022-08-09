@@ -1,5 +1,5 @@
-#ifndef TEXTOBJECT_H
-#define TEXTOBJECT_H
+#ifndef BASETEXTOBJECT_H
+#define BASETEXTOBJECT_H
 
 #include <string>
 
@@ -8,14 +8,11 @@
 
 #include "BaseUiObject.h"
 
-class TextObject : public BaseUiObject
+class BaseTextObject : public BaseUiObject
 {
 public:
-    inline TextObject(int x, int y, std::string string, TTF_Font* font);
-    inline ~TextObject()
-    {
-        SDL_DestroyTexture(texture);
-    }
+    inline BaseTextObject(int x, int y, std::string text, TTF_Font* font);
+    inline ~BaseTextObject();
 
     //inline void updateString(std::string string); // these should be added as a derived class
     //inline void updatePosition(const int& newX, const int& newY); // these should be added as a derived class
@@ -24,7 +21,7 @@ public:
     inline void render(SDL_Renderer* renderer) override;
 
 protected:
-    std::string string;
+    std::string text;
     SDL_Texture* texture;
     SDL_Rect text_rect;
 
@@ -33,29 +30,34 @@ protected:
 
 };
 
-TextObject::TextObject(int x, int y, std::string string, TTF_Font* font)
+BaseTextObject::BaseTextObject(int x, int y, std::string text, TTF_Font* font)
 {
     this->x = x;
     this->y = y;
 
-    this->string = string;
+    this->text = text;
 
     this->font = font;
 }
 
-// void TextObject::updatePosition(const int& newX, const int& newY)
+BaseTextObject::~BaseTextObject()
+{
+    SDL_DestroyTexture(texture);
+}
+
+// void BaseTextObject::updatePosition(const int& newX, const int& newY)
 // {
 //     this->x = newX;
 //     this->y = newY;
 // }
 
-void TextObject::update(float dt)
+void BaseTextObject::update(float dt)
 {
 }
 
-void TextObject::render(SDL_Renderer* renderer)
+void BaseTextObject::render(SDL_Renderer* renderer)
 {
-    SDL_Surface* surface = TTF_RenderText_Blended(font, string.c_str(), SDL_Color{255, 255, 255});
+    SDL_Surface* surface = TTF_RenderText_Blended(font, text.c_str(), SDL_Color{255, 255, 255});
     texture = SDL_CreateTextureFromSurface(renderer, surface);
 
     text_rect.x = x;

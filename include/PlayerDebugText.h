@@ -6,16 +6,16 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 
-#include "TextObject.h"
+#include "BaseTextObject.h"
 
 #include "Player.h"
 
-class PlayerDebugText : public TextObject
+class PlayerDebugText : public BaseTextObject
 {
 public:
-    inline PlayerDebugText(int x, int y, std::string string, TTF_Font* font, Player* player);
+    inline PlayerDebugText(int x, int y, std::string text, TTF_Font* font, Player* player);
 
-    inline void updateString(std::string string); // these should be added as a derived class
+    inline void updateText(std::string text); // these should be added as a derived class
     inline void updatePosition(const int& newX, const int& newY); // these should be added as a derived class
 
     inline void update(float dt) override; // these should be added as a derived class
@@ -27,15 +27,15 @@ private:
 
 };
 
-PlayerDebugText::PlayerDebugText(int x, int y, std::string string, TTF_Font* font, Player* player)
-     : TextObject(x, y, string, font)
+PlayerDebugText::PlayerDebugText(int x, int y, std::string text, TTF_Font* font, Player* player)
+     : BaseTextObject(x, y, text, font)
 {
     this->player = player;
 }
 
 void PlayerDebugText::update(float dt)
 {
-    string = "Fireball Charges: " + std::to_string(player->getAmmo()) + "/3";
+    text = "Fireball Charges: " + std::to_string(player->getAmmo()) + "/3";
 }
 
 #endif

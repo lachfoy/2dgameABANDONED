@@ -10,7 +10,7 @@
 #include "Crosshair.h"
 #include "ParticleManager.h"
 
-#define DEBUG_DRAW 0
+#define DEBUG_DRAW 1
 
 Game::Game() {}
 
@@ -100,7 +100,7 @@ void Game::run()
 
         onRender(); // let the game copy everything to the renderer
 
-        bitmapFont->renderText(renderer, 10, 10, "ms: " + std::to_string(dt_ms)); // render frametime (ms)
+        //bitmapFont->renderText(renderer, 10, 10, "ms: " + std::to_string(dt_ms)); // render frametime (ms)
 
         SDL_RenderPresent(renderer);
 
