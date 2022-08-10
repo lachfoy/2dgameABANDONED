@@ -15,6 +15,8 @@ Fireball::Fireball(float x, float y, float velX, float velY, SDL_Texture* textur
     lifeTime = 0.8f;
     removeOnCollision = true;
     onlyDamageOnce = true;
+    rotate = true;
+    rotationSpeed = 5.0f;
 }
 
 void Fireball::destroy(ProjectileManager& projectileManager)
@@ -38,6 +40,14 @@ void Fireball::updatePosition(float dt)
     posX += velX * moveSpeed * dt;
     posY += velY * moveSpeed * dt;
 
+    if (rotate)
+    {
+        if (angle >= 360)
+            angle = 0.0f;
+        else
+            angle += rotationSpeed;
+    }
+
     // move the collider as well
     collider.upperBoundX = posX - (colliderW / 2);
     collider.upperBoundY = posY - (colliderH / 2);
@@ -57,7 +67,7 @@ void Fireball::render(SDL_Renderer* renderer)
     // draw the fireball
     if (texture)
     {
-        SDL_RenderCopy(renderer, texture, NULL, &fireball_rect);
+        SDL_RenderCopyEx(renderer, texture, NULL, &fireball_rect, angle, NULL, {});
     }
     else
     {

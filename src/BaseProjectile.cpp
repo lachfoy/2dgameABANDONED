@@ -27,6 +27,14 @@ void BaseProjectile::updatePosition(float dt)
     posX += velX * moveSpeed * dt;
     posY += velY * moveSpeed * dt;
 
+    if (rotate)
+    {
+        if (angle >= 360)
+            angle = 0.0f;
+        else
+            angle += rotationSpeed;
+    }
+
     // move the collider as well
     collider.upperBoundX = posX - (colliderW / 2);
     collider.upperBoundY = posY - (colliderH / 2);

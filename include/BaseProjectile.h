@@ -43,6 +43,9 @@ protected: // things the derived projectiles can change
     float lifeTime;
     SDL_Texture* texture; // texture to use for rendering, projectile does not have ownership
     ParticleManager* particleManager;
+    bool rotate = false;
+    float angle = 0.0f; // angle in degrees
+    float rotationSpeed = 0.0f;
 
 };
 
