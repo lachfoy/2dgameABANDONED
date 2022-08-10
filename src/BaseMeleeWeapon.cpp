@@ -20,7 +20,13 @@ void BaseMeleeWeapon::updatePosition(float dt)
     posX = wielder->posX + offsetX;
     posY = wielder->posY + offsetY;
 
-    angle += rotationSpeed * dt;
+    if (rotate)
+    {
+        if (angle >= 360)
+            angle = 0.0f;
+        else
+            angle += rotationSpeed;
+    }
 
     // flip based on wielder's facing direction
     flip = !wielder->facingRight();
