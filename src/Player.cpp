@@ -51,62 +51,73 @@ void Player::resolveEnemyCollisions(const std::vector<BaseEnemy*>& enemies)
 
 void Player::handleInput(InputManager& inputManager)
 {
-    if (inputManager.keyPressed(SDL_SCANCODE_UP) | inputManager.keyPressed(SDL_SCANCODE_W))
-        velY = -1.0f;
-    if (inputManager.keyPressed(SDL_SCANCODE_DOWN) | inputManager.keyPressed(SDL_SCANCODE_S))
-        velY = 1.0f;
-    if (inputManager.keyPressed(SDL_SCANCODE_LEFT) | inputManager.keyPressed(SDL_SCANCODE_A))
-        velX = -1.0f;
-    if (inputManager.keyPressed(SDL_SCANCODE_RIGHT) | inputManager.keyPressed(SDL_SCANCODE_D))
-        velX = 1.0f;
-    if (inputManager.keyPressed(SDL_SCANCODE_Z))
+    if (isReceivingInput)
     {
-        if (canShoot)
+        if (inputManager.keyPressed(SDL_SCANCODE_UP) | inputManager.keyPressed(SDL_SCANCODE_W))
+            velY = -1.0f;
+        if (inputManager.keyPressed(SDL_SCANCODE_DOWN) | inputManager.keyPressed(SDL_SCANCODE_S))
+            velY = 1.0f;
+        if (inputManager.keyPressed(SDL_SCANCODE_LEFT) | inputManager.keyPressed(SDL_SCANCODE_A))
+            velX = -1.0f;
+        if (inputManager.keyPressed(SDL_SCANCODE_RIGHT) | inputManager.keyPressed(SDL_SCANCODE_D))
+            velX = 1.0f;
+        if (inputManager.keyPressed(SDL_SCANCODE_Z))
         {
-            int fireballVelX = (facingDirection == FACING_RIGHT) ? 1 : -1;
-            projectileManager->addFireball(posX, posY - (height / 2), fireballVelX, 0);
-            canShoot = false;
+            if (canShoot)
+            {
+                int fireballVelX = (facingDirection == FACING_RIGHT) ? 1 : -1;
+                projectileManager->addFireball(posX, posY - (height / 2), fireballVelX, 0);
+                canShoot = false;
+            }
         }
-    }
-    if (inputManager.keyPressed(SDL_SCANCODE_X))
-    {
-        if (canAttack)
+        if (inputManager.keyPressed(SDL_SCANCODE_X))
         {
-            float swordOffsetX = (facingDirection == FACING_RIGHT) ? 28.0f : -28.0f;
-            projectileManager->addSword(posX, posY, swordOffsetX, -(height / 2) - 3.0f, this);
-            canAttack = false;
+            if (canAttack)
+            {
+                float swordOffsetX = (facingDirection == FACING_RIGHT) ? 28.0f : -28.0f;
+                projectileManager->addSword(posX, posY, swordOffsetX, -(height / 2) - 3.0f, this);
+                canAttack = false;
+            }
         }
-    }
-    if (inputManager.keyPressed(SDL_SCANCODE_C))
-    {
-        dodgeRolling = true;
-    }
-    if (inputManager.keyPressed(SDL_SCANCODE_K))
-    {
-        takeDamage({ .standard = 10, .crushing = 10, .fire = 10 });
-    }
-
-    if (inputManager.mousePressed(0))
-    {
-        if (canShoot)
+        if (inputManager.keyPressed(SDL_SCANCODE_C))
         {
-            // get direction vector from player to mouse position
-            float fireballDirX = (inputManager.getMouseX() - posX);
-            float fireballDirY = (inputManager.getMouseY() - posY);
+            if (canDodgeRoll && (dodgeRolls > 0))
+            {
+                isReceivingInput = false;
+                canDodgeRoll = false;
+                dodgeRolls--;
+                dodgeRollVelX = velX; // store current velocity
+                dodgeRollVelY = velY;
+                dodgeRolling = true;
+            }
+        }
+        if (inputManager.keyPressed(SDL_SCANCODE_K))
+        {
+            takeDamage({ .standard = 10, .crushing = 10, .fire = 10 });
+        }
 
-            // use pythag to get distance between the player and mouse
-            // d = sqrt((x2 - x1)^2 + (y2 - y1)^2)
-            float distance = sqrtf((fireballDirX * fireballDirX) + (fireballDirY * fireballDirY));
+        if (inputManager.mousePressed(0))
+        {
+            if (canShoot)
+            {
+                // get direction vector from player to mouse position
+                float fireballDirX = (inputManager.getMouseX() - posX);
+                float fireballDirY = (inputManager.getMouseY() - posY);
 
-            // use distance to normalize the velocity vector
-            float fireballVelX = fireballDirX / distance;
-            float fireballVelY = fireballDirY / distance;
+                // use pythag to get distance between the player and mouse
+                // d = sqrt((x2 - x1)^2 + (y2 - y1)^2)
+                float distance = sqrtf((fireballDirX * fireballDirX) + (fireballDirY * fireballDirY));
 
-            // add a new fireball with some offset from the origin
-            projectileManager->addFireball(posX, posY - (height / 2), fireballVelX, fireballVelY);
+                // use distance to normalize the velocity vector
+                float fireballVelX = fireballDirX / distance;
+                float fireballVelY = fireballDirY / distance;
 
-            ammo--; // subtract ammo
-            canShoot = false;
+                // add a new fireball with some offset from the origin
+                projectileManager->addFireball(posX, posY - (height / 2), fireballVelX, fireballVelY);
+
+                ammo--; // subtract ammo
+                canShoot = false;
+            }
         }
     }
 }
@@ -115,20 +126,38 @@ void Player::updateDodgeRoll(float dt)
 {
     if (dodgeRolling)
     {
-        // dodge rolling doesnt disable input -- maybe it should??????
-        float dodgeVelX = (facingDirection == FACING_RIGHT) ? 1.0f : -1.0f;
         if (dodgeRollTimer > 0.0f)
         {
-            velX = dodgeVelX; // override left/right input
+            velX = dodgeRollVelX;
+            velY = dodgeRollVelY;
             moveSpeed = dodgeRollMoveSpeed;
             damageable = false;
             dodgeRollTimer -= dt;
         }
-        else
+        else // finished dodge rolling
         {
             dodgeRolling = false;
             moveSpeed = startingMoveSpeed;
             dodgeRollTimer = dodgeRollTime; // reset timer
+            canDodgeRoll = true;
+            isReceivingInput = true; // allow input again
+        }
+    }
+}
+
+void Player::updateDodgeRollRechargeTimer(float dt)
+{
+    if (dodgeRolls < DODGEROLLS_MAX)
+    {
+        if (dodgeRollRechargeTimer > 0.0f)
+        {
+            dodgeRollRechargeTimer -= dt;
+        }
+        else
+        {
+            printf("regained dodgeroll!\n");
+            dodgeRolls++;
+            dodgeRollRechargeTimer = dodgeRollRechargeTime; // reset cooldown
         }
     }
 }
@@ -184,12 +213,16 @@ void Player::updateAttackingTimer(float dt)
 
 void Player::updatePlayer(float dt)
 {
+    updateTimers(dt);
+
     updateDodgeRoll(dt);
-    updatePush(dt);
+    updateDodgeRollRechargeTimer(dt);
+    
     updateShootingTimer(dt);
     updateShootingRechargeTimer(dt);
+    
     updateAttackingTimer(dt);
-    updateImmuneTimer(dt);
+
     updatePosition(dt);
 }
 

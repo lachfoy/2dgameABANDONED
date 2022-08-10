@@ -23,6 +23,7 @@ public:
     void resolveEnemyCollisions(const std::vector<BaseEnemy*>& enemies);
 
     void updateDodgeRoll(float dt);
+    void updateDodgeRollRechargeTimer(float dt);
     void updateShootingTimer(float dt);
     void updateShootingRechargeTimer(float dt);
     void updateAttackingTimer(float dt);
@@ -38,11 +39,20 @@ private:
     UiManager* uiManager;
     ProjectileManager* projectileManager;
     
+    bool isReceivingInput = true;
+
     // Dodge Roll
+    bool canDodgeRoll = true;
     bool dodgeRolling = false;
-    float dodgeRollTime = 0.3f;
+    float dodgeRollTime = 0.2f;
     float dodgeRollTimer = dodgeRollTime;
-    float dodgeRollMoveSpeed = 340.0f;
+    float dodgeRollMoveSpeed = 380.0f;
+    float dodgeRollVelX;
+    float dodgeRollVelY;
+    const int DODGEROLLS_MAX = 1;
+    int dodgeRolls = DODGEROLLS_MAX;
+    float dodgeRollRechargeTime = 1.0f;
+    float dodgeRollRechargeTimer = dodgeRollRechargeTime;
 
     // Shooting
     const int AMMO_MAX = 3;
@@ -50,7 +60,7 @@ private:
     bool canShoot = true;
     float shootingTime = 0.1f; // time before able to shoot again "cool down"
     float shootingTimer = 0.0f;
-    float shootRechargeTime = 2.0f;
+    float shootRechargeTime = 1.0f;
     float shootRechargeTimer = shootRechargeTime;
 
     // Attacking
