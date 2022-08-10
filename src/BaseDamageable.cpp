@@ -28,8 +28,54 @@ void BaseDamageable::takeDamage(const Damage& damage)
     }
 }
 
-void BaseDamageable::updateBurning(float dt)
+// instead we should take in an origin pos, then do the velocity calculation.\
+    we should also use some kind of calculation based on a "mass" attribute
+void BaseDamageable::push(float pushVelX, float pushVelY, float pushMoveSpeed)
 {
+    if (!beingPushed)
+    {
+        this->pushVelX = pushVelX;
+        this->pushVelY = pushVelY;
+        this->pushMoveSpeed = pushMoveSpeed;
+        beingPushed = true;
+    }
+}
+
+void BaseDamageable::updateTimers(float dt)
+{
+    // immune timer
+    if (health <= 0) { printf("%s is dead\n", name.c_str()); removable = true; }
+    else
+    {
+        // set up iframes
+        if (!damageable) immuneTimer -= dt;
+        if (immuneTimer <= 0.0f)
+        {
+            immuneTimer = immuneTime; // reset to the starting value
+            damageable = true;
+        }
+    }
+
+    // push timer
+    if (beingPushed)
+    {
+        if (pushTimer > 0.0f)
+        {
+            velX = pushVelX;
+            velY = pushVelY;
+            moveSpeed = pushMoveSpeed;
+            pushTimer -= dt;
+        }
+        else
+        {
+            // reset back to normal
+            beingPushed = false;
+            moveSpeed = startingMoveSpeed;
+            pushTimer = pushTime;
+        }
+    }
+
+    // on fire timer
     if (canBeSetOnFire)
     {
         if (onFire) // they stay on fire not forever :)
@@ -58,55 +104,6 @@ void BaseDamageable::updateBurning(float dt)
                 onFire = false;
                 fireTimer = fireTime;
             }
-        }
-    }
-}
-
-// instead we should take in an origin pos, then do the velocity calculation.\
-    we should also use some kind of calculation based on a "mass" attribute
-void BaseDamageable::push(float pushVelX, float pushVelY, float pushMoveSpeed)
-{
-    if (!beingPushed)
-    {
-        this->pushVelX = pushVelX;
-        this->pushVelY = pushVelY;
-        this->pushMoveSpeed = pushMoveSpeed;
-        beingPushed = true;
-    }
-}
-
-void BaseDamageable::updatePush(float dt)
-{
-    if (beingPushed)
-    {
-        if (pushTimer > 0.0f)
-        {
-            velX = pushVelX;
-            velY = pushVelY;
-            moveSpeed = pushMoveSpeed;
-            pushTimer -= dt;
-        }
-        else
-        {
-            // reset back to normal
-            beingPushed = false;
-            moveSpeed = startingMoveSpeed;
-            pushTimer = pushTime;
-        }
-    }
-}
-
-void BaseDamageable::updateImmuneTimer(float dt)
-{
-    if (health <= 0) { printf("%s is dead\n", name.c_str()); removable = true; }
-    else
-    {
-        // set up iframes
-        if (!damageable) immuneTimer -= dt;
-        if (immuneTimer <= 0.0f)
-        {
-            immuneTimer = immuneTime; // reset to the starting value
-            damageable = true;
         }
     }
 }

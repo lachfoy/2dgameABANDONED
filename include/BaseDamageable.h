@@ -24,10 +24,9 @@ public:
     bool facingRight() const { return facingDirection; }
 
     void takeDamage(const Damage& damage);
-    void updateBurning(float dt);
     void push(float pushVelX, float pushVelY, float pushMoveSpeed);
-    void updatePush(float dt);
-    void updateImmuneTimer(float dt);
+
+    virtual void updateTimers(float dt); // overriden by player
     void updatePosition(float dt);
 
     void renderShadow(SDL_Renderer* renderer);
