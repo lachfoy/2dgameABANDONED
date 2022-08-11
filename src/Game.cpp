@@ -1,6 +1,5 @@
 #include "Game.h"
 
-#include "BitmapFont.h"
 #include "InputManager.h"
 #include "ResourceManager.h"
 #include "Player.h"
@@ -11,7 +10,7 @@
 #include "ParticleManager.h"
 #include "GameStateManager.h"
 
-#define DEBUG_DRAW 1
+#define DEBUG_DRAW 0
 
 Game::Game() {}
 
@@ -126,6 +125,7 @@ void Game::run()
 
 void Game::onCreate()
 {
+    ///////// game scene
     //bitmapFont = new BitmapFont(renderer, "../fonts/mig68000_8x16.bmp");
     inputManager = new InputManager();
     m_gameStateManager = new GameStateManager();
@@ -147,17 +147,24 @@ void Game::onCreate()
 
     //uiManager->addCrosshair(200, 200, 40, 40);
     //uiManager->addTextObject(200, 200, "Hello World");
+
+    ///////// pause scene
+    pauseUiManager = new UiManager(inputManager, resourceManager);
+    pauseUiManager->addTextObject(windowWidth/2, windowHeight/2, "Paused!");
 }
 
 void Game::onDestroy()
 {
+    // game scene
     delete player;
     delete projectileManager;
     delete enemyManager;
     delete particleManager;
     delete uiManager;
 
-    delete bitmapFont;
+    // pause scene
+    delete pauseUiManager;
+
     delete resourceManager; // deallocate the resources
     delete m_gameStateManager;
     delete inputManager;
@@ -195,7 +202,10 @@ void Game::gameUpdate(float dt)
     particleManager->removeUnusedParticles();
 }
 
-void Game::pausedUpdate(float dt) {}
+void Game::pausedUpdate(float dt)
+{
+
+}
 
 void Game::gameRender()
 {
@@ -221,6 +231,7 @@ void Game::gameRender()
 void Game::pausedRender()
 {
     SDL_Rect screenFill = {0, 0, windowWidth, windowHeight};
-    SDL_SetRenderDrawColor(renderer, 0xff, 0xff, 0xff, 0x74);
+    SDL_SetRenderDrawColor(renderer, 0x74, 0x74, 0x74, 0x74);
     SDL_RenderFillRect(renderer, &screenFill);
+    pauseUiManager->renderUiObjects(renderer);
 }
