@@ -1,7 +1,9 @@
 #include "FireballExplosion.h"
 
-FireballExplosion::FireballExplosion(float x, float y, SDL_Texture* texture)
-    : BaseProjectile(x, y, 0, 0, texture)
+#include "ParticleManager.h"
+
+FireballExplosion::FireballExplosion(float x, float y, SDL_Texture* texture, ParticleManager* particleManager)
+    : BaseProjectile(x, y, 0, 0, texture, particleManager)
 {
     name = "FireballExplosion";
     colliderW = 200;
@@ -11,6 +13,19 @@ FireballExplosion::FireballExplosion(float x, float y, SDL_Texture* texture)
     lifeTime = 0.3f;
     removeOnCollision = false;
     onlyDamageOnce = true;
+}
+
+void FireballExplosion::spawnParticles(float dt)
+{
+    float gasVelX = 0.5f;
+    float gasVelY = 0.5f;
+    if (gasSpawnTimer > 0.0f) gasSpawnTimer -= dt;
+    else
+    {
+        // spawn a particle at the old position
+        particleManager->addFireballExplosionParticle(posX, posY, gasVelX, gasVelY);
+        gasSpawnTimer = gasSpawnTime; // reset timer
+    }
 }
 
 void FireballExplosion::render(SDL_Renderer* renderer)

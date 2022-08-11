@@ -25,8 +25,7 @@ void Fireball::destroy(ProjectileManager& projectileManager)
     projectileManager.addFireballExplosion(posX, posY);
 }
 
-// this should be redone in a better way... im just not sure how
-void Fireball::updatePosition(float dt)
+void Fireball::spawnParticles(float dt)
 {
     if (trailSpawnTimer > 0.0f) trailSpawnTimer -= dt;
     else
@@ -35,7 +34,11 @@ void Fireball::updatePosition(float dt)
         particleManager->addFireballParticle(posX, posY);
         trailSpawnTimer = trailSpawnTime; // reset timer
     }
+}
 
+// this should be redone in a better way... im just not sure how
+void Fireball::updatePosition(float dt)
+{
     // update the internal position
     posX += velX * moveSpeed * dt;
     posY += velY * moveSpeed * dt;

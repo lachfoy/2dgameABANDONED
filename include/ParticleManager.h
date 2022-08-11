@@ -17,6 +17,7 @@ public:
 
     void addFireballParticle(float x, float y);
     void addSmokeParticle(float x, float y);
+    void addFireballExplosionParticle(float x, float y, float velX, float velY);
 
     void updateParticles(float dt);
     void removeUnusedParticles();

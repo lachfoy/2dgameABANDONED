@@ -6,11 +6,16 @@
 class FireballExplosion : public BaseProjectile
 {
 public:
-    FireballExplosion(float x, float y, SDL_Texture* texture);
+    FireballExplosion(float x, float y, SDL_Texture* texture, ParticleManager* particleManager);
 
     void destroy(ProjectileManager& projectileManager) override {}
+    void spawnParticles(float dt) override;
     void render(SDL_Renderer* renderer) override;
-    
+
+private:
+    float gasSpawnTime = 0.02f;
+    float gasSpawnTimer = gasSpawnTime;
+
 };
 
 #endif

@@ -32,7 +32,7 @@ void ProjectileManager::addFireball(float x, float y, float velX, float velY)
 
 void ProjectileManager::addFireballExplosion(float x, float y)
 {
-    playerProjectiles.push_back(new FireballExplosion(x, y, resourceManager->getTexture("FireballExplosionTexture")));
+    playerProjectiles.push_back(new FireballExplosion(x, y, resourceManager->getTexture("FireballExplosionTexture"), particleManager));
 }
 
 void ProjectileManager::addSword(float x, float y, float offsetX, float offsetY, BaseDamageable* wielder)
@@ -51,6 +51,7 @@ void ProjectileManager::updateProjectiles(float dt)
     for (const auto& projectile : enemyProjectiles)
     {
         projectile->updatePosition(dt);
+        projectile->spawnParticles(dt);
         projectile->updateLifetime(dt);
     }
 
@@ -58,6 +59,7 @@ void ProjectileManager::updateProjectiles(float dt)
     for (const auto& projectile : playerProjectiles)
     {
         projectile->updatePosition(dt);
+        projectile->spawnParticles(dt);
         projectile->updateLifetime(dt);
     }
 }
