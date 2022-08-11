@@ -276,6 +276,9 @@ void Player::render(SDL_Renderer* renderer)
 
     // set alpha depending on damageable status
     if (isImmune) m_color.a = 0x65;
+
+    // owwwie
+    if (isBeingHurt) m_color = { 0xff, 0x4e, 0x45, 0xff }; // #ff4e45
     
     // draw player
     SDL_SetRenderDrawColor(renderer, m_color.r, m_color.g, m_color.b, m_color.a);
