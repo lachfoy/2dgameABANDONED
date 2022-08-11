@@ -150,7 +150,7 @@ void Game::onCreate()
 
     ///////// pause scene
     pauseUiManager = new UiManager(inputManager, resourceManager);
-    pauseUiManager->addTextObject(windowWidth/2, windowHeight/2, "Paused!");
+    pauseUiManager->addTextObject(windowWidth/2 - 60, windowHeight/2 - 20, "Paused!");
 }
 
 void Game::onDestroy()

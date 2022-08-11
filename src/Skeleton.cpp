@@ -23,8 +23,8 @@ Skeleton::Skeleton(float x, float y, ResourceManager* resourceManager, UiManager
     resistance = {0};
     resistance = { .crushingResistance = -80 };
 
-    immuneTime = 0.0f; // how many seconds of iframes
-    immuneTimer = immuneTime;
+    hurtCooldown = 0.1f; // how many seconds of iframes
+    hurtTimer = hurtCooldown;
 
     startingMoveSpeed = 20.0f; // slowww
     moveSpeed = startingMoveSpeed;
@@ -65,22 +65,21 @@ void Skeleton::updateAI(float dt)
 void Skeleton::render(SDL_Renderer* renderer)
 {
     // create rect representing the enemy
-    SDL_Rect enemy_rect;
-    enemy_rect.x = (int)posX - (width / 2);
-    enemy_rect.y = (int)posY - height;
-    enemy_rect.w = width;
-    enemy_rect.h = height;
+    m_rect.x = (int)posX - (width / 2);
+    m_rect.y = (int)posY - height;
+    m_rect.w = width;
+    m_rect.h = height;
     
     // set draw color
-    SDL_Color enemy_color = { 0xb1, 0xb1, 0xb1, 0xff }; // grey
+    m_color = { 0xb1, 0xb1, 0xb1, 0xff }; // grey
 
     // set on fire ???
-    if (onFire) enemy_color = { 0xff, 0x6a, 0x0d, 0xff }; // #ff6a0d more intense fire orange
+    if (isOnFire) m_color = { 0xff, 0x6a, 0x0d, 0xff }; // #ff6a0d more intense fire orange
 
-    // set alpha depending on damageable status
-    if (!damageable) enemy_color.a = 0x65;
+    // owwwie
+    if (isBeingHurt) m_color = { 0xff, 0x4e, 0x45, 0xff }; // #ff4e45
 
     // draw enemy
-    SDL_SetRenderDrawColor(renderer, enemy_color.r, enemy_color.g, enemy_color.b, enemy_color.a);
-    SDL_RenderFillRect(renderer, &enemy_rect);
+    SDL_SetRenderDrawColor(renderer, m_color.r, m_color.g, m_color.b, m_color.a);
+    SDL_RenderFillRect(renderer, &m_rect);
 }

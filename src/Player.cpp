@@ -31,8 +31,8 @@ Player::Player(float x, float y, ResourceManager* resourceManager, UiManager* ui
     resistance = {0};
     resistance = { .standardResistance = 0, .crushingResistance = 0, .fireResistance = 0 };
 
-    immuneTime = 0.2f; // how many seconds of iframes
-    immuneTimer = immuneTime;
+    immuneCooldown = 0.2f; // how many seconds of iframes
+    immuneTimer = immuneCooldown;
 
     startingMoveSpeed = 100.0f;
     moveSpeed = startingMoveSpeed;
@@ -122,6 +122,41 @@ void Player::handleInput(InputManager& inputManager)
     }
 }
 
+void Player::takeDamage(const Damage& damage)
+{
+    if(!isImmune)
+    {
+        // set status
+        if (damage.setBurning) isOnFire = true;
+
+        // take damage
+        int damageTaken = resistance.damageAfterRestistance(damage);
+        health -= damageTaken;
+        printf("%s took %i damage\n", name.c_str(), damageTaken);
+        printf("%s has %i/%i HP\n", name.c_str(), health, maxHealth);
+        isImmune = true; // give iframes
+        isBeingHurt = true;
+    }
+}
+
+void Player::updateImmuneTimer(float dt)
+{
+    // set up iframes
+    if (isImmune) 
+    {
+        if (immuneTimer > 0.0f)
+        {
+            immuneTimer -= dt;
+        }
+        else
+        {
+            immuneTimer = immuneCooldown; // reset to the starting value
+            isImmune = false;
+        }
+    }
+
+}
+
 void Player::updateDodgeRoll(float dt)
 {
     if (dodgeRolling)
@@ -131,7 +166,7 @@ void Player::updateDodgeRoll(float dt)
             velX = dodgeRollVelX;
             velY = dodgeRollVelY;
             moveSpeed = dodgeRollMoveSpeed;
-            damageable = false;
+            isImmune = true;
             dodgeRollTimer -= dt;
         }
         else // finished dodge rolling
@@ -215,6 +250,8 @@ void Player::updatePlayer(float dt)
 {
     updateTimers(dt);
 
+    updateImmuneTimer(dt);
+
     updateDodgeRoll(dt);
     updateDodgeRollRechargeTimer(dt);
     
@@ -229,21 +266,20 @@ void Player::updatePlayer(float dt)
 void Player::render(SDL_Renderer* renderer)
 {
     // create rect to represent the player
-    SDL_Rect player_rect;
-    player_rect.x = (int)posX - (width / 2);
-    player_rect.y = (int)posY - height;
-    player_rect.w = width;
-    player_rect.h = height;
+    m_rect.x = (int)posX - (width / 2);
+    m_rect.y = (int)posY - height;
+    m_rect.w = width;
+    m_rect.h = height;
 
     // set draw color
-    SDL_Color player_color = { 0x29, 0x65, 0xff, 0xff }; // #2965ff blue
+    m_color = { 0x29, 0x65, 0xff, 0xff }; // #2965ff blue
 
     // set alpha depending on damageable status
-    if (!damageable) player_color.a = 0x65;
+    if (isImmune) m_color.a = 0x65;
     
     // draw player
-    SDL_SetRenderDrawColor(renderer, player_color.r, player_color.g, player_color.b, player_color.a);
-    SDL_RenderFillRect(renderer, &player_rect);
+    SDL_SetRenderDrawColor(renderer, m_color.r, m_color.g, m_color.b, m_color.a);
+    SDL_RenderFillRect(renderer, &m_rect);
 }
 
 void Player::renderDebug(SDL_Renderer* renderer)
