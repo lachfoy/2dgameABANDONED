@@ -17,6 +17,7 @@ class ProjectileManager;
 class EnemyManager;
 class UiManager;
 class ParticleManager;
+class GameStateManager;
 
 class Game
 {
@@ -39,11 +40,17 @@ private:
     EnemyManager* enemyManager;
     UiManager* uiManager;
     ParticleManager* particleManager;
+    GameStateManager* m_gameStateManager;
 
     void onCreate();
     void onDestroy(); // deallocate window and renderer
-    void onUpdate(float dt);
-    void onRender();
+    
+    void gameUpdate(float dt);
+    void pausedUpdate(float dt);
+
+    void gameRender();
+    void pausedRender();
+    
 };
 
 #endif

@@ -22,15 +22,7 @@ void FireballExplosion::render(SDL_Renderer* renderer)
     fireball_explosion_rect.x = (int)posX - (fireball_explosion_rect.w / 2);
     fireball_explosion_rect.y = (int)posY - (fireball_explosion_rect.h / 2);
 
-    if (texture)
-    {
-        SDL_RenderCopy(renderer, texture, NULL, &fireball_explosion_rect);
-    }
-    else
-    {
-        SDL_SetRenderDrawColor(renderer, 0xff, 0x6a, 0x0d, 0xff); // #ff6a0d more intense fire orange
-        SDL_RenderFillRect(renderer, &fireball_explosion_rect);
-    }
+    SDL_RenderCopy(renderer, texture, NULL, &fireball_explosion_rect);
 
     // draw collider
     //collider.debugRender(renderer);

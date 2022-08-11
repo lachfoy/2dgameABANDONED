@@ -65,15 +65,7 @@ void Fireball::render(SDL_Renderer* renderer)
     fireball_rect.y = (int)posY - (fireball_rect.h / 2);
 
     // draw the fireball
-    if (texture)
-    {
-        SDL_RenderCopyEx(renderer, texture, NULL, &fireball_rect, angle, NULL, {});
-    }
-    else
-    {
-        SDL_SetRenderDrawColor(renderer, 0xfc, 0x90, 0x03, 0xff); // #fc9003 fire orange
-        SDL_RenderFillRect(renderer, &fireball_rect);
-    }
+    SDL_RenderCopyEx(renderer, texture, NULL, &fireball_rect, angle, NULL, {});
 
     // draw collider
     //collider.debugRender(renderer);

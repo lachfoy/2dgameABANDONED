@@ -239,12 +239,7 @@ void Player::render(SDL_Renderer* renderer)
     SDL_Color player_color = { 0x29, 0x65, 0xff, 0xff }; // #2965ff blue
 
     // set alpha depending on damageable status
-    if (!damageable)
-    {
-        player_color.a = 0x65;
-        SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
-    }
-    else SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_NONE);
+    if (!damageable) player_color.a = 0x65;
     
     // draw player
     SDL_SetRenderDrawColor(renderer, player_color.r, player_color.g, player_color.b, player_color.a);

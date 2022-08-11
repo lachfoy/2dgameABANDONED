@@ -78,12 +78,7 @@ void Skeleton::render(SDL_Renderer* renderer)
     if (onFire) enemy_color = { 0xff, 0x6a, 0x0d, 0xff }; // #ff6a0d more intense fire orange
 
     // set alpha depending on damageable status
-    if (!damageable)
-    {
-        enemy_color.a = 0x65;
-        SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
-    }
-    else SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_NONE);
+    if (!damageable) enemy_color.a = 0x65;
 
     // draw enemy
     SDL_SetRenderDrawColor(renderer, enemy_color.r, enemy_color.g, enemy_color.b, enemy_color.a);

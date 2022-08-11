@@ -9,6 +9,7 @@
 #include "UiManager.h"
 #include "Crosshair.h"
 #include "ParticleManager.h"
+#include "GameStateManager.h"
 
 #define DEBUG_DRAW 1
 
@@ -68,6 +69,8 @@ bool Game::init(int w, int h)
         return false;
     }
 
+    SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+
     return true;
 }
 
@@ -75,7 +78,7 @@ void Game::run()
 {
     srand((unsigned)time(0)); // initialize prng
 
-    onCreate(); // call the game create functions
+    onCreate(); // call the game create functions -- mostly create all the managers and load resources
 
     //SDL_ShowCursor(SDL_DISABLE); // hide the cursor (doesn't work on WSL window)
 
@@ -88,20 +91,29 @@ void Game::run()
     {
         // update the input manager which polls sdl events
         inputManager->update();
-        if (inputManager->quitRequested() | inputManager->keyDown(SDL_SCANCODE_ESCAPE)) quit = true;
+        if (inputManager->quitRequested() | inputManager->keyPressed(SDL_SCANCODE_ESCAPE)) quit = true;
+        if (inputManager->keyDown(SDL_SCANCODE_P))
+        {
+            //gameState = (gameState == GAMESTATE_PAUSED) ? GAMESTATE_DEFAULT : GAMESTATE_PAUSED;
+            m_gameStateManager->togglePaused();
+            if (m_gameStateManager->getPaused()) printf("PAUSED GAME\n");
+        }
 
         // calculate timestep
         dt = (SDL_GetTicks() - start) / 1000.0f;
-        
-        onUpdate(dt); // let the game update all the game logic
 
         SDL_SetRenderDrawColor(renderer, 0xde, 0xde, 0xde, 0xff);
         SDL_RenderClear(renderer);
-
-        onRender(); // let the game copy everything to the renderer
-
-        //bitmapFont->renderText(renderer, 10, 10, "ms: " + std::to_string(dt_ms)); // render frametime (ms)
-
+        if (!m_gameStateManager->getPaused())
+        {
+            gameUpdate(dt); // let the game update all the game logic
+            gameRender(); // let the game copy everything to the renderer
+        }
+        else
+        {
+            gameRender();
+            pausedRender();
+        }
         SDL_RenderPresent(renderer);
 
         start = SDL_GetTicks();
@@ -114,8 +126,9 @@ void Game::run()
 
 void Game::onCreate()
 {
-    bitmapFont = new BitmapFont(renderer, "../fonts/mig68000_8x16.bmp");
+    //bitmapFont = new BitmapFont(renderer, "../fonts/mig68000_8x16.bmp");
     inputManager = new InputManager();
+    m_gameStateManager = new GameStateManager();
     resourceManager = new ResourceManager(renderer);
     resourceManager->loadTextures();
 
@@ -145,8 +158,9 @@ void Game::onDestroy()
     delete uiManager;
 
     delete bitmapFont;
-    delete inputManager;
     delete resourceManager; // deallocate the resources
+    delete m_gameStateManager;
+    delete inputManager;
     
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
@@ -156,7 +170,7 @@ void Game::onDestroy()
     SDL_Quit();
 }
 
-void Game::onUpdate(float dt)
+void Game::gameUpdate(float dt)
 {
     // handle input
     player->handleInput(*inputManager);
@@ -181,7 +195,9 @@ void Game::onUpdate(float dt)
     particleManager->removeUnusedParticles();
 }
 
-void Game::onRender()
+void Game::pausedUpdate(float dt) {}
+
+void Game::gameRender()
 {
     // render game objects
     enemyManager->renderEnemies(renderer);
@@ -200,4 +216,11 @@ void Game::onRender()
         player->renderDebug(renderer);
         projectileManager->renderDebug(renderer);
     }
+}
+
+void Game::pausedRender()
+{
+    SDL_Rect screenFill = {0, 0, windowWidth, windowHeight};
+    SDL_SetRenderDrawColor(renderer, 0xff, 0xff, 0xff, 0x74);
+    SDL_RenderFillRect(renderer, &screenFill);
 }
