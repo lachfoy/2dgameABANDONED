@@ -32,16 +32,19 @@ private:
     int windowHeight;
     SDL_Window* window;
     SDL_Renderer* renderer;
-    BitmapFont* bitmapFont;
+
     InputManager* inputManager;
+    GameStateManager* m_gameStateManager;
     ResourceManager* resourceManager;
     Player* player;
     ProjectileManager* projectileManager;
     EnemyManager* enemyManager;
     UiManager* uiManager;
     ParticleManager* particleManager;
-    GameStateManager* m_gameStateManager;
 
+    // scene specific
+    UiManager* pauseUiManager;
+    
     void onCreate();
     void onDestroy(); // deallocate window and renderer
     

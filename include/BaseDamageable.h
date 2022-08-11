@@ -23,7 +23,7 @@ public:
     float getVelY() const { return velY; }
     bool facingRight() const { return facingDirection; }
 
-    void takeDamage(const Damage& damage);
+    virtual void takeDamage(const Damage& damage); // overriden by player
     void push(float pushVelX, float pushVelY, float pushMoveSpeed);
 
     virtual void updateTimers(float dt); // overriden by player
@@ -39,18 +39,23 @@ protected:
     float velY = 0.0f;
     int width;
     int height;
+    SDL_Rect m_rect;
+    SDL_Color m_color;
     int colliderW;
     int colliderH;
     AABB collider;
+
     int maxHealth;
     int health;
-    bool damageable; // if not damageable then they are taking damage
-    float immuneTime; // how many iframes (in seconds though)
-    float immuneTimer;
+    Resistance resistance;
+    bool isBeingHurt;
+    float hurtCooldown = 0.1f;
+    float hurtTimer = hurtCooldown;
+    bool isImmune; // if not damageable then they are taking damage
+
     float startingMoveSpeed;
     float moveSpeed;
     enum FacingDirection { FACING_LEFT, FACING_RIGHT } facingDirection;
-    Resistance resistance;
 
     // resources
     ResourceManager* resourceManager = nullptr;
@@ -60,7 +65,7 @@ protected:
 
     // fire
     bool canBeSetOnFire = true;
-    bool onFire = false;
+    bool isOnFire = false;
     float fireTime = 3.0f; // how many seconds of fire
     float fireTimer = fireTime;
     float fireTickTime = 0.4f; // how many seconds before each tick of fire damage
@@ -69,7 +74,7 @@ protected:
     float smokeParticleSpawnTimer = smokeParticleSpawnTime;
 
     // push
-    bool beingPushed = false;
+    bool isBeingPushed = false;
     float pushTime = 0.1f;
     float pushTimer = pushTime;
     float pushVelX;

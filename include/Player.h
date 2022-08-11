@@ -22,6 +22,9 @@ public:
 
     void resolveEnemyCollisions(const std::vector<BaseEnemy*>& enemies);
 
+    void takeDamage(const Damage& damage) override;
+
+    void updateImmuneTimer(float dt);
     void updateDodgeRoll(float dt);
     void updateDodgeRollRechargeTimer(float dt);
     void updateShootingTimer(float dt);
@@ -29,7 +32,6 @@ public:
     void updateAttackingTimer(float dt);
 
     int getAmmo() const { return ammo; }
-
     void updatePlayer(float dt);
 
     void render(SDL_Renderer* renderer) override;
@@ -40,6 +42,10 @@ private:
     ProjectileManager* projectileManager;
     
     bool isReceivingInput = true;
+
+    // immunity
+    float immuneCooldown; // how many iframes (in seconds though)
+    float immuneTimer;
 
     // Dodge Roll
     bool canDodgeRoll = true;

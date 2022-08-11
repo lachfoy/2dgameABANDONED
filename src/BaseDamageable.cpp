@@ -14,17 +14,17 @@ BaseDamageable::BaseDamageable(float x, float y, ResourceManager* resourceManage
 
 void BaseDamageable::takeDamage(const Damage& damage)
 {
-    if(damageable)
+    if(!isImmune)
     {
         // set status
-        if (damage.setBurning) onFire = true;
+        if (damage.setBurning) isOnFire = true;
 
         // take damage
         int damageTaken = resistance.damageAfterRestistance(damage);
         health -= damageTaken;
         printf("%s took %i damage\n", name.c_str(), damageTaken);
         printf("%s has %i/%i HP\n", name.c_str(), health, maxHealth);
-        damageable = false; // give iframes
+        isBeingHurt = true;
     }
 }
 
@@ -32,32 +32,35 @@ void BaseDamageable::takeDamage(const Damage& damage)
     we should also use some kind of calculation based on a "mass" attribute
 void BaseDamageable::push(float pushVelX, float pushVelY, float pushMoveSpeed)
 {
-    if (!beingPushed)
+    if (!isBeingPushed)
     {
         this->pushVelX = pushVelX;
         this->pushVelY = pushVelY;
         this->pushMoveSpeed = pushMoveSpeed;
-        beingPushed = true;
+        isBeingPushed = true;
     }
 }
 
 void BaseDamageable::updateTimers(float dt)
 {
-    // immune timer
-    if (health <= 0) { printf("%s is dead\n", name.c_str()); removable = true; }
-    else
+    if (health <= 0) { printf("%s is dead\n", name.c_str()); removable = true; } // not a timer idk
+
+    // hurt timer
+    if (isBeingHurt)
     {
-        // set up iframes
-        if (!damageable) immuneTimer -= dt;
-        if (immuneTimer <= 0.0f)
+        if (hurtTimer > 0.0f)
         {
-            immuneTimer = immuneTime; // reset to the starting value
-            damageable = true;
+            hurtTimer -= dt;
+        }
+        else
+        {
+            hurtTimer = hurtCooldown; // reset to the starting value
+            isBeingHurt = false;
         }
     }
-
+    
     // push timer
-    if (beingPushed)
+    if (isBeingPushed)
     {
         if (pushTimer > 0.0f)
         {
@@ -69,7 +72,7 @@ void BaseDamageable::updateTimers(float dt)
         else
         {
             // reset back to normal
-            beingPushed = false;
+            isBeingPushed = false;
             moveSpeed = startingMoveSpeed;
             pushTimer = pushTime;
         }
@@ -78,7 +81,7 @@ void BaseDamageable::updateTimers(float dt)
     // on fire timer
     if (canBeSetOnFire)
     {
-        if (onFire) // they stay on fire not forever :)
+        if (isOnFire) // they stay on fire not forever :)
         {
             if (fireTimer > 0.0f)
             {
@@ -101,7 +104,7 @@ void BaseDamageable::updateTimers(float dt)
             }
             else
             {
-                onFire = false;
+                isOnFire = false;
                 fireTimer = fireTime;
             }
         }
