@@ -8,7 +8,6 @@
 #include "ResourceManager.h"
 
 class BaseParticle;
-class FireballParticle;
 
 class ParticleManager
 {

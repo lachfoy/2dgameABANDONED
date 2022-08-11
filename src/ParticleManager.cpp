@@ -2,6 +2,7 @@
 
 #include "BaseParticle.h"
 #include "FireballParticle.h"
+#include "SmokeParticle.h"
 
 ParticleManager::ParticleManager(ResourceManager* resourceManager)
 {
@@ -22,7 +23,7 @@ void ParticleManager::addFireballParticle(float x, float y)
 
 void ParticleManager::addSmokeParticle(float x, float y)
 {
-    particles.push_back(new FireballParticle(x, y, resourceManager->getTexture("FireballParticleTexture")));
+    particles.push_back(new SmokeParticle(x, y, resourceManager->getTexture("SmokeParticleTexture")));
 }
 
 void ParticleManager::updateParticles(float dt)

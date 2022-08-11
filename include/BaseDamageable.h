@@ -70,7 +70,7 @@ protected:
     float fireTimer = fireTime;
     float fireTickTime = 0.4f; // how many seconds before each tick of fire damage
     float fireTickTimer = fireTickTime;
-    float smokeParticleSpawnTime = 0.2f;
+    float smokeParticleSpawnTime = 0.3f;
     float smokeParticleSpawnTimer = smokeParticleSpawnTime;
 
     // push

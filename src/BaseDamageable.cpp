@@ -94,11 +94,12 @@ void BaseDamageable::updateTimers(float dt)
                     fireTickTimer = fireTickTime; // reset to the starting value
                 }
 
-                if (smokeParticleSpawnTimer > 0.0f) smokeParticleSpawnTime -= dt;
+                if (smokeParticleSpawnTimer > 0.0f) smokeParticleSpawnTimer -= dt;
                 else
                 {
                     // spawn a particle at the old position
-                    particleManager->addSmokeParticle(posX, posY);
+                    printf("added smoke particle\n");
+                    particleManager->addSmokeParticle(posX, posY - (height / 2));
                     smokeParticleSpawnTimer = smokeParticleSpawnTime; // reset timer
                 }
             }

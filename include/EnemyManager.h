@@ -12,11 +12,12 @@ class UiManager;
 class Skeleton;
 class ProjectileManager;
 class ResourceManager;
+class ParticleManager;
 
 class EnemyManager
 {
 public:
-    EnemyManager(ResourceManager* resourceManager, UiManager* uiManager, ProjectileManager* projectileManager, Player* player);
+    EnemyManager(ResourceManager* resourceManager, ParticleManager* particleManager, UiManager* uiManager, ProjectileManager* projectileManager, Player* player);
     ~EnemyManager();
 
     std::vector<BaseEnemy*> const& getEnemies() const { return enemies; }
@@ -32,6 +33,7 @@ public:
 
 private:
     ResourceManager* resourceManager; // pointer to resource manager
+    ParticleManager* particleManager;
     UiManager* uiManager; // pointer to ui manager
     ProjectileManager* projectileManager; // pointer to projectile manager
     Player* player; // pointer to player
