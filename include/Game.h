@@ -9,7 +9,6 @@
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_mixer.h>
 
-class BitmapFont;
 class InputManager;
 class ResourceManager;
 class Player;
@@ -36,23 +35,30 @@ private:
     InputManager* inputManager;
     GameStateManager* m_gameStateManager;
     ResourceManager* resourceManager;
+
+    // game scene specific
     Player* player;
     ProjectileManager* projectileManager;
     EnemyManager* enemyManager;
     UiManager* uiManager;
     ParticleManager* particleManager;
 
-    // scene specific
+    // pause scene specific
     UiManager* pauseUiManager;
+
+    // menu scene specific
+    UiManager* menuUiManager;
     
     void onCreate();
     void onDestroy(); // deallocate window and renderer
     
     void gameUpdate(float dt);
-    void pausedUpdate(float dt);
+    void pauseUpdate(float dt);
+    void menuUpdate(float dt);
 
     void gameRender();
-    void pausedRender();
+    void pauseRender();
+    void menuRender();
     
 };
 

@@ -93,7 +93,7 @@ void Game::run()
         if (inputManager->quitRequested() | inputManager->keyPressed(SDL_SCANCODE_ESCAPE)) quit = true;
         if (inputManager->keyDown(SDL_SCANCODE_P))
         {
-            //gameState = (gameState == GAMESTATE_PAUSED) ? GAMESTATE_DEFAULT : GAMESTATE_PAUSED;
+            //gameState = (gameState == GAMESTATE_PAUSED) ? GAMESTATE_GAME : GAMESTATE_PAUSED;
             m_gameStateManager->togglePaused();
             if (m_gameStateManager->getPaused()) printf("PAUSED GAME\n");
         }
@@ -103,21 +103,31 @@ void Game::run()
 
         SDL_SetRenderDrawColor(renderer, 0xde, 0xde, 0xde, 0xff);
         SDL_RenderClear(renderer);
-        if (!m_gameStateManager->getPaused())
-        {
-            gameUpdate(dt); // let the game update all the game logic
-            gameRender(); // let the game copy everything to the renderer
-        }
-        else
-        {
-            gameRender();
-            pausedRender();
-        }
+            if (m_gameStateManager->inMenu())
+            {
+                menuUpdate(dt);
+                menuRender();
+            }
+            else
+            {
+                if (!m_gameStateManager->getPaused())
+                {
+                    gameUpdate(dt); // let the game update all the game logic
+                    gameRender(); // let the game copy everything to the renderer
+                }
+                else
+                {
+                    gameRender();
+                    pauseRender();
+                }
+            }
         SDL_RenderPresent(renderer);
 
         start = SDL_GetTicks();
+
         dt_ms = (Uint32)(dt * 1000);
-        if (16 > dt_ms) SDL_Delay(16 - dt_ms); // 30fps framecap
+        if (16 > dt_ms)
+            SDL_Delay(16 - dt_ms); // 60fps framecap
     }
 
     onDestroy(); // cleanup resources
@@ -126,9 +136,9 @@ void Game::run()
 void Game::onCreate()
 {
     ///////// game scene
-    //bitmapFont = new BitmapFont(renderer, "../fonts/mig68000_8x16.bmp");
     inputManager = new InputManager();
     m_gameStateManager = new GameStateManager();
+    m_gameStateManager->setGameState(GameStateManager::GAMESTATE_MENU); // default to menu
     resourceManager = new ResourceManager(renderer);
     resourceManager->loadTextures();
 
@@ -150,7 +160,11 @@ void Game::onCreate()
 
     ///////// pause scene
     pauseUiManager = new UiManager(inputManager, resourceManager);
-    pauseUiManager->addTextObject(windowWidth/2 - 60, windowHeight/2 - 20, "Paused!");
+    pauseUiManager->addTextObject(windowWidth / 2 - 60, windowHeight / 2 - 20, "Paused!");
+
+    /////// menu scene
+    menuUiManager = new UiManager(inputManager, resourceManager);
+    menuUiManager->addTextObject(windowWidth / 2 - 60, windowHeight / 2 - 200, "Game Menu");
 }
 
 void Game::onDestroy()
@@ -202,7 +216,12 @@ void Game::gameUpdate(float dt)
     particleManager->removeUnusedParticles();
 }
 
-void Game::pausedUpdate(float dt)
+void Game::pauseUpdate(float dt)
+{
+
+}
+
+void Game::menuUpdate(float dt)
 {
 
 }
@@ -228,10 +247,18 @@ void Game::gameRender()
     }
 }
 
-void Game::pausedRender()
+void Game::pauseRender()
 {
     SDL_Rect screenFill = {0, 0, windowWidth, windowHeight};
     SDL_SetRenderDrawColor(renderer, 0x74, 0x74, 0x74, 0x74);
     SDL_RenderFillRect(renderer, &screenFill);
     pauseUiManager->renderUiObjects(renderer);
+}
+
+void Game::menuRender()
+{
+    SDL_Rect screenFill = {0, 0, windowWidth, windowHeight};
+    SDL_SetRenderDrawColor(renderer, 0x74, 0x74, 0x74, 0x74);
+    SDL_RenderFillRect(renderer, &screenFill);
+    menuUiManager->renderUiObjects(renderer);
 }
