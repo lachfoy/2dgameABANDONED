@@ -7,6 +7,9 @@
 #include "BaseScene.h"
 #include "GameScene.h"
 #include "PauseScene.h"
+#include "MenuScene.h"
+
+#include <map> // could use a map function to more easily iterate through different scenes
 
 class InputManager;
 class ResourceManager;
@@ -16,34 +19,18 @@ class SceneManager
 public:
     SceneManager(InputManager* inputManager, ResourceManager* resourceManager, int windowWidth, int windowHeight)
     {
-        m_gameScene = new GameScene(inputManager, resourceManager, windowWidth, windowHeight);
-        m_gameScene->create();
-        m_pauseScene = new PauseScene(inputManager, resourceManager, windowWidth, windowHeight);
-        m_pauseScene->create();
+        m_inputManager = inputManager;
+        m_resourceManager = resourceManager;
+        m_windowWidth = windowWidth;
+        m_windowHeight = windowHeight;
     }
 
     ~SceneManager()
     {
-        // BUG: causes seg fault
-        m_currentScene->destroy();
-        m_gameScene->destroy();
-        m_pauseScene->destroy();
-        m_menuScene->destroy();
-
-        delete m_currentScene;
-        delete m_gameScene;
-        delete m_pauseScene;
-        delete m_menuScene;
+        if (m_gameScene) delete m_gameScene;
+        if (m_pauseScene) delete m_pauseScene;
+        if (m_menuScene) delete m_pauseScene;
     }
-
-    // enum Scene { // should be private
-    //     GAME,
-    //     PAUSED,
-    //     MENU
-    // };
-
-    //inline Scene getScene() const { return m_currentScene; } // dont use probably lol
-    //void setScene(const Scene& scene) { m_currentScene = scene; } // also dont use probably
     
     inline bool getPaused() const
     {
@@ -59,11 +46,6 @@ public:
 
     inline void togglePaused()
     {
-        // if (m_currentScene == GAME)
-        //     m_currentScene = PAUSED;
-        // else if (m_currentScene == PAUSED)
-        //     m_currentScene = GAME;
-
         if (m_currentScene == m_gameScene)
             m_currentScene = m_pauseScene;
         else if (m_currentScene == m_pauseScene)
@@ -73,15 +55,14 @@ public:
     inline void startMenu()
     {
         printf("Starting Menu\n");
-        if (!m_menuScene) { m_menuScene->create(); printf("Loading Menu Scene\n"); }
+        if (!m_menuScene) { m_menuScene = new MenuScene(m_inputManager, m_resourceManager, m_windowWidth, m_windowHeight); }
         m_currentScene = m_menuScene;
     }
 
     inline void startGame()
     {
-        //m_currentScene = GAME;
         printf("Starting Game\n");
-        if (!m_gameScene) { m_gameScene->create(); printf("Loading Game Scene\n"); }
+        if (!m_gameScene) { m_gameScene = new GameScene(m_inputManager, m_resourceManager, m_windowWidth, m_windowHeight); }
         m_currentScene = m_gameScene;
     }
 
@@ -92,28 +73,20 @@ public:
 
     inline void renderCurrentScene(SDL_Renderer* renderer)
     {
-        // switch (m_currentScene)
-        // {
-        // case GAME:
-        // {
-        //     m_gameScene.render(renderer);
-        //     break;
-        // }
-        // case PAUSED:
-        // {
-        //     m_pauseScene.render(renderer);
-        //     break;
-        // }
-        // }
         m_currentScene->render(renderer);
     }
 
 private:
-    //Scene m_currentScene;
     BaseScene* m_currentScene = nullptr;
     GameScene* m_gameScene = nullptr;
     PauseScene* m_pauseScene = nullptr;
-    BaseScene* m_menuScene = nullptr;
+    MenuScene* m_menuScene = nullptr;
+
+    // not owned
+    InputManager* m_inputManager;
+    ResourceManager* m_resourceManager;
+    int m_windowWidth;
+    int m_windowHeight;
 
 };
 

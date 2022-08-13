@@ -8,7 +8,7 @@ digraph inheritance {
         BaseObject->{BaseDamageable, BaseProjectile, BaseParticle}
         BaseDamageable->{Player, BaseEnemy}
         BaseProjectile->{Fireball, FireballExplosion, BaseMeleeWeapon}
-        BaseParticle->FireballParticle
+        BaseParticle->{FireballParticle, SmokeParticle}
         BaseMeleeWeapon->{Sword, SwordSlash}
         BaseEnemy->Skeleton
     }
@@ -20,7 +20,7 @@ digraph inheritance {
     }
 
     subgraph scenes {
-        BaseScene->{GameScene, PauseScene}
+        BaseScene->{GameScene, PauseScene, MenuScene}
     }
 }
 

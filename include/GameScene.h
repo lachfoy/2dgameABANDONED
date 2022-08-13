@@ -13,9 +13,8 @@ class GameScene : public BaseScene
 {
 public:
     GameScene(InputManager* inputManager, ResourceManager* resourceManager, int windowWidth, int windowHeight);
+    ~GameScene();
 
-    void create() override;
-    void destroy() override;
     void update(float dt) override;
     void render(SDL_Renderer* renderer) override;
 

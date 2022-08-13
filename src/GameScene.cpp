@@ -11,12 +11,6 @@
 GameScene::GameScene(InputManager* inputManager, ResourceManager* resourceManager, int windowWidth, int windowHeight)
      : BaseScene(inputManager, resourceManager, windowWidth, windowHeight)
 {
-
-}
-
-void GameScene::create()
-{
-    printf("GameScene::create() called\n");
     m_resourceManager->loadGameTextures();
 
     m_uiManager = new UiManager(m_inputManager, m_resourceManager, m_windowWidth, m_windowHeight);
@@ -33,7 +27,7 @@ void GameScene::create()
     m_enemyManager->addSkeleton(700.0f, 200.0f);
 }
 
-void GameScene::destroy()
+GameScene::~GameScene()
 {
     delete m_enemyManager;
     delete m_player;

@@ -9,9 +9,8 @@ class PauseScene : public BaseScene
 {
 public:
     PauseScene(InputManager* inputManager, ResourceManager* resourceManager, int windowWidth, int windowHeight);
+    ~PauseScene();
 
-    void create() override;
-    void destroy() override;
     void update(float dt) override;
     void render(SDL_Renderer* renderer) override;
 

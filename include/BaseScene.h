@@ -11,8 +11,6 @@ class BaseScene
 public:
     BaseScene(InputManager* inputManager, ResourceManager* resourceManager, int windowWidth, int windowHeight);
 
-    virtual void create() = 0;
-    virtual void destroy() = 0;
     virtual void update(float dt) = 0;
     virtual void render(SDL_Renderer* renderer) = 0;
 
