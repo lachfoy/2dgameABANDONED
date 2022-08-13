@@ -16,6 +16,7 @@ GameScene::GameScene(InputManager* inputManager, ResourceManager* resourceManage
 
 void GameScene::create()
 {
+    printf("GameScene::create() called\n");
     m_resourceManager->loadGameTextures();
 
     m_uiManager = new UiManager(m_inputManager, m_resourceManager, m_windowWidth, m_windowHeight);

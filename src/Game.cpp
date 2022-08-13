@@ -99,26 +99,11 @@ void Game::run()
         // calculate timestep
         dt = (SDL_GetTicks() - start) / 1000.0f;
 
+        m_sceneManager->updateCurrentScene(dt);
+
         SDL_SetRenderDrawColor(renderer, 0xde, 0xde, 0xde, 0xff);
         SDL_RenderClear(renderer);
-            if (m_sceneManager->inMenu())
-            {
-                //menuUpdate(dt);
-                //menuRender();
-            }
-            else
-            {
-                if (!m_sceneManager->getPaused())
-                {
-                    //gameUpdate(dt); // let the game update all the game logic
-                    //gameRender(); // let the game copy everything to the renderer
-                }
-                else
-                {
-                    //gameRender();
-                    //pauseRender();
-                }
-            }
+        m_sceneManager->renderCurrentScene(renderer);
         SDL_RenderPresent(renderer);
 
         start = SDL_GetTicks();
@@ -137,8 +122,10 @@ void Game::create()
     m_inputManager = new InputManager();
     m_resourceManager = new ResourceManager(renderer);
 
-    m_sceneManager = new SceneManager();
-    m_sceneManager->setScene(SceneManager::MENU); // default to menu
+    m_sceneManager = new SceneManager(m_inputManager, m_resourceManager, windowWidth, windowHeight);
+    //m_sceneManager->setScene(SceneManager::MENU); // default to menu
+
+    m_sceneManager->startGame();
 
     
 
