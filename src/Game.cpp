@@ -8,7 +8,7 @@
 #include "UiManager.h"
 #include "Crosshair.h"
 #include "ParticleManager.h"
-#include "GameStateManager.h"
+#include "SceneManager.h"
 
 Game::Game() {}
 
