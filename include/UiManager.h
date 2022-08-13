@@ -16,28 +16,31 @@ class Player;
 class UiManager
 {
 public:
-    UiManager(InputManager* inputManager, ResourceManager* resourceManager);
+    UiManager(InputManager* inputManager, ResourceManager* resourceManager, int windowWidth, int windowHeight);
     ~UiManager();
 
-    std::vector<BaseUiObject*> const& getUiObjects() const { return uiObjects; }
+    std::vector<BaseUiObject*> const& getUiObjects() const { return m_uiObjects; }
     
     void addHealthbar(int x, int y, int length, int height, BaseDamageable* damageable);
     void addDynamicHealthbar(int length, int height, BaseDamageable* damageable);
     void addCrosshair(int x, int y, int w, int h);
     void addTextObject(int x, int y, std::string text);
     void addPlayerDebugText(int x, int y, Player* player);
+    void addBackgroundFill(SDL_Color color);
 
     void updateUiObjects(float dt);
     void removeUnusedUiObjects();
     void renderUiObjects(SDL_Renderer* renderer);
 
 private:
-    std::vector<BaseUiObject*> uiObjects;
-    TTF_Font* font;
+    std::vector<BaseUiObject*> m_uiObjects;
+    TTF_Font* m_font;
+    int m_windowWidth;
+    int m_windowHeight;
 
     // no ownership
-    InputManager* inputManager;
-    ResourceManager* resourceManager;
+    InputManager* m_inputManager;
+    ResourceManager* m_resourceManager;
 
 };
 

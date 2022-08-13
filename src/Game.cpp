@@ -10,8 +10,6 @@
 #include "ParticleManager.h"
 #include "GameStateManager.h"
 
-#define DEBUG_DRAW 0
-
 Game::Game() {}
 
 // init all the framework resources - SDL2, ttf etc.
@@ -105,20 +103,20 @@ void Game::run()
         SDL_RenderClear(renderer);
             if (m_gameStateManager->inMenu())
             {
-                menuUpdate(dt);
-                menuRender();
+                //menuUpdate(dt);
+                //menuRender();
             }
             else
             {
                 if (!m_gameStateManager->getPaused())
                 {
-                    gameUpdate(dt); // let the game update all the game logic
-                    gameRender(); // let the game copy everything to the renderer
+                    //gameUpdate(dt); // let the game update all the game logic
+                    //gameRender(); // let the game copy everything to the renderer
                 }
                 else
                 {
-                    gameRender();
-                    pauseRender();
+                    //gameRender();
+                    //pauseRender();
                 }
             }
         SDL_RenderPresent(renderer);
@@ -135,50 +133,20 @@ void Game::run()
 
 void Game::onCreate()
 {
-    ///////// game scene
+    
     inputManager = new InputManager();
     m_gameStateManager = new GameStateManager();
     m_gameStateManager->setGameState(GameStateManager::GAMESTATE_MENU); // default to menu
     resourceManager = new ResourceManager(renderer);
-    resourceManager->loadTextures();
 
-    uiManager = new UiManager(inputManager, resourceManager);
-    particleManager = new ParticleManager(resourceManager);
-    projectileManager = new ProjectileManager(resourceManager, particleManager);
-
-    player = new Player(100.0f, 200.0f, resourceManager, uiManager, projectileManager);
-    
-    enemyManager = new EnemyManager(resourceManager, particleManager, uiManager, projectileManager, player);
-    enemyManager->addSkeleton(400.0f, 300.0f);
-    enemyManager->addSkeleton(600.0f, 400.0f);
-    enemyManager->addSkeleton(500.0f, 500.0f);
-    enemyManager->addSkeleton(300.0f, 400.0f);
-    enemyManager->addSkeleton(700.0f, 200.0f);
-
-    //uiManager->addCrosshair(200, 200, 40, 40);
-    //uiManager->addTextObject(200, 200, "Hello World");
-
-    ///////// pause scene
-    pauseUiManager = new UiManager(inputManager, resourceManager);
-    pauseUiManager->addTextObject(windowWidth / 2 - 60, windowHeight / 2 - 20, "Paused!");
 
     /////// menu scene
-    menuUiManager = new UiManager(inputManager, resourceManager);
-    menuUiManager->addTextObject(windowWidth / 2 - 60, windowHeight / 2 - 200, "Game Menu");
+    //menuUiManager = new UiManager(inputManager, resourceManager, windowWidth, windowHeight);
+    //menuUiManager->addTextObject(windowWidth / 2 - 60, windowHeight / 2 - 200, "Game Menu");
 }
 
 void Game::onDestroy()
 {
-    // game scene
-    delete player;
-    delete projectileManager;
-    delete enemyManager;
-    delete particleManager;
-    delete uiManager;
-
-    // pause scene
-    delete pauseUiManager;
-
     delete resourceManager; // deallocate the resources
     delete m_gameStateManager;
     delete inputManager;
@@ -189,76 +157,4 @@ void Game::onDestroy()
     TTF_Quit();
     IMG_Quit();
     SDL_Quit();
-}
-
-void Game::gameUpdate(float dt)
-{
-    // handle input
-    player->handleInput(*inputManager);
-
-    // update game objects
-    player->updatePlayer(dt);
-    enemyManager->updateEnemies(dt);
-    projectileManager->updateProjectiles(dt);
-    particleManager->updateParticles(dt);
-
-    // collision resolution
-    enemyManager->resolvePlayerProjectileCollisions(projectileManager->getPlayerProjectiles());
-    player->resolveEnemyCollisions(enemyManager->getEnemies());
-
-    // update ui objects
-    uiManager->updateUiObjects(dt);
-
-    // remove unused objects
-    enemyManager->removeUnusedEnemies();
-    projectileManager->removeUnusedProjectiles();
-    uiManager->removeUnusedUiObjects();
-    particleManager->removeUnusedParticles();
-}
-
-void Game::pauseUpdate(float dt)
-{
-
-}
-
-void Game::menuUpdate(float dt)
-{
-
-}
-
-void Game::gameRender()
-{
-    // render game objects
-    enemyManager->renderEnemies(renderer);
-    player->renderShadow(renderer);
-    player->render(renderer);
-    particleManager->renderParticles(renderer);
-    projectileManager->renderProjectiles(renderer);
-
-    // render ui objects
-    uiManager->renderUiObjects(renderer);
-
-    // debug
-    if (DEBUG_DRAW)
-    {
-        enemyManager->renderDebug(renderer);
-        player->renderDebug(renderer);
-        projectileManager->renderDebug(renderer);
-    }
-}
-
-void Game::pauseRender()
-{
-    SDL_Rect screenFill = {0, 0, windowWidth, windowHeight};
-    SDL_SetRenderDrawColor(renderer, 0x74, 0x74, 0x74, 0x74);
-    SDL_RenderFillRect(renderer, &screenFill);
-    pauseUiManager->renderUiObjects(renderer);
-}
-
-void Game::menuRender()
-{
-    SDL_Rect screenFill = {0, 0, windowWidth, windowHeight};
-    SDL_SetRenderDrawColor(renderer, 0x74, 0x74, 0x74, 0x74);
-    SDL_RenderFillRect(renderer, &screenFill);
-    menuUiManager->renderUiObjects(renderer);
 }

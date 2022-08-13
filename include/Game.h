@@ -11,11 +11,6 @@
 
 class InputManager;
 class ResourceManager;
-class Player;
-class ProjectileManager;
-class EnemyManager;
-class UiManager;
-class ParticleManager;
 class GameStateManager;
 
 class Game
@@ -33,33 +28,13 @@ private:
     SDL_Renderer* renderer;
 
     InputManager* inputManager;
-    GameStateManager* m_gameStateManager;
     ResourceManager* resourceManager;
-
-    // game scene specific
-    Player* player;
-    ProjectileManager* projectileManager;
-    EnemyManager* enemyManager;
-    UiManager* uiManager;
-    ParticleManager* particleManager;
-
-    // pause scene specific
-    UiManager* pauseUiManager;
-
-    // menu scene specific
-    UiManager* menuUiManager;
     
+    GameStateManager* m_gameStateManager;
+
     void onCreate();
     void onDestroy(); // deallocate window and renderer
-    
-    void gameUpdate(float dt);
-    void pauseUpdate(float dt);
-    void menuUpdate(float dt);
 
-    void gameRender();
-    void pauseRender();
-    void menuRender();
-    
 };
 
 #endif

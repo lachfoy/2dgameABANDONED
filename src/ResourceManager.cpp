@@ -16,7 +16,7 @@ ResourceManager::~ResourceManager()
     }
 }
 
-bool ResourceManager::loadTextures() // in future this could take a list of paths and iterate through that.\
+bool ResourceManager::loadGameTextures() // in future this could take a list of paths and iterate through that.\
     this way, the game manages which textures it wants, rather than hardcoding them.
 {
     printf("ResourceManager: loading textures...\n");
