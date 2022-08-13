@@ -1,17 +1,26 @@
 digraph inheritance {
+    //size="800,600"
     node [shape=box fontname="Helvetica,Arial,sans-serif"]
     edge [dir=back arrowtail=empty]
 
-    BaseObject->{BaseDamageable, BaseProjectile, BaseParticle}
-    BaseDamageable->{Player, BaseEnemy}
-    BaseProjectile->{Fireball, FireballExplosion, BaseMeleeWeapon}
-    BaseParticle->FireballParticle
-    BaseMeleeWeapon->{Sword, SwordSlash}
-    BaseEnemy->Skeleton
+    subgraph objects {
+        BaseObject->{BaseDamageable, BaseProjectile, BaseParticle}
+        BaseDamageable->{Player, BaseEnemy}
+        BaseProjectile->{Fireball, FireballExplosion, BaseMeleeWeapon}
+        BaseParticle->FireballParticle
+        BaseMeleeWeapon->{Sword, SwordSlash}
+        BaseEnemy->Skeleton
+    }
 
-    BaseUiObject->{Healthbar, BaseTextObject}
-    Healthbar->DynamicHealthbar
-    BaseTextObject->PlayerDebugText
+    subgraph uiObjects {
+        BaseUiObject->{Healthbar, BaseTextObject, BackgroundFill}
+        Healthbar->DynamicHealthbar
+        BaseTextObject->PlayerDebugText
+    }
+
+    subgraph scenes {
+        BaseScene->{GameScene, PauseScene}
+    }
 }
 
 // use `dot -Tpng -O inheritance.gv` to generate a .png
