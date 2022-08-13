@@ -23,7 +23,7 @@ public:
     virtual void updateAI(float dt) = 0;
 
 protected:
-    UiManager* uiManager;
+    UiManager* m_uiManager;
     ProjectileManager* projectileManager;
     Player* player;
     Damage damage;

@@ -25,7 +25,7 @@ public:
 
 private:
     std::vector<BaseParticle*> particles;
-    ResourceManager* resourceManager;
+    ResourceManager* m_resourceManager;
     
 };
 

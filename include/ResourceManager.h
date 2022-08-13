@@ -12,7 +12,7 @@ public:
     ResourceManager(SDL_Renderer* renderer);
     ~ResourceManager();
 
-    bool loadTextures();
+    bool loadGameTextures();
 
     SDL_Texture* getTexture(std::string key);
     

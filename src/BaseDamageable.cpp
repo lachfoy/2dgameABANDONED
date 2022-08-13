@@ -6,7 +6,7 @@
 BaseDamageable::BaseDamageable(float x, float y, ResourceManager* resourceManager, ParticleManager* particleManager)
     : BaseObject(x, y)
 {
-    this->resourceManager = resourceManager;
+    this->m_resourceManager = resourceManager;
     this->particleManager = particleManager;
     collider = AABB(posX, posY, colliderW, colliderH);
     resistance = {0};
@@ -149,7 +149,7 @@ void BaseDamageable::renderShadow(SDL_Renderer* renderer)
     shadow_rect.y = (int)posY - (shadow_rect.h / 2);
 
     // draw texture
-    SDL_RenderCopy(renderer, resourceManager->getTexture("ShadowTexture"), NULL, &shadow_rect);
+    SDL_RenderCopy(renderer, m_resourceManager->getTexture("ShadowTexture"), NULL, &shadow_rect);
 }
 
 void BaseDamageable::renderCollider(SDL_Renderer* renderer)

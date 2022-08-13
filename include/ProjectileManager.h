@@ -46,7 +46,7 @@ private:
     std::vector<BaseProjectile*> playerProjectiles;
     std::vector<BaseProjectile*> enemyProjectiles;
 
-    ResourceManager* resourceManager;
+    ResourceManager* m_resourceManager;
     ParticleManager* particleManager;
 
 };

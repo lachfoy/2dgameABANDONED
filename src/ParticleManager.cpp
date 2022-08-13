@@ -6,7 +6,7 @@
 
 ParticleManager::ParticleManager(ResourceManager* resourceManager)
 {
-    this->resourceManager = resourceManager;
+    this->m_resourceManager = resourceManager;
 }
 
 ParticleManager::~ParticleManager()
@@ -18,17 +18,17 @@ ParticleManager::~ParticleManager()
 
 void ParticleManager::addFireballParticle(float x, float y)
 {
-    particles.push_back(new FireballParticle(x, y, resourceManager->getTexture("FireballParticleTexture")));
+    particles.push_back(new FireballParticle(x, y, m_resourceManager->getTexture("FireballParticleTexture")));
 }
 
 void ParticleManager::addSmokeParticle(float x, float y)
 {
-    particles.push_back(new SmokeParticle(x, y, resourceManager->getTexture("SmokeParticleTexture")));
+    particles.push_back(new SmokeParticle(x, y, m_resourceManager->getTexture("SmokeParticleTexture")));
 }
 
 void ParticleManager::addFireballExplosionParticle(float x, float y, float velX, float velY)
 {
-    particles.push_back(new SmokeParticle(x, y, resourceManager->getTexture("SmokeParticleTexture")));
+    particles.push_back(new SmokeParticle(x, y, m_resourceManager->getTexture("SmokeParticleTexture")));
 }
 
 void ParticleManager::updateParticles(float dt)

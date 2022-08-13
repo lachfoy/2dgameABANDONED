@@ -32,9 +32,9 @@ public:
     void renderDebug(SDL_Renderer* renderer);
 
 private:
-    ResourceManager* resourceManager; // pointer to resource manager
+    ResourceManager* m_resourceManager; // pointer to resource manager
     ParticleManager* particleManager;
-    UiManager* uiManager; // pointer to ui manager
+    UiManager* m_uiManager; // pointer to ui manager
     ProjectileManager* projectileManager; // pointer to projectile manager
     Player* player; // pointer to player
     std::vector<BaseEnemy*> enemies;
