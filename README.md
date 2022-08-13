@@ -1,13 +1,14 @@
 # 2dgame
 
-~~Small and simple~~ 2D game that uses SDL2 for rendering. Mainly working on this for fun while I have plenty of spare time :).
+This is a ~~simple~~ 2D game project that uses SDL2 for rendering. I don't have any huge goals or ambitions for this project - I am mainly working on this for fun and to improve my software design a C++ skills while I have spare time :).
 
 ## Task List
+General, slightly out of date todo list
 [todo.md](todo.md)
 
 ## Inheritance Diagram
 
-Inheritance diagram generated from [inheritance.gv](inheritance.gv) using Graphviz.
+Inheritance diagram generated from [inheritance.gv](inheritance.gv) using Graphviz. I've used this to keep track of long OOP chains.
 
 ![inheritance.gv.png](inheritance.gv.png)
 
@@ -18,27 +19,31 @@ dot -Tpng -O inheritance.gv
 
 ## Building
 
-Oh, if you want to build it (requires SDL2 and cmake): 
+If you would like to try and build this project (requires SDL2, sdl2_ttf, sdl2_image, sdl2_mixer and cmake)...
 
-1. Create a build directory
+1. Clone the repo
+
+2. Create a build directory
     ```shell
     mkdir build
     ```
 
-2. Create the build files
+3. Generate the build files
     ```shell
     cmake -S . -B build
     ```
 
-3. Build the program
+4. Build the program
     ```shell
     make -C build
     ```
 
-4. Run the program :)
+5. Run the program!
     ```shell
     build/2dgame
     ```
+
+Hopefully it works ;)
 
 ### For fun
 
@@ -50,5 +55,5 @@ find include/ src/ -regex '.*/.*\.\(h\|cpp\)$' | xargs wc -l
 ## Considerations for Future Projects
 
 - Try using an ECS architecture
-- Look into embedded lua for scripting
+- Look into scripting
 - Try using smart pointers to save headaches
