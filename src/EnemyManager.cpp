@@ -11,9 +11,9 @@
 
 EnemyManager::EnemyManager(ResourceManager* resourceManager, ParticleManager* particleManager, UiManager* uiManager, ProjectileManager* projectileManager, Player* player)
 {
-    this->resourceManager = resourceManager;
+    this->m_resourceManager = resourceManager;
     this->particleManager = particleManager;
-    this->uiManager = uiManager;
+    this->m_uiManager = uiManager;
     this->projectileManager = projectileManager;
     this->player = player;
 }
@@ -27,7 +27,7 @@ EnemyManager::~EnemyManager()
 
 void EnemyManager::addSkeleton(float x, float y)
 {
-    enemies.push_back(new Skeleton(x, y, resourceManager, particleManager, uiManager, projectileManager, player));
+    enemies.push_back(new Skeleton(x, y, m_resourceManager, particleManager, m_uiManager, projectileManager, player));
 }
 
 // tests collision against a list of projectiles and deals appropriate damage

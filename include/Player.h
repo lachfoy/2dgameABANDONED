@@ -38,7 +38,7 @@ public:
     void renderDebug(SDL_Renderer* renderer);
 
 private:
-    UiManager* uiManager;
+    UiManager* m_uiManager;
     ProjectileManager* projectileManager;
     
     bool isReceivingInput = true;

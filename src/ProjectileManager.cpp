@@ -9,7 +9,7 @@
 
 ProjectileManager::ProjectileManager(ResourceManager* resourceManager, ParticleManager* particleManager)
 {
-    this->resourceManager = resourceManager; // ptr to resource manager, used when creating projectiles to give them the appropriate textures
+    this->m_resourceManager = resourceManager; // ptr to resource manager, used when creating projectiles to give them the appropriate textures
     this->particleManager = particleManager;
 }
 
@@ -27,22 +27,22 @@ ProjectileManager::~ProjectileManager()
 
 void ProjectileManager::addFireball(float x, float y, float velX, float velY)
 {
-    playerProjectiles.push_back(new Fireball(x, y, velX, velY, resourceManager->getTexture("FireballTexture"), particleManager));
+    playerProjectiles.push_back(new Fireball(x, y, velX, velY, m_resourceManager->getTexture("FireballTexture"), particleManager));
 }
 
 void ProjectileManager::addFireballExplosion(float x, float y)
 {
-    playerProjectiles.push_back(new FireballExplosion(x, y, resourceManager->getTexture("FireballExplosionTexture"), particleManager));
+    playerProjectiles.push_back(new FireballExplosion(x, y, m_resourceManager->getTexture("FireballExplosionTexture"), particleManager));
 }
 
 void ProjectileManager::addSword(float x, float y, float offsetX, float offsetY, BaseDamageable* wielder)
 {
-    playerProjectiles.push_back(new Sword(x, y, offsetX, offsetY, resourceManager->getTexture("SwordTexture"), wielder));
+    playerProjectiles.push_back(new Sword(x, y, offsetX, offsetY, m_resourceManager->getTexture("SwordTexture"), wielder));
 }
 
 void ProjectileManager::addSwordSlash(float x, float y, float offsetX, float offsetY, BaseDamageable* wielder)
 {
-    playerProjectiles.push_back(new SwordSlash(x, y, offsetX, offsetY, resourceManager->getTexture("SwordSlashTexture"), wielder));
+    playerProjectiles.push_back(new SwordSlash(x, y, offsetX, offsetY, m_resourceManager->getTexture("SwordSlashTexture"), wielder));
 }
 
 void ProjectileManager::updateProjectiles(float dt)

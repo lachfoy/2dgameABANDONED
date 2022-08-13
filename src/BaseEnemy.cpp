@@ -8,9 +8,9 @@
 BaseEnemy::BaseEnemy(float x, float y, ResourceManager* resourceManager, ParticleManager* particleManager, UiManager* uiManager, ProjectileManager* projectileManager, Player* player)
      : BaseDamageable(x, y, resourceManager, particleManager)
 {
-    this->uiManager = uiManager;
+    this->m_uiManager = uiManager;
     this->projectileManager = projectileManager;
     this->player = player;
 
-    uiManager->addDynamicHealthbar(44, 4, this);
+    m_uiManager->addDynamicHealthbar(44, 4, this);
 }

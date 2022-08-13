@@ -75,7 +75,7 @@ void Game::run()
 {
     srand((unsigned)time(0)); // initialize prng
 
-    onCreate(); // call the game create functions -- mostly create all the managers and load resources
+    create(); // call the game create functions -- mostly create all the managers and load resources
 
     //SDL_ShowCursor(SDL_DISABLE); // hide the cursor (doesn't work on WSL window)
 
@@ -87,13 +87,13 @@ void Game::run()
     while(!quit)
     {
         // update the input manager which polls sdl events
-        inputManager->update();
-        if (inputManager->quitRequested() | inputManager->keyPressed(SDL_SCANCODE_ESCAPE)) quit = true;
-        if (inputManager->keyDown(SDL_SCANCODE_P))
+        m_inputManager->update();
+        if (m_inputManager->quitRequested() | m_inputManager->keyPressed(SDL_SCANCODE_ESCAPE)) quit = true;
+        if (m_inputManager->keyDown(SDL_SCANCODE_P))
         {
-            //gameState = (gameState == GAMESTATE_PAUSED) ? GAMESTATE_GAME : GAMESTATE_PAUSED;
-            m_gameStateManager->togglePaused();
-            if (m_gameStateManager->getPaused()) printf("PAUSED GAME\n");
+            //gameState = (gameState == PAUSED) ? GAME : PAUSED;
+            m_sceneManager->togglePaused();
+            if (m_sceneManager->getPaused()) printf("PAUSED GAME\n");
         }
 
         // calculate timestep
@@ -101,14 +101,14 @@ void Game::run()
 
         SDL_SetRenderDrawColor(renderer, 0xde, 0xde, 0xde, 0xff);
         SDL_RenderClear(renderer);
-            if (m_gameStateManager->inMenu())
+            if (m_sceneManager->inMenu())
             {
                 //menuUpdate(dt);
                 //menuRender();
             }
             else
             {
-                if (!m_gameStateManager->getPaused())
+                if (!m_sceneManager->getPaused())
                 {
                     //gameUpdate(dt); // let the game update all the game logic
                     //gameRender(); // let the game copy everything to the renderer
@@ -128,16 +128,19 @@ void Game::run()
             SDL_Delay(16 - dt_ms); // 60fps framecap
     }
 
-    onDestroy(); // cleanup resources
+    destroy(); // cleanup resources
 }
 
-void Game::onCreate()
+void Game::create()
 {
     
-    inputManager = new InputManager();
-    m_gameStateManager = new GameStateManager();
-    m_gameStateManager->setGameState(GameStateManager::GAMESTATE_MENU); // default to menu
-    resourceManager = new ResourceManager(renderer);
+    m_inputManager = new InputManager();
+    m_resourceManager = new ResourceManager(renderer);
+
+    m_sceneManager = new SceneManager();
+    m_sceneManager->setScene(SceneManager::MENU); // default to menu
+
+    
 
 
     /////// menu scene
@@ -145,11 +148,11 @@ void Game::onCreate()
     //menuUiManager->addTextObject(windowWidth / 2 - 60, windowHeight / 2 - 200, "Game Menu");
 }
 
-void Game::onDestroy()
+void Game::destroy()
 {
-    delete resourceManager; // deallocate the resources
-    delete m_gameStateManager;
-    delete inputManager;
+    delete m_resourceManager; // deallocate the resources
+    delete m_sceneManager;
+    delete m_inputManager;
     
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);

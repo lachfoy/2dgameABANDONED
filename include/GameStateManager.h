@@ -1,40 +1,47 @@
 
-#ifndef GAMESTATEMANAGER_H
-#define GAMESTATEMANAGER_H
+#ifndef SCENEMANAGER_H
+#define SCENEMANAGER_H
 
-class GameStateManager
+#include <SDL2/SDL.h>
+
+#include "GameScene.h"
+#include "PauseScene.h"
+
+class SceneManager
 {
 public:
-    //GameStateManager() {}
-    //~GameStateManager() {}
+    //SceneManager() {}
+    //~SceneManager() {}
 
-    enum GameState { // should be private
-        GAMESTATE_GAME,
-        GAMESTATE_PAUSED,
-        GAMESTATE_MENU
+    enum Scene { // should be private
+        GAME,
+        PAUSED,
+        MENU
     };
 
-    inline GameState getGameState() const { return m_gameState; } // dont use probably lol
-    void setGameState(const GameState& gameState) { m_gameState = gameState; } // also dont use probably
+    inline Scene getScene() const { return m_currentScene; } // dont use probably lol
+    void setScene(const Scene& scene) { m_currentScene = scene; } // also dont use probably
     
-    inline bool getPaused() const { return (m_gameState == GAMESTATE_PAUSED); }
-    inline bool inMenu() const { return (m_gameState == GAMESTATE_MENU); }
+    inline bool getPaused() const { return (m_currentScene == PAUSED); }
+    inline bool inMenu() const { return (m_currentScene == MENU); }
 
     void togglePaused()
     {
-        if (m_gameState == GAMESTATE_GAME)
-            m_gameState = GAMESTATE_PAUSED;
-        else if (m_gameState == GAMESTATE_PAUSED)
-            m_gameState = GAMESTATE_GAME;
+        if (m_currentScene == GAME)
+            m_currentScene = PAUSED;
+        else if (m_currentScene == PAUSED)
+            m_currentScene = GAME;
     }
 
     void startGame()
     {
-        m_gameState = GAMESTATE_GAME;
+        m_currentScene = GAME;
     }
 
+    void renderCurrentScene();
+
 private:
-    GameState m_gameState;
+    Scene m_currentScene;
 
 };
 

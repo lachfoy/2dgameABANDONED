@@ -18,7 +18,7 @@ public:
 
 private:
     SDL_Rect crosshair_rect;
-    InputManager* inputManager;
+    InputManager* m_inputManager;
     SDL_Texture* texture;
 
 };
@@ -33,7 +33,7 @@ Crosshair::Crosshair(int x, int y, int w, int h, InputManager* inputManager, SDL
     crosshair_rect.w = w;
     crosshair_rect.h = h;
 
-    this->inputManager = inputManager;
+    this->m_inputManager = inputManager;
     this->texture = texture;
 }
 
@@ -45,7 +45,7 @@ void Crosshair::updatePosition(const int& newX, const int& newY)
 
 void Crosshair::update(float dt)
 {
-    updatePosition(inputManager->getMouseX(), inputManager->getMouseY());
+    updatePosition(m_inputManager->getMouseX(), m_inputManager->getMouseY());
 
     crosshair_rect.x = this->x;
     crosshair_rect.y = this->y;

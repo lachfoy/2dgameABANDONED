@@ -1,5 +1,6 @@
 digraph inheritance {
     //size="800,600"
+    rankdir="LR"
     node [shape=box fontname="Helvetica,Arial,sans-serif"]
     edge [dir=back arrowtail=empty]
 

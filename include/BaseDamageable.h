@@ -58,7 +58,7 @@ protected:
     enum FacingDirection { FACING_LEFT, FACING_RIGHT } facingDirection;
 
     // resources
-    ResourceManager* resourceManager = nullptr;
+    ResourceManager* m_resourceManager = nullptr;
 
     // particles
     ParticleManager* particleManager = nullptr;

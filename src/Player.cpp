@@ -13,7 +13,7 @@ Player::Player(float x, float y, ResourceManager* resourceManager, UiManager* ui
     // initialize everything
     name = "Player";
 
-    this->uiManager = uiManager;
+    this->m_uiManager = uiManager;
     this->projectileManager = projectileManager;
 
     width = 30;
@@ -24,8 +24,8 @@ Player::Player(float x, float y, ResourceManager* resourceManager, UiManager* ui
 
     maxHealth = 80;
     health = maxHealth;
-    uiManager->addHealthbar(16, 16, 200, 14, this);
-    uiManager->addPlayerDebugText(32, 32, this);
+    m_uiManager->addHealthbar(16, 16, 200, 14, this);
+    m_uiManager->addPlayerDebugText(32, 32, this);
 
     // set the resistance values
     resistance = {0};

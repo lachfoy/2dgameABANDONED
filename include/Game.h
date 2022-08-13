@@ -11,7 +11,7 @@
 
 class InputManager;
 class ResourceManager;
-class GameStateManager;
+class SceneManager;
 
 class Game
 {
@@ -27,13 +27,15 @@ private:
     SDL_Window* window;
     SDL_Renderer* renderer;
 
-    InputManager* inputManager;
-    ResourceManager* resourceManager;
+    InputManager* m_inputManager;
+    ResourceManager* m_resourceManager;
     
-    GameStateManager* m_gameStateManager;
+    SceneManager* m_sceneManager;
 
-    void onCreate();
-    void onDestroy(); // deallocate window and renderer
+
+
+    void create();
+    void destroy(); // deallocate window and renderer
 
 };
 
