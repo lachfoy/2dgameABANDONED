@@ -17,9 +17,20 @@ ResourceManager::~ResourceManager()
             SDL_DestroyTexture(it.second);
         }
     }
+
+    if (!m_fonts.empty())
+    {
+        // clear the fonts from the map
+        printf("ResourceManager: deallocating fonts...\n");
+        for (const auto& it : m_fonts)
+        {
+            printf("closing %s\n", it.first.c_str());
+            TTF_CloseFont(it.second);
+        }
+    }
 }
 
-bool ResourceManager::loadGameResources()
+void ResourceManager::loadGameResources()
 {
     printf("ResourceManager: loading textures...\n");
     m_textures["ShadowTexture"] = loadTextureFromFile("../images/Shadow.bmp", SDL_BLENDMODE_BLEND);
@@ -30,31 +41,41 @@ bool ResourceManager::loadGameResources()
     m_textures["FireballExplosionTexture"] = loadTextureFromFile("../images/FireballExplosion.bmp", SDL_BLENDMODE_BLEND);
     m_textures["SwordTexture"] = loadTextureFromFile("../images/Sword.bmp", SDL_BLENDMODE_BLEND);
     m_textures["SwordSlashTexture"] = loadTextureFromFile("../images/SwordSlash.bmp", SDL_BLENDMODE_BLEND);
+}
 
-    return true;
+void ResourceManager::loadFonts()
+{
+    printf("ResourceManager: loading fonts...\n");
+    m_fonts["ArialBody"] = TTF_OpenFont("../fonts/arial.ttf", 21);
+    m_fonts["ArialHeader"] = TTF_OpenFont("../fonts/arial.ttf", 34);
 }
 
 SDL_Texture* ResourceManager::getTexture(std::string key)
 {
-    return m_textures[key];
+    SDL_Texture* texture = m_textures[key];
+    if (!texture) printf("Error: texture \"%s\" does not exist\n", key.c_str());
+    return texture;
+}
+
+TTF_Font* ResourceManager::getFont(std::string key)
+{
+    TTF_Font* font = m_fonts[key];
+    if (!font) printf("Error: font \"%s\" does not exist\n", key.c_str());
+    return font;
 }
 
 SDL_Texture* ResourceManager::loadTextureFromFile(const char* path, SDL_BlendMode blendMode = SDL_BLENDMODE_NONE)
 {
-    bool success; // not used rn
-
     SDL_Surface* surface = SDL_LoadBMP(path);
     if (!surface)
     {
         printf("Failed to load image %s\n", SDL_GetError());
-        success = false;
     }
 
     SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
     if (!texture)
     {
         printf("Failed to convert surface to texture %s\n", SDL_GetError());
-        success = false;
     }
 
     SDL_FreeSurface(surface);

@@ -9,7 +9,8 @@ MenuScene::MenuScene(InputManager* inputManager, ResourceManager* resourceManage
 {
     m_uiManager = new UiManager(m_inputManager, m_resourceManager, m_windowWidth, m_windowHeight);
     m_uiManager->addBackgroundFill({0x74, 0x74, 0x74, 0x74});
-    m_uiManager->addTextObject(m_windowWidth / 2 - 60, m_windowHeight / 2 - 200, "Menu");
+    m_uiManager->addTextObject(m_windowWidth / 2, m_windowHeight / 2 - 100, "Menu");
+    m_uiManager->addButton(m_windowWidth / 2, m_windowHeight / 2 + 40, "Play");
 }
 
 MenuScene::~MenuScene()

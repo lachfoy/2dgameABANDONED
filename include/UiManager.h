@@ -27,6 +27,7 @@ public:
     void addTextObject(int x, int y, std::string text);
     void addPlayerDebugText(int x, int y, Player* player);
     void addBackgroundFill(SDL_Color color);
+    void addButton(int x, int y, std::string text);
 
     void updateUiObjects(float dt);
     void removeUnusedUiObjects();
@@ -34,7 +35,6 @@ public:
 
 private:
     std::vector<BaseUiObject*> m_uiObjects;
-    TTF_Font* m_font;
     int m_windowWidth;
     int m_windowHeight;
 

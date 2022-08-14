@@ -60,8 +60,8 @@ void BaseTextObject::render(SDL_Renderer* renderer)
     SDL_Surface* surface = TTF_RenderText_Blended(font, text.c_str(), SDL_Color{255, 255, 255});
     texture = SDL_CreateTextureFromSurface(renderer, surface);
 
-    text_rect.x = x;
-    text_rect.y = y;
+    text_rect.x = x - (int)(surface->w / 2);
+    text_rect.y = y - (int)(surface->h / 2);
     text_rect.w = surface->w;
     text_rect.h = surface->h;
 

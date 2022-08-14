@@ -119,6 +119,7 @@ void Game::create()
 {
     m_inputManager = new InputManager();
     m_resourceManager = new ResourceManager(renderer);
+    m_resourceManager->loadFonts();
 
     m_sceneManager = new SceneManager(m_inputManager, m_resourceManager, windowWidth, windowHeight);
     m_sceneManager->startMenu();
