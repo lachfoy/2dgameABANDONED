@@ -11,7 +11,7 @@
 GameScene::GameScene(InputManager* inputManager, ResourceManager* resourceManager, int windowWidth, int windowHeight)
      : BaseScene(inputManager, resourceManager, windowWidth, windowHeight)
 {
-    m_resourceManager->loadGameTextures();
+    m_resourceManager->loadGameResources();
 
     m_uiManager = new UiManager(m_inputManager, m_resourceManager, m_windowWidth, m_windowHeight);
     m_particleManager = new ParticleManager(m_resourceManager);

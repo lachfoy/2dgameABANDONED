@@ -12,13 +12,13 @@ public:
     ResourceManager(SDL_Renderer* renderer);
     ~ResourceManager();
 
-    bool loadGameTextures();
+    bool loadGameResources();
 
     SDL_Texture* getTexture(std::string key);
     
 private:
     SDL_Renderer* renderer; // ptr to renderer for texture loading, resource manager does not have ownership
-    std::map<std::string, SDL_Texture*> textures;
+    std::map<std::string, SDL_Texture*> m_textures;
 
     SDL_Texture* loadTextureFromFile(const char* path, SDL_BlendMode blendMode);
 

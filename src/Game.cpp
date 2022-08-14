@@ -91,7 +91,6 @@ void Game::run()
         if (m_inputManager->quitRequested() | m_inputManager->keyPressed(SDL_SCANCODE_ESCAPE)) quit = true;
         if (m_inputManager->keyDown(SDL_SCANCODE_P))
         {
-            //gameState = (gameState == PAUSED) ? GAME : PAUSED;
             m_sceneManager->togglePaused();
             if (m_sceneManager->getPaused()) printf("PAUSED GAME\n");
         }
@@ -103,7 +102,7 @@ void Game::run()
 
         SDL_SetRenderDrawColor(renderer, 0xde, 0xde, 0xde, 0xff);
         SDL_RenderClear(renderer);
-        m_sceneManager->renderCurrentScene(renderer);
+            m_sceneManager->renderCurrentScene(renderer);
         SDL_RenderPresent(renderer);
 
         start = SDL_GetTicks();
@@ -118,27 +117,17 @@ void Game::run()
 
 void Game::create()
 {
-    
     m_inputManager = new InputManager();
     m_resourceManager = new ResourceManager(renderer);
 
     m_sceneManager = new SceneManager(m_inputManager, m_resourceManager, windowWidth, windowHeight);
-    //m_sceneManager->setScene(SceneManager::MENU); // default to menu
-
-    m_sceneManager->startGame();
-
-    
-
-
-    /////// menu scene
-    //menuUiManager = new UiManager(inputManager, resourceManager, windowWidth, windowHeight);
-    //menuUiManager->addTextObject(windowWidth / 2 - 60, windowHeight / 2 - 200, "Game Menu");
+    m_sceneManager->startMenu();
 }
 
 void Game::destroy()
 {
-    delete m_resourceManager; // deallocate the resources
     delete m_sceneManager;
+    delete m_resourceManager; // deallocate the resources
     delete m_inputManager;
     
     SDL_DestroyRenderer(renderer);
