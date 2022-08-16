@@ -6,7 +6,7 @@
 #include "UiManager.h"
 #include "ParticleManager.h"
 
-#define DEBUG_DRAW 0
+#define DEBUG_DRAW 1
 
 GameScene::GameScene(InputManager* inputManager, ResourceManager* resourceManager, int windowWidth, int windowHeight)
      : BaseScene(inputManager, resourceManager, windowWidth, windowHeight)
@@ -17,14 +17,14 @@ GameScene::GameScene(InputManager* inputManager, ResourceManager* resourceManage
     m_particleManager = new ParticleManager(m_resourceManager);
     m_projectileManager = new ProjectileManager(m_resourceManager, m_particleManager);
 
-    m_player = new Player(100.0f, 200.0f, m_resourceManager, m_uiManager, m_projectileManager);
+    m_player = new Player({ 100.0f, 200.0f }, m_resourceManager, m_uiManager, m_projectileManager);
     
     m_enemyManager = new EnemyManager(m_resourceManager, m_particleManager, m_uiManager, m_projectileManager, m_player);
-    m_enemyManager->addSkeleton(400.0f, 300.0f);
-    m_enemyManager->addSkeleton(600.0f, 400.0f);
-    m_enemyManager->addSkeleton(500.0f, 500.0f);
-    m_enemyManager->addSkeleton(300.0f, 400.0f);
-    m_enemyManager->addSkeleton(700.0f, 200.0f);
+    m_enemyManager->addSkeleton({ 400.0f, 300.0f });
+    m_enemyManager->addSkeleton({ 600.0f, 400.0f });
+    m_enemyManager->addSkeleton({ 500.0f, 500.0f });
+    m_enemyManager->addSkeleton({ 300.0f, 400.0f });
+    m_enemyManager->addSkeleton({ 700.0f, 200.0f });
 }
 
 GameScene::~GameScene()

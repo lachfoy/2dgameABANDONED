@@ -4,7 +4,7 @@
 #include <SDL2/SDL.h>
 
 #include "BaseObject.h"
-#include "AABB.h"
+#include "AABB2i.h"
 #include "Damage.h"
 
 class ProjectileManager;
@@ -13,17 +13,16 @@ class ParticleManager;
 class BaseProjectile : public BaseObject
 {
 public:
-    BaseProjectile(float x, float y, float velX, float velY, SDL_Texture* texture = nullptr, ParticleManager* particleManager = nullptr);
+    BaseProjectile(const Vec2f& pos, const Vec2f& dir, SDL_Texture* texture = nullptr, ParticleManager* particleManager = nullptr);
     virtual ~BaseProjectile() {}
 
     bool removeOnCollision;
     bool onlyDamageOnce;
     bool hasDealtDamage = false;
 
-    AABB const& getCollider() const { return collider; }
-    Damage const& getDamage() const { return damage; }
-    float getVelX() const { return velX; }
-    float getVelY() const { return velY; }
+    inline AABB2i const& getCollider() const { return collider; }
+    inline Damage const& getDamage() const { return damage; }
+    inline Vec2f const& getDir() const { return dir; }
     
     void updateLifetime(float dt);
     virtual void spawnParticles(float dt) {}
@@ -34,9 +33,8 @@ public:
     void renderCollider(SDL_Renderer* renderer);
 
 protected: // things the derived projectiles can change
-    float velX; // normalized x velocity
-    float velY; // normalized y velocity
-    AABB collider;
+    Vec2f dir;
+    AABB2i collider;
     int colliderW;
     int colliderH;
     Damage damage;

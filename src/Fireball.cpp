@@ -3,8 +3,8 @@
 #include "ProjectileManager.h"
 #include "ParticleManager.h"
 
-Fireball::Fireball(float x, float y, float velX, float velY, SDL_Texture* texture, ParticleManager* particleManager)
-    : BaseProjectile(x, y, velX, velY, texture, particleManager)
+Fireball::Fireball(const Vec2f& pos, const Vec2f& dir, SDL_Texture* texture, ParticleManager* particleManager)
+    : BaseProjectile(pos, dir, texture, particleManager)
 {
     name = "Fireball";
     colliderW = 24;
@@ -22,7 +22,7 @@ Fireball::Fireball(float x, float y, float velX, float velY, SDL_Texture* textur
 void Fireball::destroy(ProjectileManager& projectileManager)
 {
     // when destroyed, create an explosion
-    projectileManager.addFireballExplosion(posX, posY);
+    projectileManager.addFireballExplosion(pos);
 }
 
 void Fireball::spawnParticles(float dt)
@@ -31,7 +31,7 @@ void Fireball::spawnParticles(float dt)
     else
     {
         // spawn a particle at the old position
-        particleManager->addFireballParticle(posX, posY);
+        particleManager->addFireballParticle(pos);
         trailSpawnTimer = trailSpawnTime; // reset timer
     }
 }
@@ -40,8 +40,8 @@ void Fireball::spawnParticles(float dt)
 void Fireball::updatePosition(float dt)
 {
     // update the internal position
-    posX += velX * moveSpeed * dt;
-    posY += velY * moveSpeed * dt;
+    pos.x += dir.x * moveSpeed * dt;
+    pos.y += dir.y * moveSpeed * dt;
 
     if (rotate)
     {
@@ -52,10 +52,10 @@ void Fireball::updatePosition(float dt)
     }
 
     // move the collider as well
-    collider.upperBoundX = posX - (colliderW / 2);
-    collider.upperBoundY = posY - (colliderH / 2);
-    collider.lowerBoundX = posX + (colliderW / 2);
-    collider.lowerBoundY = posY + (colliderH / 2);
+    collider.minX = (int)pos.x - (colliderW / 2);
+    collider.minY = (int)pos.y - (colliderH / 2);
+    collider.maxX = (int)pos.x + (colliderW / 2);
+    collider.maxY = (int)pos.y + (colliderH / 2);
 }
 
 void Fireball::render(SDL_Renderer* renderer)
@@ -64,8 +64,8 @@ void Fireball::render(SDL_Renderer* renderer)
     SDL_Rect fireball_rect;
     fireball_rect.w = 24;
     fireball_rect.h = 24;
-    fireball_rect.x = (int)posX - (fireball_rect.w / 2);
-    fireball_rect.y = (int)posY - (fireball_rect.h / 2);
+    fireball_rect.x = (int)pos.x - (fireball_rect.w / 2);
+    fireball_rect.y = (int)pos.y - (fireball_rect.h / 2);
 
     // draw the fireball
     SDL_RenderCopyEx(renderer, texture, NULL, &fireball_rect, angle, NULL, {});

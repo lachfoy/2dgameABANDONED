@@ -5,15 +5,17 @@
 
 #include <SDL2/SDL.h>
 
+#include "Vec2f.h"
+
 class BaseObject
 {
 public:
-    inline BaseObject(float x, float y);
+    inline BaseObject(float x, float y) { pos.x = x; pos.y = y; }
+    inline BaseObject(const Vec2f& pos) : pos(pos) {}
     inline ~BaseObject();
 
     std::string name = ""; // use for debug purposes
-    float posX;
-    float posY;
+    Vec2f pos;
     
     bool removable = false;
 
@@ -22,15 +24,7 @@ public:
     // debug
     inline void renderOrigin(SDL_Renderer* renderer);
 
-private:
-    SDL_Rect debug_origin_rect;
-
 };
-
-BaseObject::BaseObject(float x, float y)
-{
-    posX = x; posY = y;
-}
 
 BaseObject::~BaseObject()
 {
@@ -40,12 +34,10 @@ BaseObject::~BaseObject()
 void BaseObject::renderOrigin(SDL_Renderer* renderer)
 {
     // draw the origin position
-    debug_origin_rect.w = 4;
-    debug_origin_rect.h = 4;
-    debug_origin_rect.x = (int)posX - (debug_origin_rect.w / 2);
-    debug_origin_rect.y = (int)posY - (debug_origin_rect.h / 2);
+    const int debugPointSize = 4;
+    const SDL_Rect rect = { (int)pos.x - (debugPointSize / 2), (int)pos.y - (debugPointSize / 2), debugPointSize, debugPointSize };
     SDL_SetRenderDrawColor(renderer, 0xff, 0xff, 0x00, 0xff); // #ebd517 yellow
-    SDL_RenderFillRect(renderer, &debug_origin_rect);
+    SDL_RenderFillRect(renderer, &rect);
 
     // axis lines
     // SDL_SetRenderDrawColor(renderer, 0xff, 0x00, 0x00, 0xff);

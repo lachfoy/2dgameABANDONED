@@ -2,7 +2,7 @@
 #define BASEDAMAGEABLE_H
 
 #include "BaseObject.h"
-#include "AABB.h"
+#include "AABB2i.h"
 #include "Resistance.h"
 
 class ResourceManager;
@@ -11,20 +11,19 @@ class ParticleManager;
 class BaseDamageable : public BaseObject
 {
 public:
-    BaseDamageable(float x, float y, ResourceManager* ResourceManager, ParticleManager* particleManager); // we assume that every damageable gets created with a pointer to the resource manager
+    BaseDamageable(const Vec2f& pos, ResourceManager* ResourceManager, ParticleManager* particleManager); // we assume that every damageable gets created with a pointer to the resource manager
 
     // getters
     inline int getHealth() const { return health; }
     inline int getMaxHealth() const { return maxHealth; }
     inline int getWidth() const { return width; }
     inline int getHeight() const { return height; }
-    inline AABB const& getCollider() const { return collider; }
-    float getVelX() const { return velX; }
-    float getVelY() const { return velY; }
-    bool facingRight() const { return facingDirection; }
+    inline AABB2i const& getCollider() const { return collider; }
+    inline Vec2f const& getDir() const { return dir; }
+    inline bool facingRight() const { return facingDirection; }
 
     virtual void takeDamage(const Damage& damage); // overriden by player
-    void push(float pushVelX, float pushVelY, float pushMoveSpeed);
+    void push(const Vec2f& pushDir, float pushMoveSpeed);
 
     virtual void updateTimers(float dt); // overriden by player
     void updatePosition(float dt);
@@ -35,15 +34,14 @@ public:
     void renderCollider(SDL_Renderer* renderer);
 
 protected:
-    float velX = 0.0f;
-    float velY = 0.0f;
+    Vec2f dir;
     int width;
     int height;
     SDL_Rect m_rect;
     SDL_Color m_color;
     int colliderW;
     int colliderH;
-    AABB collider;
+    AABB2i collider;
 
     int maxHealth;
     int health;
@@ -77,8 +75,7 @@ protected:
     bool isBeingPushed = false;
     float pushTime = 0.1f;
     float pushTimer = pushTime;
-    float pushVelX;
-    float pushVelY;
+    Vec2f pushDir;
     float pushMoveSpeed;
 
     // debug

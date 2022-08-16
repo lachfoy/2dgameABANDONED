@@ -8,7 +8,7 @@ class ProjectileManager;
 class Fireball : public BaseProjectile
 {
 public:
-    Fireball(float x, float y, float velX, float velY, SDL_Texture* texture, ParticleManager* particleManager);
+    Fireball(const Vec2f& pos, const Vec2f& dir, SDL_Texture* texture, ParticleManager* particleManager);
 
     void destroy(ProjectileManager& projectileManager) override;
     void spawnParticles(float dt) override;

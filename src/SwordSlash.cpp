@@ -2,8 +2,8 @@
 
 #include "BaseDamageable.h"
 
-SwordSlash::SwordSlash(float x, float y, float offsetX, float offsetY, SDL_Texture* texture, BaseDamageable* wielder)
-     : BaseMeleeWeapon(x, y, offsetX, offsetY, texture, wielder)
+SwordSlash::SwordSlash(const Vec2f& pos, float offsetX, float offsetY, SDL_Texture* texture, BaseDamageable* wielder)
+     : BaseMeleeWeapon(pos, offsetX, offsetY, texture, wielder)
 {
     name = "SwordSlash";
     colliderW = 40;
@@ -19,8 +19,8 @@ void SwordSlash::render(SDL_Renderer* renderer)
     SDL_Rect sword_slash_rect;
     sword_slash_rect.w = 54;
     sword_slash_rect.h = 86;
-    sword_slash_rect.x = (int)posX - (sword_slash_rect.w / 2);
-    sword_slash_rect.y = (int)posY - (sword_slash_rect.h / 2);
+    sword_slash_rect.x = (int)pos.x - (sword_slash_rect.w / 2);
+    sword_slash_rect.y = (int)pos.y - (sword_slash_rect.h / 2);
 
     const SDL_RendererFlip rendererFlip = flip ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
     SDL_RenderCopyEx(renderer, texture, NULL, &sword_slash_rect, (double)0, NULL, rendererFlip);

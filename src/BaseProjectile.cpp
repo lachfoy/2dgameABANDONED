@@ -2,15 +2,14 @@
 
 #include "BaseDamageable.h"
 
-BaseProjectile::BaseProjectile(float x, float y, float velX, float velY, SDL_Texture* texture, ParticleManager* particleManager)
-    : BaseObject(x, y)
+BaseProjectile::BaseProjectile(const Vec2f& pos, const Vec2f& dir, SDL_Texture* texture, ParticleManager* particleManager)
+    : BaseObject(pos)
 {
-    this->velX = velX;
-    this->velY = velY;
+    this->dir = dir;
     this->texture = texture;
     this->particleManager = particleManager;
     
-    collider = AABB(posX, posY, colliderW, colliderH);
+    collider = AABB2i(pos.x, pos.y, colliderW, colliderH);
 }
 
 void BaseProjectile::updateLifetime(float dt)
@@ -24,8 +23,8 @@ void BaseProjectile::updateLifetime(float dt)
 void BaseProjectile::updatePosition(float dt)
 {
     // update the internal position
-    posX += velX * moveSpeed * dt;
-    posY += velY * moveSpeed * dt;
+    pos.x += dir.x * moveSpeed * dt;
+    pos.y += dir.y * moveSpeed * dt;
 
     if (rotate)
     {
@@ -36,10 +35,10 @@ void BaseProjectile::updatePosition(float dt)
     }
 
     // move the collider as well
-    collider.upperBoundX = posX - (colliderW / 2);
-    collider.upperBoundY = posY - (colliderH / 2);
-    collider.lowerBoundX = posX + (colliderW / 2);
-    collider.lowerBoundY = posY + (colliderH / 2);
+    collider.minX = (int)pos.x - (colliderW / 2);
+    collider.minY = (int)pos.y - (colliderH / 2);
+    collider.maxX = (int)pos.x + (colliderW / 2);
+    collider.maxY = (int)pos.y + (colliderH / 2);
 }
 
 void BaseProjectile::renderCollider(SDL_Renderer* renderer)

@@ -7,6 +7,7 @@
 #include <SDL2/SDL.h>
 
 #include "BaseProjectile.h"
+#include "Vec2f.h"
 
 class BaseDamageable;
 class ResourceManager;
@@ -21,8 +22,8 @@ public:
     // Getter for the projectiles vector
     // Needed so other classes can check collisions and such
     //inline std::vector<BaseProjectile*> getProjectiles() const { return projectiles; }
-    std::vector<BaseProjectile*> const& getPlayerProjectiles() const { return playerProjectiles; }
-    std::vector<BaseProjectile*> const& getEnemyProjectiles() const { return enemyProjectiles; }
+    std::vector<BaseProjectile*> const& getPlayerProjectiles() const { return m_playerProjectiles; }
+    std::vector<BaseProjectile*> const& getEnemyProjectiles() const { return m_enemyProjectiles; }
 
     // Adding different kinds of projectiles
     // -------------------------------------
@@ -30,10 +31,10 @@ public:
     // For example, addProjectile<Fireball>()?
     // -------------------------------------
     //inline void addProjectile(BaseProjectile* projectile) { projectiles.push_back(projectile); } // depracated? dont use this anymore
-    void addFireball(float x, float y, float velX, float velY);
-    void addFireballExplosion(float x, float y);
-    void addSword(float x, float y, float offsetX, float offsetY, BaseDamageable* wielder);
-    void addSwordSlash(float x, float y, float offsetX, float offsetY, BaseDamageable* wielder);
+    void addFireball(const Vec2f& pos, const Vec2f& dir);
+    void addFireballExplosion(const Vec2f& pos);
+    void addSword(const Vec2f& pos, float offsetX, float offsetY, BaseDamageable* wielder);
+    void addSwordSlash(const Vec2f& pos, float offsetX, float offsetY, BaseDamageable* wielder);
 
     void updateProjectiles(float dt);
     void resolveProjectileVsEnemyCollisions(const std::vector<BaseDamageable*>& enemies);
@@ -42,9 +43,8 @@ public:
     void renderDebug(SDL_Renderer* renderer);
 
 private:
-    //std::vector<BaseProjectile*> projectiles;
-    std::vector<BaseProjectile*> playerProjectiles;
-    std::vector<BaseProjectile*> enemyProjectiles;
+    std::vector<BaseProjectile*> m_playerProjectiles;
+    std::vector<BaseProjectile*> m_enemyProjectiles;
 
     ResourceManager* m_resourceManager;
     ParticleManager* particleManager;

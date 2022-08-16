@@ -16,19 +16,19 @@ ParticleManager::~ParticleManager()
     particles.clear();
 }
 
-void ParticleManager::addFireballParticle(float x, float y)
+void ParticleManager::addFireballParticle(const Vec2f& pos)
 {
-    particles.push_back(new FireballParticle(x, y, m_resourceManager->getTexture("FireballParticleTexture")));
+    particles.push_back(new FireballParticle(pos, m_resourceManager->getTexture("FireballParticleTexture")));
 }
 
-void ParticleManager::addSmokeParticle(float x, float y)
+void ParticleManager::addSmokeParticle(const Vec2f& pos)
 {
-    particles.push_back(new SmokeParticle(x, y, m_resourceManager->getTexture("SmokeParticleTexture")));
+    particles.push_back(new SmokeParticle(pos, m_resourceManager->getTexture("SmokeParticleTexture")));
 }
 
-void ParticleManager::addFireballExplosionParticle(float x, float y, float velX, float velY)
+void ParticleManager::addFireballExplosionParticle(const Vec2f& pos, const Vec2f& dir)
 {
-    particles.push_back(new SmokeParticle(x, y, m_resourceManager->getTexture("SmokeParticleTexture")));
+    particles.push_back(new SmokeParticle(pos, m_resourceManager->getTexture("SmokeParticleTexture")));
 }
 
 void ParticleManager::updateParticles(float dt)

@@ -17,38 +17,38 @@ ProjectileManager::~ProjectileManager()
 {
     // clear the projectiles vectors and delete the pointers
     // enemy projectiles
-    for (const auto& projectile : enemyProjectiles) delete projectile;
-    enemyProjectiles.clear();
+    for (const auto& projectile : m_enemyProjectiles) delete projectile;
+    m_enemyProjectiles.clear();
 
     // player projectiles
-    for (const auto& projectile : playerProjectiles) delete projectile;
-    playerProjectiles.clear();
+    for (const auto& projectile : m_playerProjectiles) delete projectile;
+    m_playerProjectiles.clear();
 }
 
-void ProjectileManager::addFireball(float x, float y, float velX, float velY)
+void ProjectileManager::addFireball(const Vec2f& pos, const Vec2f& dir)
 {
-    playerProjectiles.push_back(new Fireball(x, y, velX, velY, m_resourceManager->getTexture("FireballTexture"), particleManager));
+    m_playerProjectiles.push_back(new Fireball(pos, dir, m_resourceManager->getTexture("FireballTexture"), particleManager));
 }
 
-void ProjectileManager::addFireballExplosion(float x, float y)
+void ProjectileManager::addFireballExplosion(const Vec2f& pos)
 {
-    playerProjectiles.push_back(new FireballExplosion(x, y, m_resourceManager->getTexture("FireballExplosionTexture"), particleManager));
+    m_playerProjectiles.push_back(new FireballExplosion(pos, m_resourceManager->getTexture("FireballExplosionTexture"), particleManager));
 }
 
-void ProjectileManager::addSword(float x, float y, float offsetX, float offsetY, BaseDamageable* wielder)
+void ProjectileManager::addSword(const Vec2f& pos, float offsetX, float offsetY, BaseDamageable* wielder)
 {
-    playerProjectiles.push_back(new Sword(x, y, offsetX, offsetY, m_resourceManager->getTexture("SwordTexture"), wielder));
+    m_playerProjectiles.push_back(new Sword(pos, offsetX, offsetY, m_resourceManager->getTexture("SwordTexture"), wielder));
 }
 
-void ProjectileManager::addSwordSlash(float x, float y, float offsetX, float offsetY, BaseDamageable* wielder)
+void ProjectileManager::addSwordSlash(const Vec2f& pos, float offsetX, float offsetY, BaseDamageable* wielder)
 {
-    playerProjectiles.push_back(new SwordSlash(x, y, offsetX, offsetY, m_resourceManager->getTexture("SwordSlashTexture"), wielder));
+    m_playerProjectiles.push_back(new SwordSlash(pos, offsetX, offsetY, m_resourceManager->getTexture("SwordSlashTexture"), wielder));
 }
 
 void ProjectileManager::updateProjectiles(float dt)
 {
     // enemy projectiles
-    for (const auto& projectile : enemyProjectiles)
+    for (const auto& projectile : m_enemyProjectiles)
     {
         projectile->updatePosition(dt);
         projectile->spawnParticles(dt);
@@ -56,7 +56,7 @@ void ProjectileManager::updateProjectiles(float dt)
     }
 
     // player projectiles
-    for (const auto& projectile : playerProjectiles)
+    for (const auto& projectile : m_playerProjectiles)
     {
         projectile->updatePosition(dt);
         projectile->spawnParticles(dt);
@@ -67,25 +67,25 @@ void ProjectileManager::updateProjectiles(float dt)
 void ProjectileManager::removeUnusedProjectiles()
 {
     // enemy projectiles
-    for (int i = 0; i < enemyProjectiles.size(); i++)
+    for (int i = 0; i < m_enemyProjectiles.size(); i++)
     {
-        if (enemyProjectiles[i]->removable)
+        if (m_enemyProjectiles[i]->removable)
         {
-            enemyProjectiles[i]->destroy(*this);
-            delete enemyProjectiles[i];
-            enemyProjectiles.erase(enemyProjectiles.begin() + i);
+            m_enemyProjectiles[i]->destroy(*this);
+            delete m_enemyProjectiles[i];
+            m_enemyProjectiles.erase(m_enemyProjectiles.begin() + i);
             i--;
         }
     }
 
     // player projectiles
-    for (int i = 0; i < playerProjectiles.size(); i++)
+    for (int i = 0; i < m_playerProjectiles.size(); i++)
     {
-        if (playerProjectiles[i]->removable)
+        if (m_playerProjectiles[i]->removable)
         {
-            playerProjectiles[i]->destroy(*this);
-            delete playerProjectiles[i];
-            playerProjectiles.erase(playerProjectiles.begin() + i);
+            m_playerProjectiles[i]->destroy(*this);
+            delete m_playerProjectiles[i];
+            m_playerProjectiles.erase(m_playerProjectiles.begin() + i);
             i--;
         }
     }
@@ -94,13 +94,13 @@ void ProjectileManager::removeUnusedProjectiles()
 void ProjectileManager::renderProjectiles(SDL_Renderer* renderer)
 {
     // enemy projectiles
-    for (const auto& projectile : enemyProjectiles)
+    for (const auto& projectile : m_enemyProjectiles)
     {
         projectile->render(renderer);
     }
 
     // player projectiles
-    for (const auto& projectile : playerProjectiles)
+    for (const auto& projectile : m_playerProjectiles)
     {
         projectile->render(renderer);
     }
@@ -109,14 +109,14 @@ void ProjectileManager::renderProjectiles(SDL_Renderer* renderer)
 void ProjectileManager::renderDebug(SDL_Renderer* renderer)
 {
     // enemy projectiles
-    for (const auto& projectile : enemyProjectiles)
+    for (const auto& projectile : m_enemyProjectiles)
     {
         projectile->renderCollider(renderer);
         projectile->renderOrigin(renderer);
     }
 
     // player projectiles
-    for (const auto& projectile : playerProjectiles)
+    for (const auto& projectile : m_playerProjectiles)
     {
         projectile->renderCollider(renderer);
         projectile->renderOrigin(renderer);

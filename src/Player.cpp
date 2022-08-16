@@ -1,14 +1,14 @@
 #include "Player.h"
 
-#include "AABB.h"
+#include "AABB2i.h"
 #include "UiManager.h"
 #include "Healthbar.h"
 #include "InputManager.h"
 #include "ProjectileManager.h"
 #include "BaseEnemy.h"
 
-Player::Player(float x, float y, ResourceManager* resourceManager, UiManager* uiManager, ProjectileManager* projectileManager)
-    : BaseDamageable(x, y, resourceManager, nullptr)
+Player::Player(const Vec2f& pos, ResourceManager* resourceManager, UiManager* uiManager, ProjectileManager* projectileManager)
+    : BaseDamageable(pos, resourceManager, nullptr)
 {
     // initialize everything
     name = "Player";
@@ -42,7 +42,7 @@ void Player::resolveEnemyCollisions(const std::vector<BaseEnemy*>& enemies)
 {
     for (int i = 0; i < enemies.size(); i++)
     {
-        if (AABB::testOverlap(enemies[i]->getCollider(), collider))
+        if (AABB2i::testOverlap(enemies[i]->getCollider(), collider))
         {
             takeDamage(enemies[i]->getDamage());
         }
@@ -54,19 +54,19 @@ void Player::handleInput(InputManager& inputManager)
     if (isReceivingInput)
     {
         if (inputManager.keyPressed(SDL_SCANCODE_UP) | inputManager.keyPressed(SDL_SCANCODE_W))
-            velY = -1.0f;
+            dir.y = -1.0f;
         if (inputManager.keyPressed(SDL_SCANCODE_DOWN) | inputManager.keyPressed(SDL_SCANCODE_S))
-            velY = 1.0f;
+            dir.y = 1.0f;
         if (inputManager.keyPressed(SDL_SCANCODE_LEFT) | inputManager.keyPressed(SDL_SCANCODE_A))
-            velX = -1.0f;
+            dir.x = -1.0f;
         if (inputManager.keyPressed(SDL_SCANCODE_RIGHT) | inputManager.keyPressed(SDL_SCANCODE_D))
-            velX = 1.0f;
+            dir.x = 1.0f;
         if (inputManager.keyPressed(SDL_SCANCODE_Z))
         {
             if (canShoot)
             {
                 int fireballVelX = (facingDirection == FACING_RIGHT) ? 1 : -1;
-                projectileManager->addFireball(posX, posY - (height / 2), fireballVelX, 0);
+                projectileManager->addFireball({ pos.x, pos.y - (height / 2) }, { (float)fireballVelX, 0.0f });
                 canShoot = false;
             }
         }
@@ -75,7 +75,7 @@ void Player::handleInput(InputManager& inputManager)
             if (canAttack)
             {
                 float swordOffsetX = (facingDirection == FACING_RIGHT) ? 28.0f : -28.0f;
-                projectileManager->addSword(posX, posY, swordOffsetX, -(height / 2) - 3.0f, this);
+                projectileManager->addSword(pos, swordOffsetX, -(height / 2) - 3.0f, this);
                 canAttack = false;
             }
         }
@@ -86,8 +86,7 @@ void Player::handleInput(InputManager& inputManager)
                 isReceivingInput = false;
                 canDodgeRoll = false;
                 dodgeRolls--;
-                dodgeRollVelX = velX; // store current velocity
-                dodgeRollVelY = velY;
+                dodgeRollVel = dir;
                 dodgeRolling = true;
             }
         }
@@ -100,20 +99,8 @@ void Player::handleInput(InputManager& inputManager)
         {
             if (canShoot)
             {
-                // get direction vector from player to mouse position
-                float fireballDirX = (inputManager.getMouseX() - posX);
-                float fireballDirY = (inputManager.getMouseY() - posY);
-
-                // use pythag to get distance between the player and mouse
-                // d = sqrt((x2 - x1)^2 + (y2 - y1)^2)
-                float distance = sqrtf((fireballDirX * fireballDirX) + (fireballDirY * fireballDirY));
-
-                // use distance to normalize the velocity vector
-                float fireballVelX = fireballDirX / distance;
-                float fireballVelY = fireballDirY / distance;
-
                 // add a new fireball with some offset from the origin
-                projectileManager->addFireball(posX, posY - (height / 2), fireballVelX, fireballVelY);
+                projectileManager->addFireball({ pos.x, pos.y - (height / 2) }, Vec2f::getDirection(pos, { (float)inputManager.getMouseX(), (float)inputManager.getMouseY() }));
 
                 ammo--; // subtract ammo
                 canShoot = false;
@@ -163,8 +150,7 @@ void Player::updateDodgeRoll(float dt)
     {
         if (dodgeRollTimer > 0.0f)
         {
-            velX = dodgeRollVelX;
-            velY = dodgeRollVelY;
+            dir = dodgeRollVel;
             moveSpeed = dodgeRollMoveSpeed;
             isImmune = true;
             dodgeRollTimer -= dt;
@@ -266,8 +252,8 @@ void Player::updatePlayer(float dt)
 void Player::render(SDL_Renderer* renderer)
 {
     // create rect to represent the player
-    m_rect.x = (int)posX - (width / 2);
-    m_rect.y = (int)posY - height;
+    m_rect.x = (int)pos.x - (width / 2);
+    m_rect.y = (int)pos.y - height;
     m_rect.w = width;
     m_rect.h = height;
 

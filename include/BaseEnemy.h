@@ -14,7 +14,7 @@ class Player;
 class BaseEnemy : public BaseDamageable
 {
 public:
-    BaseEnemy(float x, float y, ResourceManager* resourceManager, ParticleManager* particleManager, UiManager* uiManager, ProjectileManager* projectileManager, Player* player);
+    BaseEnemy(const Vec2f& pos, ResourceManager* resourceManager, ParticleManager* particleManager, UiManager* uiManager, ProjectileManager* projectileManager, Player* player);
     virtual ~BaseEnemy() {} // derived enemies can add functionality to their destructors
 
     Damage getDamage() const { return damage; }
