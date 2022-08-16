@@ -12,7 +12,7 @@ class ParticleManager;
 class GameScene : public BaseScene
 {
 public:
-    GameScene(InputManager* inputManager, ResourceManager* resourceManager, int windowWidth, int windowHeight);
+    GameScene(InputManager* inputManager, std::shared_ptr<ResourceManager> resourceManager, int windowWidth, int windowHeight);
     ~GameScene();
 
     void update(float dt) override;

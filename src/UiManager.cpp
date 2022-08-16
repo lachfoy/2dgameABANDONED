@@ -11,7 +11,7 @@
 #include "BackgroundFill.h"
 #include "Button.h"
 
-UiManager::UiManager(InputManager* inputManager, ResourceManager* resourceManager, int windowWidth, int windowHeight)
+UiManager::UiManager(InputManager* inputManager, std::shared_ptr<ResourceManager> resourceManager, int windowWidth, int windowHeight)
 {
     m_inputManager = inputManager;
     m_resourceManager = resourceManager;

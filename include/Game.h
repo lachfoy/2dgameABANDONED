@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <vector>
+#include <memory>
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -28,7 +29,7 @@ private:
     SDL_Renderer* renderer;
 
     InputManager* m_inputManager;
-    ResourceManager* m_resourceManager;
+    std::shared_ptr<ResourceManager> m_resourceManager;
     
     SceneManager* m_sceneManager;
 

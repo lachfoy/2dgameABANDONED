@@ -8,7 +8,7 @@
 class Skeleton : public BaseEnemy
 {
 public:
-    Skeleton(const Vec2f& pos, ResourceManager* resourceManager, ParticleManager* particleManager, UiManager* uiManager, ProjectileManager* projectileManager, Player* player);
+    Skeleton(const Vec2f& pos, std::shared_ptr<ResourceManager> resourceManager, ParticleManager* particleManager, UiManager* uiManager, ProjectileManager* projectileManager, Player* player);
 
     void updateAI(float dt) override;
     void render(SDL_Renderer* renderer) override;

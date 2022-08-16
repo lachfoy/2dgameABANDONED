@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include <memory>
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
@@ -16,7 +17,7 @@ class Player;
 class UiManager
 {
 public:
-    UiManager(InputManager* inputManager, ResourceManager* resourceManager, int windowWidth, int windowHeight);
+    UiManager(InputManager* inputManager, std::shared_ptr<ResourceManager> resourceManager, int windowWidth, int windowHeight);
     ~UiManager();
 
     std::vector<BaseUiObject*> const& getUiObjects() const { return m_uiObjects; }
@@ -40,7 +41,7 @@ private:
 
     // no ownership
     InputManager* m_inputManager;
-    ResourceManager* m_resourceManager;
+    std::shared_ptr<ResourceManager> m_resourceManager;
 
 };
 

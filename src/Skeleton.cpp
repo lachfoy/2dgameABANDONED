@@ -5,7 +5,7 @@
 #include "UiManager.h"
 #include "EnemyManager.h"
 
-Skeleton::Skeleton(const Vec2f& pos, ResourceManager* resourceManager, ParticleManager* particleManager, UiManager* uiManager, ProjectileManager* projectileManager, Player* player)
+Skeleton::Skeleton(const Vec2f& pos, std::shared_ptr<ResourceManager> resourceManager, ParticleManager* particleManager, UiManager* uiManager, ProjectileManager* projectileManager, Player* player)
     : BaseEnemy(pos, resourceManager, particleManager, uiManager, projectileManager, player)
 {
     // initialize everything

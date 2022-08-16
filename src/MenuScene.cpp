@@ -4,7 +4,7 @@
 
 #define DEBUG_DRAW 0
 
-MenuScene::MenuScene(InputManager* inputManager, ResourceManager* resourceManager, int windowWidth, int windowHeight)
+MenuScene::MenuScene(InputManager* inputManager, std::shared_ptr<ResourceManager> resourceManager, int windowWidth, int windowHeight)
      : BaseScene(inputManager, resourceManager, windowWidth, windowHeight)
 {
     m_uiManager = new UiManager(m_inputManager, m_resourceManager, m_windowWidth, m_windowHeight);

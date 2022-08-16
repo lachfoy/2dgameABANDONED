@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <algorithm>
+#include <memory>
 
 #include <SDL2/SDL.h>
 
@@ -16,14 +17,13 @@ class ParticleManager;
 class ProjectileManager
 {
 public:
-    ProjectileManager(ResourceManager* resourceManager, ParticleManager* particleManager);
+    ProjectileManager(std::shared_ptr<ResourceManager> resourceManager, ParticleManager* particleManager);
     ~ProjectileManager();
 
-    // Getter for the projectiles vector
+    // Getter for the projectiles vectors
     // Needed so other classes can check collisions and such
-    //inline std::vector<BaseProjectile*> getProjectiles() const { return projectiles; }
-    std::vector<BaseProjectile*> const& getPlayerProjectiles() const { return m_playerProjectiles; }
-    std::vector<BaseProjectile*> const& getEnemyProjectiles() const { return m_enemyProjectiles; }
+    std::vector<std::unique_ptr<BaseProjectile>> const& getPlayerProjectiles() const { return m_playerProjectiles; }
+    std::vector<std::unique_ptr<BaseProjectile>> const& getEnemyProjectiles() const { return m_enemyProjectiles; }
 
     // Adding different kinds of projectiles
     // -------------------------------------
@@ -43,10 +43,10 @@ public:
     void renderDebug(SDL_Renderer* renderer);
 
 private:
-    std::vector<BaseProjectile*> m_playerProjectiles;
-    std::vector<BaseProjectile*> m_enemyProjectiles;
+    std::vector<std::unique_ptr<BaseProjectile>> m_playerProjectiles;
+    std::vector<std::unique_ptr<BaseProjectile>> m_enemyProjectiles;
 
-    ResourceManager* m_resourceManager;
+    std::shared_ptr<ResourceManager> m_resourceManager;
     ParticleManager* particleManager;
 
 };

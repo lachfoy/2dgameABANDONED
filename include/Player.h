@@ -2,7 +2,7 @@
 #define PLAYER_H
 
 #include <vector>
-#include <cmath> // ONLY USED FOR CALC PYTHAG IN ONE PLACE
+#include <memory>
 
 #include <SDL2/SDL.h>
 
@@ -16,11 +16,11 @@ class BaseEnemy;
 class Player : public BaseDamageable
 {
 public:
-    Player(const Vec2f& pos, ResourceManager* resourceManager, UiManager* uiManager, ProjectileManager* projectileManager);
+    Player(const Vec2f& pos, std::shared_ptr<ResourceManager> resourceManager, UiManager* uiManager, ProjectileManager* projectileManager);
 
     void handleInput(InputManager& inputManager);
 
-    void resolveEnemyCollisions(const std::vector<BaseEnemy*>& enemies);
+    void resolveEnemyCollisions(const std::vector<std::unique_ptr<BaseEnemy>>& enemies);
 
     void takeDamage(const Damage& damage) override;
 

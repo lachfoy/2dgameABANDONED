@@ -4,7 +4,7 @@
 #include "FireballParticle.h"
 #include "SmokeParticle.h"
 
-ParticleManager::ParticleManager(ResourceManager* resourceManager)
+ParticleManager::ParticleManager(std::shared_ptr<ResourceManager> resourceManager)
 {
     this->m_resourceManager = resourceManager;
 }

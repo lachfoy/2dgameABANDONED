@@ -8,7 +8,7 @@
 
 #define DEBUG_DRAW 1
 
-GameScene::GameScene(InputManager* inputManager, ResourceManager* resourceManager, int windowWidth, int windowHeight)
+GameScene::GameScene(InputManager* inputManager, std::shared_ptr<ResourceManager> resourceManager, int windowWidth, int windowHeight)
      : BaseScene(inputManager, resourceManager, windowWidth, windowHeight)
 {
     m_resourceManager->loadGameResources();

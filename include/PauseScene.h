@@ -8,7 +8,7 @@ class UiManager;
 class PauseScene : public BaseScene
 {
 public:
-    PauseScene(InputManager* inputManager, ResourceManager* resourceManager, int windowWidth, int windowHeight);
+    PauseScene(InputManager* inputManager, std::shared_ptr<ResourceManager> resourceManager, int windowWidth, int windowHeight);
     ~PauseScene();
 
     void update(float dt) override;

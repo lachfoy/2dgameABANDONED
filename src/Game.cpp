@@ -118,7 +118,7 @@ void Game::run()
 void Game::create()
 {
     m_inputManager = new InputManager();
-    m_resourceManager = new ResourceManager(renderer);
+    m_resourceManager = std::make_shared<ResourceManager>(renderer);
     m_resourceManager->loadFonts();
 
     m_sceneManager = new SceneManager(m_inputManager, m_resourceManager, windowWidth, windowHeight);
@@ -127,9 +127,8 @@ void Game::create()
 
 void Game::destroy()
 {
-    delete m_sceneManager;
-    delete m_resourceManager; // deallocate the resources
     delete m_inputManager;
+    delete m_sceneManager;
     
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);

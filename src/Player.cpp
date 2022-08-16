@@ -7,7 +7,7 @@
 #include "ProjectileManager.h"
 #include "BaseEnemy.h"
 
-Player::Player(const Vec2f& pos, ResourceManager* resourceManager, UiManager* uiManager, ProjectileManager* projectileManager)
+Player::Player(const Vec2f& pos, std::shared_ptr<ResourceManager> resourceManager, UiManager* uiManager, ProjectileManager* projectileManager)
     : BaseDamageable(pos, resourceManager, nullptr)
 {
     // initialize everything
@@ -38,7 +38,7 @@ Player::Player(const Vec2f& pos, ResourceManager* resourceManager, UiManager* ui
     moveSpeed = startingMoveSpeed;
 }
 
-void Player::resolveEnemyCollisions(const std::vector<BaseEnemy*>& enemies)
+void Player::resolveEnemyCollisions(const std::vector<std::unique_ptr<BaseEnemy>>& enemies)
 {
     for (int i = 0; i < enemies.size(); i++)
     {

@@ -38,12 +38,6 @@ void BaseObject::renderOrigin(SDL_Renderer* renderer)
     const SDL_Rect rect = { (int)pos.x - (debugPointSize / 2), (int)pos.y - (debugPointSize / 2), debugPointSize, debugPointSize };
     SDL_SetRenderDrawColor(renderer, 0xff, 0xff, 0x00, 0xff); // #ebd517 yellow
     SDL_RenderFillRect(renderer, &rect);
-
-    // axis lines
-    // SDL_SetRenderDrawColor(renderer, 0xff, 0x00, 0x00, 0xff);
-    // SDL_RenderDrawLine(renderer, (int)posX, (int)posY, (int)posX + 8, (int)posY);
-    // SDL_SetRenderDrawColor(renderer, 0x00, 0xff, 0x00, 0xff);
-    // SDL_RenderDrawLine(renderer, (int)posX, (int)posY, (int)posX, (int)posY + 8);
 }
 
 #endif
