@@ -25,9 +25,9 @@ EnemyManager::~EnemyManager()
     enemies.clear();
 }
 
-void EnemyManager::addSkeleton(float x, float y)
+void EnemyManager::addSkeleton(const Vec2f& pos)
 {
-    enemies.push_back(new Skeleton(x, y, m_resourceManager, particleManager, m_uiManager, projectileManager, player));
+    enemies.push_back(new Skeleton(pos, m_resourceManager, particleManager, m_uiManager, projectileManager, player));
 }
 
 // tests collision against a list of projectiles and deals appropriate damage
@@ -41,14 +41,12 @@ void EnemyManager::resolvePlayerProjectileCollisions(const std::vector<BaseProje
             int enemiesHit = 0;
             for (const auto& enemy : enemies)
             {
-                if (AABB::testOverlap(projectile->getCollider(), enemy->getCollider()))
+                if (AABB2i::testOverlap(projectile->getCollider(), enemy->getCollider()))
                 {
                     enemy->takeDamage(projectile->getDamage());// make the enemy take damage
 
                     // also push the enemy away
-                    int pushVelX = ((enemy->posX - projectile->posX) > 0.0f) ? 1 : -1;
-                    int pushVelY = ((enemy->posY - projectile->posY) > 0.0f) ? 1 : -1;
-                    enemy->push(pushVelX, pushVelY, -100.0f);
+                    enemy->push(Vec2f::getDirection(projectile->pos, enemy->pos), -100.0f);
                     
                     enemiesHit++;
                 }

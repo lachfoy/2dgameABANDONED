@@ -1,12 +1,12 @@
 #include "Skeleton.h"
 
-#include "AABB.h"
+#include "AABB2i.h"
 #include "Player.h"
 #include "UiManager.h"
 #include "EnemyManager.h"
 
-Skeleton::Skeleton(float x, float y, ResourceManager* resourceManager, ParticleManager* particleManager, UiManager* uiManager, ProjectileManager* projectileManager, Player* player)
-    : BaseEnemy(x, y, resourceManager, particleManager, uiManager, projectileManager, player)
+Skeleton::Skeleton(const Vec2f& pos, ResourceManager* resourceManager, ParticleManager* particleManager, UiManager* uiManager, ProjectileManager* projectileManager, Player* player)
+    : BaseEnemy(pos, resourceManager, particleManager, uiManager, projectileManager, player)
 {
     // initialize everything
     name = "Skeleton";
@@ -43,30 +43,19 @@ void Skeleton::updateAI(float dt)
     if (thinkingTimer <= 0.0f)
     {
         printf("Skeleton had a thought...\n");
-        targetX = player->posX;
-        targetY = player->posY;
+        target = player->pos;
         
         thinkingTimer = thinkingTime;  // reset to the starting value
     }
 
-    // get direction vector from pos to target
-    float dirToTargetX = (targetX - posX);
-    float dirToTargetY = (targetY - posY);
-
-    // use pythag to get distance
-    // d = sqrt((x2 - x1)^2 + (y2 - y1)^2)
-    float distance = sqrtf((dirToTargetX * dirToTargetX) + (dirToTargetY * dirToTargetY));
-
-    // use distance to normalize the velocity vector
-    velX = dirToTargetX / distance;
-    velY = dirToTargetY / distance;
+    dir = Vec2f::getDirection(pos, target);
 }
 
 void Skeleton::render(SDL_Renderer* renderer)
 {
     // create rect representing the enemy
-    m_rect.x = (int)posX - (width / 2);
-    m_rect.y = (int)posY - height;
+    m_rect.x = (int)pos.x - (width / 2);
+    m_rect.y = (int)pos.y - height;
     m_rect.w = width;
     m_rect.h = height;
     

@@ -8,18 +8,16 @@
 class BaseParticle : public BaseObject
 {
 public:
-    BaseParticle(float x, float y, float velX, float velY, SDL_Texture* texture = nullptr);
+    BaseParticle(const Vec2f& pos, const Vec2f& dir, SDL_Texture* texture = nullptr);
     virtual ~BaseParticle() {}
 
-    float getVelX() const { return velX; }
-    float getVelY() const { return velY; }
+    inline Vec2f const& getDir() const { return dir; }
     
     void updateLifetime(float dt);
     void updatePosition(float dt);
 
 protected: // things the derived particles can change
-    float velX = 0.0f; // normalized x velocity
-    float velY = 0.0f; // normalized y velocity
+    Vec2f dir;
     int width = 10;
     int height = 10;
     float moveSpeed = 0.0f;

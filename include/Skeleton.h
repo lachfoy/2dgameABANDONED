@@ -8,14 +8,13 @@
 class Skeleton : public BaseEnemy
 {
 public:
-    Skeleton(float x, float y, ResourceManager* resourceManager, ParticleManager* particleManager, UiManager* uiManager, ProjectileManager* projectileManager, Player* player);
+    Skeleton(const Vec2f& pos, ResourceManager* resourceManager, ParticleManager* particleManager, UiManager* uiManager, ProjectileManager* projectileManager, Player* player);
 
     void updateAI(float dt) override;
     void render(SDL_Renderer* renderer) override;
 
 private:
-    float targetX;
-    float targetY;
+    Vec2f target;
     float thinkingTime;
     float thinkingTimer;
     

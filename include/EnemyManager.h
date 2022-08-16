@@ -5,6 +5,8 @@
 
 #include <SDL2/SDL.h>
 
+#include "Vec2f.h"
+
 class BaseEnemy;
 class BaseProjectile;
 class Player;
@@ -22,7 +24,7 @@ public:
 
     std::vector<BaseEnemy*> const& getEnemies() const { return enemies; }
     
-    void addSkeleton(float x, float y);
+    void addSkeleton(const Vec2f& pos);
 
     void resolvePlayerProjectileCollisions(const std::vector<BaseProjectile*>& playerProjectiles);
 

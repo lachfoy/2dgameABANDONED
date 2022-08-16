@@ -1,10 +1,10 @@
 #include "BaseParticle.h"
 
-BaseParticle::BaseParticle(float x, float y, float velX, float velY, SDL_Texture* texture)
-    : BaseObject(x, y)
+BaseParticle::BaseParticle(const Vec2f& pos, const Vec2f& dir, SDL_Texture* texture)
+    : BaseObject(pos)
 {
-    this->velX = velX;
-    this->velY = velY;
+    this->dir.x = dir.x;
+    this->dir.y = dir.y;
     this->texture = texture;
 }
 
@@ -19,6 +19,6 @@ void BaseParticle::updateLifetime(float dt)
 void BaseParticle::updatePosition(float dt)
 {
     // update the internal position
-    posX += velX * moveSpeed * dt;
-    posY += velY * moveSpeed * dt;
+    pos.x += dir.x * moveSpeed * dt;
+    pos.y += dir.y * moveSpeed * dt;
 }

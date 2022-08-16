@@ -6,6 +6,7 @@
 #include <SDL2/SDL.h>
 
 #include "ResourceManager.h"
+#include "Vec2f.h"
 
 class BaseParticle;
 
@@ -15,9 +16,9 @@ public:
     ParticleManager(ResourceManager* resourceManager);
     ~ParticleManager();
 
-    void addFireballParticle(float x, float y);
-    void addSmokeParticle(float x, float y);
-    void addFireballExplosionParticle(float x, float y, float velX, float velY);
+    void addFireballParticle(const Vec2f& pos);
+    void addSmokeParticle(const Vec2f& pos);
+    void addFireballExplosionParticle(const Vec2f& pos, const Vec2f& dir);
 
     void updateParticles(float dt);
     void removeUnusedParticles();

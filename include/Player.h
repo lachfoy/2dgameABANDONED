@@ -16,7 +16,7 @@ class BaseEnemy;
 class Player : public BaseDamageable
 {
 public:
-    Player(float x, float y, ResourceManager* resourceManager, UiManager* uiManager, ProjectileManager* projectileManager);
+    Player(const Vec2f& pos, ResourceManager* resourceManager, UiManager* uiManager, ProjectileManager* projectileManager);
 
     void handleInput(InputManager& inputManager);
 
@@ -53,8 +53,7 @@ private:
     float dodgeRollTime = 0.2f;
     float dodgeRollTimer = dodgeRollTime;
     float dodgeRollMoveSpeed = 380.0f;
-    float dodgeRollVelX;
-    float dodgeRollVelY;
+    Vec2f dodgeRollVel;
     const int DODGEROLLS_MAX = 1;
     int dodgeRolls = DODGEROLLS_MAX;
     float dodgeRollRechargeTime = 1.0f;

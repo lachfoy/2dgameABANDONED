@@ -3,12 +3,12 @@
 #include "ResourceManager.h"
 #include "ParticleManager.h"
 
-BaseDamageable::BaseDamageable(float x, float y, ResourceManager* resourceManager, ParticleManager* particleManager)
-    : BaseObject(x, y)
+BaseDamageable::BaseDamageable(const Vec2f& pos, ResourceManager* resourceManager, ParticleManager* particleManager)
+    : BaseObject(pos)
 {
     this->m_resourceManager = resourceManager;
     this->particleManager = particleManager;
-    collider = AABB(posX, posY, colliderW, colliderH);
+    collider = AABB2i(pos.x, pos.y, colliderW, colliderH);
     resistance = {0};
 }
 
@@ -30,12 +30,12 @@ void BaseDamageable::takeDamage(const Damage& damage)
 
 // instead we should take in an origin pos, then do the velocity calculation.\
     we should also use some kind of calculation based on a "mass" attribute
-void BaseDamageable::push(float pushVelX, float pushVelY, float pushMoveSpeed)
+void BaseDamageable::push(const Vec2f& pushDir, float pushMoveSpeed)
 {
     if (!isBeingPushed)
     {
-        this->pushVelX = pushVelX;
-        this->pushVelY = pushVelY;
+        this->pushDir.x = pushDir.x;
+        this->pushDir.y = pushDir.y;
         this->pushMoveSpeed = pushMoveSpeed;
         isBeingPushed = true;
     }
@@ -64,8 +64,8 @@ void BaseDamageable::updateTimers(float dt)
     {
         if (pushTimer > 0.0f)
         {
-            velX = pushVelX;
-            velY = pushVelY;
+            dir.x = pushDir.x;
+            dir.y = pushDir.y;
             moveSpeed = pushMoveSpeed;
             pushTimer -= dt;
         }
@@ -99,7 +99,7 @@ void BaseDamageable::updateTimers(float dt)
                 {
                     // spawn a particle at the old position
                     printf("added smoke particle\n");
-                    particleManager->addSmokeParticle(posX, posY - (height / 2));
+                    particleManager->addSmokeParticle({ pos.x, pos.y - (height / 2) });
                     smokeParticleSpawnTimer = smokeParticleSpawnTime; // reset timer
                 }
             }
@@ -115,25 +115,25 @@ void BaseDamageable::updateTimers(float dt)
 void BaseDamageable::updatePosition(float dt)
 {
     // update facing direction
-    if (velX > 0.0f)
+    if (dir.x > 0.0f)
         facingDirection = FACING_RIGHT;
-    else if (velX < 0.0f)
+    else if (dir.x < 0.0f)
         facingDirection = FACING_LEFT;
 
     // update the internal position
-    posX += velX * moveSpeed * dt;
-    posY += velY * (moveSpeed * 0.7f) * dt; // moving in the Y direction is a bit slower
+    pos.x += dir.x * moveSpeed * dt;
+    pos.y += dir.y * (moveSpeed * 0.7f) * dt; // moving in the Y direction is a bit slower
 
     // reset velocity
-    velX = 0.0f;
-    velY = 0.0f;
+    dir.x = 0.0f;
+    dir.y = 0.0f;
 
     // move the collider as well
     // note: origin for NPCs/players is always bottom center
-    collider.upperBoundX = posX - (colliderW / 2);
-    collider.upperBoundY = posY - (colliderH / 2) - (height / 2);
-    collider.lowerBoundX = posX + (colliderW / 2);
-    collider.lowerBoundY = posY + (colliderH / 2) - (height / 2);
+    collider.minX = (int)pos.x - (colliderW / 2);
+    collider.minY = (int)pos.y - (colliderH / 2) - (height / 2);
+    collider.maxX = (int)pos.x + (colliderW / 2);
+    collider.maxY = (int)pos.y + (colliderH / 2) - (height / 2);
 }
 
 void BaseDamageable::renderShadow(SDL_Renderer* renderer)
@@ -145,8 +145,8 @@ void BaseDamageable::renderShadow(SDL_Renderer* renderer)
     const int shadow_default_height = 24;
     shadow_rect.w = (int)(shadow_default_width * (width / (float)max_width));
     shadow_rect.h = (int)(shadow_default_height * (width / (float)max_width));
-    shadow_rect.x = (int)posX - (shadow_rect.w / 2);
-    shadow_rect.y = (int)posY - (shadow_rect.h / 2);
+    shadow_rect.x = (int)pos.x - (shadow_rect.w / 2);
+    shadow_rect.y = (int)pos.y - (shadow_rect.h / 2);
 
     // draw texture
     SDL_RenderCopy(renderer, m_resourceManager->getTexture("ShadowTexture"), NULL, &shadow_rect);

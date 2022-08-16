@@ -8,8 +8,8 @@ DynamicHealthbar::DynamicHealthbar(int length, int height, BaseDamageable* damag
 
 void DynamicHealthbar::updatePosition()
 {
-    int newX = (int)damageable->posX;
-    int newY = (int)damageable->posY - damageable->getHeight() - height - 2; // newY - objH - healthbarH - some padding value
+    int newX = (int)damageable->pos.x;
+    int newY = (int)damageable->pos.y - damageable->getHeight() - height - 2; // newY - objH - healthbarH - some padding value
 
     this->x = newX - (int)(length / 2.0f);
     this->y = newY - (int)(height / 2.0f);

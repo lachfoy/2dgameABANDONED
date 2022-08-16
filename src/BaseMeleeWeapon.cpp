@@ -2,8 +2,8 @@
 
 #include "BaseDamageable.h"
 
-BaseMeleeWeapon::BaseMeleeWeapon(float x, float y, float offsetX, float offsetY, SDL_Texture* texture, BaseDamageable* wielder)
-     : BaseProjectile(x, y, 0, 0, texture) // no texture for now
+BaseMeleeWeapon::BaseMeleeWeapon(const Vec2f& pos, float offsetX, float offsetY, SDL_Texture* texture, BaseDamageable* wielder)
+     : BaseProjectile(pos, { 0.0f, 0.0f }, texture, nullptr)
 {
     this->offsetX = offsetX;
     this->offsetY = offsetY;
@@ -17,8 +17,8 @@ BaseMeleeWeapon::BaseMeleeWeapon(float x, float y, float offsetX, float offsetY,
 void BaseMeleeWeapon::updatePosition(float dt)
 {
     // follow the position of the wielder + an offset
-    posX = wielder->posX + offsetX;
-    posY = wielder->posY + offsetY;
+    pos.x = wielder->pos.x + offsetX;
+    pos.y = wielder->pos.y + offsetY;
 
     if (rotate)
     {
@@ -32,8 +32,8 @@ void BaseMeleeWeapon::updatePosition(float dt)
     flip = !wielder->facingRight();
 
     // move the collider as well
-    collider.upperBoundX = posX - (colliderW / 2);
-    collider.upperBoundY = posY - (colliderH / 2);
-    collider.lowerBoundX = posX + (colliderW / 2);
-    collider.lowerBoundY = posY + (colliderH / 2);
+    collider.minX = (int)pos.x - (colliderW / 2);
+    collider.minY = (int)pos.y - (colliderH / 2);
+    collider.maxX = (int)pos.x + (colliderW / 2);
+    collider.maxY = (int)pos.y + (colliderH / 2);
 }
