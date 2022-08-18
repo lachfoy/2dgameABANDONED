@@ -17,16 +17,16 @@ public:
     ParticleManager(std::shared_ptr<ResourceManager> resourceManager);
     ~ParticleManager();
 
-    void addFireballParticle(const Vec2f& pos);
-    void addSmokeParticle(const Vec2f& pos);
-    void addFireballExplosionParticle(const Vec2f& pos, const Vec2f& dir);
+    void addFireballParticle(const Vec2f& pos, const Vec2f& dir, float moveSpeed);
+    void addSmokeParticle(const Vec2f& pos, const Vec2f& dir, float moveSpeed);
+    void addFireballExplosionParticle(const Vec2f& pos, const Vec2f& dir, float moveSpeed);
 
     void updateParticles(float dt);
     void removeUnusedParticles();
     void renderParticles(SDL_Renderer* renderer);
 
 private:
-    std::vector<BaseParticle*> particles;
+    std::vector<BaseParticle*> m_particles;
     std::shared_ptr<ResourceManager> m_resourceManager;
     
 };

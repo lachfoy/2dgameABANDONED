@@ -8,15 +8,15 @@
 class FireballParticle : public BaseParticle
 {
 public:
-    inline FireballParticle(const Vec2f& pos, SDL_Texture* texture);
+    inline FireballParticle(const Vec2f& pos, const Vec2f& dir, float moveSpeed, SDL_Texture* texture);
     virtual ~FireballParticle() {}
     
     inline void render(SDL_Renderer* renderer) override;
 
 };
 
-FireballParticle::FireballParticle(const Vec2f& pos, SDL_Texture* texture)
-     : BaseParticle(pos, {0.0f, 0.0f}, texture)
+FireballParticle::FireballParticle(const Vec2f& pos, const Vec2f& dir, float moveSpeed, SDL_Texture* texture)
+     : BaseParticle(pos, dir, moveSpeed, texture)
 {
     name = "FireballParticle";
     width = 24;

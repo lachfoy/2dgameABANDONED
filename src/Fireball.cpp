@@ -29,17 +29,6 @@ void Fireball::destroy(ProjectileManager& projectileManager)
     projectileManager.addFireballExplosion(pos);
 }
 
-void Fireball::spawnParticles(float dt)
-{
-    if (trailSpawnTimer > 0.0f) trailSpawnTimer -= dt;
-    else
-    {
-        // spawn a particle at the old position
-        m_particleManager->addFireballParticle(pos);
-        trailSpawnTimer = trailSpawnTime; // reset timer
-    }
-}
-
 // this should be redone in a better way... im just not sure how
 void Fireball::updatePosition(float dt)
 {

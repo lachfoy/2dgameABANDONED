@@ -19,19 +19,6 @@ FireballExplosion::FireballExplosion(const Vec2f& pos,
     onlyDamageOnce = true;
 }
 
-void FireballExplosion::spawnParticles(float dt)
-{
-    float gasVelX = 0.5f;
-    float gasVelY = 0.5f;
-    if (gasSpawnTimer > 0.0f) gasSpawnTimer -= dt;
-    else
-    {
-        // spawn a particle at the old position
-        m_particleManager->addFireballExplosionParticle(pos, { gasVelX, gasVelY });
-        gasSpawnTimer = gasSpawnTime; // reset timer
-    }
-}
-
 void FireballExplosion::render(SDL_Renderer* renderer)
 {
     // draw the origin position representing the actual x and y positions

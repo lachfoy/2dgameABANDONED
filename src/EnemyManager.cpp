@@ -49,7 +49,7 @@ void EnemyManager::resolvePlayerProjectileCollisions(const std::vector<std::uniq
                     enemy->takeDamage(projectile->getDamage());// make the enemy take damage
 
                     // also push the enemy away
-                    enemy->push(Vec2f::getDirection(projectile->pos, enemy->pos), -100.0f);
+                    enemy->push(Vec2f::getDirection(projectile->pos, enemy->pos), 100.0f);
                     
                     enemiesHit++;
                 }

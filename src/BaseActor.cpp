@@ -99,15 +99,6 @@ void BaseActor::updateFire(float dt)
                     takeDamage(statusBurning);
                     fireTickTimer = fireTickTime; // reset to the starting value
                 }
-
-                if (smokeParticleSpawnTimer > 0.0f) smokeParticleSpawnTimer -= dt;
-                else
-                {
-                    // spawn a particle at the old position
-                    printf("added smoke particle\n");
-                    particleManager->addSmokeParticle({ pos.x, pos.y - (height / 2) });
-                    smokeParticleSpawnTimer = smokeParticleSpawnTime; // reset timer
-                }
             }
             else
             {

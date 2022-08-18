@@ -8,15 +8,15 @@
 class SmokeParticle : public BaseParticle
 {
 public:
-    inline SmokeParticle(const Vec2f& pos, SDL_Texture* texture);
+    inline SmokeParticle(const Vec2f& pos, const Vec2f& dir, float moveSpeed, SDL_Texture* texture);
     virtual ~SmokeParticle() {}
     
     inline void render(SDL_Renderer* renderer) override;
 
 };
 
-SmokeParticle::SmokeParticle(const Vec2f& pos, SDL_Texture* texture)
-     : BaseParticle(pos, { 0.0f, 0.0f }, texture)
+SmokeParticle::SmokeParticle(const Vec2f& pos, const Vec2f& dir, float moveSpeed, SDL_Texture* texture)
+     : BaseParticle(pos, dir, moveSpeed, texture)
 {
     name = "SmokeParticle";
     width = 60;

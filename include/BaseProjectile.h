@@ -35,7 +35,6 @@ public:
     virtual void destroy(ProjectileManager& projectileManager) = 0;
     
     void updateLifetime(float dt);
-    virtual void spawnParticles(float dt) {}
     virtual void updatePosition(float dt); // derived projectiles can override update ONLY if they need to
 
     // debug

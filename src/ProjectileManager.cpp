@@ -34,7 +34,6 @@ void ProjectileManager::updateProjectiles(float dt)
     for (const auto& projectile : m_enemyProjectiles)
     {
         projectile->updatePosition(dt);
-        projectile->spawnParticles(dt);
         projectile->updateLifetime(dt);
     }
 
@@ -42,7 +41,6 @@ void ProjectileManager::updateProjectiles(float dt)
     for (const auto& projectile : m_playerProjectiles)
     {
         projectile->updatePosition(dt);
-        projectile->spawnParticles(dt);
         projectile->updateLifetime(dt);
     }
 }

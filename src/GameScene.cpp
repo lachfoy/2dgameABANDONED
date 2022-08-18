@@ -17,6 +17,17 @@ GameScene::GameScene(std::shared_ptr<InputManager> inputManager, std::shared_ptr
     m_particleManager = std::make_shared<ParticleManager>(m_resourceManager);
     m_projectileManager = std::make_shared<ProjectileManager>(m_resourceManager, m_particleManager);
 
+    particleSpawner = std::make_unique<ParticleSpawner>(PARTICLE_FIRE,
+        0.2f,
+        30,
+        Vec2f(500.0f, 300.0f),
+        Vec2f(0.0f, 0.0f),
+        true,
+        100.0f,
+        300.0f,
+        0.0f,
+        m_particleManager);
+
     const Vec2f playerPos = { 100.0f, 200.0f };
     m_player = std::make_shared<Player>(playerPos, m_resourceManager, m_uiManager, m_projectileManager);
     
@@ -34,6 +45,8 @@ GameScene::~GameScene()
 
 void GameScene::update(float dt)
 {
+    particleSpawner->update(dt); // test
+
     // handle input
     m_player->handleInput(*m_inputManager);
 

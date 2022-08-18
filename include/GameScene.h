@@ -9,11 +9,15 @@ class EnemyManager;
 class UiManager;
 class ParticleManager;
 
+#include "ParticleSpawner.h"
+
 class GameScene : public BaseScene
 {
 public:
     GameScene(std::shared_ptr<InputManager> inputManager, std::shared_ptr<ResourceManager> resourceManager, int windowWidth, int windowHeight);
     ~GameScene();
+
+    std::unique_ptr<ParticleSpawner> particleSpawner;
 
     void update(float dt) override;
     void render(SDL_Renderer* renderer) override;
