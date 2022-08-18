@@ -5,8 +5,8 @@ digraph inheritance {
     edge [dir=back arrowtail=empty]
 
     subgraph objects {
-        BaseObject->{BaseDamageable, BaseProjectile, BaseParticle}
-        BaseDamageable->{Player, BaseEnemy}
+        BaseObject->{BaseActor, BaseProjectile, BaseParticle}
+        BaseActor->{Player, BaseEnemy}
         BaseProjectile->{Fireball, FireballExplosion, BaseMeleeWeapon}
         BaseParticle->{FireballParticle, SmokeParticle}
         BaseMeleeWeapon->{Sword, SwordSlash}
