@@ -1,9 +1,13 @@
 #include "FireballExplosion.h"
 
+#include "ProjectileManager.h"
+#include "ResourceManager.h"
 #include "ParticleManager.h"
 
-FireballExplosion::FireballExplosion(const Vec2f& pos, SDL_Texture* texture, std::shared_ptr<ParticleManager> particleManager)
-    : BaseProjectile(pos, { 0.0f, 0.0f }, texture, particleManager)
+FireballExplosion::FireballExplosion(const Vec2f& pos,
+    std::shared_ptr<ResourceManager> resourceManager,
+    std::shared_ptr<ParticleManager> particleManager)
+     : BaseProjectile(pos, { 0.0f, 0.0f }, resourceManager, particleManager)
 {
     name = "FireballExplosion";
     colliderW = 200;
@@ -23,7 +27,7 @@ void FireballExplosion::spawnParticles(float dt)
     else
     {
         // spawn a particle at the old position
-        particleManager->addFireballExplosionParticle(pos, { gasVelX, gasVelY });
+        m_particleManager->addFireballExplosionParticle(pos, { gasVelX, gasVelY });
         gasSpawnTimer = gasSpawnTime; // reset timer
     }
 }
@@ -37,7 +41,7 @@ void FireballExplosion::render(SDL_Renderer* renderer)
     fireball_explosion_rect.x = (int)pos.x - (fireball_explosion_rect.w / 2);
     fireball_explosion_rect.y = (int)pos.y - (fireball_explosion_rect.h / 2);
 
-    SDL_RenderCopy(renderer, texture, NULL, &fireball_explosion_rect);
+    SDL_RenderCopy(renderer, m_resourceManager->getTexture("FireballExplosionTexture"), NULL, &fireball_explosion_rect);
 
     // draw collider
     //collider.debugRender(renderer);

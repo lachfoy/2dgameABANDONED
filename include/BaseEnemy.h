@@ -20,12 +20,12 @@ public:
         std::shared_ptr<UiManager> uiManager,
         std::shared_ptr<ProjectileManager> projectileManager,
         std::shared_ptr<Player> player);
-    virtual ~BaseEnemy() {} // derived enemies can add functionality to their destructors
 
     Damage getDamage() const { return damage; }
     
     // derived enemies can add any AI functionality if they wish
-    virtual void updateAI(float dt) = 0;
+    virtual void updateAI(float dt) {}
+    void update(float dt) override;
 
 protected:
     std::shared_ptr<UiManager> m_uiManager;

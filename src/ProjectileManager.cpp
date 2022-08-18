@@ -2,15 +2,13 @@
 
 #include "Fireball.h"
 #include "FireballExplosion.h"
-#include "Sword.h"
 #include "BaseActor.h"
-#include "SwordSlash.h"
 #include "ResourceManager.h"
 
 ProjectileManager::ProjectileManager(std::shared_ptr<ResourceManager> resourceManager, std::shared_ptr<ParticleManager> particleManager)
 {
     m_resourceManager = resourceManager;
-    this->particleManager = particleManager;
+    m_particleManager = particleManager;
 }
 
 ProjectileManager::~ProjectileManager()
@@ -22,22 +20,12 @@ ProjectileManager::~ProjectileManager()
 
 void ProjectileManager::addFireball(const Vec2f& pos, const Vec2f& dir)
 {
-    m_playerProjectiles.push_back(std::make_unique<Fireball>(pos, dir, m_resourceManager->getTexture("FireballTexture"), particleManager));
+    m_playerProjectiles.push_back(std::make_unique<Fireball>(pos, dir, m_resourceManager, m_particleManager));
 }
 
 void ProjectileManager::addFireballExplosion(const Vec2f& pos)
 {
-    m_playerProjectiles.push_back(std::make_unique<FireballExplosion>(pos, m_resourceManager->getTexture("FireballExplosionTexture"), particleManager));
-}
-
-void ProjectileManager::addSword(const Vec2f& pos, float offsetX, float offsetY, BaseActor* actor)
-{
-    m_playerProjectiles.push_back(std::make_unique<Sword>(pos, offsetX, offsetY, m_resourceManager->getTexture("SwordTexture"), actor));
-}
-
-void ProjectileManager::addSwordSlash(const Vec2f& pos, float offsetX, float offsetY, BaseActor* actor)
-{
-    m_playerProjectiles.push_back(std::make_unique<SwordSlash>(pos, offsetX, offsetY, m_resourceManager->getTexture("SwordSlashTexture"), actor));
+    m_playerProjectiles.push_back(std::make_unique<FireballExplosion>(pos, m_resourceManager, m_particleManager));
 }
 
 void ProjectileManager::updateProjectiles(float dt)

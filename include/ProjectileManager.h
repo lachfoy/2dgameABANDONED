@@ -33,8 +33,6 @@ public:
     //inline void addProjectile(BaseProjectile* projectile) { projectiles.push_back(projectile); } // depracated? dont use this anymore
     void addFireball(const Vec2f& pos, const Vec2f& dir);
     void addFireballExplosion(const Vec2f& pos);
-    void addSword(const Vec2f& pos, float offsetX, float offsetY, BaseActor* actor);
-    void addSwordSlash(const Vec2f& pos, float offsetX, float offsetY, BaseActor* actor);
 
     void updateProjectiles(float dt);
     void resolveProjectileVsEnemyCollisions(const std::vector<BaseActor*>& enemies);
@@ -47,7 +45,7 @@ private:
     std::vector<std::unique_ptr<BaseProjectile>> m_enemyProjectiles;
 
     std::shared_ptr<ResourceManager> m_resourceManager;
-    std::shared_ptr<ParticleManager> particleManager;
+    std::shared_ptr<ParticleManager> m_particleManager;
 
 };
 

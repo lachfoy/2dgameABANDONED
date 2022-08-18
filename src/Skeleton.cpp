@@ -11,7 +11,7 @@ Skeleton::Skeleton(const Vec2f& pos,
     std::shared_ptr<UiManager> uiManager,
     std::shared_ptr<ProjectileManager> projectileManager,
     std::shared_ptr<Player> player)
-    : BaseEnemy(pos, resourceManager, particleManager, uiManager, projectileManager, player)
+     : BaseEnemy(pos, resourceManager, particleManager, uiManager, projectileManager, player)
 {
     // initialize everything
     name = "Skeleton";

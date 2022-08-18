@@ -71,9 +71,7 @@ void EnemyManager::updateEnemies(float dt)
     // update all the enemies
     for (const auto& enemy : m_enemies)
     {
-        enemy->updateTimers(dt);
-        enemy->updateAI(dt);
-        enemy->updatePosition(dt);
+        enemy->update(dt);
     }
 }
 

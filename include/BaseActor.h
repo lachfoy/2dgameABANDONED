@@ -1,5 +1,5 @@
-#ifndef BASEDAMAGEABLE_H
-#define BASEDAMAGEABLE_H
+#ifndef BASEACTOR_H
+#define BASEACTOR_H
 
 #include <memory>
 
@@ -29,12 +29,15 @@ public:
     virtual void takeDamage(const Damage& damage); // overriden by player
     void push(const Vec2f& pushDir, float pushMoveSpeed);
 
-    virtual void updateTimers(float dt); // overriden by player
-    void updatePosition(float dt);
+    // can be pushed, hurt, on fire
+    void updatePush(float dt);
+    void updateHurt(float dt);
+    void updateFire(float dt);
+    void updatePosition(float dt); // update position and collider position
+    virtual void update(float dt) = 0;
 
     void renderShadow(SDL_Renderer* renderer);
 
-    // debug
     void renderCollider(SDL_Renderer* renderer);
 
 protected:

@@ -19,3 +19,12 @@ BaseEnemy::BaseEnemy(const Vec2f& pos,
 
     m_uiManager->addDynamicHealthbar(44, 4, this);
 }
+
+void BaseEnemy::update(float dt)
+{
+    updateAI(dt);
+    updateHurt(dt);
+    updateFire(dt);
+    updatePush(dt);
+    updatePosition(dt);
+}
