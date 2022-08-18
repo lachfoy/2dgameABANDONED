@@ -13,7 +13,9 @@ class ParticleManager;
 class BaseDamageable : public BaseObject
 {
 public:
-    BaseDamageable(const Vec2f& pos, std::shared_ptr<ResourceManager> ResourceManager, std::shared_ptr<ParticleManager> particleManager); // we assume that every damageable gets created with a pointer to the resource manager
+    BaseDamageable(const Vec2f& pos,
+        std::shared_ptr<ResourceManager> ResourceManager,
+        std::shared_ptr<ParticleManager> particleManager);
 
     // getters
     inline int getHealth() const { return health; }

@@ -4,7 +4,9 @@
 
 DynamicHealthbar::DynamicHealthbar(int length, int height, BaseDamageable* damageable)
      : Healthbar(0, 0, length, height, damageable)
-{}
+{
+    
+}
 
 void DynamicHealthbar::updatePosition()
 {

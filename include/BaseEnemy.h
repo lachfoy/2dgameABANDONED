@@ -14,7 +14,12 @@ class Player;
 class BaseEnemy : public BaseDamageable
 {
 public:
-    BaseEnemy(const Vec2f& pos, std::shared_ptr<ResourceManager> ResourceManager, std::shared_ptr<ParticleManager> particleManager, std::shared_ptr<UiManager> uiManager, std::shared_ptr<ProjectileManager> projectileManager, std::shared_ptr<Player> player);
+    BaseEnemy(const Vec2f& pos,
+        std::shared_ptr<ResourceManager> ResourceManager,
+        std::shared_ptr<ParticleManager> particleManager,
+        std::shared_ptr<UiManager> uiManager,
+        std::shared_ptr<ProjectileManager> projectileManager,
+        std::shared_ptr<Player> player);
     virtual ~BaseEnemy() {} // derived enemies can add functionality to their destructors
 
     Damage getDamage() const { return damage; }

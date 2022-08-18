@@ -16,7 +16,10 @@ class BaseEnemy;
 class Player : public BaseDamageable
 {
 public:
-    Player(const Vec2f& pos, std::shared_ptr<ResourceManager> resourceManager, std::shared_ptr<UiManager> uiManager, std::shared_ptr<ProjectileManager> projectileManager);
+    Player(const Vec2f& pos,
+        std::shared_ptr<ResourceManager> resourceManager,
+        std::shared_ptr<UiManager> uiManager,
+        std::shared_ptr<ProjectileManager> projectileManager);
 
     void handleInput(InputManager& inputManager);
 
