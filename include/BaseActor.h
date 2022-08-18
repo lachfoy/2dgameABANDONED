@@ -14,7 +14,7 @@ class BaseActor : public BaseObject
 {
 public:
     BaseActor(const Vec2f& pos,
-        std::shared_ptr<ResourceManager> ResourceManager,
+        std::shared_ptr<ResourceManager> resourceManager,
         std::shared_ptr<ParticleManager> particleManager);
 
     // getters
