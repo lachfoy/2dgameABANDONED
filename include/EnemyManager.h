@@ -20,7 +20,11 @@ class ParticleManager;
 class EnemyManager
 {
 public:
-    EnemyManager(std::shared_ptr<ResourceManager> resourceManager, std::shared_ptr<ParticleManager> particleManager, std::shared_ptr<UiManager> uiManager, std::shared_ptr<ProjectileManager> projectileManager, std::shared_ptr<Player> player);
+    EnemyManager(std::shared_ptr<ResourceManager> resourceManager,
+        std::shared_ptr<ParticleManager> particleManager,
+        std::shared_ptr<UiManager> uiManager,
+        std::shared_ptr<ProjectileManager> projectileManager,
+        std::shared_ptr<Player> player);
     ~EnemyManager();
 
     std::vector<std::unique_ptr<BaseEnemy>> const& getEnemies() const { return m_enemies; }

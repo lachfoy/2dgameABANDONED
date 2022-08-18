@@ -15,7 +15,7 @@ class BaseEnemy : public BaseActor
 {
 public:
     BaseEnemy(const Vec2f& pos,
-        std::shared_ptr<ResourceManager> ResourceManager,
+        std::shared_ptr<ResourceManager> resourceManager,
         std::shared_ptr<ParticleManager> particleManager,
         std::shared_ptr<UiManager> uiManager,
         std::shared_ptr<ProjectileManager> projectileManager,
