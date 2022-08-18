@@ -17,7 +17,7 @@ class ParticleManager;
 class ProjectileManager
 {
 public:
-    ProjectileManager(std::shared_ptr<ResourceManager> resourceManager, ParticleManager* particleManager);
+    ProjectileManager(std::shared_ptr<ResourceManager> resourceManager, std::shared_ptr<ParticleManager> particleManager);
     ~ProjectileManager();
 
     // Getter for the projectiles vectors
@@ -47,7 +47,7 @@ private:
     std::vector<std::unique_ptr<BaseProjectile>> m_enemyProjectiles;
 
     std::shared_ptr<ResourceManager> m_resourceManager;
-    ParticleManager* particleManager;
+    std::shared_ptr<ParticleManager> particleManager;
 
 };
 

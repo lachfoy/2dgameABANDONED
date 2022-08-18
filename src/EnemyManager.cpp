@@ -9,7 +9,11 @@
 #include "ResourceManager.h"
 #include "ParticleManager.h"
 
-EnemyManager::EnemyManager(std::shared_ptr<ResourceManager> resourceManager, ParticleManager* particleManager, UiManager* uiManager, ProjectileManager* projectileManager, Player* player)
+EnemyManager::EnemyManager(std::shared_ptr<ResourceManager> resourceManager,
+    std::shared_ptr<ParticleManager> particleManager,
+    std::shared_ptr<UiManager> uiManager,
+    std::shared_ptr<ProjectileManager> projectileManager,
+    std::shared_ptr<Player> player)
 {
     this->m_resourceManager = resourceManager;
     this->particleManager = particleManager;

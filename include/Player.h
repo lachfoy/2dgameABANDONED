@@ -16,7 +16,7 @@ class BaseEnemy;
 class Player : public BaseDamageable
 {
 public:
-    Player(const Vec2f& pos, std::shared_ptr<ResourceManager> resourceManager, UiManager* uiManager, ProjectileManager* projectileManager);
+    Player(const Vec2f& pos, std::shared_ptr<ResourceManager> resourceManager, std::shared_ptr<UiManager> uiManager, std::shared_ptr<ProjectileManager> projectileManager);
 
     void handleInput(InputManager& inputManager);
 
@@ -38,8 +38,8 @@ public:
     void renderDebug(SDL_Renderer* renderer);
 
 private:
-    UiManager* m_uiManager;
-    ProjectileManager* projectileManager;
+    std::shared_ptr<UiManager> m_uiManager;
+    std::shared_ptr<ProjectileManager> projectileManager;
     
     bool isReceivingInput = true;
 

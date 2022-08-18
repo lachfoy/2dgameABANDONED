@@ -17,7 +17,7 @@ class Player;
 class UiManager
 {
 public:
-    UiManager(InputManager* inputManager, std::shared_ptr<ResourceManager> resourceManager, int windowWidth, int windowHeight);
+    UiManager(std::shared_ptr<InputManager> inputManager, std::shared_ptr<ResourceManager> resourceManager, int windowWidth, int windowHeight);
     ~UiManager();
 
     std::vector<BaseUiObject*> const& getUiObjects() const { return m_uiObjects; }
@@ -26,7 +26,7 @@ public:
     void addDynamicHealthbar(int length, int height, BaseDamageable* damageable);
     void addCrosshair(int x, int y, int w, int h);
     void addTextObject(int x, int y, std::string text);
-    void addPlayerDebugText(int x, int y, Player* player);
+    void addPlayerDebugText(int x, int y, std::shared_ptr<Player> player);
     void addBackgroundFill(SDL_Color color);
     void addButton(int x, int y, std::string text);
 
@@ -40,7 +40,7 @@ private:
     int m_windowHeight;
 
     // no ownership
-    InputManager* m_inputManager;
+    std::shared_ptr<InputManager> m_inputManager;
     std::shared_ptr<ResourceManager> m_resourceManager;
 
 };

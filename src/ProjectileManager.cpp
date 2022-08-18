@@ -7,21 +7,16 @@
 #include "SwordSlash.h"
 #include "ResourceManager.h"
 
-ProjectileManager::ProjectileManager(std::shared_ptr<ResourceManager> resourceManager, ParticleManager* particleManager)
+ProjectileManager::ProjectileManager(std::shared_ptr<ResourceManager> resourceManager, std::shared_ptr<ParticleManager> particleManager)
 {
-    this->m_resourceManager = resourceManager; // ptr to resource manager, used when creating projectiles to give them the appropriate textures
+    m_resourceManager = resourceManager;
     this->particleManager = particleManager;
 }
 
 ProjectileManager::~ProjectileManager()
 {
-    // clear the projectiles vectors and delete the pointers
-    // enemy projectiles
-    //for (const auto& projectile : m_enemyProjectiles) delete projectile;
+    // clear the projectiles vectors
     m_enemyProjectiles.clear();
-
-    // player projectiles
-    //for (const auto& projectile : m_playerProjectiles) delete projectile;
     m_playerProjectiles.clear();
 }
 
@@ -72,7 +67,6 @@ void ProjectileManager::removeUnusedProjectiles()
         if (m_enemyProjectiles[i]->removable)
         {
             m_enemyProjectiles[i]->destroy(*this);
-            //delete m_enemyProjectiles[i];
             m_enemyProjectiles.erase(m_enemyProjectiles.begin() + i);
             i--;
         }
@@ -84,7 +78,6 @@ void ProjectileManager::removeUnusedProjectiles()
         if (m_playerProjectiles[i]->removable)
         {
             m_playerProjectiles[i]->destroy(*this);
-            //delete m_playerProjectiles[i];
             m_playerProjectiles.erase(m_playerProjectiles.begin() + i);
             i--;
         }
@@ -93,17 +86,8 @@ void ProjectileManager::removeUnusedProjectiles()
 
 void ProjectileManager::renderProjectiles(SDL_Renderer* renderer)
 {
-    // enemy projectiles
-    for (const auto& projectile : m_enemyProjectiles)
-    {
-        projectile->render(renderer);
-    }
-
-    // player projectiles
-    for (const auto& projectile : m_playerProjectiles)
-    {
-        projectile->render(renderer);
-    }
+    for (const auto& projectile : m_enemyProjectiles) projectile->render(renderer);
+    for (const auto& projectile : m_playerProjectiles) projectile->render(renderer);
 }
 
 void ProjectileManager::renderDebug(SDL_Renderer* renderer)

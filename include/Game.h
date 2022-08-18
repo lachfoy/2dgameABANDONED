@@ -28,12 +28,9 @@ private:
     SDL_Window* window;
     SDL_Renderer* renderer;
 
-    InputManager* m_inputManager;
+    std::shared_ptr<InputManager> m_inputManager;
     std::shared_ptr<ResourceManager> m_resourceManager;
-    
-    SceneManager* m_sceneManager;
-
-
+    std::shared_ptr<SceneManager> m_sceneManager;
 
     void create();
     void destroy(); // deallocate window and renderer

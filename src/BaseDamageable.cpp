@@ -3,7 +3,7 @@
 #include "ResourceManager.h"
 #include "ParticleManager.h"
 
-BaseDamageable::BaseDamageable(const Vec2f& pos, std::shared_ptr<ResourceManager> resourceManager, ParticleManager* particleManager)
+BaseDamageable::BaseDamageable(const Vec2f& pos, std::shared_ptr<ResourceManager> resourceManager, std::shared_ptr<ParticleManager> particleManager)
     : BaseObject(pos)
 {
     this->m_resourceManager = resourceManager;

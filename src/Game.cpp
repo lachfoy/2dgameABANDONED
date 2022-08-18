@@ -2,12 +2,6 @@
 
 #include "InputManager.h"
 #include "ResourceManager.h"
-#include "Player.h"
-#include "ProjectileManager.h"
-#include "EnemyManager.h"
-#include "UiManager.h"
-#include "Crosshair.h"
-#include "ParticleManager.h"
 #include "SceneManager.h"
 
 Game::Game() {}
@@ -117,19 +111,16 @@ void Game::run()
 
 void Game::create()
 {
-    m_inputManager = new InputManager();
+    m_inputManager = std::make_shared<InputManager>();
     m_resourceManager = std::make_shared<ResourceManager>(renderer);
     m_resourceManager->loadFonts();
 
-    m_sceneManager = new SceneManager(m_inputManager, m_resourceManager, windowWidth, windowHeight);
+    m_sceneManager = std::make_shared<SceneManager>(m_inputManager, m_resourceManager, windowWidth, windowHeight);
     m_sceneManager->startGame();
 }
 
 void Game::destroy()
 {
-    delete m_inputManager;
-    delete m_sceneManager;
-    
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
 

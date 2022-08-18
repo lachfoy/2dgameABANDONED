@@ -5,7 +5,7 @@
 #include "PauseScene.h"
 #include "MenuScene.h"
 
-SceneManager::SceneManager(InputManager* inputManager, std::shared_ptr<ResourceManager> resourceManager, int windowWidth, int windowHeight)
+SceneManager::SceneManager(std::shared_ptr<InputManager> inputManager, std::shared_ptr<ResourceManager> resourceManager, int windowWidth, int windowHeight)
 {
     m_inputManager = inputManager;
     m_resourceManager = resourceManager;

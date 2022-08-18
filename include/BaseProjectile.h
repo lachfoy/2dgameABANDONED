@@ -3,6 +3,8 @@
 
 #include <SDL2/SDL.h>
 
+#include <memory>
+
 #include "BaseObject.h"
 #include "AABB2i.h"
 #include "Damage.h"
@@ -13,7 +15,7 @@ class ParticleManager;
 class BaseProjectile : public BaseObject
 {
 public:
-    BaseProjectile(const Vec2f& pos, const Vec2f& dir, SDL_Texture* texture = nullptr, ParticleManager* particleManager = nullptr);
+    BaseProjectile(const Vec2f& pos, const Vec2f& dir, SDL_Texture* texture, std::shared_ptr<ParticleManager> particleManager);
     virtual ~BaseProjectile() {}
 
     bool removeOnCollision;
@@ -41,7 +43,7 @@ protected: // things the derived projectiles can change
     float moveSpeed;
     float lifeTime;
     SDL_Texture* texture; // texture to use for rendering, projectile does not have ownership
-    ParticleManager* particleManager;
+    std::shared_ptr<ParticleManager> particleManager;
     bool rotate = false;
     float angle = 0.0f; // angle in degrees
     float rotationSpeed = 0.0f;

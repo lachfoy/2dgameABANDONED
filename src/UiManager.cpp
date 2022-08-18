@@ -11,7 +11,7 @@
 #include "BackgroundFill.h"
 #include "Button.h"
 
-UiManager::UiManager(InputManager* inputManager, std::shared_ptr<ResourceManager> resourceManager, int windowWidth, int windowHeight)
+UiManager::UiManager(std::shared_ptr<InputManager> inputManager, std::shared_ptr<ResourceManager> resourceManager, int windowWidth, int windowHeight)
 {
     m_inputManager = inputManager;
     m_resourceManager = resourceManager;
@@ -46,7 +46,7 @@ void UiManager::addTextObject(int x, int y, std::string text)
     m_uiObjects.push_back(new BaseTextObject(x, y, text, m_resourceManager->getFont("ArialHeader")));
 }
 
-void UiManager::addPlayerDebugText(int x, int y, Player* player)
+void UiManager::addPlayerDebugText(int x, int y, std::shared_ptr<Player> player)
 {
     m_uiObjects.push_back(new PlayerDebugText(x, y, "", m_resourceManager->getFont("ArialBody"), player));  
 }

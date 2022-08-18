@@ -10,7 +10,7 @@
 class Crosshair : public BaseUiObject
 {
 public:
-    inline Crosshair(int x, int y, int w, int h, InputManager* inputManager, SDL_Texture* texture);
+    inline Crosshair(int x, int y, int w, int h, std::shared_ptr<InputManager> inputManager, SDL_Texture* texture);
 
     inline void updatePosition(const int& newX, const int& newY); // update center position
     inline void update(float dt) override;
@@ -18,12 +18,12 @@ public:
 
 private:
     SDL_Rect crosshair_rect;
-    InputManager* m_inputManager;
+    std::shared_ptr<InputManager> m_inputManager;
     SDL_Texture* texture;
 
 };
 
-Crosshair::Crosshair(int x, int y, int w, int h, InputManager* inputManager, SDL_Texture* texture)
+Crosshair::Crosshair(int x, int y, int w, int h, std::shared_ptr<InputManager> inputManager, SDL_Texture* texture)
 {
     this->x = x - (int)(w / 2.0f);
     this->y = y - (int)(h / 2.0f);
