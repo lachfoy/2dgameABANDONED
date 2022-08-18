@@ -10,7 +10,7 @@
 #include "BaseProjectile.h"
 #include "Vec2f.h"
 
-class BaseDamageable;
+class BaseActor;
 class ResourceManager;
 class ParticleManager;
 
@@ -33,11 +33,11 @@ public:
     //inline void addProjectile(BaseProjectile* projectile) { projectiles.push_back(projectile); } // depracated? dont use this anymore
     void addFireball(const Vec2f& pos, const Vec2f& dir);
     void addFireballExplosion(const Vec2f& pos);
-    void addSword(const Vec2f& pos, float offsetX, float offsetY, BaseDamageable* wielder);
-    void addSwordSlash(const Vec2f& pos, float offsetX, float offsetY, BaseDamageable* wielder);
+    void addSword(const Vec2f& pos, float offsetX, float offsetY, BaseActor* actor);
+    void addSwordSlash(const Vec2f& pos, float offsetX, float offsetY, BaseActor* actor);
 
     void updateProjectiles(float dt);
-    void resolveProjectileVsEnemyCollisions(const std::vector<BaseDamageable*>& enemies);
+    void resolveProjectileVsEnemyCollisions(const std::vector<BaseActor*>& enemies);
     void removeUnusedProjectiles();
     void renderProjectiles(SDL_Renderer* renderer);
     void renderDebug(SDL_Renderer* renderer);

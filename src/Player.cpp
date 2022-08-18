@@ -11,7 +11,7 @@ Player::Player(const Vec2f& pos,
     std::shared_ptr<ResourceManager> resourceManager,
     std::shared_ptr<UiManager> uiManager,
     std::shared_ptr<ProjectileManager> projectileManager)
-    : BaseDamageable(pos, resourceManager, nullptr)
+    : BaseActor(pos, resourceManager, nullptr)
 {
     // initialize everything
     name = "Player";

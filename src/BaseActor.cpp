@@ -1,11 +1,11 @@
-#include "BaseDamageable.h"
+#include "BaseActor.h"
 
 #include "ResourceManager.h"
 #include "ParticleManager.h"
 
-BaseDamageable::BaseDamageable(const Vec2f& pos,
-std::shared_ptr<ResourceManager> resourceManager,
-std::shared_ptr<ParticleManager> particleManager)
+BaseActor::BaseActor(const Vec2f& pos,
+    std::shared_ptr<ResourceManager> resourceManager,
+    std::shared_ptr<ParticleManager> particleManager)
     : BaseObject(pos)
 {
     this->m_resourceManager = resourceManager;
@@ -14,7 +14,7 @@ std::shared_ptr<ParticleManager> particleManager)
     resistance = {0};
 }
 
-void BaseDamageable::takeDamage(const Damage& damage)
+void BaseActor::takeDamage(const Damage& damage)
 {
     if(!isImmune)
     {
@@ -32,7 +32,7 @@ void BaseDamageable::takeDamage(const Damage& damage)
 
 // instead we should take in an origin pos, then do the velocity calculation.\
     we should also use some kind of calculation based on a "mass" attribute
-void BaseDamageable::push(const Vec2f& pushDir, float pushMoveSpeed)
+void BaseActor::push(const Vec2f& pushDir, float pushMoveSpeed)
 {
     if (!isBeingPushed)
     {
@@ -43,7 +43,7 @@ void BaseDamageable::push(const Vec2f& pushDir, float pushMoveSpeed)
     }
 }
 
-void BaseDamageable::updateTimers(float dt)
+void BaseActor::updateTimers(float dt)
 {
     if (health <= 0) { printf("%s is dead\n", name.c_str()); removable = true; } // not a timer idk
 
@@ -114,7 +114,7 @@ void BaseDamageable::updateTimers(float dt)
     }
 }
 
-void BaseDamageable::updatePosition(float dt)
+void BaseActor::updatePosition(float dt)
 {
     // update facing direction
     if (dir.x > 0.0f)
@@ -138,7 +138,7 @@ void BaseDamageable::updatePosition(float dt)
     collider.maxY = (int)pos.y + (colliderH / 2) - (height / 2);
 }
 
-void BaseDamageable::renderShadow(SDL_Renderer* renderer)
+void BaseActor::renderShadow(SDL_Renderer* renderer)
 {
     // draw the origin position representing the actual x and y positions
     SDL_Rect shadow_rect;
@@ -154,7 +154,7 @@ void BaseDamageable::renderShadow(SDL_Renderer* renderer)
     SDL_RenderCopy(renderer, m_resourceManager->getTexture("ShadowTexture"), NULL, &shadow_rect);
 }
 
-void BaseDamageable::renderCollider(SDL_Renderer* renderer)
+void BaseActor::renderCollider(SDL_Renderer* renderer)
 {
     // draw collider
     collider.debugRender(renderer);

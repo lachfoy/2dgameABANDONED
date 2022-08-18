@@ -10,10 +10,10 @@
 class ResourceManager;
 class ParticleManager;
 
-class BaseDamageable : public BaseObject
+class BaseActor : public BaseObject
 {
 public:
-    BaseDamageable(const Vec2f& pos,
+    BaseActor(const Vec2f& pos,
         std::shared_ptr<ResourceManager> ResourceManager,
         std::shared_ptr<ParticleManager> particleManager);
 

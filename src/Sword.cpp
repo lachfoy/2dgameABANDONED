@@ -1,10 +1,10 @@
 #include "Sword.h"
 
-#include "BaseDamageable.h"
+#include "BaseActor.h"
 #include "ProjectileManager.h"
 
-Sword::Sword(const Vec2f& pos, float offsetX, float offsetY, SDL_Texture* texture, BaseDamageable* wielder)
-     : BaseMeleeWeapon(pos, offsetX, offsetY, texture, wielder)
+Sword::Sword(const Vec2f& pos, float offsetX, float offsetY, SDL_Texture* texture, BaseActor* actor)
+     : BaseMeleeWeapon(pos, offsetX, offsetY, texture, actor)
 {
     name = "Sword";
     colliderW = 50;
@@ -19,7 +19,7 @@ Sword::Sword(const Vec2f& pos, float offsetX, float offsetY, SDL_Texture* textur
 
 void Sword::destroy(ProjectileManager& projectileManager)
 {
-    projectileManager.addSwordSlash(pos, offsetX * 1.2f, offsetY, wielder);
+    projectileManager.addSwordSlash(pos, offsetX * 1.2f, offsetY, actor);
 }
 
 void Sword::render(SDL_Renderer* renderer)

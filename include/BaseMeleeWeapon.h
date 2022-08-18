@@ -3,18 +3,18 @@
 
 #include "BaseProjectile.h"
 
-class BaseDamageable;
+class BaseActor;
 
 class BaseMeleeWeapon : public BaseProjectile
 {
 public:
-    BaseMeleeWeapon(const Vec2f& pos, float offsetX, float offsetY, SDL_Texture* texture, BaseDamageable* wielder);
+    BaseMeleeWeapon(const Vec2f& pos, float offsetX, float offsetY, SDL_Texture* texture, BaseActor* actor);
 
     // problem if this doesnt implement void destroy(ProjectileManager& projectileManager) ?
     void updatePosition(float dt) override;
     
 protected:
-    BaseDamageable* wielder;
+    BaseActor* actor;
     float offsetX;
     float offsetY;
     

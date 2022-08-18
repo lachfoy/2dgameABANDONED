@@ -1,14 +1,14 @@
 #include "BaseMeleeWeapon.h"
 
-#include "BaseDamageable.h"
+#include "BaseActor.h"
 
-BaseMeleeWeapon::BaseMeleeWeapon(const Vec2f& pos, float offsetX, float offsetY, SDL_Texture* texture, BaseDamageable* wielder)
+BaseMeleeWeapon::BaseMeleeWeapon(const Vec2f& pos, float offsetX, float offsetY, SDL_Texture* texture, BaseActor* actor)
      : BaseProjectile(pos, { 0.0f, 0.0f }, texture, nullptr)
 {
     this->offsetX = offsetX;
     this->offsetY = offsetY;
 
-    this->wielder = wielder;
+    this->actor = actor;
 
     removeOnCollision = false;
     onlyDamageOnce = true;
@@ -16,9 +16,9 @@ BaseMeleeWeapon::BaseMeleeWeapon(const Vec2f& pos, float offsetX, float offsetY,
 
 void BaseMeleeWeapon::updatePosition(float dt)
 {
-    // follow the position of the wielder + an offset
-    pos.x = wielder->pos.x + offsetX;
-    pos.y = wielder->pos.y + offsetY;
+    // follow the position of the actor + an offset
+    pos.x = actor->pos.x + offsetX;
+    pos.y = actor->pos.y + offsetY;
 
     if (rotate)
     {
@@ -28,8 +28,8 @@ void BaseMeleeWeapon::updatePosition(float dt)
             angle += rotationSpeed;
     }
 
-    // flip based on wielder's facing direction
-    flip = !wielder->facingRight();
+    // flip based on actor's facing direction
+    flip = !actor->facingRight();
 
     // move the collider as well
     collider.minX = (int)pos.x - (colliderW / 2);

@@ -1,8 +1,8 @@
 #include "Healthbar.h"
 
-#include "BaseDamageable.h"
+#include "BaseActor.h"
 
-Healthbar::Healthbar(int x, int y, int length, int height, BaseDamageable* damageable)
+Healthbar::Healthbar(int x, int y, int length, int height, BaseActor* damageable)
 {
     this->x = x;
     this->x = y;

@@ -6,14 +6,14 @@
 
 #include <SDL2/SDL.h>
 
-#include "BaseDamageable.h"
+#include "BaseActor.h"
 
 class UiManager;
 class ProjectileManager;
 class InputManager;
 class BaseEnemy;
 
-class Player : public BaseDamageable
+class Player : public BaseActor
 {
 public:
     Player(const Vec2f& pos,

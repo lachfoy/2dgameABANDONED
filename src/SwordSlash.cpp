@@ -1,9 +1,9 @@
 #include "SwordSlash.h"
 
-#include "BaseDamageable.h"
+#include "BaseActor.h"
 
-SwordSlash::SwordSlash(const Vec2f& pos, float offsetX, float offsetY, SDL_Texture* texture, BaseDamageable* wielder)
-     : BaseMeleeWeapon(pos, offsetX, offsetY, texture, wielder)
+SwordSlash::SwordSlash(const Vec2f& pos, float offsetX, float offsetY, SDL_Texture* texture, BaseActor* actor)
+     : BaseMeleeWeapon(pos, offsetX, offsetY, texture, actor)
 {
     name = "SwordSlash";
     colliderW = 40;

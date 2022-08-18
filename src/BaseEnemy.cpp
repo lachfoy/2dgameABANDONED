@@ -11,7 +11,7 @@ BaseEnemy::BaseEnemy(const Vec2f& pos,
     std::shared_ptr<UiManager> uiManager,
     std::shared_ptr<ProjectileManager> projectileManager,
     std::shared_ptr<Player> player)
-     : BaseDamageable(pos, resourceManager, particleManager)
+     : BaseActor(pos, resourceManager, particleManager)
 {
     this->m_uiManager = uiManager;
     this->projectileManager = projectileManager;
