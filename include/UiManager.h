@@ -20,7 +20,7 @@ public:
     UiManager(std::shared_ptr<InputManager> inputManager, std::shared_ptr<ResourceManager> resourceManager, int windowWidth, int windowHeight);
     ~UiManager();
 
-    std::vector<BaseUiObject*> const& getUiObjects() const { return m_uiObjects; }
+    std::vector<std::unique_ptr<BaseUiObject>> const& getUiObjects() const { return m_uiObjects; }
     
     void addHealthbar(int x, int y, int length, int height, BaseDamageable* damageable);
     void addDynamicHealthbar(int length, int height, BaseDamageable* damageable);
@@ -35,7 +35,7 @@ public:
     void renderUiObjects(SDL_Renderer* renderer);
 
 private:
-    std::vector<BaseUiObject*> m_uiObjects;
+    std::vector<std::unique_ptr<BaseUiObject>> m_uiObjects;
     int m_windowWidth;
     int m_windowHeight;
 
