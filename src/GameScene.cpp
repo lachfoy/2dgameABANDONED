@@ -38,7 +38,7 @@ void GameScene::update(float dt)
     m_player->handleInput(*m_inputManager);
 
     // update game objects
-    m_player->updatePlayer(dt);
+    m_player->update(dt);
     m_enemyManager->updateEnemies(dt);
     m_projectileManager->updateProjectiles(dt);
     m_particleManager->updateParticles(dt);

@@ -21,6 +21,8 @@ public:
         std::shared_ptr<UiManager> uiManager,
         std::shared_ptr<ProjectileManager> projectileManager);
 
+    int getAmmo() const { return ammo; }
+
     void handleInput(InputManager& inputManager);
 
     void resolveEnemyCollisions(const std::vector<std::unique_ptr<BaseEnemy>>& enemies);
@@ -33,9 +35,7 @@ public:
     void updateShootingTimer(float dt);
     void updateShootingRechargeTimer(float dt);
     void updateAttackingTimer(float dt);
-
-    int getAmmo() const { return ammo; }
-    void updatePlayer(float dt);
+    void update(float dt) override;
 
     void render(SDL_Renderer* renderer) override;
     void renderDebug(SDL_Renderer* renderer);

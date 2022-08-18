@@ -43,24 +43,8 @@ void BaseActor::push(const Vec2f& pushDir, float pushMoveSpeed)
     }
 }
 
-void BaseActor::updateTimers(float dt)
+void BaseActor::updatePush(float dt)
 {
-    if (health <= 0) { printf("%s is dead\n", name.c_str()); removable = true; } // not a timer idk
-
-    // hurt timer
-    if (isBeingHurt)
-    {
-        if (hurtTimer > 0.0f)
-        {
-            hurtTimer -= dt;
-        }
-        else
-        {
-            hurtTimer = hurtCooldown; // reset to the starting value
-            isBeingHurt = false;
-        }
-    }
-    
     // push timer
     if (isBeingPushed)
     {
@@ -79,7 +63,27 @@ void BaseActor::updateTimers(float dt)
             pushTimer = pushTime;
         }
     }
+}
 
+void BaseActor::updateHurt(float dt)
+{
+    // hurt timer
+    if (isBeingHurt)
+    {
+        if (hurtTimer > 0.0f)
+        {
+            hurtTimer -= dt;
+        }
+        else
+        {
+            hurtTimer = hurtCooldown; // reset to the starting value
+            isBeingHurt = false;
+        }
+    }
+}
+
+void BaseActor::updateFire(float dt)
+{
     // on fire timer
     if (canBeSetOnFire)
     {

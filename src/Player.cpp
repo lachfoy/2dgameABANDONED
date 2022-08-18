@@ -235,20 +235,17 @@ void Player::updateAttackingTimer(float dt)
     }
 }
 
-void Player::updatePlayer(float dt)
+void Player::update(float dt)
 {
-    updateTimers(dt);
-
+    updateFire(dt);
+    updateHurt(dt);
+    updatePush(dt);
     updateImmuneTimer(dt);
-
     updateDodgeRoll(dt);
     updateDodgeRollRechargeTimer(dt);
-    
     updateShootingTimer(dt);
     updateShootingRechargeTimer(dt);
-    
     updateAttackingTimer(dt);
-
     updatePosition(dt);
 }
 
