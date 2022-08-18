@@ -22,6 +22,7 @@ public:
         std::shared_ptr<ProjectileManager> projectileManager);
 
     int getAmmo() const { return ammo; }
+    std::vector<std::string> getDebugInfo() const;
 
     void handleInput(InputManager& inputManager);
 

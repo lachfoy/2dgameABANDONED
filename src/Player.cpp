@@ -28,7 +28,6 @@ Player::Player(const Vec2f& pos,
     maxHealth = 80;
     health = maxHealth;
     m_uiManager->addHealthbar(16, 16, 200, 14, this);
-    m_uiManager->addPlayerDebugText(32, 32, std::make_shared<Player>(*this)); // really messy... rework this
 
     // set the resistance values
     resistance = {0};

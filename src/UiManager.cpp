@@ -7,8 +7,6 @@
 #include "DynamicHealthbar.h"
 #include "Crosshair.h"
 #include "BaseTextObject.h"
-#include "PlayerDebugText.h"
-#include "BackgroundFill.h"
 #include "Button.h"
 
 UiManager::UiManager(std::shared_ptr<InputManager> inputManager, std::shared_ptr<ResourceManager> resourceManager, int windowWidth, int windowHeight)
@@ -42,16 +40,6 @@ void UiManager::addCrosshair(int x, int y, int w, int h)
 void UiManager::addTextObject(int x, int y, std::string text)
 {
     m_uiObjects.push_back(std::make_unique<BaseTextObject>(x, y, text, m_resourceManager->getFont("ArialHeader")));
-}
-
-void UiManager::addPlayerDebugText(int x, int y, std::shared_ptr<Player> player)
-{
-    m_uiObjects.push_back(std::make_unique<PlayerDebugText>(x, y, "", m_resourceManager->getFont("ArialBody"), player));  
-}
-
-void UiManager::addBackgroundFill(SDL_Color color)
-{
-    m_uiObjects.push_back(std::make_unique<BackgroundFill>(color, m_windowWidth, m_windowHeight));
 }
 
 void UiManager::addButton(int x, int y, std::string text)

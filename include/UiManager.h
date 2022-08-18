@@ -26,8 +26,6 @@ public:
     void addDynamicHealthbar(int length, int height, BaseActor* damageable);
     void addCrosshair(int x, int y, int w, int h);
     void addTextObject(int x, int y, std::string text);
-    void addPlayerDebugText(int x, int y, std::shared_ptr<Player> player);
-    void addBackgroundFill(SDL_Color color);
     void addButton(int x, int y, std::string text);
 
     void updateUiObjects(float dt);

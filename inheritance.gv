@@ -13,9 +13,8 @@ digraph inheritance {
     }
 
     subgraph uiObjects {
-        BaseUiObject->{Healthbar, BaseTextObject, BackgroundFill}
+        BaseUiObject->{Healthbar, BaseTextObject}
         Healthbar->DynamicHealthbar
-        BaseTextObject->PlayerDebugText
     }
 
     subgraph scenes {
