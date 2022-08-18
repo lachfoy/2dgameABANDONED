@@ -2,9 +2,13 @@
 
 #include "ProjectileManager.h"
 #include "ParticleManager.h"
+#include "ResourceManager.h"
 
-Fireball::Fireball(const Vec2f& pos, const Vec2f& dir, SDL_Texture* texture, std::shared_ptr<ParticleManager> particleManager)
-    : BaseProjectile(pos, dir, texture, particleManager)
+Fireball::Fireball(const Vec2f& pos,
+    const Vec2f& dir, 
+    std::shared_ptr<ResourceManager> resourceManager,
+    std::shared_ptr<ParticleManager> particleManager)
+     : BaseProjectile(pos, dir, resourceManager, particleManager)
 {
     name = "Fireball";
     colliderW = 24;
@@ -31,7 +35,7 @@ void Fireball::spawnParticles(float dt)
     else
     {
         // spawn a particle at the old position
-        particleManager->addFireballParticle(pos);
+        m_particleManager->addFireballParticle(pos);
         trailSpawnTimer = trailSpawnTime; // reset timer
     }
 }
@@ -68,7 +72,7 @@ void Fireball::render(SDL_Renderer* renderer)
     fireball_rect.y = (int)pos.y - (fireball_rect.h / 2);
 
     // draw the fireball
-    SDL_RenderCopyEx(renderer, texture, NULL, &fireball_rect, angle, NULL, {});
+    SDL_RenderCopyEx(renderer, m_resourceManager->getTexture("FireballTexture"), NULL, &fireball_rect, angle, NULL, {});
 
     // draw collider
     //collider.debugRender(renderer);

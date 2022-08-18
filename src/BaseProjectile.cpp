@@ -2,13 +2,18 @@
 
 #include "BaseActor.h"
 #include "ParticleManager.h"
+#include "ResourceManager.h"
 
-BaseProjectile::BaseProjectile(const Vec2f& pos, const Vec2f& dir, SDL_Texture* texture, std::shared_ptr<ParticleManager> particleManager)
-    : BaseObject(pos)
+BaseProjectile::BaseProjectile(const Vec2f& pos,
+    const Vec2f& dir,
+    std::shared_ptr<ResourceManager> resourceManager,
+    std::shared_ptr<ParticleManager> particleManager)
+     : BaseObject(pos)
 {
     this->dir = dir;
-    this->texture = texture;
-    this->particleManager = particleManager;
+
+    m_resourceManager = resourceManager;
+    m_particleManager = particleManager;
     
     collider = AABB2i(pos.x, pos.y, colliderW, colliderH);
 }

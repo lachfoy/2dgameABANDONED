@@ -11,11 +11,16 @@
 
 class ProjectileManager;
 class ParticleManager;
+class ResourceManager;
 
 class BaseProjectile : public BaseObject
 {
 public:
-    BaseProjectile(const Vec2f& pos, const Vec2f& dir, SDL_Texture* texture, std::shared_ptr<ParticleManager> particleManager);
+    BaseProjectile(const Vec2f& pos,
+        const Vec2f& dir,
+        std::shared_ptr<ResourceManager> resourceManager,
+        std::shared_ptr<ParticleManager> particleManager);
+    
     virtual ~BaseProjectile() {}
 
     bool removeOnCollision;
@@ -26,9 +31,11 @@ public:
     inline Damage const& getDamage() const { return damage; }
     inline Vec2f const& getDir() const { return dir; }
     
+    virtual void create(ProjectileManager& projectileManager) = 0;
+    virtual void destroy(ProjectileManager& projectileManager) = 0;
+    
     void updateLifetime(float dt);
     virtual void spawnParticles(float dt) {}
-    virtual void destroy(ProjectileManager& projectileManager) = 0;
     virtual void updatePosition(float dt); // derived projectiles can override update ONLY if they need to
 
     // debug
@@ -42,11 +49,12 @@ protected: // things the derived projectiles can change
     Damage damage;
     float moveSpeed;
     float lifeTime;
-    SDL_Texture* texture; // texture to use for rendering, projectile does not have ownership
-    std::shared_ptr<ParticleManager> particleManager;
     bool rotate = false;
     float angle = 0.0f; // angle in degrees
     float rotationSpeed = 0.0f;
+
+    std::shared_ptr<ParticleManager> m_particleManager;
+    std::shared_ptr<ResourceManager> m_resourceManager;
 
 };
 

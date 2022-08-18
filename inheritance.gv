@@ -7,9 +7,8 @@ digraph inheritance {
     subgraph objects {
         BaseObject->{BaseActor, BaseProjectile, BaseParticle}
         BaseActor->{Player, BaseEnemy}
-        BaseProjectile->{Fireball, FireballExplosion, BaseMeleeWeapon}
+        BaseProjectile->{Fireball, FireballExplosion}
         BaseParticle->{FireballParticle, SmokeParticle}
-        BaseMeleeWeapon->{Sword, SwordSlash}
         BaseEnemy->Skeleton
     }
 

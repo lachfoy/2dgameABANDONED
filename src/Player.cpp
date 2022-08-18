@@ -78,7 +78,6 @@ void Player::handleInput(InputManager& inputManager)
             if (canAttack)
             {
                 float swordOffsetX = (facingDirection == FACING_RIGHT) ? 28.0f : -28.0f;
-                projectileManager->addSword(pos, swordOffsetX, -(height / 2) - 3.0f, this);
                 canAttack = false;
             }
         }
