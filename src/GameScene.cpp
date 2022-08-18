@@ -8,18 +8,19 @@
 
 #define DEBUG_DRAW 1
 
-GameScene::GameScene(InputManager* inputManager, ResourceManager* resourceManager, int windowWidth, int windowHeight)
+GameScene::GameScene(std::shared_ptr<InputManager> inputManager, std::shared_ptr<ResourceManager> resourceManager, int windowWidth, int windowHeight)
      : BaseScene(inputManager, resourceManager, windowWidth, windowHeight)
 {
     m_resourceManager->loadGameResources();
 
-    m_uiManager = new UiManager(m_inputManager, m_resourceManager, m_windowWidth, m_windowHeight);
-    m_particleManager = new ParticleManager(m_resourceManager);
-    m_projectileManager = new ProjectileManager(m_resourceManager, m_particleManager);
+    m_uiManager = std::make_shared<UiManager>(m_inputManager, m_resourceManager, m_windowWidth, m_windowHeight);
+    m_particleManager = std::make_shared<ParticleManager>(m_resourceManager);
+    m_projectileManager = std::make_shared<ProjectileManager>(m_resourceManager, m_particleManager);
 
-    m_player = new Player({ 100.0f, 200.0f }, m_resourceManager, m_uiManager, m_projectileManager);
+    const Vec2f playerPos = { 100.0f, 200.0f };
+    m_player = std::make_shared<Player>(playerPos, m_resourceManager, m_uiManager, m_projectileManager);
     
-    m_enemyManager = new EnemyManager(m_resourceManager, m_particleManager, m_uiManager, m_projectileManager, m_player);
+    m_enemyManager = std::make_shared<EnemyManager>(m_resourceManager, m_particleManager, m_uiManager, m_projectileManager, m_player);
     m_enemyManager->addSkeleton({ 400.0f, 300.0f });
     m_enemyManager->addSkeleton({ 600.0f, 400.0f });
     m_enemyManager->addSkeleton({ 500.0f, 500.0f });
@@ -29,11 +30,6 @@ GameScene::GameScene(InputManager* inputManager, ResourceManager* resourceManage
 
 GameScene::~GameScene()
 {
-    delete m_enemyManager;
-    delete m_player;
-    delete m_projectileManager;
-    delete m_particleManager;
-    delete m_uiManager;
 }
 
 void GameScene::update(float dt)

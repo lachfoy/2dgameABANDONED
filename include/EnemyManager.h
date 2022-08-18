@@ -2,6 +2,7 @@
 #define ENEMYMANAGER_H
 
 #include <vector>
+#include <memory>
 
 #include <SDL2/SDL.h>
 
@@ -19,14 +20,14 @@ class ParticleManager;
 class EnemyManager
 {
 public:
-    EnemyManager(ResourceManager* resourceManager, ParticleManager* particleManager, UiManager* uiManager, ProjectileManager* projectileManager, Player* player);
+    EnemyManager(std::shared_ptr<ResourceManager> resourceManager, std::shared_ptr<ParticleManager> particleManager, std::shared_ptr<UiManager> uiManager, std::shared_ptr<ProjectileManager> projectileManager, std::shared_ptr<Player> player);
     ~EnemyManager();
 
-    std::vector<BaseEnemy*> const& getEnemies() const { return enemies; }
+    std::vector<std::unique_ptr<BaseEnemy>> const& getEnemies() const { return m_enemies; }
     
     void addSkeleton(const Vec2f& pos);
 
-    void resolvePlayerProjectileCollisions(const std::vector<BaseProjectile*>& playerProjectiles);
+    void resolvePlayerProjectileCollisions(const std::vector<std::unique_ptr<BaseProjectile>>& playerProjectiles);
 
     void updateEnemies(float dt);
     void removeUnusedEnemies();
@@ -34,12 +35,12 @@ public:
     void renderDebug(SDL_Renderer* renderer);
 
 private:
-    ResourceManager* m_resourceManager; // pointer to resource manager
-    ParticleManager* particleManager;
-    UiManager* m_uiManager; // pointer to ui manager
-    ProjectileManager* projectileManager; // pointer to projectile manager
-    Player* player; // pointer to player
-    std::vector<BaseEnemy*> enemies;
+    std::shared_ptr<ResourceManager> m_resourceManager; // pointer to resource manager
+    std::shared_ptr<ParticleManager> particleManager;
+    std::shared_ptr<UiManager> m_uiManager; // pointer to ui manager
+    std::shared_ptr<ProjectileManager> projectileManager; // pointer to projectile manager
+    std::shared_ptr<Player> player; // pointer to player
+    std::vector<std::unique_ptr<BaseEnemy>> m_enemies;
     
 };
 

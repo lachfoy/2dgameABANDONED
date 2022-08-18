@@ -1,8 +1,9 @@
 #include "BaseProjectile.h"
 
 #include "BaseDamageable.h"
+#include "ParticleManager.h"
 
-BaseProjectile::BaseProjectile(const Vec2f& pos, const Vec2f& dir, SDL_Texture* texture, ParticleManager* particleManager)
+BaseProjectile::BaseProjectile(const Vec2f& pos, const Vec2f& dir, SDL_Texture* texture, std::shared_ptr<ParticleManager> particleManager)
     : BaseObject(pos)
 {
     this->dir = dir;

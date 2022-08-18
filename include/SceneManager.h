@@ -16,7 +16,7 @@ class ResourceManager;
 class SceneManager
 {
 public:
-    SceneManager(InputManager* inputManager, ResourceManager* resourceManager, int windowWidth, int windowHeight);
+    SceneManager(std::shared_ptr<InputManager> inputManager, std::shared_ptr<ResourceManager> resourceManager, int windowWidth, int windowHeight);
     ~SceneManager();
 
     inline bool getPaused() const { return (m_currentScene == m_pauseScene); }
@@ -36,8 +36,8 @@ private:
     MenuScene* m_menuScene = nullptr;
 
     // not owned
-    InputManager* m_inputManager;
-    ResourceManager* m_resourceManager;
+    std::shared_ptr<InputManager> m_inputManager;
+    std::shared_ptr<ResourceManager> m_resourceManager;
     int m_windowWidth;
     int m_windowHeight;
 

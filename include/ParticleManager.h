@@ -2,6 +2,7 @@
 #define PARTICLEMANAGER_H
 
 #include <vector>
+#include <memory>
 
 #include <SDL2/SDL.h>
 
@@ -13,7 +14,7 @@ class BaseParticle;
 class ParticleManager
 {
 public:
-    ParticleManager(ResourceManager* resourceManager);
+    ParticleManager(std::shared_ptr<ResourceManager> resourceManager);
     ~ParticleManager();
 
     void addFireballParticle(const Vec2f& pos);
@@ -26,7 +27,7 @@ public:
 
 private:
     std::vector<BaseParticle*> particles;
-    ResourceManager* m_resourceManager;
+    std::shared_ptr<ResourceManager> m_resourceManager;
     
 };
 

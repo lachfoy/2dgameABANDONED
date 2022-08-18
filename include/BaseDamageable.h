@@ -1,6 +1,8 @@
 #ifndef BASEDAMAGEABLE_H
 #define BASEDAMAGEABLE_H
 
+#include <memory>
+
 #include "BaseObject.h"
 #include "AABB2i.h"
 #include "Resistance.h"
@@ -11,7 +13,9 @@ class ParticleManager;
 class BaseDamageable : public BaseObject
 {
 public:
-    BaseDamageable(const Vec2f& pos, ResourceManager* ResourceManager, ParticleManager* particleManager); // we assume that every damageable gets created with a pointer to the resource manager
+    BaseDamageable(const Vec2f& pos,
+        std::shared_ptr<ResourceManager> ResourceManager,
+        std::shared_ptr<ParticleManager> particleManager);
 
     // getters
     inline int getHealth() const { return health; }
@@ -56,10 +60,10 @@ protected:
     enum FacingDirection { FACING_LEFT, FACING_RIGHT } facingDirection;
 
     // resources
-    ResourceManager* m_resourceManager = nullptr;
+    std::shared_ptr<ResourceManager> m_resourceManager;
 
     // particles
-    ParticleManager* particleManager = nullptr;
+    std::shared_ptr<ParticleManager> particleManager;
 
     // fire
     bool canBeSetOnFire = true;

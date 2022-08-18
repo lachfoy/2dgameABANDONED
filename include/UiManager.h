@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include <memory>
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
@@ -16,16 +17,16 @@ class Player;
 class UiManager
 {
 public:
-    UiManager(InputManager* inputManager, ResourceManager* resourceManager, int windowWidth, int windowHeight);
+    UiManager(std::shared_ptr<InputManager> inputManager, std::shared_ptr<ResourceManager> resourceManager, int windowWidth, int windowHeight);
     ~UiManager();
 
-    std::vector<BaseUiObject*> const& getUiObjects() const { return m_uiObjects; }
+    std::vector<std::unique_ptr<BaseUiObject>> const& getUiObjects() const { return m_uiObjects; }
     
     void addHealthbar(int x, int y, int length, int height, BaseDamageable* damageable);
     void addDynamicHealthbar(int length, int height, BaseDamageable* damageable);
     void addCrosshair(int x, int y, int w, int h);
     void addTextObject(int x, int y, std::string text);
-    void addPlayerDebugText(int x, int y, Player* player);
+    void addPlayerDebugText(int x, int y, std::shared_ptr<Player> player);
     void addBackgroundFill(SDL_Color color);
     void addButton(int x, int y, std::string text);
 
@@ -34,13 +35,13 @@ public:
     void renderUiObjects(SDL_Renderer* renderer);
 
 private:
-    std::vector<BaseUiObject*> m_uiObjects;
+    std::vector<std::unique_ptr<BaseUiObject>> m_uiObjects;
     int m_windowWidth;
     int m_windowHeight;
 
     // no ownership
-    InputManager* m_inputManager;
-    ResourceManager* m_resourceManager;
+    std::shared_ptr<InputManager> m_inputManager;
+    std::shared_ptr<ResourceManager> m_resourceManager;
 
 };
 

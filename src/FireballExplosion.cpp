@@ -2,7 +2,7 @@
 
 #include "ParticleManager.h"
 
-FireballExplosion::FireballExplosion(const Vec2f& pos, SDL_Texture* texture, ParticleManager* particleManager)
+FireballExplosion::FireballExplosion(const Vec2f& pos, SDL_Texture* texture, std::shared_ptr<ParticleManager> particleManager)
     : BaseProjectile(pos, { 0.0f, 0.0f }, texture, particleManager)
 {
     name = "FireballExplosion";

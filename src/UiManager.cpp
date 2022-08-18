@@ -11,7 +11,7 @@
 #include "BackgroundFill.h"
 #include "Button.h"
 
-UiManager::UiManager(InputManager* inputManager, ResourceManager* resourceManager, int windowWidth, int windowHeight)
+UiManager::UiManager(std::shared_ptr<InputManager> inputManager, std::shared_ptr<ResourceManager> resourceManager, int windowWidth, int windowHeight)
 {
     m_inputManager = inputManager;
     m_resourceManager = resourceManager;
@@ -21,44 +21,42 @@ UiManager::UiManager(InputManager* inputManager, ResourceManager* resourceManage
 
 UiManager::~UiManager()
 {
-    // delete all the pointers and clear the uiObjects vector
-    for (const auto& uiObject : m_uiObjects) delete uiObject;
     m_uiObjects.clear();
 }
 
 void UiManager::addHealthbar(int x, int y, int length, int height, BaseDamageable* damageable)
 {
-    m_uiObjects.push_back(new Healthbar(x, y, length, height, damageable));
+    m_uiObjects.push_back(std::make_unique<Healthbar>(x, y, length, height, damageable));
 }
 
 void UiManager::addDynamicHealthbar(int length, int height, BaseDamageable* damageable)
 {
-    m_uiObjects.push_back(new DynamicHealthbar(length, height, damageable));
+    m_uiObjects.push_back(std::make_unique<DynamicHealthbar>(length, height, damageable));
 }
 
 void UiManager::addCrosshair(int x, int y, int w, int h)
 {
-    m_uiObjects.push_back(new Crosshair(x, y, w, h, m_inputManager, m_resourceManager->getTexture("CrosshairTexture")));
+    m_uiObjects.push_back(std::make_unique<Crosshair>(x, y, w, h, m_inputManager, m_resourceManager->getTexture("CrosshairTexture")));
 }
 
 void UiManager::addTextObject(int x, int y, std::string text)
 {
-    m_uiObjects.push_back(new BaseTextObject(x, y, text, m_resourceManager->getFont("ArialHeader")));
+    m_uiObjects.push_back(std::make_unique<BaseTextObject>(x, y, text, m_resourceManager->getFont("ArialHeader")));
 }
 
-void UiManager::addPlayerDebugText(int x, int y, Player* player)
+void UiManager::addPlayerDebugText(int x, int y, std::shared_ptr<Player> player)
 {
-    m_uiObjects.push_back(new PlayerDebugText(x, y, "", m_resourceManager->getFont("ArialBody"), player));  
+    m_uiObjects.push_back(std::make_unique<PlayerDebugText>(x, y, "", m_resourceManager->getFont("ArialBody"), player));  
 }
 
 void UiManager::addBackgroundFill(SDL_Color color)
 {
-    m_uiObjects.push_back(new BackgroundFill(color, m_windowWidth, m_windowHeight));
+    m_uiObjects.push_back(std::make_unique<BackgroundFill>(color, m_windowWidth, m_windowHeight));
 }
 
 void UiManager::addButton(int x, int y, std::string text)
 {
-    m_uiObjects.push_back(new Button(x, y, text, m_resourceManager->getFont("ArialBody")));
+    m_uiObjects.push_back(std::make_unique<Button>(x, y, text, m_resourceManager->getFont("ArialBody")));
 }
 
 void UiManager::updateUiObjects(float dt)
@@ -76,7 +74,6 @@ void UiManager::removeUnusedUiObjects()
         if (m_uiObjects[i]->removable)
         {
             //uiObjects[i]->destroy(*this);
-            delete m_uiObjects[i];
             m_uiObjects.erase(m_uiObjects.begin() + i);
             i--;
         }
