@@ -19,8 +19,6 @@ public:
     
     bool removable = false;
 
-    virtual void render(SDL_Renderer* renderer) = 0;
-
     // debug
     inline void renderOrigin(SDL_Renderer* renderer);
 

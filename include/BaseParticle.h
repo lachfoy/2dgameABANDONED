@@ -16,6 +16,8 @@ public:
     void updateLifetime(float dt);
     void updatePosition(float dt);
 
+    virtual void render(SDL_Renderer* renderer) = 0;
+
 protected: // things the derived particles can change
     Vec2f dir;
     int width = 10;

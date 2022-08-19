@@ -37,6 +37,8 @@ public:
     void updateLifetime(float dt);
     virtual void updatePosition(float dt); // derived projectiles can override update ONLY if they need to
 
+    virtual void render(SDL_Renderer* renderer) = 0;
+
     // debug
     void renderCollider(SDL_Renderer* renderer);
 

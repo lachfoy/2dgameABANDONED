@@ -37,8 +37,8 @@ public:
     virtual void update(float dt) = 0;
 
     void renderShadow(SDL_Renderer* renderer);
-
     void renderCollider(SDL_Renderer* renderer);
+    virtual void render(SDL_Renderer* renderer) = 0;
 
 protected:
     Vec2f dir;
