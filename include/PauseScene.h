@@ -1,5 +1,5 @@
-#ifndef PAUSESCENE_H
-#define PAUSESCENE_H
+#ifndef PAUSE_SCENE_H_
+#define PAUSE_SCENE_H_
 
 #include "BaseScene.h"
 

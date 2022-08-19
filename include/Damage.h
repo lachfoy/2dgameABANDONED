@@ -1,5 +1,5 @@
-#ifndef DAMAGE_H
-#define DAMAGE_H
+#ifndef DAMAGE_H_
+#define DAMAGE_H_
 
 struct Damage
 {

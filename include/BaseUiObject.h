@@ -1,5 +1,5 @@
-#ifndef BASEUIOBJECT_H
-#define BASEUIOBJECT_H
+#ifndef BASE_UI_OBJECT_H_
+#define BASE_UI_OBJECT_H_
 
 #include <SDL2/SDL.h>
 

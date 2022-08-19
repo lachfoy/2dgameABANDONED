@@ -1,5 +1,5 @@
-#ifndef DYNAMICHEALTHBAR_H
-#define DYNAMICHEALTHBAR_H
+#ifndef DYNAMIC_HEALTHBAR_H_
+#define DYNAMIC_HEALTHBAR_H_
 
 #include "Healthbar.h"
 

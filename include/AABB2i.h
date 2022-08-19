@@ -1,5 +1,5 @@
-#ifndef AABB2I_H
-#define AABB2I_H
+#ifndef AABB2I_H_
+#define AABB2I_H_
 
 #include <SDL2/SDL.h>
 

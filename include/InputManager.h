@@ -1,5 +1,5 @@
-#ifndef INPUTMANAGER_H
-#define INPUTMANAGER_H
+#ifndef INPUT_MANAGER_H_
+#define INPUT_MANAGER_H_
 
 #include <SDL2/SDL.h>
 

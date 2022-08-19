@@ -1,5 +1,5 @@
-#ifndef PROJECTILEMANAGER_H
-#define PROJECTILEMANAGER_H
+#ifndef PROJECTILE_MANAGER_H_
+#define PROJECTILE_MANAGER_H_
 
 #include <vector>
 #include <algorithm>

@@ -1,5 +1,5 @@
-#ifndef BASEPARTICLE_H
-#define BASEPARTICLE_H
+#ifndef BASE_PARTICLE_H_
+#define BASE_PARTICLE_H_
 
 #include <SDL2/SDL.h>
 

@@ -1,5 +1,5 @@
-#ifndef PARTICLEMANAGER_H
-#define PARTICLEMANAGER_H
+#ifndef PARTICLE_MANAGER_H_
+#define PARTICLE_MANAGER_H_
 
 #include <vector>
 #include <memory>

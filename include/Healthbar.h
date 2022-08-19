@@ -1,5 +1,5 @@
-#ifndef HEALTHBAR_H
-#define HEALTHBAR_H
+#ifndef HEALTHBAR_H_
+#define HEALTHBAR_H_
 
 #include <SDL2/SDL.h>
 

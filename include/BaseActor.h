@@ -1,5 +1,5 @@
-#ifndef BASEACTOR_H
-#define BASEACTOR_H
+#ifndef BASE_ACTOR_H_
+#define BASE_ACTOR_H_
 
 #include <memory>
 

@@ -1,5 +1,5 @@
-#ifndef BASEENEMY_H
-#define BASEENEMY_H
+#ifndef BASE_ENEMY_H_
+#define BASE_ENEMY_H_
 
 #include <SDL2/SDL.h>
 

@@ -1,5 +1,5 @@
-#ifndef BASEPROJECTILE_H
-#define BASEPROJECTILE_H
+#ifndef BASE_PROJECTILE_H_
+#define BASE_PROJECTILE_H_
 
 #include <SDL2/SDL.h>
 

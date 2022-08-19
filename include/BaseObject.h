@@ -1,5 +1,5 @@
-#ifndef BASEOBJECT_H
-#define BASEOBJECT_H
+#ifndef BASE_OBJECT_H_
+#define BASE_OBJECT_H_
 
 #include <string>
 

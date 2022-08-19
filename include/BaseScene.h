@@ -1,5 +1,5 @@
-#ifndef BASESCENE_H
-#define BASESCENE_H
+#ifndef BASE_SCENE_H_
+#define BASE_SCENE_H_
 
 #include <memory>
 

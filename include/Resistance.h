@@ -1,5 +1,5 @@
-#ifndef RESISTANCE_H
-#define RESISTANCE_H
+#ifndef RESISTANCE_H_
+#define RESISTANCE_H_
 
 #include "Damage.h"
 

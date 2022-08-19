@@ -1,5 +1,5 @@
-#ifndef FIREBALL_H
-#define FIREBALL_H
+#ifndef FIREBALL_H_
+#define FIREBALL_H_
 
 #include "BaseProjectile.h"
 

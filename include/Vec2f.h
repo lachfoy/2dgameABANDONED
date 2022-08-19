@@ -1,5 +1,5 @@
-#ifndef VEC2F_H
-#define VEC2F_H
+#ifndef VEC2F_H_
+#define VEC2F_H_
 
 #include <math.h>
 

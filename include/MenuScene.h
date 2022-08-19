@@ -1,5 +1,5 @@
-#ifndef MENUSCENE_H
-#define MENUSCENE_H
+#ifndef MENU_SCENE_H_
+#define MENU_SCENE_H_
 
 #include "BaseScene.h"
 

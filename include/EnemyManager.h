@@ -1,5 +1,5 @@
-#ifndef ENEMYMANAGER_H
-#define ENEMYMANAGER_H
+#ifndef ENEMY_MANAGER_H_
+#define ENEMY_MANAGER_H_
 
 #include <vector>
 #include <memory>

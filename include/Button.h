@@ -1,5 +1,5 @@
-#ifndef BUTTON_H
-#define BUTTON_H
+#ifndef BUTTON_H_
+#define BUTTON_H_
 
 #include <string>
 

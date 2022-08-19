@@ -1,5 +1,5 @@
-#ifndef FIREBALLPARTICLE_H
-#define FIREBALLPARTICLE_H
+#ifndef FIREBALL_PARTICLE_H_
+#define FIREBALL_PARTICLE_H_
 
 #include <SDL2/SDL.h>
 

@@ -1,5 +1,5 @@
-#ifndef CROSSHAIR_H
-#define CROSSHAIR_H
+#ifndef CROSSHAIR_H_
+#define CROSSHAIR_H_
 
 #include <SDL2/SDL.h>
 

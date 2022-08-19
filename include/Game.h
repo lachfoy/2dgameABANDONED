@@ -1,5 +1,5 @@
-#ifndef GAME_H
-#define GAME_H
+#ifndef GAME_H_
+#define GAME_H_
 
 #include <stdio.h>
 #include <vector>

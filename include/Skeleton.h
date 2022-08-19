@@ -1,5 +1,5 @@
-#ifndef ENEMY_H
-#define ENEMY_H
+#ifndef ENEMY_H_
+#define ENEMY_H_
 
 #include <SDL2/SDL.h>
 

@@ -1,5 +1,5 @@
-#ifndef BASETEXTOBJECT_H
-#define BASETEXTOBJECT_H
+#ifndef BASE_TEXT_OBJECT_H_
+#define BASE_TEXT_OBJECT_H_
 
 #include <string>
 

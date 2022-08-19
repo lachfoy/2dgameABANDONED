@@ -1,5 +1,5 @@
-#ifndef SMOKEPARTICLE_H
-#define SMOKEPARTICLE_H
+#ifndef SMOKE_PARTICLE_H_
+#define SMOKE_PARTICLE_H_
 
 #include <SDL2/SDL.h>
 

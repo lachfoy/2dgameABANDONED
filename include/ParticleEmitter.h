@@ -1,5 +1,5 @@
-#ifndef PARTICLE_EMITTER_H
-#define PARTICLE_EMITTER_H
+#ifndef PARTICLE_EMITTER_H_
+#define PARTICLE_EMITTER_H_
 
 #include <memory>
 #include <string>
