@@ -2,7 +2,7 @@
 
 #include "ProjectileManager.h"
 #include "ResourceManager.h"
-#include "ParticleManager.h"
+#include "particle_manager.h"
 
 FireballExplosion::FireballExplosion(const Vec2f& pos,
     std::shared_ptr<ResourceManager> resourceManager,
@@ -28,7 +28,7 @@ void FireballExplosion::render(SDL_Renderer* renderer)
     fireball_explosion_rect.x = (int)pos.x - (fireball_explosion_rect.w / 2);
     fireball_explosion_rect.y = (int)pos.y - (fireball_explosion_rect.h / 2);
 
-    SDL_RenderCopy(renderer, m_resourceManager->getTexture("FireballExplosionTexture"), NULL, &fireball_explosion_rect);
+    SDL_RenderCopy(renderer, resource_manager_->getTexture("FireballExplosionTexture"), NULL, &fireball_explosion_rect);
 
     // draw collider
     //collider.debugRender(renderer);

@@ -54,8 +54,8 @@ protected: // things the derived projectiles can change
     float angle = 0.0f; // angle in degrees
     float rotationSpeed = 0.0f;
 
-    std::shared_ptr<ParticleManager> m_particleManager;
-    std::shared_ptr<ResourceManager> m_resourceManager;
+    std::shared_ptr<ParticleManager> particle_manager_;
+    std::shared_ptr<ResourceManager> resource_manager_;
 
 };
 

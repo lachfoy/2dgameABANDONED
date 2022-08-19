@@ -16,7 +16,7 @@ Player::Player(const Vec2f& pos,
     // initialize everything
     name = "Player";
 
-    this->m_uiManager = uiManager;
+    this->ui_manager_ = uiManager;
     this->projectileManager = projectileManager;
 
     width = 30;
@@ -27,7 +27,7 @@ Player::Player(const Vec2f& pos,
 
     maxHealth = 80;
     health = maxHealth;
-    m_uiManager->addHealthbar(16, 16, 200, 14, this);
+    ui_manager_->addHealthbar(16, 16, 200, 14, this);
 
     // set the resistance values
     resistance = {0};

@@ -12,7 +12,7 @@
 UiManager::UiManager(std::shared_ptr<InputManager> inputManager, std::shared_ptr<ResourceManager> resourceManager, int windowWidth, int windowHeight)
 {
     m_inputManager = inputManager;
-    m_resourceManager = resourceManager;
+    resource_manager_ = resourceManager;
     m_windowWidth = windowWidth;
     m_windowHeight = windowHeight;
 }
@@ -34,17 +34,17 @@ void UiManager::addDynamicHealthbar(int length, int height, BaseActor* damageabl
 
 void UiManager::addCrosshair(int x, int y, int w, int h)
 {
-    m_uiObjects.push_back(std::make_unique<Crosshair>(x, y, w, h, m_inputManager, m_resourceManager->getTexture("CrosshairTexture")));
+    m_uiObjects.push_back(std::make_unique<Crosshair>(x, y, w, h, m_inputManager, resource_manager_->getTexture("CrosshairTexture")));
 }
 
 void UiManager::addTextObject(int x, int y, std::string text)
 {
-    m_uiObjects.push_back(std::make_unique<BaseTextObject>(x, y, text, m_resourceManager->getFont("ArialHeader")));
+    m_uiObjects.push_back(std::make_unique<BaseTextObject>(x, y, text, resource_manager_->getFont("ArialHeader")));
 }
 
 void UiManager::addButton(int x, int y, std::string text)
 {
-    m_uiObjects.push_back(std::make_unique<Button>(x, y, text, m_resourceManager->getFont("ArialBody")));
+    m_uiObjects.push_back(std::make_unique<Button>(x, y, text, resource_manager_->getFont("ArialBody")));
 }
 
 void UiManager::updateUiObjects(float dt)

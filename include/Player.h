@@ -42,7 +42,7 @@ public:
     void renderDebug(SDL_Renderer* renderer);
 
 private:
-    std::shared_ptr<UiManager> m_uiManager;
+    std::shared_ptr<UiManager> ui_manager_;
     std::shared_ptr<ProjectileManager> projectileManager;
     
     bool isReceivingInput = true;

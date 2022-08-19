@@ -10,7 +10,7 @@
 #include <SDL2/SDL.h>
 
 #include "Vec2f.h"
-#include "ParticleManager.h"
+#include "particle_manager.h"
 #include "BaseObject.h"
 
 // class uses mozzila style for a change
@@ -38,7 +38,6 @@ public:
     {
         particle_texture_ = particle_texture;
         spawn_interval_ = spawn_interval;
-
         
         emitter_lifetime_timer_ = emitter_lifetime;
 

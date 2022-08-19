@@ -1,14 +1,14 @@
 #include "BaseActor.h"
 
 #include "ResourceManager.h"
-#include "ParticleManager.h"
+#include "particle_manager.h"
 
 BaseActor::BaseActor(const Vec2f& pos,
     std::shared_ptr<ResourceManager> resourceManager,
     std::shared_ptr<ParticleManager> particleManager)
     : BaseObject(pos)
 {
-    this->m_resourceManager = resourceManager;
+    this->resource_manager_ = resourceManager;
     this->particleManager = particleManager;
     collider = AABB2i(pos.x, pos.y, colliderW, colliderH);
     resistance = {0};
@@ -146,7 +146,7 @@ void BaseActor::renderShadow(SDL_Renderer* renderer)
     shadow_rect.y = (int)pos.y - (shadow_rect.h / 2);
 
     // draw texture
-    SDL_RenderCopy(renderer, m_resourceManager->getTexture("ShadowTexture"), NULL, &shadow_rect);
+    SDL_RenderCopy(renderer, resource_manager_->getTexture("ShadowTexture"), NULL, &shadow_rect);
 }
 
 void BaseActor::renderCollider(SDL_Renderer* renderer)

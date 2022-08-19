@@ -35,7 +35,7 @@ public:
             100.0f,
             300.0f,
             0.0f,
-            m_particleManager));
+            particle_manager_));
     }
 
     void UpdateParticleEmitters()

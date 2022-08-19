@@ -37,7 +37,7 @@ private:
 
     // not owned
     std::shared_ptr<InputManager> m_inputManager;
-    std::shared_ptr<ResourceManager> m_resourceManager;
+    std::shared_ptr<ResourceManager> resource_manager_;
     int m_windowWidth;
     int m_windowHeight;
 

@@ -13,11 +13,11 @@ BaseEnemy::BaseEnemy(const Vec2f& pos,
     std::shared_ptr<Player> player)
      : BaseActor(pos, resourceManager, particleManager)
 {
-    this->m_uiManager = uiManager;
+    this->ui_manager_ = uiManager;
     this->projectileManager = projectileManager;
     this->player = player;
 
-    m_uiManager->addDynamicHealthbar(44, 4, this);
+    ui_manager_->addDynamicHealthbar(44, 4, this);
 }
 
 void BaseEnemy::update(float dt)

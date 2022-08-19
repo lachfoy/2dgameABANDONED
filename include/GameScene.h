@@ -9,7 +9,7 @@ class EnemyManager;
 class UiManager;
 class ParticleManager;
 
-#include "ParticleEmitter.h"
+#include "particle_emitter.h"
 
 class GameScene : public BaseScene
 {
@@ -26,8 +26,8 @@ private:
     std::shared_ptr<Player> m_player;
     std::shared_ptr<ProjectileManager> m_projectileManager;
     std::shared_ptr<EnemyManager> m_enemyManager;
-    std::shared_ptr<UiManager> m_uiManager;
-    std::shared_ptr<ParticleManager> m_particleManager;
+    std::shared_ptr<UiManager> ui_manager_;
+    std::shared_ptr<ParticleManager> particle_manager_;
 
 };
 

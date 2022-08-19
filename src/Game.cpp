@@ -112,10 +112,10 @@ void Game::run()
 void Game::create()
 {
     m_inputManager = std::make_shared<InputManager>();
-    m_resourceManager = std::make_shared<ResourceManager>(renderer);
-    m_resourceManager->loadFonts();
+    resource_manager_ = std::make_shared<ResourceManager>(renderer);
+    resource_manager_->loadFonts();
 
-    m_sceneManager = std::make_shared<SceneManager>(m_inputManager, m_resourceManager, windowWidth, windowHeight);
+    m_sceneManager = std::make_shared<SceneManager>(m_inputManager, resource_manager_, windowWidth, windowHeight);
     m_sceneManager->startGame();
 }
 

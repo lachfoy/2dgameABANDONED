@@ -1,7 +1,7 @@
 #include "Fireball.h"
 
 #include "ProjectileManager.h"
-#include "ParticleManager.h"
+#include "particle_manager.h"
 #include "ResourceManager.h"
 
 Fireball::Fireball(const Vec2f& pos,
@@ -61,7 +61,7 @@ void Fireball::render(SDL_Renderer* renderer)
     fireball_rect.y = (int)pos.y - (fireball_rect.h / 2);
 
     // draw the fireball
-    SDL_RenderCopyEx(renderer, m_resourceManager->getTexture("FireballTexture"), NULL, &fireball_rect, angle, NULL, {});
+    SDL_RenderCopyEx(renderer, resource_manager_->getTexture("FireballTexture"), NULL, &fireball_rect, angle, NULL, {});
 
     // draw collider
     //collider.debugRender(renderer);
