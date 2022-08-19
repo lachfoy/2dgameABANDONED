@@ -1,7 +1,7 @@
 #ifndef VEC2F_H_
 #define VEC2F_H_
 
-#include <math.h>
+#include <cmath>
 
 struct Vec2f
 {

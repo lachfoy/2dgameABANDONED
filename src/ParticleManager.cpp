@@ -1,62 +1,42 @@
 #include "ParticleManager.h"
 
-#include "BaseParticle.h"
-#include "FireballParticle.h"
-#include "SmokeParticle.h"
-
 ParticleManager::ParticleManager(std::shared_ptr<ResourceManager> resourceManager)
 {
-    this->m_resourceManager = resourceManager;
+    this->resource_manager_ = resourceManager;
 }
 
 ParticleManager::~ParticleManager()
 {
-    // clear the particles vector and delete the pointers
-    for (const auto& particle : m_particles) delete particle;
-    m_particles.clear();
+    particles_.clear();
 }
 
-void ParticleManager::addFireballParticle(const Vec2f& pos, const Vec2f& dir, float moveSpeed)
+void ParticleManager::AddParticle(const Vec2f& pos, const Vec2f& dir, float movespeed, SDL_Texture* texture, int size, float lifetime)
 {
-    m_particles.push_back(new FireballParticle(pos, dir, moveSpeed, m_resourceManager->getTexture("FireballParticleTexture")));
+    particles_.push_back(std::make_unique<Particle>(pos, dir, movespeed, texture, size, lifetime));
 }
 
-void ParticleManager::addSmokeParticle(const Vec2f& pos, const Vec2f& dir, float moveSpeed)
-{
-    m_particles.push_back(new SmokeParticle(pos, dir, moveSpeed, m_resourceManager->getTexture("SmokeParticleTexture")));
-}
 
-void ParticleManager::addFireballExplosionParticle(const Vec2f& pos, const Vec2f& dir, float moveSpeed)
+void ParticleManager::UpdateParticles(float dt)
 {
-    m_particles.push_back(new SmokeParticle(pos, dir, moveSpeed, m_resourceManager->getTexture("SmokeParticleTexture")));
-}
-
-void ParticleManager::updateParticles(float dt)
-{
-    for (const auto& particle : m_particles)
+    for (const auto& particle : particles_)
     {
-        particle->updateLifetime(dt);
-        particle->updatePosition(dt);
+        particle->Update(dt);
     }
-}
 
-void ParticleManager::removeUnusedParticles()
-{
-    for (int i = 0; i < m_particles.size(); i++)
+    for (int i = 0; i < particles_.size(); i++)
     {
-        if (m_particles[i]->removable)
+        if (particles_[i]->removable)
         {
-            delete m_particles[i];
-            m_particles.erase(m_particles.begin() + i);
+            particles_.erase(particles_.begin() + i);
             i--;
         }
     }
 }
 
-void ParticleManager::renderParticles(SDL_Renderer* renderer)
+void ParticleManager::RenderParticles(SDL_Renderer* renderer)
 {
-    for (const auto& particle : m_particles)
+    for (const auto& particle : particles_)
     {
-        particle->render(renderer);
+        particle->Render(renderer);
     }
 }

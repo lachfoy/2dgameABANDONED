@@ -17,8 +17,10 @@ GameScene::GameScene(std::shared_ptr<InputManager> inputManager, std::shared_ptr
     m_particleManager = std::make_shared<ParticleManager>(m_resourceManager);
     m_projectileManager = std::make_shared<ProjectileManager>(m_resourceManager, m_particleManager);
 
-    particleEmitter = std::make_unique<ParticleEmitter>(PARTICLE_FIRE,
+    particle_emitter = std::make_unique<ParticleEmitter>(m_resourceManager->getTexture("FireParticleTexture"),
         0.2f,
+        10.0f,
+        10.0f,
         30,
         Vec2f(500.0f, 300.0f),
         Vec2f(0.0f, 0.0f),
@@ -32,11 +34,11 @@ GameScene::GameScene(std::shared_ptr<InputManager> inputManager, std::shared_ptr
     m_player = std::make_shared<Player>(playerPos, m_resourceManager, m_uiManager, m_projectileManager);
     
     m_enemyManager = std::make_shared<EnemyManager>(m_resourceManager, m_particleManager, m_uiManager, m_projectileManager, m_player);
-    m_enemyManager->addSkeleton({ 400.0f, 300.0f });
-    m_enemyManager->addSkeleton({ 600.0f, 400.0f });
-    m_enemyManager->addSkeleton({ 500.0f, 500.0f });
-    m_enemyManager->addSkeleton({ 300.0f, 400.0f });
-    m_enemyManager->addSkeleton({ 700.0f, 200.0f });
+    // m_enemyManager->addSkeleton({ 400.0f, 300.0f });
+    // m_enemyManager->addSkeleton({ 600.0f, 400.0f });
+    // m_enemyManager->addSkeleton({ 500.0f, 500.0f });
+    // m_enemyManager->addSkeleton({ 300.0f, 400.0f });
+    // m_enemyManager->addSkeleton({ 700.0f, 200.0f });
 }
 
 GameScene::~GameScene()
@@ -45,7 +47,7 @@ GameScene::~GameScene()
 
 void GameScene::update(float dt)
 {
-    particleEmitter->update(dt); // test
+    particle_emitter->Update(dt); // test
 
     // handle input
     m_player->handleInput(*m_inputManager);
@@ -54,7 +56,7 @@ void GameScene::update(float dt)
     m_player->update(dt);
     m_enemyManager->updateEnemies(dt);
     m_projectileManager->updateProjectiles(dt);
-    m_particleManager->updateParticles(dt);
+    m_particleManager->UpdateParticles(dt);
 
     // collision resolution
     m_enemyManager->resolvePlayerProjectileCollisions(m_projectileManager->getPlayerProjectiles());
@@ -67,7 +69,6 @@ void GameScene::update(float dt)
     m_enemyManager->removeUnusedEnemies();
     m_projectileManager->removeUnusedProjectiles();
     m_uiManager->removeUnusedUiObjects();
-    m_particleManager->removeUnusedParticles();
 }
 
 void GameScene::render(SDL_Renderer* renderer)
@@ -76,7 +77,7 @@ void GameScene::render(SDL_Renderer* renderer)
     m_enemyManager->renderEnemies(renderer);
     m_player->renderShadow(renderer);
     m_player->render(renderer);
-    m_particleManager->renderParticles(renderer);
+    m_particleManager->RenderParticles(renderer);
     m_projectileManager->renderProjectiles(renderer);
 
     // render ui objects

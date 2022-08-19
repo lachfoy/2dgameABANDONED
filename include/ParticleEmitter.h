@@ -5,18 +5,15 @@
 #include <string>
 #include <cstdlib> // rand
 #include <cmath> // sin cos
+#include <iostream>
+
+#include <SDL2/SDL.h>
 
 #include "Vec2f.h"
 #include "ParticleManager.h"
 #include "BaseObject.h"
 
-// this isn't really that great but I don't have a better way of specifying the type
-enum ParticleType
-{
-    PARTICLE_FIRE,
-    PARTICLE_SMOKE,
-    PARTICLE_EXPLOSION
-};
+// class uses mozzila style for a change
 
 // TODO:
 // varied size
@@ -25,27 +22,33 @@ enum ParticleType
 class ParticleEmitter : public BaseObject
 {
 public:
-    inline ParticleEmitter(ParticleType particleType,
-        float spawnInterval,
-        int numParticles,
+    inline ParticleEmitter(SDL_Texture* particle_texture,
+        float spawn_interval,
+        float particle_lifetime,
+        float emitter_lifetime,
+        int num_particles,
         const Vec2f& pos,
-        const Vec2f& particleDir, // only used if randomDir = false
-        bool randomDir,
-        float particleMoveSpeedMin,
-        float particleMoveSpeedMax,
+        const Vec2f& particle_dir, // only used if random_dir = false
+        bool random_dir,
+        float particle_move_speed_min,
+        float particle_move_speed_max,
         float gravity, // unused
-        std::shared_ptr<ParticleManager> particleManager)
+        std::shared_ptr<ParticleManager> particle_manager)
          : BaseObject(pos)
     {
-        m_particleType = particleType;
-        m_spawnInterval = spawnInterval;
-        m_numParticles = numParticles;
-        m_particleDir = particleDir;
-        m_randomDir = randomDir;
-        m_particleMoveSpeedMin = particleMoveSpeedMin;
-        m_particleMoveSpeedMax = particleMoveSpeedMax;
-        m_gravity = gravity;
-        m_particleManager = particleManager;
+        particle_texture_ = particle_texture;
+        spawn_interval_ = spawn_interval;
+
+        
+        emitter_lifetime_timer_ = emitter_lifetime;
+
+        num_particles_ = num_particles;
+        particle_dir_ = particle_dir;
+        random_dir_ = random_dir;
+        particle_move_speed_min_ = particle_move_speed_min;
+        particle_move_speed_max_ = particle_move_speed_max;
+        gravity_ = gravity;
+        particle_manager_ = particle_manager;
     }
 
     ~ParticleEmitter()
@@ -53,49 +56,51 @@ public:
 
     }
 
-    void update(float dt)
+    void Update(float dt)
     {
-        if (m_emitterLifetimeTimer > 0.0f) 
+        if (emitter_lifetime_timer_ > 0.0f) 
         {
-            m_emitterLifetimeTimer -= dt;
+            emitter_lifetime_timer_ -= dt;
 
-            if (m_spawnTimer > 0.0f) m_spawnTimer -= dt;
+            if (spawn_timer_ > 0.0f) spawn_timer_ -= dt;
             else
             {
-                for (int i = 0; i < m_numParticles; i++)
+                for (int i = 0; i < num_particles_; i++)
                 {
-                    if (m_randomDir) // pick a random direction
+                    if (random_dir_) // pick a random direction
                     {
-                        const float randomGrad = 2.0f * M_PI * ((rand() % 100 + 1) / 100.0f); // random gradian
-                        m_particleDir = Vec2f(cosf(randomGrad), sinf(randomGrad));
+                        float random_grad = 2.0f * M_PI * ((rand() % 100 + 1) / 100.0f); // random gradian
+                        particle_dir_ = Vec2f(cosf(random_grad), sinf(random_grad));
                     }
 
-                    const float randomMoveSpeed = rand() % (int)(m_particleMoveSpeedMax - m_particleMoveSpeedMin + 1) + m_particleMoveSpeedMin;
-                    m_particleManager->addFireballParticle(pos, m_particleDir, randomMoveSpeed);
+                    float random_move_speed = rand() % (int)(particle_move_speed_max_ - particle_move_speed_min_ + 1) + particle_move_speed_min_;
+                    particle_manager_->AddParticle(pos, particle_dir_, random_move_speed, particle_texture_, 10, 1.0f);
+                    //void AddParticle(const Vec2f& pos, const Vec2f& dir, float movespeed, SDL_Texture* texture, int size, float lifetime);
 
                 }
-                m_spawnTimer = m_spawnInterval;
+                spawn_timer_ = spawn_interval_;
             }
         }
         else
         {
             // delete this entity
+            std::cout << "Particle Emitter lifetime ended\n";
         }
         
     }
 
 private:
-    float m_emitterLifetimeTimer;
-    ParticleType m_particleType;
-    float m_spawnInterval;
-    float m_spawnTimer;
-    int m_numParticles;
-    Vec2f m_particleDir;
-    bool m_randomDir;
-    float m_particleMoveSpeedMin;
-    float m_particleMoveSpeedMax;
-    float m_gravity;
-    std::shared_ptr<ParticleManager> m_particleManager;
+    float emitter_lifetime_timer_;
+    SDL_Texture* particle_texture_;
+    float spawn_interval_;
+    float spawn_timer_;
+    int num_particles_;
+    Vec2f particle_dir_;
+    bool random_dir_;
+    float particle_move_speed_min_;
+    float particle_move_speed_max_;
+    float gravity_;
+    std::shared_ptr<ParticleManager> particle_manager_;
 
 };
 
