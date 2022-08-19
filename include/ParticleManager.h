@@ -8,8 +8,7 @@
 
 #include "ResourceManager.h"
 #include "Vec2f.h"
-
-class BaseParticle;
+#include "particle.h"
 
 class ParticleManager
 {
@@ -17,17 +16,14 @@ public:
     ParticleManager(std::shared_ptr<ResourceManager> resourceManager);
     ~ParticleManager();
 
-    void addFireballParticle(const Vec2f& pos, const Vec2f& dir, float moveSpeed);
-    void addSmokeParticle(const Vec2f& pos, const Vec2f& dir, float moveSpeed);
-    void addFireballExplosionParticle(const Vec2f& pos, const Vec2f& dir, float moveSpeed);
+    void AddParticle(const Vec2f& pos, const Vec2f& dir, float movespeed, SDL_Texture* texture, int size, float lifetime);
 
-    void updateParticles(float dt);
-    void removeUnusedParticles();
-    void renderParticles(SDL_Renderer* renderer);
+    void UpdateParticles(float dt);
+    void RenderParticles(SDL_Renderer* renderer);
 
 private:
-    std::vector<BaseParticle*> m_particles;
-    std::shared_ptr<ResourceManager> m_resourceManager;
+    std::vector<std::unique_ptr<Particle>> particles_;
+    std::shared_ptr<ResourceManager> resource_manager_;
     
 };
 
