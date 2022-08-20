@@ -30,17 +30,18 @@ public:
         //info.particle_dir
         info.random_dir = true;
         //info.particle_movespeed
-        info.particle_movespeed_min = 100.0f;
-        info.particle_movespeed_max = 400.0f;
+        info.particle_movespeed_min = 50.0f;
+        info.particle_movespeed_max = 100.0f;
         //info.gravity
         //info.particle_size
-        info.particle_size_min = 16;
+        info.particle_size_min = 12;
         info.particle_size_max = 24;
+        info.particle_color = { 10, 123, 185, 255 };
         info.particle_texture = nullptr;
-        info.particle_lifetime = 0.2f;
+        info.particle_lifetime = 0.3f;
         info.spawn_interval = 0.2f;
         info.emitter_lifetime = 30.0f;
-        info.num_particles = 30;
+        info.num_particles = 10;
         info.particle_manager = particle_manager_;
         particle_emitters_.push_back(std::make_unique<ParticleEmitter>(info));
     }

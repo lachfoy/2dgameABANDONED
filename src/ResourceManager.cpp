@@ -30,13 +30,14 @@ ResourceManager::~ResourceManager()
     }
 }
 
-void ResourceManager::loadGameResources()
+void ResourceManager::LoadGameTextures()
 {
     printf("ResourceManager: loading textures...\n");
     m_textures["ShadowTexture"] = loadTextureFromFile("../images/Shadow.bmp", SDL_BLENDMODE_BLEND);
     m_textures["CrosshairTexture"] = loadTextureFromFile("../images/Crosshair.bmp", SDL_BLENDMODE_BLEND);
     m_textures["FireballTexture"] = loadTextureFromFile("../images/Fireball.bmp", SDL_BLENDMODE_BLEND);
-    m_textures["FireballParticleTexture"] = loadTextureFromFile("../images/Fireball.bmp", SDL_BLENDMODE_BLEND);
+    m_textures["base_particle_texture"] = loadTextureFromFile("../images/particle.bmp", SDL_BLENDMODE_BLEND);
+    m_textures["spell_effect_texture"] = loadTextureFromFile("../images/spell_effect.bmp", SDL_BLENDMODE_ADD);
     m_textures["SmokeParticleTexture"] = loadTextureFromFile("../images/Smoke.bmp", SDL_BLENDMODE_BLEND);
     m_textures["FireballExplosionTexture"] = loadTextureFromFile("../images/FireballExplosion.bmp", SDL_BLENDMODE_BLEND);
     m_textures["SwordTexture"] = loadTextureFromFile("../images/Sword.bmp", SDL_BLENDMODE_BLEND);

@@ -13,7 +13,7 @@ public:
     ResourceManager(SDL_Renderer* renderer);
     ~ResourceManager();
 
-    void loadGameResources();
+    void LoadGameTextures();
     void loadFonts();
 
     SDL_Texture* getTexture(std::string key);

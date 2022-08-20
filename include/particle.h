@@ -11,7 +11,7 @@
 class Particle : public BaseObject
 {
 public:
-    Particle(const Vec2f& pos, const Vec2f& dir, float movespeed, SDL_Texture* texture, int size, float lifetime);
+    Particle(const Vec2f& pos, const Vec2f& dir, float movespeed, int size, float lifetime, const SDL_Color& color, SDL_Texture* texture);
     ~Particle() {}
 
     inline Vec2f const& dir() const { return dir_; }
@@ -22,11 +22,13 @@ public:
 private:
     Vec2f dir_;
     float movespeed_;
-    SDL_Texture* texture_; // texture to use for rendering, particle does not have ownership
+    float gravity_;
     int size_;
     float start_lifetime_;
     float current_lifetime_;
     Uint8 alpha_;
+    SDL_Color color_;
+    SDL_Texture* texture_; // texture to use for rendering, particle does not have ownership
 
 };
 

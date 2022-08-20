@@ -12,7 +12,7 @@
 GameScene::GameScene(std::shared_ptr<InputManager> inputManager, std::shared_ptr<ResourceManager> resourceManager, int windowWidth, int windowHeight)
      : BaseScene(inputManager, resourceManager, windowWidth, windowHeight)
 {
-    resource_manager_->loadGameResources();
+    resource_manager_->LoadGameTextures();
 
     ui_manager_ = std::make_shared<UiManager>(m_inputManager, resource_manager_, m_windowWidth, m_windowHeight);
     particle_manager_ = std::make_shared<ParticleManager>(resource_manager_);
