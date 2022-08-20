@@ -15,7 +15,7 @@ public:
     void render(SDL_Renderer* renderer) override;
 
 private:
-    std::shared_ptr<UiManager> m_uiManager;
+    std::shared_ptr<UiManager> ui_manager_;
 
 };
 

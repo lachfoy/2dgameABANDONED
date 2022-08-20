@@ -28,7 +28,7 @@ public:
     void update(float dt) override;
 
 protected:
-    std::shared_ptr<UiManager> m_uiManager;
+    std::shared_ptr<UiManager> ui_manager_;
     std::shared_ptr<ProjectileManager> projectileManager;
     std::shared_ptr<Player> player;
     Damage damage;

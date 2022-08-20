@@ -7,86 +7,76 @@
 
 ProjectileManager::ProjectileManager(std::shared_ptr<ResourceManager> resourceManager, std::shared_ptr<ParticleManager> particleManager)
 {
-    m_resourceManager = resourceManager;
-    m_particleManager = particleManager;
+    resource_manager_ = resourceManager;
+    particle_manager_ = particleManager;
 }
 
 ProjectileManager::~ProjectileManager()
 {
     // clear the projectiles vectors
-    m_enemyProjectiles.clear();
-    m_playerProjectiles.clear();
+    _enemy_projectiles.clear();
+    _player_projectiles.clear();
 }
 
-void ProjectileManager::addFireball(const Vec2f& pos, const Vec2f& dir)
+void ProjectileManager::AddFireball(const Vec2f& pos, const Vec2f& dir)
 {
-    m_playerProjectiles.push_back(std::make_unique<Fireball>(pos, dir, m_resourceManager, m_particleManager));
+    std::unique_ptr<BaseProjectile> projectile = std::make_unique<Fireball>(pos, dir, resource_manager_, particle_manager_);
+    projectile->OnCreate(*this);
+    _player_projectiles.push_back(std::move(projectile));
 }
 
-void ProjectileManager::addFireballExplosion(const Vec2f& pos)
+void ProjectileManager::AddFireballExplosion(const Vec2f& pos)
 {
-    m_playerProjectiles.push_back(std::make_unique<FireballExplosion>(pos, m_resourceManager, m_particleManager));
+    std::unique_ptr<BaseProjectile> projectile = std::make_unique<FireballExplosion>(pos, resource_manager_, particle_manager_);
+    projectile->OnCreate(*this);
+    _player_projectiles.push_back(std::move(projectile));
 }
 
-void ProjectileManager::updateProjectiles(float dt)
+void ProjectileManager::UpdateProjectiles(float dt)
 {
-    // enemy projectiles
-    for (const auto& projectile : m_enemyProjectiles)
+    // update projectiles
+    for (const auto& projectile : _enemy_projectiles) projectile->Update(dt);
+    for (const auto& projectile : _player_projectiles) projectile->Update(dt);
+
+    // remove unused projectiles
+    for (int i = 0; i < _enemy_projectiles.size(); i++)
     {
-        projectile->updatePosition(dt);
-        projectile->updateLifetime(dt);
-    }
-
-    // player projectiles
-    for (const auto& projectile : m_playerProjectiles)
-    {
-        projectile->updatePosition(dt);
-        projectile->updateLifetime(dt);
-    }
-}
-
-void ProjectileManager::removeUnusedProjectiles()
-{
-    // enemy projectiles
-    for (int i = 0; i < m_enemyProjectiles.size(); i++)
-    {
-        if (m_enemyProjectiles[i]->removable)
+        if (_enemy_projectiles[i]->removable)
         {
-            m_enemyProjectiles[i]->destroy(*this);
-            m_enemyProjectiles.erase(m_enemyProjectiles.begin() + i);
+            _enemy_projectiles[i]->OnDestroy(*this);
+            _enemy_projectiles.erase(_enemy_projectiles.begin() + i);
             i--;
         }
     }
 
-    // player projectiles
-    for (int i = 0; i < m_playerProjectiles.size(); i++)
+    for (int i = 0; i < _player_projectiles.size(); i++)
     {
-        if (m_playerProjectiles[i]->removable)
+        if (_player_projectiles[i]->removable)
         {
-            m_playerProjectiles[i]->destroy(*this);
-            m_playerProjectiles.erase(m_playerProjectiles.begin() + i);
+            _player_projectiles[i]->OnDestroy(*this);
+            _player_projectiles.erase(_player_projectiles.begin() + i);
             i--;
         }
     }
 }
 
-void ProjectileManager::renderProjectiles(SDL_Renderer* renderer)
+void ProjectileManager::RenderProjectiles(SDL_Renderer* renderer)
 {
-    for (const auto& projectile : m_enemyProjectiles) projectile->render(renderer);
-    for (const auto& projectile : m_playerProjectiles) projectile->render(renderer);
+    for (const auto& projectile : _enemy_projectiles) projectile->Render(renderer);
+    for (const auto& projectile : _player_projectiles) projectile->Render(renderer);
 }
 
 void ProjectileManager::renderDebug(SDL_Renderer* renderer)
 {
     // enemy projectiles
-    for (const auto& projectile : m_enemyProjectiles)
+    for (const auto& projectile : _enemy_projectiles)
     {
         projectile->renderCollider(renderer);
         projectile->renderOrigin(renderer);
     }
 
     // player projectiles
-    for (const auto& projectile : m_playerProjectiles)
+    for (const auto& projectile : _player_projectiles)
     {
         projectile->renderCollider(renderer);
         projectile->renderOrigin(renderer);

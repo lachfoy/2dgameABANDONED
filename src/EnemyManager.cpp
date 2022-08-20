@@ -7,7 +7,7 @@
 #include "Player.h"
 #include "ProjectileManager.h"
 #include "ResourceManager.h"
-#include "ParticleManager.h"
+#include "particle_manager.h"
 
 EnemyManager::EnemyManager(std::shared_ptr<ResourceManager> resourceManager,
     std::shared_ptr<ParticleManager> particleManager,
@@ -15,9 +15,9 @@ EnemyManager::EnemyManager(std::shared_ptr<ResourceManager> resourceManager,
     std::shared_ptr<ProjectileManager> projectileManager,
     std::shared_ptr<Player> player)
 {
-    this->m_resourceManager = resourceManager;
+    this->resource_manager_ = resourceManager;
     this->particleManager = particleManager;
-    this->m_uiManager = uiManager;
+    this->ui_manager_ = uiManager;
     this->projectileManager = projectileManager;
     this->player = player;
 }
@@ -30,7 +30,7 @@ EnemyManager::~EnemyManager()
 
 void EnemyManager::addSkeleton(const Vec2f& pos)
 {
-    m_enemies.push_back(std::make_unique<Skeleton>(pos, m_resourceManager, particleManager, m_uiManager, projectileManager, player));
+    m_enemies.push_back(std::make_unique<Skeleton>(pos, resource_manager_, particleManager, ui_manager_, projectileManager, player));
 }
 
 // tests collision against a list of projectiles and deals appropriate damage

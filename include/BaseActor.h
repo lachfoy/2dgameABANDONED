@@ -63,7 +63,7 @@ protected:
     enum FacingDirection { FACING_LEFT, FACING_RIGHT } facingDirection;
 
     // resources
-    std::shared_ptr<ResourceManager> m_resourceManager;
+    std::shared_ptr<ResourceManager> resource_manager_;
 
     // particles
     std::shared_ptr<ParticleManager> particleManager;

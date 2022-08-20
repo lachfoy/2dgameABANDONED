@@ -1,4 +1,4 @@
-#include "ParticleManager.h"
+#include "particle_manager.h"
 
 ParticleManager::ParticleManager(std::shared_ptr<ResourceManager> resourceManager)
 {

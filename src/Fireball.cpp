@@ -1,7 +1,7 @@
 #include "Fireball.h"
 
 #include "ProjectileManager.h"
-#include "ParticleManager.h"
+#include "particle_manager.h"
 #include "ResourceManager.h"
 
 Fireball::Fireball(const Vec2f& pos,
@@ -23,35 +23,13 @@ Fireball::Fireball(const Vec2f& pos,
     rotationSpeed = 5.0f;
 }
 
-void Fireball::destroy(ProjectileManager& projectileManager)
+void Fireball::OnDestroy(ProjectileManager& projectileManager)
 {
     // when destroyed, create an explosion
-    projectileManager.addFireballExplosion(pos);
+    projectileManager.AddFireballExplosion(pos);
 }
 
-// this should be redone in a better way... im just not sure how
-void Fireball::updatePosition(float dt)
-{
-    // update the internal position
-    pos.x += dir.x * moveSpeed * dt;
-    pos.y += dir.y * moveSpeed * dt;
-
-    if (rotate)
-    {
-        if (angle >= 360)
-            angle = 0.0f;
-        else
-            angle += rotationSpeed;
-    }
-
-    // move the collider as well
-    collider.minX = (int)pos.x - (colliderW / 2);
-    collider.minY = (int)pos.y - (colliderH / 2);
-    collider.maxX = (int)pos.x + (colliderW / 2);
-    collider.maxY = (int)pos.y + (colliderH / 2);
-}
-
-void Fireball::render(SDL_Renderer* renderer)
+void Fireball::Render(SDL_Renderer* renderer)
 {
     // draw the origin position representing the actual x and y positions
     SDL_Rect fireball_rect;
@@ -61,7 +39,7 @@ void Fireball::render(SDL_Renderer* renderer)
     fireball_rect.y = (int)pos.y - (fireball_rect.h / 2);
 
     // draw the fireball
-    SDL_RenderCopyEx(renderer, m_resourceManager->getTexture("FireballTexture"), NULL, &fireball_rect, angle, NULL, {});
+    SDL_RenderCopyEx(renderer, resource_manager_->getTexture("FireballTexture"), NULL, &fireball_rect, angle, NULL, {});
 
     // draw collider
     //collider.debugRender(renderer);

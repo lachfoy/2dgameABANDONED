@@ -29,7 +29,7 @@ private:
     SDL_Renderer* renderer;
 
     std::shared_ptr<InputManager> m_inputManager;
-    std::shared_ptr<ResourceManager> m_resourceManager;
+    std::shared_ptr<ResourceManager> resource_manager_;
     std::shared_ptr<SceneManager> m_sceneManager;
 
     void create();

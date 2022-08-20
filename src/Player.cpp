@@ -16,7 +16,7 @@ Player::Player(const Vec2f& pos,
     // initialize everything
     name = "Player";
 
-    this->m_uiManager = uiManager;
+    this->ui_manager_ = uiManager;
     this->projectileManager = projectileManager;
 
     width = 30;
@@ -27,7 +27,7 @@ Player::Player(const Vec2f& pos,
 
     maxHealth = 80;
     health = maxHealth;
-    m_uiManager->addHealthbar(16, 16, 200, 14, this);
+    ui_manager_->addHealthbar(16, 16, 200, 14, this);
 
     // set the resistance values
     resistance = {0};
@@ -68,7 +68,7 @@ void Player::handleInput(InputManager& inputManager)
             if (canShoot)
             {
                 int fireballVelX = (facingDirection == FACING_RIGHT) ? 1 : -1;
-                projectileManager->addFireball({ pos.x, pos.y - (height / 2) }, { (float)fireballVelX, 0.0f });
+                projectileManager->AddFireball({ pos.x, pos.y - (height / 2) }, { (float)fireballVelX, 0.0f });
                 canShoot = false;
             }
         }
@@ -101,7 +101,7 @@ void Player::handleInput(InputManager& inputManager)
             if (canShoot)
             {
                 // add a new fireball with some offset from the origin
-                projectileManager->addFireball({ pos.x, pos.y - (height / 2) }, Vec2f::getDirection(pos, { (float)inputManager.getMouseX(), (float)inputManager.getMouseY() }));
+                projectileManager->AddFireball({ pos.x, pos.y - (height / 2) }, Vec2f::getDirection(pos, { (float)inputManager.getMouseX(), (float)inputManager.getMouseY() }));
 
                 ammo--; // subtract ammo
                 canShoot = false;

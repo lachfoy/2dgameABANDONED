@@ -1,7 +1,7 @@
 #include "BaseProjectile.h"
 
 #include "BaseActor.h"
-#include "ParticleManager.h"
+#include "particle_manager.h"
 #include "ResourceManager.h"
 
 BaseProjectile::BaseProjectile(const Vec2f& pos,
@@ -12,22 +12,19 @@ BaseProjectile::BaseProjectile(const Vec2f& pos,
 {
     this->dir = dir;
 
-    m_resourceManager = resourceManager;
-    m_particleManager = particleManager;
+    resource_manager_ = resourceManager;
+    particle_manager_ = particleManager;
     
     collider = AABB2i(pos.x, pos.y, colliderW, colliderH);
 }
 
-void BaseProjectile::updateLifetime(float dt)
+void BaseProjectile::Update(float dt)
 {
     if (lifeTime <= 0.0f)
         removable = true;
     else
         lifeTime -= dt;
-}
 
-void BaseProjectile::updatePosition(float dt)
-{
     // update the internal position
     pos.x += dir.x * moveSpeed * dt;
     pos.y += dir.y * moveSpeed * dt;

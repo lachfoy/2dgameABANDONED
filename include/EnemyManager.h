@@ -39,9 +39,9 @@ public:
     void renderDebug(SDL_Renderer* renderer);
 
 private:
-    std::shared_ptr<ResourceManager> m_resourceManager; // pointer to resource manager
+    std::shared_ptr<ResourceManager> resource_manager_; // pointer to resource manager
     std::shared_ptr<ParticleManager> particleManager;
-    std::shared_ptr<UiManager> m_uiManager; // pointer to ui manager
+    std::shared_ptr<UiManager> ui_manager_; // pointer to ui manager
     std::shared_ptr<ProjectileManager> projectileManager; // pointer to projectile manager
     std::shared_ptr<Player> player; // pointer to player
     std::vector<std::unique_ptr<BaseEnemy>> m_enemies;
