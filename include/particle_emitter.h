@@ -19,35 +19,50 @@
 // varied size
 // need ParticleSpawnerManager class :(
 
+// since there are like a million params, using a struct seems nice
+struct ParticleEmitterInfo
+{
+    Vec2f pos;
+    Vec2f particle_dir; // only used if random_dir = false
+    bool random_dir; // idealy allowing a random of random directions would be better
+    float particle_movespeed;
+    float particle_movespeed_min;
+    float particle_movespeed_max;
+    float gravity;
+    int particle_size;
+    int particle_size_min;
+    int particle_size_max;
+    SDL_Texture* particle_texture;
+    float particle_lifetime;
+    float spawn_interval;
+    float emitter_lifetime;
+    int num_particles;
+    std::shared_ptr<ParticleManager> particle_manager;
+};
+
 class ParticleEmitter : public BaseObject
 {
 public:
-    inline ParticleEmitter(SDL_Texture* particle_texture,
-        float spawn_interval,
-        float particle_lifetime,
-        float emitter_lifetime,
-        int num_particles,
-        const Vec2f& pos,
-        const Vec2f& particle_dir, // only used if random_dir = false
-        bool random_dir,
-        float particle_move_speed_min,
-        float particle_move_speed_max,
-        float gravity, // unused
-        std::shared_ptr<ParticleManager> particle_manager)
-         : BaseObject(pos)
+    inline ParticleEmitter(const ParticleEmitterInfo& info)
+     : BaseObject(info.pos)
     {
-        particle_texture_ = particle_texture;
-        spawn_interval_ = spawn_interval;
-        
-        emitter_lifetime_timer_ = emitter_lifetime;
-
-        num_particles_ = num_particles;
-        particle_dir_ = particle_dir;
-        random_dir_ = random_dir;
-        particle_move_speed_min_ = particle_move_speed_min;
-        particle_move_speed_max_ = particle_move_speed_max;
-        gravity_ = gravity;
-        particle_manager_ = particle_manager;
+        particle_dir_ = info.particle_dir;
+        random_dir_ = info.random_dir;
+        particle_movespeed_ = info.particle_movespeed;
+        particle_movespeed_min_ = info.particle_movespeed_min;
+        particle_movespeed_max_ = info.particle_movespeed_max;
+        gravity_ = info.gravity;
+        particle_size_ = info.particle_size;
+        particle_size_min_ = info.particle_size_min;
+        particle_size_max_ = info.particle_size_max;
+        particle_texture_ = info.particle_texture;
+        particle_lifetime_ = info.particle_lifetime;
+        spawn_interval_ = info.spawn_interval;
+        spawn_timer_ = spawn_interval_;
+        emitter_lifetime_ = info.emitter_lifetime;
+        emitter_lifetime_timer_ = emitter_lifetime_;
+        num_particles_ = info.num_particles;
+        particle_manager_ = info.particle_manager;
     }
 
     ~ParticleEmitter()
@@ -72,9 +87,10 @@ public:
                         particle_dir_ = Vec2f(cosf(random_grad), sinf(random_grad));
                     }
 
-                    float random_move_speed = rand() % (int)(particle_move_speed_max_ - particle_move_speed_min_ + 1) + particle_move_speed_min_;
-                    particle_manager_->AddParticle(pos, particle_dir_, random_move_speed, particle_texture_, 10, 1.0f);
-                    //void AddParticle(const Vec2f& pos, const Vec2f& dir, float movespeed, SDL_Texture* texture, int size, float lifetime);
+                    float random_movespeed = rand() % (int)(particle_movespeed_max_ - particle_movespeed_min_ + 1) + particle_movespeed_min_;
+                    int random_size = rand() % (particle_size_max_ - particle_size_min_ + 1) + particle_size_min_;
+
+                    particle_manager_->AddParticle(pos, particle_dir_, random_movespeed, particle_texture_, random_size, particle_lifetime_);
 
                 }
                 spawn_timer_ = spawn_interval_;
@@ -90,16 +106,22 @@ public:
     }
 
 private:
-    float emitter_lifetime_timer_;
-    SDL_Texture* particle_texture_;
-    float spawn_interval_;
-    float spawn_timer_;
-    int num_particles_;
     Vec2f particle_dir_;
     bool random_dir_;
-    float particle_move_speed_min_;
-    float particle_move_speed_max_;
+    float particle_movespeed_;
+    float particle_movespeed_min_;
+    float particle_movespeed_max_;
     float gravity_;
+    int particle_size_;
+    int particle_size_min_;
+    int particle_size_max_;
+    SDL_Texture* particle_texture_;
+    float particle_lifetime_;
+    float spawn_interval_;
+    float spawn_timer_;
+    float emitter_lifetime_;
+    float emitter_lifetime_timer_;
+    int num_particles_;
     std::shared_ptr<ParticleManager> particle_manager_;
 
 };

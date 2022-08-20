@@ -25,18 +25,25 @@ public:
 
     void AddParticleEmitter(const Vec2f& pos)
     {
-        particle_emitters_.push_back(std::make_unique<ParticleEmitter>(nullptr,
-            0.2f,
-            10.0f,
-            20.0f,
-            30,
-            pos,
-            Vec2f(0.0f, 0.0f), // not used
-            true,
-            100.0f,
-            300.0f,
-            0.0f, // not used
-            particle_manager_));
+        ParticleEmitterInfo info;
+        info.pos = pos;
+        //info.particle_dir
+        info.random_dir = true;
+        //info.particle_movespeed
+        info.particle_movespeed_min = 200.0f;
+        info.particle_movespeed_max = 300.0f;
+        //info.gravity
+        //info.particle_size
+        info.particle_size_min = 8;
+        info.particle_size_max = 14;
+        info.particle_texture = nullptr;
+        info.particle_lifetime = 0.5f;
+        info.spawn_interval = 0.2f;
+        info.emitter_lifetime = 30.0f;
+        info.num_particles = 30;
+        info.particle_manager = particle_manager_;
+        
+        particle_emitters_.push_back(std::make_unique<ParticleEmitter>(info));
     }
 
     void UpdateParticleEmitters(float dt)
