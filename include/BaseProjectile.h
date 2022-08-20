@@ -31,18 +31,16 @@ public:
     inline Damage const& getDamage() const { return damage; }
     inline Vec2f const& getDir() const { return dir; }
     
-    virtual void create(ProjectileManager& projectileManager) = 0;
-    virtual void destroy(ProjectileManager& projectileManager) = 0;
-    
-    void updateLifetime(float dt);
-    virtual void updatePosition(float dt); // derived projectiles can override update ONLY if they need to
+    virtual void OnCreate(ProjectileManager& projectileManager) {}
+    virtual void OnDestroy(ProjectileManager& projectileManager) {}
 
-    virtual void render(SDL_Renderer* renderer) = 0;
+    virtual void Update(float dt);
+    virtual void Render(SDL_Renderer* renderer) = 0;
 
     // debug
     void renderCollider(SDL_Renderer* renderer);
 
-protected: // things the derived projectiles can change
+protected: // things the derived projectiles can access
     Vec2f dir;
     AABB2i collider;
     int colliderW;

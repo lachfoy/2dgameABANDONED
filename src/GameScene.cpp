@@ -55,7 +55,7 @@ void GameScene::update(float dt)
     // update game objects
     m_player->update(dt);
     m_enemyManager->updateEnemies(dt);
-    m_projectileManager->updateProjectiles(dt);
+    m_projectileManager->UpdateProjectiles(dt);
     particle_manager_->UpdateParticles(dt);
 
     // collision resolution
@@ -67,7 +67,6 @@ void GameScene::update(float dt)
 
     // remove unused objects
     m_enemyManager->removeUnusedEnemies();
-    m_projectileManager->removeUnusedProjectiles();
     ui_manager_->removeUnusedUiObjects();
 }
 
@@ -78,7 +77,7 @@ void GameScene::render(SDL_Renderer* renderer)
     m_player->renderShadow(renderer);
     m_player->render(renderer);
     particle_manager_->RenderParticles(renderer);
-    m_projectileManager->renderProjectiles(renderer);
+    m_projectileManager->RenderProjectiles(renderer);
 
     // render ui objects
     ui_manager_->renderUiObjects(renderer);

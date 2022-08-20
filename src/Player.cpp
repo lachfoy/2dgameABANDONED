@@ -68,7 +68,7 @@ void Player::handleInput(InputManager& inputManager)
             if (canShoot)
             {
                 int fireballVelX = (facingDirection == FACING_RIGHT) ? 1 : -1;
-                projectileManager->addFireball({ pos.x, pos.y - (height / 2) }, { (float)fireballVelX, 0.0f });
+                projectileManager->AddFireball({ pos.x, pos.y - (height / 2) }, { (float)fireballVelX, 0.0f });
                 canShoot = false;
             }
         }
@@ -101,7 +101,7 @@ void Player::handleInput(InputManager& inputManager)
             if (canShoot)
             {
                 // add a new fireball with some offset from the origin
-                projectileManager->addFireball({ pos.x, pos.y - (height / 2) }, Vec2f::getDirection(pos, { (float)inputManager.getMouseX(), (float)inputManager.getMouseY() }));
+                projectileManager->AddFireball({ pos.x, pos.y - (height / 2) }, Vec2f::getDirection(pos, { (float)inputManager.getMouseX(), (float)inputManager.getMouseY() }));
 
                 ammo--; // subtract ammo
                 canShoot = false;

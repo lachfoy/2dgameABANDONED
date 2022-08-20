@@ -19,7 +19,7 @@ FireballExplosion::FireballExplosion(const Vec2f& pos,
     onlyDamageOnce = true;
 }
 
-void FireballExplosion::render(SDL_Renderer* renderer)
+void FireballExplosion::Render(SDL_Renderer* renderer)
 {
     // draw the origin position representing the actual x and y positions
     SDL_Rect fireball_explosion_rect;

@@ -18,16 +18,13 @@ BaseProjectile::BaseProjectile(const Vec2f& pos,
     collider = AABB2i(pos.x, pos.y, colliderW, colliderH);
 }
 
-void BaseProjectile::updateLifetime(float dt)
+void BaseProjectile::Update(float dt)
 {
     if (lifeTime <= 0.0f)
         removable = true;
     else
         lifeTime -= dt;
-}
 
-void BaseProjectile::updatePosition(float dt)
-{
     // update the internal position
     pos.x += dir.x * moveSpeed * dt;
     pos.y += dir.y * moveSpeed * dt;

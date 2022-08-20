@@ -9,11 +9,8 @@ public:
     FireballExplosion(const Vec2f& pos,
         std::shared_ptr<ResourceManager> resourceManager,
         std::shared_ptr<ParticleManager> particleManager);
-
-    void create(ProjectileManager& projectileManager) override {}
-    void destroy(ProjectileManager& projectileManager) override {}
     
-    void render(SDL_Renderer* renderer) override;
+    void Render(SDL_Renderer* renderer) override;
 
 private:
     float gasSpawnTime = 0.02f;

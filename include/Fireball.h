@@ -11,11 +11,9 @@ public:
         std::shared_ptr<ResourceManager> resourceManager,
         std::shared_ptr<ParticleManager> particleManager);
 
-    void create(ProjectileManager& projectileManager) override {}
-    void destroy(ProjectileManager& projectileManager) override;
+    void OnDestroy(ProjectileManager& projectileManager) override;
 
-    void updatePosition(float dt) override; // override to add particle functionality
-    void render(SDL_Renderer* renderer) override;
+    void Render(SDL_Renderer* renderer) override;
 
 private:
     float trailSpawnTime = 0.02f;

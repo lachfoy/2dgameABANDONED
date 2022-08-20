@@ -31,13 +31,13 @@ public:
     // For example, addProjectile<Fireball>()?
     // -------------------------------------
     //inline void addProjectile(BaseProjectile* projectile) { projectiles.push_back(projectile); } // depracated? dont use this anymore
-    void addFireball(const Vec2f& pos, const Vec2f& dir);
-    void addFireballExplosion(const Vec2f& pos);
+    void AddFireball(const Vec2f& pos, const Vec2f& dir);
+    void AddFireballExplosion(const Vec2f& pos);
 
-    void updateProjectiles(float dt);
+    void UpdateProjectiles(float dt);
     void resolveProjectileVsEnemyCollisions(const std::vector<BaseActor*>& enemies);
     void removeUnusedProjectiles();
-    void renderProjectiles(SDL_Renderer* renderer);
+    void RenderProjectiles(SDL_Renderer* renderer);
     void renderDebug(SDL_Renderer* renderer);
 
 private:
