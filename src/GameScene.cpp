@@ -5,6 +5,7 @@
 #include "EnemyManager.h"
 #include "UiManager.h"
 #include "particle_manager.h"
+#include "particle_emitter_manager.h"
 
 #define DEBUG_DRAW 1
 
@@ -17,18 +18,8 @@ GameScene::GameScene(std::shared_ptr<InputManager> inputManager, std::shared_ptr
     particle_manager_ = std::make_shared<ParticleManager>(resource_manager_);
     m_projectileManager = std::make_shared<ProjectileManager>(resource_manager_, particle_manager_);
 
-    particle_emitter = std::make_unique<ParticleEmitter>(resource_manager_->getTexture("FireParticleTexture"),
-        0.2f,
-        10.0f,
-        20.0f,
-        30,
-        Vec2f(500.0f, 300.0f),
-        Vec2f(0.0f, 0.0f), // not used
-        true,
-        100.0f,
-        300.0f,
-        0.0f, // not used
-        particle_manager_);
+    particle_emitter_manager_ = std::make_shared<ParticleEmitterManager>(particle_manager_);
+    particle_emitter_manager_->AddParticleEmitter(Vec2f(500.0f, 300.0f));
 
     const Vec2f playerPos = { 100.0f, 200.0f };
     m_player = std::make_shared<Player>(playerPos, resource_manager_, ui_manager_, m_projectileManager);
@@ -47,7 +38,7 @@ GameScene::~GameScene()
 
 void GameScene::update(float dt)
 {
-    particle_emitter->Update(dt); // test
+    
 
     // handle input
     m_player->handleInput(*m_inputManager);
@@ -57,6 +48,7 @@ void GameScene::update(float dt)
     m_enemyManager->updateEnemies(dt);
     m_projectileManager->UpdateProjectiles(dt);
     particle_manager_->UpdateParticles(dt);
+    particle_emitter_manager_->UpdateParticleEmitters(dt);
 
     // collision resolution
     m_enemyManager->resolvePlayerProjectileCollisions(m_projectileManager->player_projectiles());

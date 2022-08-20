@@ -8,16 +8,13 @@ class ProjectileManager;
 class EnemyManager;
 class UiManager;
 class ParticleManager;
-
-#include "particle_emitter.h"
+class ParticleEmitterManager;
 
 class GameScene : public BaseScene
 {
 public:
     GameScene(std::shared_ptr<InputManager> inputManager, std::shared_ptr<ResourceManager> resourceManager, int windowWidth, int windowHeight);
     ~GameScene();
-
-    std::unique_ptr<ParticleEmitter> particle_emitter;
 
     void update(float dt) override;
     void render(SDL_Renderer* renderer) override;
@@ -28,6 +25,7 @@ private:
     std::shared_ptr<EnemyManager> m_enemyManager;
     std::shared_ptr<UiManager> ui_manager_;
     std::shared_ptr<ParticleManager> particle_manager_;
+    std::shared_ptr<ParticleEmitterManager> particle_emitter_manager_;
 
 };
 

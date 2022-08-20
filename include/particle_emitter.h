@@ -83,7 +83,8 @@ public:
         else
         {
             // delete this entity
-            std::cout << "Particle Emitter lifetime ended\n";
+            std::cout << "deleting particle emitter\n";
+            removable = true;
         }
         
     }
