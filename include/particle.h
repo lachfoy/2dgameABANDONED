@@ -1,6 +1,8 @@
 #ifndef PARTICLE_H_
 #define PARTICLE_H_
 
+#include <cmath>
+
 #include <SDL2/SDL.h>
 
 #include "BaseObject.h"
@@ -22,9 +24,10 @@ private:
     float movespeed_;
     SDL_Texture* texture_; // texture to use for rendering, particle does not have ownership
     int size_;
-    float lifetime_;
+    float start_lifetime_;
+    float current_lifetime_;
     Uint8 alpha_;
-    
+
 };
 
 #endif

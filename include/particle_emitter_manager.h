@@ -30,19 +30,18 @@ public:
         //info.particle_dir
         info.random_dir = true;
         //info.particle_movespeed
-        info.particle_movespeed_min = 200.0f;
-        info.particle_movespeed_max = 300.0f;
+        info.particle_movespeed_min = 100.0f;
+        info.particle_movespeed_max = 400.0f;
         //info.gravity
         //info.particle_size
-        info.particle_size_min = 8;
-        info.particle_size_max = 14;
+        info.particle_size_min = 16;
+        info.particle_size_max = 24;
         info.particle_texture = nullptr;
-        info.particle_lifetime = 0.5f;
+        info.particle_lifetime = 0.2f;
         info.spawn_interval = 0.2f;
         info.emitter_lifetime = 30.0f;
         info.num_particles = 30;
         info.particle_manager = particle_manager_;
-        
         particle_emitters_.push_back(std::make_unique<ParticleEmitter>(info));
     }
 
@@ -51,11 +50,6 @@ public:
         for (const auto& emitter : particle_emitters_)
         {
             emitter->Update(dt);
-
-            // if (emitter->removable)
-            // {
-            //     particle_emitters_.erase(std::remove(particle_emitters_.begin(), particle_emitters_.end(), emitter));
-            // }
         }
 
         particle_emitters_.erase(
@@ -69,7 +63,6 @@ public:
             particle_emitters_.end()
         );
     }
-
 
 private:
     std::vector<std::unique_ptr<ParticleEmitter>> particle_emitters_;

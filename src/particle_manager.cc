@@ -2,7 +2,7 @@
 
 ParticleManager::ParticleManager(std::shared_ptr<ResourceManager> resourceManager)
 {
-    this->resource_manager_ = resourceManager;
+    resource_manager_ = resourceManager;
 }
 
 ParticleManager::~ParticleManager()
@@ -12,7 +12,7 @@ ParticleManager::~ParticleManager()
 
 void ParticleManager::AddParticle(const Vec2f& pos, const Vec2f& dir, float movespeed, SDL_Texture* texture, int size, float lifetime)
 {
-    particles_.push_back(std::make_unique<Particle>(pos, dir, movespeed, texture, size, lifetime));
+    particles_.push_back(std::make_unique<Particle>(pos, dir, movespeed, resource_manager_->getTexture("FireballParticleTexture"), size, lifetime));
 }
 
 
