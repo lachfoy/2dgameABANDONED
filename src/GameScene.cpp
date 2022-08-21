@@ -1,7 +1,7 @@
 #include "GameScene.h"
 
 #include "Player.h"
-#include "ProjectileManager.h"
+#include "projectile_manager.h"
 #include "EnemyManager.h"
 #include "UiManager.h"
 #include "particle_manager.h"
@@ -16,10 +16,12 @@ GameScene::GameScene(std::shared_ptr<InputManager> inputManager, std::shared_ptr
 
     ui_manager_ = std::make_shared<UiManager>(m_inputManager, resource_manager_, m_windowWidth, m_windowHeight);
     particle_manager_ = std::make_shared<ParticleManager>(resource_manager_);
-    m_projectileManager = std::make_shared<ProjectileManager>(resource_manager_, particle_manager_);
+    
 
     particle_emitter_manager_ = std::make_shared<ParticleEmitterManager>(particle_manager_);
     particle_emitter_manager_->AddParticleEmitter(Vec2f(500.0f, 300.0f));
+
+    m_projectileManager = std::make_shared<ProjectileManager>(resource_manager_, particle_manager_, particle_emitter_manager_);
 
     const Vec2f playerPos = { 100.0f, 200.0f };
     m_player = std::make_shared<Player>(playerPos, resource_manager_, ui_manager_, m_projectileManager);
@@ -64,6 +66,10 @@ void GameScene::update(float dt)
 
 void GameScene::render(SDL_Renderer* renderer)
 {
+    // render background hehhe
+    const SDL_Rect background_rect = { 0, 0, m_windowWidth, m_windowHeight };
+    SDL_RenderCopy(renderer, resource_manager_->getTexture("background_texture"), NULL, &background_rect);
+
     // render game objects
     m_enemyManager->renderEnemies(renderer);
     m_player->renderShadow(renderer);

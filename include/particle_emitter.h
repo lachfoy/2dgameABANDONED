@@ -35,6 +35,8 @@ struct ParticleEmitterInfo
     SDL_Color particle_color;
     SDL_Texture* particle_texture;
     float particle_lifetime;
+    float particle_lifetime_min;
+    float particle_lifetime_max;
     float spawn_interval;
     float emitter_lifetime;
     int num_particles;
@@ -59,6 +61,8 @@ public:
         particle_color_ = info.particle_color;
         particle_texture_ = info.particle_texture;
         particle_lifetime_ = info.particle_lifetime;
+        particle_lifetime_min_ = info.particle_lifetime_min;
+        particle_lifetime_max_ = info.particle_lifetime_max;
         spawn_interval_ = info.spawn_interval;
         spawn_timer_ = spawn_interval_;
         emitter_lifetime_ = info.emitter_lifetime;
@@ -92,7 +96,9 @@ public:
                     float random_movespeed = rand() % (int)(particle_movespeed_max_ - particle_movespeed_min_ + 1) + particle_movespeed_min_;
                     int random_size = rand() % (particle_size_max_ - particle_size_min_ + 1) + particle_size_min_;
 
-                    particle_manager_->AddParticle(pos, particle_dir_, random_movespeed, random_size, particle_lifetime_, particle_color_, particle_texture_);
+                    float random_lifetime = (rand() % (int)((particle_lifetime_max_ * 100) - (particle_lifetime_min_ * 100) + 1) + particle_lifetime_min_ * 100) / 100.0f;
+
+                    particle_manager_->AddParticle(pos, particle_dir_, random_movespeed, random_size, random_lifetime, particle_color_, particle_texture_);
 
                 }
                 spawn_timer_ = spawn_interval_;
@@ -120,6 +126,8 @@ private:
     SDL_Color particle_color_;
     SDL_Texture* particle_texture_;
     float particle_lifetime_;
+    float particle_lifetime_min_;
+    float particle_lifetime_max_;
     float spawn_interval_;
     float spawn_timer_;
     float emitter_lifetime_;

@@ -1,7 +1,7 @@
 #include "BaseEnemy.h"
 
 #include "UiManager.h"
-#include "ProjectileManager.h"
+#include "projectile_manager.h"
 #include "Player.h"
 #include "DynamicHealthbar.h"
 

@@ -1,11 +1,11 @@
 #include "EnemyManager.h"
 
 #include "BaseEnemy.h"
-#include "BaseProjectile.h"
+#include "base_projectile.h"
 #include "Skeleton.h"
 #include "UiManager.h"
 #include "Player.h"
-#include "ProjectileManager.h"
+#include "projectile_manager.h"
 #include "ResourceManager.h"
 #include "particle_manager.h"
 

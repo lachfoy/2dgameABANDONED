@@ -1,19 +1,22 @@
-#include "BaseProjectile.h"
+#include "base_projectile.h"
 
 #include "BaseActor.h"
 #include "particle_manager.h"
 #include "ResourceManager.h"
+#include "particle_emitter_manager.h"
 
 BaseProjectile::BaseProjectile(const Vec2f& pos,
     const Vec2f& dir,
-    std::shared_ptr<ResourceManager> resourceManager,
-    std::shared_ptr<ParticleManager> particleManager)
+    std::shared_ptr<ResourceManager> resource_manager,
+    std::shared_ptr<ParticleManager> particle_manager,
+    std::shared_ptr<ParticleEmitterManager> particle_emitter_manager)
      : BaseObject(pos)
 {
     this->dir = dir;
 
-    resource_manager_ = resourceManager;
-    particle_manager_ = particleManager;
+    resource_manager_ = resource_manager;
+    particle_manager_ = particle_manager;
+    particle_emitter_manager_ = particle_emitter_manager;
     
     collider = AABB2i(pos.x, pos.y, colliderW, colliderH);
 }

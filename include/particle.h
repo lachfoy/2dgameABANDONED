@@ -15,7 +15,7 @@ public:
     ~Particle() {}
 
     inline Vec2f const& dir() const { return dir_; }
-    
+
     void Update(float dt);
     void Render(SDL_Renderer* renderer);
 

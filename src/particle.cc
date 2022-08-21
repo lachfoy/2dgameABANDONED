@@ -5,6 +5,7 @@
 Particle::Particle(const Vec2f& pos, const Vec2f& dir, float movespeed, int size, float lifetime, const SDL_Color& color, SDL_Texture* texture)
     : BaseObject(pos)
 {
+        name = "particle";//debug
     dir_ = dir;
     movespeed_ = movespeed;
     gravity_ = -0.4f;

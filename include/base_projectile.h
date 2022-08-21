@@ -12,14 +12,16 @@
 class ProjectileManager;
 class ParticleManager;
 class ResourceManager;
+class ParticleEmitterManager;
 
 class BaseProjectile : public BaseObject
 {
 public:
     BaseProjectile(const Vec2f& pos,
         const Vec2f& dir,
-        std::shared_ptr<ResourceManager> resourceManager,
-        std::shared_ptr<ParticleManager> particleManager);
+        std::shared_ptr<ResourceManager> resource_manager,
+        std::shared_ptr<ParticleManager> particle_manager,
+        std::shared_ptr<ParticleEmitterManager> particle_emitter_manager);
     
     virtual ~BaseProjectile() {}
 
@@ -54,6 +56,7 @@ protected: // things the derived projectiles can access
 
     std::shared_ptr<ParticleManager> particle_manager_;
     std::shared_ptr<ResourceManager> resource_manager_;
+    std::shared_ptr<ParticleEmitterManager> particle_emitter_manager_;
 
 };
 

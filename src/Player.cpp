@@ -4,7 +4,7 @@
 #include "UiManager.h"
 #include "Healthbar.h"
 #include "InputManager.h"
-#include "ProjectileManager.h"
+#include "projectile_manager.h"
 #include "BaseEnemy.h"
 
 Player::Player(const Vec2f& pos,

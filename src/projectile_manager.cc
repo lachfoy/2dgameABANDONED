@@ -1,14 +1,19 @@
-#include "ProjectileManager.h"
+#include "projectile_manager.h"
 
-#include "Fireball.h"
-#include "FireballExplosion.h"
+#include "ResourceManager.h"
+#include "particle_manager.h"
+#include "particle_emitter_manager.h"
+#include "fireball.h"
+#include "fireball_explosion.h"
 #include "BaseActor.h"
 #include "ResourceManager.h"
 
-ProjectileManager::ProjectileManager(std::shared_ptr<ResourceManager> resourceManager, std::shared_ptr<ParticleManager> particleManager)
+ProjectileManager::ProjectileManager(std::shared_ptr<ResourceManager> resource_manager,
+    std::shared_ptr<ParticleManager> particle_manager, std::shared_ptr<ParticleEmitterManager> particle_emitter_manager)
 {
-    resource_manager_ = resourceManager;
-    particle_manager_ = particleManager;
+    resource_manager_ = resource_manager;
+    particle_manager_ = particle_manager;
+    particle_emitter_manager_ = particle_emitter_manager;
 }
 
 ProjectileManager::~ProjectileManager()
@@ -20,14 +25,14 @@ ProjectileManager::~ProjectileManager()
 
 void ProjectileManager::AddFireball(const Vec2f& pos, const Vec2f& dir)
 {
-    std::unique_ptr<BaseProjectile> projectile = std::make_unique<Fireball>(pos, dir, resource_manager_, particle_manager_);
+    std::unique_ptr<BaseProjectile> projectile = std::make_unique<Fireball>(pos, dir, resource_manager_, particle_manager_, particle_emitter_manager_);
     projectile->OnCreate(*this);
     _player_projectiles.push_back(std::move(projectile));
 }
 
 void ProjectileManager::AddFireballExplosion(const Vec2f& pos)
 {
-    std::unique_ptr<BaseProjectile> projectile = std::make_unique<FireballExplosion>(pos, resource_manager_, particle_manager_);
+    std::unique_ptr<BaseProjectile> projectile = std::make_unique<FireballExplosion>(pos, resource_manager_, particle_manager_, particle_emitter_manager_);
     projectile->OnCreate(*this);
     _player_projectiles.push_back(std::move(projectile));
 }

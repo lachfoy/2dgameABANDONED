@@ -7,17 +7,19 @@
 
 #include <SDL2/SDL.h>
 
-#include "BaseProjectile.h"
+#include "base_projectile.h"
 #include "Vec2f.h"
 
 class BaseActor;
 class ResourceManager;
 class ParticleManager;
+class ParticleEmitterManager;
 
 class ProjectileManager
 {
 public:
-    ProjectileManager(std::shared_ptr<ResourceManager> resourceManager, std::shared_ptr<ParticleManager> particleManager);
+    ProjectileManager(std::shared_ptr<ResourceManager> resource_manager,
+        std::shared_ptr<ParticleManager> particle_manager, std::shared_ptr<ParticleEmitterManager> particle_emitter_manager);
     ~ProjectileManager();
 
     // Getter for the projectiles vectors
@@ -46,6 +48,7 @@ private:
 
     std::shared_ptr<ResourceManager> resource_manager_;
     std::shared_ptr<ParticleManager> particle_manager_;
+    std::shared_ptr<ParticleEmitterManager> particle_emitter_manager_;
 
 };
 

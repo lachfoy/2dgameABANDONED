@@ -1,14 +1,15 @@
-#include "Fireball.h"
+#include "fireball.h"
 
-#include "ProjectileManager.h"
+#include "projectile_manager.h"
 #include "particle_manager.h"
 #include "ResourceManager.h"
 
 Fireball::Fireball(const Vec2f& pos,
     const Vec2f& dir, 
-    std::shared_ptr<ResourceManager> resourceManager,
-    std::shared_ptr<ParticleManager> particleManager)
-     : BaseProjectile(pos, dir, resourceManager, particleManager)
+    std::shared_ptr<ResourceManager> resource_manager,
+    std::shared_ptr<ParticleManager> particle_manager,
+    std::shared_ptr<ParticleEmitterManager> particle_emitter_manager)
+     : BaseProjectile(pos, dir, resource_manager, particle_manager, particle_emitter_manager)
 {
     name = "Fireball";
     colliderW = 24;
