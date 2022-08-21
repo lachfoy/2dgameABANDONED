@@ -10,10 +10,10 @@ ParticleManager::~ParticleManager()
     particles_.clear();
 }
 
-void ParticleManager::AddParticle(const Vec2f& pos, const Vec2f& dir, float movespeed, int size, float lifetime, const SDL_Color& color, SDL_Texture* texture)
+void ParticleManager::AddParticle(const Vec2f& pos, const Vec2f& dir, float movespeed, float gravity, int size, float lifetime, const SDL_Color& color, SDL_Texture* texture)
 {
     if (!texture) texture = resource_manager_->getTexture("flame_particle2_texture");
-    particles_.push_back(std::make_unique<Particle>(pos, dir, movespeed, size, lifetime, color, texture));
+    particles_.push_back(std::make_unique<Particle>(pos, dir, movespeed, gravity, size, lifetime, color, texture));
 }
 
 

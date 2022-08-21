@@ -2,6 +2,7 @@
 
 #include "projectile_manager.h"
 #include "particle_manager.h"
+#include "particle_emitter_manager.h"
 #include "ResourceManager.h"
 
 Fireball::Fireball(const Vec2f& pos,
@@ -22,6 +23,8 @@ Fireball::Fireball(const Vec2f& pos,
     onlyDamageOnce = true;
     rotate = true;
     rotationSpeed = 5.0f;
+
+    particle_emitter_manager->AddParticleEmitter(this);
 }
 
 void Fireball::OnDestroy(ProjectileManager& projectileManager)
@@ -29,6 +32,36 @@ void Fireball::OnDestroy(ProjectileManager& projectileManager)
     // when destroyed, create an explosion
     projectileManager.AddFireballExplosion(pos);
 }
+
+void Fireball::Update(float dt)
+{
+    if (lifeTime <= 0.0f)
+        removable = true;
+    else
+        lifeTime -= dt;
+
+    // update the internal position
+    pos.x += dir.x * moveSpeed * dt;
+    pos.y += dir.y * moveSpeed * dt;
+
+    if (rotate)
+    {
+        if (angle >= 360)
+            angle = 0.0f;
+        else
+            angle += rotationSpeed;
+    }
+
+    // move the particle emitter
+
+
+    // move the collider as well
+    collider.minX = (int)pos.x - (colliderW / 2);
+    collider.minY = (int)pos.y - (colliderH / 2);
+    collider.maxX = (int)pos.x + (colliderW / 2);
+    collider.maxY = (int)pos.y + (colliderH / 2);
+}
+
 
 void Fireball::Render(SDL_Renderer* renderer)
 {

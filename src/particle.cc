@@ -2,13 +2,13 @@
 
 #include <iostream>
 
-Particle::Particle(const Vec2f& pos, const Vec2f& dir, float movespeed, int size, float lifetime, const SDL_Color& color, SDL_Texture* texture)
+Particle::Particle(const Vec2f& pos, const Vec2f& dir, float movespeed, float gravity, int size, float lifetime, const SDL_Color& color, SDL_Texture* texture)
     : BaseObject(pos)
 {
-        name = "particle";//debug
+    name = "particle";//debug
     dir_ = dir;
     movespeed_ = movespeed;
-    gravity_ = -0.4f;
+    gravity_ = gravity; // -0.4f
     size_ = size;
     start_lifetime_ = lifetime;
     current_lifetime_ = start_lifetime_;

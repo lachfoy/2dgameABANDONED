@@ -7,7 +7,7 @@
 #include "particle_manager.h"
 #include "particle_emitter_manager.h"
 
-#define DEBUG_DRAW 1
+#define DEBUG_DRAW 0
 
 GameScene::GameScene(std::shared_ptr<InputManager> inputManager, std::shared_ptr<ResourceManager> resourceManager, int windowWidth, int windowHeight)
      : BaseScene(inputManager, resourceManager, windowWidth, windowHeight)
@@ -19,7 +19,6 @@ GameScene::GameScene(std::shared_ptr<InputManager> inputManager, std::shared_ptr
     
 
     particle_emitter_manager_ = std::make_shared<ParticleEmitterManager>(particle_manager_);
-    particle_emitter_manager_->AddParticleEmitter(Vec2f(500.0f, 300.0f));
 
     m_projectileManager = std::make_shared<ProjectileManager>(resource_manager_, particle_manager_, particle_emitter_manager_);
 
@@ -57,11 +56,11 @@ void GameScene::update(float dt)
     m_player->resolveEnemyCollisions(m_enemyManager->getEnemies());
 
     // update ui objects
-    ui_manager_->updateUiObjects(dt);
+    //ui_manager_->updateUiObjects(dt);
 
     // remove unused objects
     m_enemyManager->removeUnusedEnemies();
-    ui_manager_->removeUnusedUiObjects();
+    //ui_manager_->removeUnusedUiObjects();
 }
 
 void GameScene::render(SDL_Renderer* renderer)
@@ -78,7 +77,7 @@ void GameScene::render(SDL_Renderer* renderer)
     m_projectileManager->RenderProjectiles(renderer);
 
     // render ui objects
-    ui_manager_->renderUiObjects(renderer);
+    //ui_manager_->renderUiObjects(renderer);
 
     // debug
     if (DEBUG_DRAW)

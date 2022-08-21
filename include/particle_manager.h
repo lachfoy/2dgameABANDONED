@@ -16,7 +16,7 @@ public:
     ParticleManager(std::shared_ptr<ResourceManager> resourceManager);
     ~ParticleManager();
 
-    void AddParticle(const Vec2f& pos, const Vec2f& dir, float movespeed, int size, float lifetime,
+    void AddParticle(const Vec2f& pos, const Vec2f& dir, float movespeed, float gravity, int size, float lifetime,
         const SDL_Color& color, SDL_Texture* texture);
 
     void UpdateParticles(float dt);

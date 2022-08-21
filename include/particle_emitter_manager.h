@@ -8,6 +8,7 @@
 #include "particle_emitter.h"
 #include "particle_manager.h"
 #include "Vec2f.h"
+#include "BaseObject.h"
 
 // try out mozzila style guide for this class :)
 class ParticleEmitterManager
@@ -23,29 +24,25 @@ public:
         particle_emitters_.clear();
     }
 
-    void AddParticleEmitter(const Vec2f& pos)
+    void AddParticleEmitter(BaseObject* parent)
     {
-        ParticleEmitterInfo info;
-        info.pos = pos;
-        //info.particle_dir
+        ParticleSpawnInfo info;
+        //info.dir
         info.random_dir = true;
-        //info.particle_movespeed
-        info.particle_movespeed_min = 80.0f;
-        info.particle_movespeed_max = 140.0f;
-        //info.gravity
-        //info.particle_size
-        info.particle_size_min = 24;
-        info.particle_size_max = 48;
-        info.particle_color = { 10, 123, 185, 255 };
-        info.particle_texture = nullptr;
-        //info.particle_lifetime = 0.3f;
-        info.particle_lifetime_min = 0.3f;
-        info.particle_lifetime_max = 0.2f;
-        info.spawn_interval = 0.0f;
-        info.emitter_lifetime = 30.0f;
-        info.num_particles = 2;
-        info.particle_manager = particle_manager_;
-        particle_emitters_.push_back(std::make_unique<ParticleEmitter>(info));
+        //info.movespeed
+        info.movespeed_min = 30.0f;
+        info.movespeed_max = 100.0f;
+        info.gravity = -0.8f;
+        //info.size
+        info.size_min = 24;
+        info.size_max = 48;
+        info.color = { 10, 123, 185, 255 };
+        info.texture = nullptr;
+        //info.lifetime = 0.3f;
+        info.lifetime_min = 0.3f;
+        info.lifetime_max = 0.2f;
+
+        particle_emitters_.push_back(std::make_unique<ParticleEmitter>(parent, 0.0f, 10.0f, 1, info, particle_manager_));
     }
 
     void UpdateParticleEmitters(float dt)
@@ -60,7 +57,7 @@ public:
                 particle_emitters_.begin(),
                 particle_emitters_.end(),
                 [](const auto& emitter) {
-                    return emitter->removable;
+                    return emitter->parent()->removable;
                 }
             ),
             particle_emitters_.end()

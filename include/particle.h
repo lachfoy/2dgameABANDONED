@@ -11,7 +11,7 @@
 class Particle : public BaseObject
 {
 public:
-    Particle(const Vec2f& pos, const Vec2f& dir, float movespeed, int size, float lifetime, const SDL_Color& color, SDL_Texture* texture);
+    Particle(const Vec2f& pos, const Vec2f& dir, float movespeed, float gravity, int size, float lifetime, const SDL_Color& color, SDL_Texture* texture);
     ~Particle() {}
 
     inline Vec2f const& dir() const { return dir_; }
