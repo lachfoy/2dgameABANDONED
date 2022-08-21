@@ -42,7 +42,7 @@ class ParticleEmitter
 {
 public:
     inline ParticleEmitter(BaseObject* parent, float spawn_interval, float emitter_lifetime, int num_particles,
-        const ParticleSpawnInfo& particle_spawn_info, std::shared_ptr<ParticleManager> particle_manager)
+        const ParticleSpawnInfo& info, std::shared_ptr<ParticleManager> particle_manager)
     {
         parent_ = parent;
 
@@ -52,7 +52,7 @@ public:
         emitter_lifetime_timer_ = emitter_lifetime_;
         num_particles_ = num_particles;
         
-        particle_spawn_info_ = particle_spawn_info;
+        info_ = info;
 
         particle_manager_ = particle_manager;
     }
@@ -75,18 +75,18 @@ public:
             {
                 for (int i = 0; i < num_particles_; i++)
                 {
-                    if (particle_spawn_info_.random_dir) // pick a random direction
+                    if (info_.random_dir) // pick a random direction
                     {
                         float random_grad = 2.0f * M_PI * ((rand() % 100 + 1) / 100.0f); // random gradian
-                        particle_spawn_info_.dir = Vec2f(cosf(random_grad), sinf(random_grad));
+                        info_.dir = Vec2f(cosf(random_grad), sinf(random_grad));
                     }
 
-                    float random_movespeed = rand() % int(particle_spawn_info_.movespeed_max - particle_spawn_info_.movespeed_min + 1) + particle_spawn_info_.movespeed_min;
-                    int random_size = rand() % (particle_spawn_info_.size_max - particle_spawn_info_.size_min + 1) + particle_spawn_info_.size_min;
+                    float random_movespeed = rand() % int(info_.movespeed_max - info_.movespeed_min + 1) + info_.movespeed_min;
+                    int random_size = rand() % (info_.size_max - info_.size_min + 1) + info_.size_min;
 
-                    float random_lifetime = (rand() % int((particle_spawn_info_.lifetime_max * 100) - (particle_spawn_info_.lifetime_min * 100) + 1) + particle_spawn_info_.lifetime_min * 100) / 100.0f;
+                    float random_lifetime = (rand() % int((info_.lifetime_max * 100) - (info_.lifetime_min * 100) + 1) + info_.lifetime_min * 100) / 100.0f;
 
-                    particle_manager_->AddParticle(parent_->pos, particle_spawn_info_.dir, random_movespeed, particle_spawn_info_.gravity, random_size, random_lifetime, particle_spawn_info_.color, particle_spawn_info_.texture);
+                    particle_manager_->AddParticle(parent_->pos, info_.dir, random_movespeed, info_.gravity, random_size, random_lifetime, info_.color, info_.texture);
 
                 }
                 spawn_timer_ = spawn_interval_;
@@ -108,7 +108,7 @@ private:
     float emitter_lifetime_timer_;
     int num_particles_;
 
-    ParticleSpawnInfo particle_spawn_info_;
+    ParticleSpawnInfo info_;
 
     std::shared_ptr<ParticleManager> particle_manager_;
 

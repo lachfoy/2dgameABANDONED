@@ -6,6 +6,7 @@
 #include "InputManager.h"
 #include "projectile_manager.h"
 #include "BaseEnemy.h"
+#include "ResourceManager.h"
 
 Player::Player(const Vec2f& pos,
     std::shared_ptr<ResourceManager> resourceManager,
@@ -265,8 +266,9 @@ void Player::render(SDL_Renderer* renderer)
     if (isBeingHurt) m_color = { 0xff, 0x4e, 0x45, 0xff }; // #ff4e45
     
     // draw player
-    SDL_SetRenderDrawColor(renderer, m_color.r, m_color.g, m_color.b, m_color.a);
-    SDL_RenderFillRect(renderer, &m_rect);
+    //SDL_SetRenderDrawColor(renderer, m_color.r, m_color.g, m_color.b, m_color.a);
+    //SDL_RenderFillRect(renderer, &m_rect);
+    SDL_RenderCopy(renderer, resource_manager_->getTexture("main_girl_texture"), NULL, &m_rect);
 }
 
 void Player::renderDebug(SDL_Renderer* renderer)

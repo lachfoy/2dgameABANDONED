@@ -67,7 +67,7 @@ void GameScene::render(SDL_Renderer* renderer)
 {
     // render background hehhe
     const SDL_Rect background_rect = { 0, 0, m_windowWidth, m_windowHeight };
-    SDL_RenderCopy(renderer, resource_manager_->getTexture("background_texture"), NULL, &background_rect);
+    SDL_RenderCopy(renderer, resource_manager_->getTexture("background_forest_texture"), NULL, &background_rect);
 
     // render game objects
     m_enemyManager->renderEnemies(renderer);

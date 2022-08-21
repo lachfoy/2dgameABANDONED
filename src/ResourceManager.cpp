@@ -34,16 +34,20 @@ void ResourceManager::LoadGameTextures()
 {
     printf("ResourceManager: loading textures...\n");
 
-    m_textures["background_texture"] = loadTextureFromFile("../images/background.bmp", SDL_BLENDMODE_NONE);
+    m_textures["background_purple_texture"] = loadTextureFromFile("../images/background_purple.bmp", SDL_BLENDMODE_NONE);
+    m_textures["background_forest_texture"] = loadTextureFromFile("../images/background_forest.bmp", SDL_BLENDMODE_NONE);
     m_textures["flame_particle1_texture"] = loadTextureFromFile("../images/flame_particle1.bmp", SDL_BLENDMODE_ADD);
     m_textures["flame_particle2_texture"] = loadTextureFromFile("../images/flame_particle2.bmp", SDL_BLENDMODE_ADD);
+    m_textures["fireball_texture"] = loadTextureFromFile("../images/fireball.bmp", SDL_BLENDMODE_BLEND);
+    m_textures["main_girl_texture"] = loadTextureFromFile("../images/main_girl.bmp", SDL_BLENDMODE_BLEND);
+
 
     m_textures["base_particle_texture"] = loadTextureFromFile("../images/particle.bmp", SDL_BLENDMODE_BLEND);
     m_textures["spell_effect_texture"] = loadTextureFromFile("../images/spell_effect.bmp", SDL_BLENDMODE_ADD);
 
     m_textures["ShadowTexture"] = loadTextureFromFile("../images/Shadow.bmp", SDL_BLENDMODE_BLEND);
     m_textures["CrosshairTexture"] = loadTextureFromFile("../images/Crosshair.bmp", SDL_BLENDMODE_BLEND);
-    m_textures["FireballTexture"] = loadTextureFromFile("../images/Fireball.bmp", SDL_BLENDMODE_BLEND);
+    
     
     m_textures["SmokeParticleTexture"] = loadTextureFromFile("../images/Smoke.bmp", SDL_BLENDMODE_BLEND);
     m_textures["FireballExplosionTexture"] = loadTextureFromFile("../images/FireballExplosion.bmp", SDL_BLENDMODE_BLEND);

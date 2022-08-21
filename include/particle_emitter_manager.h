@@ -24,25 +24,9 @@ public:
         particle_emitters_.clear();
     }
 
-    void AddParticleEmitter(BaseObject* parent)
+    void AddParticleEmitter(BaseObject* parent, float spawn_interval, float emitter_lifetime, int num_particles, const ParticleSpawnInfo& info)
     {
-        ParticleSpawnInfo info;
-        //info.dir
-        info.random_dir = true;
-        //info.movespeed
-        info.movespeed_min = 30.0f;
-        info.movespeed_max = 100.0f;
-        info.gravity = -0.8f;
-        //info.size
-        info.size_min = 24;
-        info.size_max = 48;
-        info.color = { 10, 123, 185, 255 };
-        info.texture = nullptr;
-        //info.lifetime = 0.3f;
-        info.lifetime_min = 0.3f;
-        info.lifetime_max = 0.2f;
-
-        particle_emitters_.push_back(std::make_unique<ParticleEmitter>(parent, 0.0f, 10.0f, 1, info, particle_manager_));
+        particle_emitters_.push_back(std::make_unique<ParticleEmitter>(parent, spawn_interval, emitter_lifetime, num_particles, info, particle_manager_));
     }
 
     void UpdateParticleEmitters(float dt)

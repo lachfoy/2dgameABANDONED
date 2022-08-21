@@ -13,8 +13,8 @@ Fireball::Fireball(const Vec2f& pos,
      : BaseProjectile(pos, dir, resource_manager, particle_manager, particle_emitter_manager)
 {
     name = "Fireball";
-    colliderW = 24;
-    colliderH = 24;
+    colliderW = 32;
+    colliderH = 32;
     moveSpeed = 420.0f;
     damage = {0};
     damage = { .fire = 11 };
@@ -24,7 +24,22 @@ Fireball::Fireball(const Vec2f& pos,
     rotate = true;
     rotationSpeed = 5.0f;
 
-    particle_emitter_manager->AddParticleEmitter(this);
+    ParticleSpawnInfo info;
+    //info.dir
+    info.random_dir = true;
+    //info.movespeed
+    info.movespeed_min = 20.0f;
+    info.movespeed_max = 50.0f;
+    info.gravity = -0.8f;
+    //info.size
+    info.size_min = 12;
+    info.size_max = 24;
+    info.color = { 255, 58, 0, 255 };
+    info.texture = resource_manager_->getTexture("flame_particle2_texture");
+    //info.lifetime = 0.3f;
+    info.lifetime_min = 0.1f;
+    info.lifetime_max = 0.2f;
+    particle_emitter_manager->AddParticleEmitter(this, 0.0f, 10.0f, 1, info);
 }
 
 void Fireball::OnDestroy(ProjectileManager& projectileManager)
@@ -73,7 +88,7 @@ void Fireball::Render(SDL_Renderer* renderer)
     fireball_rect.y = (int)pos.y - (fireball_rect.h / 2);
 
     // draw the fireball
-    SDL_RenderCopyEx(renderer, resource_manager_->getTexture("FireballTexture"), NULL, &fireball_rect, angle, NULL, {});
+    SDL_RenderCopyEx(renderer, resource_manager_->getTexture("fireball_texture"), NULL, &fireball_rect, angle, NULL, {});
 
     // draw collider
     //collider.debugRender(renderer);
