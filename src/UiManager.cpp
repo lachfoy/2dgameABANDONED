@@ -1,7 +1,7 @@
 #include "UiManager.h"
 
 #include "InputManager.h"
-#include "ResourceManager.h"
+#include "resource_manager.h"
 #include "BaseUiObject.h"
 #include "Healthbar.h"
 #include "DynamicHealthbar.h"
@@ -34,17 +34,17 @@ void UiManager::addDynamicHealthbar(int length, int height, BaseActor* damageabl
 
 void UiManager::addCrosshair(int x, int y, int w, int h)
 {
-    m_uiObjects.push_back(std::make_unique<Crosshair>(x, y, w, h, m_inputManager, resource_manager_->getTexture("CrosshairTexture")));
+    m_uiObjects.push_back(std::make_unique<Crosshair>(x, y, w, h, m_inputManager, resource_manager_->GetTexture("CrosshairTexture")));
 }
 
 void UiManager::addTextObject(int x, int y, std::string text)
 {
-    m_uiObjects.push_back(std::make_unique<BaseTextObject>(x, y, text, resource_manager_->getFont("ArialHeader")));
+    m_uiObjects.push_back(std::make_unique<BaseTextObject>(x, y, text, resource_manager_->GetFont("ArialHeader")));
 }
 
 void UiManager::addButton(int x, int y, std::string text)
 {
-    m_uiObjects.push_back(std::make_unique<Button>(x, y, text, resource_manager_->getFont("ArialBody")));
+    m_uiObjects.push_back(std::make_unique<Button>(x, y, text, resource_manager_->GetFont("ArialBody")));
 }
 
 void UiManager::updateUiObjects(float dt)

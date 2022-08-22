@@ -2,7 +2,7 @@
 
 #include "BaseActor.h"
 #include "particle_manager.h"
-#include "ResourceManager.h"
+#include "resource_manager.h"
 #include "particle_emitter_manager.h"
 
 BaseProjectile::BaseProjectile(const Vec2f& pos,

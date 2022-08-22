@@ -1,7 +1,7 @@
 #include "Game.h"
 
 #include "InputManager.h"
-#include "ResourceManager.h"
+#include "resource_manager.h"
 #include "SceneManager.h"
 
 Game::Game() {}
@@ -113,7 +113,7 @@ void Game::create()
 {
     m_inputManager = std::make_shared<InputManager>();
     resource_manager_ = std::make_shared<ResourceManager>(renderer);
-    resource_manager_->loadFonts();
+    resource_manager_->LoadFonts();
 
     m_sceneManager = std::make_shared<SceneManager>(m_inputManager, resource_manager_, windowWidth, windowHeight);
     m_sceneManager->startGame();

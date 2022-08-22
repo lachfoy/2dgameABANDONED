@@ -6,7 +6,7 @@
 #include "UiManager.h"
 #include "Player.h"
 #include "projectile_manager.h"
-#include "ResourceManager.h"
+#include "resource_manager.h"
 #include "particle_manager.h"
 
 EnemyManager::EnemyManager(std::shared_ptr<ResourceManager> resourceManager,

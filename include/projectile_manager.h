@@ -35,6 +35,7 @@ public:
     //inline void addProjectile(BaseProjectile* projectile) { projectiles.push_back(projectile); } // depracated? dont use this anymore
     void AddFireball(const Vec2f& pos, const Vec2f& dir);
     void AddFireballExplosion(const Vec2f& pos);
+    void AddMagicMissile(const Vec2f& pos, const Vec2f& dir, BaseObject* target);
 
     void UpdateProjectiles(float dt);
     void resolveProjectileVsEnemyCollisions(const std::vector<BaseActor*>& enemies);

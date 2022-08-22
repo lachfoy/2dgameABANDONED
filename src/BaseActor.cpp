@@ -1,6 +1,6 @@
 #include "BaseActor.h"
 
-#include "ResourceManager.h"
+#include "resource_manager.h"
 #include "particle_manager.h"
 
 BaseActor::BaseActor(const Vec2f& pos,
@@ -146,7 +146,7 @@ void BaseActor::renderShadow(SDL_Renderer* renderer)
     shadow_rect.y = (int)pos.y - (shadow_rect.h / 2);
 
     // draw texture
-    SDL_RenderCopy(renderer, resource_manager_->getTexture("ShadowTexture"), NULL, &shadow_rect);
+    SDL_RenderCopy(renderer, resource_manager_->GetTexture("ShadowTexture"), NULL, &shadow_rect);
 }
 
 void BaseActor::renderCollider(SDL_Renderer* renderer)

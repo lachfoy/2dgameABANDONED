@@ -17,10 +17,6 @@ public:
     void Update(float dt) override;
     void Render(SDL_Renderer* renderer) override;
 
-private:
-    float trailSpawnTime = 0.02f;
-    float trailSpawnTimer = trailSpawnTime;
-
 };
 
 #endif

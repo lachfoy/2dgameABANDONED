@@ -6,7 +6,7 @@
 
 #include <SDL2/SDL.h>
 
-#include "ResourceManager.h"
+#include "resource_manager.h"
 #include "Vec2f.h"
 #include "particle.h"
 

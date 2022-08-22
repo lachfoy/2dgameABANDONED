@@ -30,7 +30,7 @@ GameScene::GameScene(std::shared_ptr<InputManager> inputManager, std::shared_ptr
     // m_enemyManager->addSkeleton({ 600.0f, 400.0f });
     // m_enemyManager->addSkeleton({ 500.0f, 500.0f });
     // m_enemyManager->addSkeleton({ 300.0f, 400.0f });
-    // m_enemyManager->addSkeleton({ 700.0f, 200.0f });
+    m_enemyManager->addSkeleton({ 700.0f, 200.0f });
 }
 
 GameScene::~GameScene()
@@ -55,6 +55,9 @@ void GameScene::update(float dt)
     m_enemyManager->resolvePlayerProjectileCollisions(m_projectileManager->player_projectiles());
     m_player->resolveEnemyCollisions(m_enemyManager->getEnemies());
 
+    // give targets to the player? idk abotu this lol
+    m_player->FindTarget(m_enemyManager->getEnemies());
+
     // update ui objects
     //ui_manager_->updateUiObjects(dt);
 
@@ -67,7 +70,7 @@ void GameScene::render(SDL_Renderer* renderer)
 {
     // render background hehhe
     const SDL_Rect background_rect = { 0, 0, m_windowWidth, m_windowHeight };
-    SDL_RenderCopy(renderer, resource_manager_->getTexture("background_forest_texture"), NULL, &background_rect);
+    SDL_RenderCopy(renderer, resource_manager_->GetTexture("background_forest_texture"), NULL, &background_rect);
 
     // render game objects
     m_enemyManager->renderEnemies(renderer);

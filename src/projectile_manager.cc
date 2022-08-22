@@ -1,12 +1,12 @@
 #include "projectile_manager.h"
 
-#include "ResourceManager.h"
+#include "resource_manager.h"
 #include "particle_manager.h"
 #include "particle_emitter_manager.h"
 #include "fireball.h"
 #include "fireball_explosion.h"
+#include "magic_missile.h"
 #include "BaseActor.h"
-#include "ResourceManager.h"
 
 ProjectileManager::ProjectileManager(std::shared_ptr<ResourceManager> resource_manager,
     std::shared_ptr<ParticleManager> particle_manager, std::shared_ptr<ParticleEmitterManager> particle_emitter_manager)
@@ -33,6 +33,13 @@ void ProjectileManager::AddFireball(const Vec2f& pos, const Vec2f& dir)
 void ProjectileManager::AddFireballExplosion(const Vec2f& pos)
 {
     std::unique_ptr<BaseProjectile> projectile = std::make_unique<FireballExplosion>(pos, resource_manager_, particle_manager_, particle_emitter_manager_);
+    projectile->OnCreate(*this);
+    _player_projectiles.push_back(std::move(projectile));
+}
+
+void ProjectileManager::AddMagicMissile(const Vec2f& pos, const Vec2f& dir, BaseObject* target)
+{
+    std::unique_ptr<BaseProjectile> projectile = std::make_unique<MagicMissile>(pos, dir, resource_manager_, particle_manager_, particle_emitter_manager_, target);
     projectile->OnCreate(*this);
     _player_projectiles.push_back(std::move(projectile));
 }

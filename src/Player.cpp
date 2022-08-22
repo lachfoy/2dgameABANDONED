@@ -6,22 +6,22 @@
 #include "InputManager.h"
 #include "projectile_manager.h"
 #include "BaseEnemy.h"
-#include "ResourceManager.h"
+#include "resource_manager.h"
 
 Player::Player(const Vec2f& pos,
     std::shared_ptr<ResourceManager> resourceManager,
-    std::shared_ptr<UiManager> uiManager,
+    std::shared_ptr<UiManager> ui_manager,
     std::shared_ptr<ProjectileManager> projectileManager)
     : BaseActor(pos, resourceManager, nullptr)
 {
     // initialize everything
     name = "Player";
 
-    this->ui_manager_ = uiManager;
+    ui_manager_ = ui_manager;
     this->projectileManager = projectileManager;
 
     width = 30;
-    height = 60;
+    height = 50;
 
     colliderW = 40;
     colliderH = 30;
@@ -37,7 +37,7 @@ Player::Player(const Vec2f& pos,
     immuneCooldown = 0.2f; // how many seconds of iframes
     immuneTimer = immuneCooldown;
 
-    startingMoveSpeed = 100.0f;
+    startingMoveSpeed = 130.0f;
     moveSpeed = startingMoveSpeed;
 }
 
@@ -50,6 +50,11 @@ void Player::resolveEnemyCollisions(const std::vector<std::unique_ptr<BaseEnemy>
             takeDamage(enemies[i]->getDamage());
         }
     }
+}
+
+void Player::FindTarget(const std::vector<std::unique_ptr<BaseEnemy>>& enemies)
+{
+    target_ = enemies[0].get();
 }
 
 void Player::handleInput(InputManager& inputManager)
@@ -103,6 +108,28 @@ void Player::handleInput(InputManager& inputManager)
             {
                 // add a new fireball with some offset from the origin
                 projectileManager->AddFireball({ pos.x, pos.y - (height / 2) }, Vec2f::getDirection(pos, { (float)inputManager.getMouseX(), (float)inputManager.getMouseY() }));
+
+                // magiiic missile
+                Vec2f dir_to_mouse = Vec2f::getDirection(pos, { (float)inputManager.getMouseX(), (float)inputManager.getMouseY() });
+                Vec2f dir_to_mouse_offset_up = Vec2f::getDirection(pos, { (float)inputManager.getMouseX(), (float)inputManager.getMouseY() - 100 });
+                Vec2f dir_to_mouse_offset_down = Vec2f::getDirection(pos, { (float)inputManager.getMouseX(), (float)inputManager.getMouseY() + 100 });
+                projectileManager->AddMagicMissile(
+                    { pos.x, pos.y - (height / 2) },
+                    dir_to_mouse,
+                    target_
+                );
+
+                projectileManager->AddMagicMissile(
+                    { pos.x, pos.y - (height / 2) },
+                    dir_to_mouse_offset_up,
+                    target_
+                );
+
+                projectileManager->AddMagicMissile(
+                    { pos.x, pos.y - (height / 2) },
+                    dir_to_mouse_offset_down,
+                    target_
+                );
 
                 ammo--; // subtract ammo
                 canShoot = false;
@@ -257,7 +284,7 @@ void Player::render(SDL_Renderer* renderer)
     m_rect.h = height;
 
     // set draw color
-    m_color = { 0x29, 0x65, 0xff, 0xff }; // #2965ff blue
+    m_color = { 0xff, 0xff, 0xff, 0xff };
 
     // set alpha depending on damageable status
     if (isImmune) m_color.a = 0x65;
@@ -268,7 +295,8 @@ void Player::render(SDL_Renderer* renderer)
     // draw player
     //SDL_SetRenderDrawColor(renderer, m_color.r, m_color.g, m_color.b, m_color.a);
     //SDL_RenderFillRect(renderer, &m_rect);
-    SDL_RenderCopy(renderer, resource_manager_->getTexture("main_girl_texture"), NULL, &m_rect);
+    SDL_SetTextureColorMod(resource_manager_->GetTexture("main_girl_texture"), m_color.r, m_color.g, m_color.b);
+    SDL_RenderCopy(renderer, resource_manager_->GetTexture("main_girl_texture"), NULL, &m_rect);
 }
 
 void Player::renderDebug(SDL_Renderer* renderer)

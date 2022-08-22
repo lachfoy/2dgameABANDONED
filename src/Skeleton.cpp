@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "UiManager.h"
 #include "EnemyManager.h"
+#include "resource_manager.h"
 
 Skeleton::Skeleton(const Vec2f& pos,
     std::shared_ptr<ResourceManager> resourceManager,
@@ -17,7 +18,7 @@ Skeleton::Skeleton(const Vec2f& pos,
     name = "Skeleton";
     
     width = 30;
-    height = 60;
+    height = 50;
 
     colliderW = 40;
     colliderH = 30;
@@ -65,7 +66,7 @@ void Skeleton::render(SDL_Renderer* renderer)
     m_rect.h = height;
     
     // set draw color
-    m_color = { 0xb1, 0xb1, 0xb1, 0xff }; // grey
+    m_color = { 0xff, 0xff, 0xff, 0xff }; // grey
 
     // set on fire ???
     if (isOnFire) m_color = { 0xff, 0x6a, 0x0d, 0xff }; // #ff6a0d more intense fire orange
@@ -74,6 +75,8 @@ void Skeleton::render(SDL_Renderer* renderer)
     if (isBeingHurt) m_color = { 0xff, 0x4e, 0x45, 0xff }; // #ff4e45
 
     // draw enemy
-    SDL_SetRenderDrawColor(renderer, m_color.r, m_color.g, m_color.b, m_color.a);
-    SDL_RenderFillRect(renderer, &m_rect);
+    // SDL_SetRenderDrawColor(renderer, m_color.r, m_color.g, m_color.b, m_color.a);
+    // SDL_RenderFillRect(renderer, &m_rect);
+    SDL_SetTextureColorMod(resource_manager_->GetTexture("skeleton_texture"), m_color.r, m_color.g, m_color.b);
+    SDL_RenderCopy(renderer, resource_manager_->GetTexture("skeleton_texture"), NULL, &m_rect);
 }

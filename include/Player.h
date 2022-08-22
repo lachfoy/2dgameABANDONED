@@ -27,6 +27,7 @@ public:
     void handleInput(InputManager& inputManager);
 
     void resolveEnemyCollisions(const std::vector<std::unique_ptr<BaseEnemy>>& enemies);
+    void FindTarget(const std::vector<std::unique_ptr<BaseEnemy>>& enemies);
 
     void takeDamage(const Damage& damage) override;
 
@@ -64,13 +65,16 @@ private:
     float dodgeRollRechargeTimer = dodgeRollRechargeTime;
 
     // Shooting
-    const int AMMO_MAX = 3;
+    const int AMMO_MAX = 10;
     int ammo = AMMO_MAX;
     bool canShoot = true;
     float shootingTime = 0.1f; // time before able to shoot again "cool down"
     float shootingTimer = 0.0f;
     float shootRechargeTime = 1.0f;
     float shootRechargeTimer = shootRechargeTime;
+
+    // for targeted abilities
+    BaseObject* target_;
 
     // Attacking
     bool canAttack = true;
