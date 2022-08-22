@@ -21,7 +21,7 @@ public:
         std::shared_ptr<UiManager> uiManager,
         std::shared_ptr<ProjectileManager> projectileManager);
 
-    int getAmmo() const { return ammo; }
+    int ammo() const { return ammo_; }
     std::vector<std::string> getDebugInfo() const;
 
     void handleInput(InputManager& inputManager);
@@ -66,7 +66,7 @@ private:
 
     // Shooting
     const int AMMO_MAX = 10;
-    int ammo = AMMO_MAX;
+    int ammo_ = AMMO_MAX;
     bool canShoot = true;
     float shootingTime = 0.1f; // time before able to shoot again "cool down"
     float shootingTimer = 0.0f;

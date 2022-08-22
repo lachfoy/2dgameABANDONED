@@ -2,7 +2,7 @@
 
 #include "UiManager.h"
 #include "projectile_manager.h"
-#include "Player.h"
+#include "player.h"
 #include "DynamicHealthbar.h"
 
 BaseEnemy::BaseEnemy(const Vec2f& pos,

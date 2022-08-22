@@ -4,7 +4,7 @@
 #include "base_projectile.h"
 #include "Skeleton.h"
 #include "UiManager.h"
-#include "Player.h"
+#include "player.h"
 #include "projectile_manager.h"
 #include "resource_manager.h"
 #include "particle_manager.h"

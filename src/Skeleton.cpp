@@ -1,7 +1,7 @@
 #include "Skeleton.h"
 
 #include "AABB2i.h"
-#include "Player.h"
+#include "player.h"
 #include "UiManager.h"
 #include "EnemyManager.h"
 #include "resource_manager.h"

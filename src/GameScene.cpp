@@ -1,6 +1,6 @@
 #include "GameScene.h"
 
-#include "Player.h"
+#include "player.h"
 #include "projectile_manager.h"
 #include "EnemyManager.h"
 #include "UiManager.h"

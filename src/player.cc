@@ -1,4 +1,4 @@
-#include "Player.h"
+#include "player.h"
 
 #include "AABB2i.h"
 #include "UiManager.h"
@@ -131,7 +131,7 @@ void Player::handleInput(InputManager& inputManager)
                     target_
                 );
 
-                ammo--; // subtract ammo
+                ammo_--; // subtract ammo
                 canShoot = false;
             }
         }
@@ -214,7 +214,7 @@ void Player::updateDodgeRollRechargeTimer(float dt)
 
 void Player::updateShootingTimer(float dt)
 {
-    if (!canShoot && (ammo > 0)) // if we can't shoot then run a cooldown
+    if (!canShoot && (ammo_ > 0)) // if we can't shoot then run a cooldown
     {
         if (shootingTimer < shootingTime)
         {
@@ -230,7 +230,7 @@ void Player::updateShootingTimer(float dt)
 
 void Player::updateShootingRechargeTimer(float dt)
 {
-    if (ammo < AMMO_MAX) // if we dont have maximum amount of ammo
+    if (ammo_ < AMMO_MAX) // if we dont have maximum amount of ammo
     {
         if (shootRechargeTimer > 0.0f)
         {
@@ -239,7 +239,7 @@ void Player::updateShootingRechargeTimer(float dt)
         else
         {
             printf("regained 1 ammo!\n");
-            ammo++;
+            ammo_++;
             shootRechargeTimer = shootRechargeTime; // reset cooldown
         }
     }
