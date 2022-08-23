@@ -38,10 +38,10 @@ bool Game::init(int w, int h)
         return false;
     }
 
-    if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear"))
-    {
-      printf("Linear filtering not supported\n");
-    }  
+    // if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear"))
+    // {
+    //   printf("Linear filtering not supported\n");
+    // }  
 
     windowWidth = w;
     windowHeight = h;
