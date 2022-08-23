@@ -23,11 +23,13 @@ private:
     Vec2f dir_;
     float movespeed_;
     float gravity_;
+    int start_size_;
     int size_;
     float start_lifetime_;
     float current_lifetime_;
     Uint8 alpha_;
     SDL_Color color_;
+    SDL_Rect rect_;
     SDL_Texture* texture_; // texture to use for rendering, particle does not have ownership
 
 };

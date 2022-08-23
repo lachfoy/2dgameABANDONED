@@ -58,8 +58,30 @@ void MagicMissile::Update(float dt)
     {
         Vec2f target_dir = Vec2f::getDirection(pos, target_->pos);
         // can overshoot
-        dir.x += (dir.x < target_dir.x) ? tracking_strength_ : -tracking_strength_;
-        dir.y += (dir.y < target_dir.y) ? tracking_strength_ : -tracking_strength_;
+        //dir.x += (dir.x < target_dir.x) ? tracking_strength_ : -tracking_strength_;
+        //dir.y += (dir.y < target_dir.y) ? tracking_strength_ : -tracking_strength_;
+
+        // if (dir.x < target_dir.x && dir.y < target_dir.y)
+        // {
+        //     dir.x += tracking_strength_;
+        //     dir.y += tracking_strength_;
+        // }
+        // else if (dir.x > target_dir.x && dir.y > target_dir.y)
+        // {
+        //     dir.x -= tracking_strength_;
+        //     dir.y -= tracking_strength_;
+        // }
+        // this is a problem...
+        if (dir.x < target_dir.x && dir.y > target_dir.y)
+        {
+            dir.x += tracking_strength_;
+            dir.y -= tracking_strength_;
+        }
+        else if (dir.x > target_dir.x && dir.y < target_dir.y)
+        {
+            dir.x -= tracking_strength_;
+            dir.y += tracking_strength_;
+        }
     }
 
     // update the internal position

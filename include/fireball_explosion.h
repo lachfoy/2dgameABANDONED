@@ -10,12 +10,6 @@ public:
         std::shared_ptr<ResourceManager> resource_manager,
         std::shared_ptr<ParticleManager> particle_manager,
         std::shared_ptr<ParticleEmitterManager> particle_emitter_manager);
-    
-    void Render(SDL_Renderer* renderer) override;
-
-private:
-    float gasSpawnTime = 0.02f;
-    float gasSpawnTimer = gasSpawnTime;
 
 };
 

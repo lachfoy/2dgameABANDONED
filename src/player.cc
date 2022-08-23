@@ -110,26 +110,26 @@ void Player::handleInput(InputManager& inputManager)
                 projectileManager->AddFireball({ pos.x, pos.y - (height / 2) }, Vec2f::getDirection(pos, { (float)inputManager.getMouseX(), (float)inputManager.getMouseY() }));
 
                 // magiiic missile
-                Vec2f dir_to_mouse = Vec2f::getDirection(pos, { (float)inputManager.getMouseX(), (float)inputManager.getMouseY() });
-                Vec2f dir_to_mouse_offset_up = Vec2f::getDirection(pos, { (float)inputManager.getMouseX(), (float)inputManager.getMouseY() - 100 });
-                Vec2f dir_to_mouse_offset_down = Vec2f::getDirection(pos, { (float)inputManager.getMouseX(), (float)inputManager.getMouseY() + 100 });
-                projectileManager->AddMagicMissile(
-                    { pos.x, pos.y - (height / 2) },
-                    dir_to_mouse,
-                    target_
-                );
+                // Vec2f dir_to_mouse = Vec2f::getDirection(pos, { (float)inputManager.getMouseX(), (float)inputManager.getMouseY() });
+                // Vec2f dir_to_mouse_offset_up = Vec2f::getDirection(pos, { (float)inputManager.getMouseX(), (float)inputManager.getMouseY() - 100 });
+                // Vec2f dir_to_mouse_offset_down = Vec2f::getDirection(pos, { (float)inputManager.getMouseX(), (float)inputManager.getMouseY() + 100 });
+                // projectileManager->AddMagicMissile(
+                //     { pos.x, pos.y - (height / 2) },
+                //     dir_to_mouse,
+                //     target_
+                // );
 
-                projectileManager->AddMagicMissile(
-                    { pos.x, pos.y - (height / 2) },
-                    dir_to_mouse_offset_up,
-                    target_
-                );
+                // projectileManager->AddMagicMissile(
+                //     { pos.x, pos.y - (height / 2) },
+                //     dir_to_mouse_offset_up,
+                //     target_
+                // );
 
-                projectileManager->AddMagicMissile(
-                    { pos.x, pos.y - (height / 2) },
-                    dir_to_mouse_offset_down,
-                    target_
-                );
+                // projectileManager->AddMagicMissile(
+                //     { pos.x, pos.y - (height / 2) },
+                //     dir_to_mouse_offset_down,
+                //     target_
+                // );
 
                 ammo_--; // subtract ammo
                 canShoot = false;

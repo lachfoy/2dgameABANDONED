@@ -37,7 +37,7 @@ public:
     virtual void OnDestroy(ProjectileManager& projectileManager) {}
 
     virtual void Update(float dt);
-    virtual void Render(SDL_Renderer* renderer) = 0;
+    virtual void Render(SDL_Renderer* renderer);
 
     // debug
     void renderCollider(SDL_Renderer* renderer);
@@ -53,6 +53,9 @@ protected: // things the derived projectiles can access
     bool rotate = false;
     float angle = 0.0f; // angle in degrees
     float rotationSpeed = 0.0f;
+    int size_;
+    SDL_Rect rect_;
+    SDL_Texture* texture_; // texture to use for rendering, particle does not have ownership
 
     std::shared_ptr<ParticleManager> particle_manager_;
     std::shared_ptr<ResourceManager> resource_manager_;

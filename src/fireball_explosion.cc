@@ -18,19 +18,6 @@ FireballExplosion::FireballExplosion(const Vec2f& pos,
     lifeTime = 0.3f;
     removeOnCollision = false;
     onlyDamageOnce = true;
-}
-
-void FireballExplosion::Render(SDL_Renderer* renderer)
-{
-    // draw the origin position representing the actual x and y positions
-    SDL_Rect fireball_explosion_rect;
-    fireball_explosion_rect.w = 200;
-    fireball_explosion_rect.h = 200;
-    fireball_explosion_rect.x = (int)pos.x - (fireball_explosion_rect.w / 2);
-    fireball_explosion_rect.y = (int)pos.y - (fireball_explosion_rect.h / 2);
-
-    SDL_RenderCopy(renderer, resource_manager_->GetTexture("FireballExplosionTexture"), NULL, &fireball_explosion_rect);
-
-    // draw collider
-    //collider.debugRender(renderer);
+    size_ = 128;
+    texture_ = resource_manager_->GetTexture("fireball_texture");
 }

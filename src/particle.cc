@@ -9,34 +9,43 @@ Particle::Particle(const Vec2f& pos, const Vec2f& dir, float movespeed, float gr
     dir_ = dir;
     movespeed_ = movespeed;
     gravity_ = gravity; // -0.4f
-    size_ = size;
+    start_size_ = size;
+    size_ = start_size_;
     start_lifetime_ = lifetime;
     current_lifetime_ = start_lifetime_;
     color_ = color;
     texture_ = texture;
+
+    SDL_SetTextureColorMod(texture_, color_.r, color_.g, color_.b);
 }
 
 void Particle::Update(float dt)
 {
     if (current_lifetime_ <= 0.0f)
-        removable = true;
-    else
     {
+        removable = true;
+    }
+    else
+    {        
         // what percent of X is Y. Use the percentage formula: Y/X = P%
-        alpha_ = (current_lifetime_ / start_lifetime_) * 255;
+        float lifetime_progress = (current_lifetime_ / start_lifetime_);
+
+        alpha_ = lifetime_progress * 255;
+        SDL_SetTextureAlphaMod(texture_, alpha_);
+
         pos.x += dir_.x * movespeed_ * dt;
         pos.y += dir_.y * movespeed_ * dt + gravity_;
+
+        size_ = lifetime_progress * start_size_;
+
+        // update the rect for renderering
+        rect_ = { int(pos.x) - int(size_ / 2), int(pos.y) - int(size_ / 2), size_, size_ };
+        
         current_lifetime_ -= dt;
     }
 }
 
 void Particle::Render(SDL_Renderer* renderer)
 {
-    const SDL_Rect rect = { (int)pos.x - (int)(size_ / 2), (int)pos.y - (int)(size_ / 2), size_, size_ };
-    SDL_SetTextureAlphaMod(texture_, alpha_);
-    SDL_SetTextureColorMod(texture_, color_.r, color_.g, color_.b);
-    SDL_RenderCopy(renderer, texture_, NULL, &rect);
-
-    // const SDL_Rect rect = { (int)pos.x - (size_ / 2), (int)pos.y - (size_ / 2), size_, size_ };
-    // SDL_RenderFillRect(renderer, &rect);
+    SDL_RenderCopy(renderer, texture_, NULL, &rect_);
 }

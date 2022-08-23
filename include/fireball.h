@@ -14,9 +14,6 @@ public:
 
     void OnDestroy(ProjectileManager& projectileManager) override;
 
-    void Update(float dt) override;
-    void Render(SDL_Renderer* renderer) override;
-
 };
 
 #endif

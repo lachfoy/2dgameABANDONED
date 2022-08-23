@@ -18,11 +18,13 @@ Fireball::Fireball(const Vec2f& pos,
     moveSpeed = 420.0f;
     damage = {0};
     damage = { .fire = 11 };
-    lifeTime = 0.8f;
+    lifeTime = 1.2f;
     removeOnCollision = true;
     onlyDamageOnce = true;
     rotate = true;
     rotationSpeed = 5.0f;
+    size_ = 32;
+    texture_ = resource_manager_->GetTexture("fireball_texture");
 
     ParticleSpawnInfo info;
     //info.dir
@@ -32,61 +34,18 @@ Fireball::Fireball(const Vec2f& pos,
     info.movespeed_max = 50.0f;
     info.gravity = -0.8f;
     //info.size
-    info.size_min = 12;
-    info.size_max = 24;
+    info.size_min = 16;
+    info.size_max = 28;
     info.color = { 255, 58, 0, 255 };
     info.texture = resource_manager_->GetTexture("flame_particle2_texture");
     //info.lifetime = 0.3f;
     info.lifetime_min = 0.1f;
-    info.lifetime_max = 0.2f;
-    particle_emitter_manager->AddParticleEmitter(this, 0.0f, 10.0f, 1, info);
+    info.lifetime_max = 0.3f;
+    particle_emitter_manager->AddParticleEmitter(this, 0.0f, lifeTime, 1, info);
 }
 
 void Fireball::OnDestroy(ProjectileManager& projectileManager)
 {
     // when destroyed, create an explosion
     projectileManager.AddFireballExplosion(pos);
-}
-
-void Fireball::Update(float dt)
-{
-    if (lifeTime <= 0.0f)
-        removable = true;
-    else
-        lifeTime -= dt;
-
-    // update the internal position
-    pos.x += dir.x * moveSpeed * dt;
-    pos.y += dir.y * moveSpeed * dt;
-
-    if (rotate)
-    {
-        if (angle >= 360)
-            angle = 0.0f;
-        else
-            angle += rotationSpeed;
-    }
-
-    // move the particle emitter
-
-
-    // move the collider as well
-    collider.minX = (int)pos.x - (colliderW / 2);
-    collider.minY = (int)pos.y - (colliderH / 2);
-    collider.maxX = (int)pos.x + (colliderW / 2);
-    collider.maxY = (int)pos.y + (colliderH / 2);
-}
-
-
-void Fireball::Render(SDL_Renderer* renderer)
-{
-    // draw the origin position representing the actual x and y positions
-    const int tex_size = 28;
-    const SDL_Rect tex_rect = { (int)pos.x - (tex_size / 2), (int)pos.y - (tex_size / 2), tex_size, tex_size };
-
-    // draw the fireball
-    SDL_RenderCopyEx(renderer, resource_manager_->GetTexture("fireball_texture"), NULL, &tex_rect, angle, NULL, {});
-
-    // draw collider
-    //collider.debugRender(renderer);
 }
