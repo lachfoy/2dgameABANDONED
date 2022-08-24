@@ -17,16 +17,16 @@ MagicMissile::MagicMissile(const Vec2f& pos,
     tracking_strength_ = 0.01f;
 
     name_ = "MagicMissile";
-    colliderW = 32;
-    colliderH = 32;
-    moveSpeed = 500.0f;
-    damage = {0};
-    damage = { .fire = 11 };
-    lifeTime = 3.8f;
+    collider_width_ = 32;
+    collider_height_ = 32;
+    movespeed_ = 500.0f;
+    damage_ = {0};
+    damage_ = { .fire = 11 };
+    lifetime_ = 3.8f;
     removeOnCollision = true;
     onlyDamageOnce = true;
-    rotate = true;
-    rotationSpeed = 5.0f;
+    rotate_ = true;
+    rotationspeed_ = 5.0f;
 
     ParticleSpawnInfo info;
     //info.dir
@@ -48,10 +48,10 @@ MagicMissile::MagicMissile(const Vec2f& pos,
 
 void MagicMissile::Update(float dt)
 {
-    if (lifeTime <= 0.0f)
+    if (lifetime_ <= 0.0f)
         removable_ = true;
     else
-        lifeTime -= dt;
+        lifetime_ -= dt;
 
     // update dir according to target
     if (target_)
@@ -72,35 +72,35 @@ void MagicMissile::Update(float dt)
         //     dir.y -= tracking_strength_;
         // }
         // this is a problem...
-        if (dir.x < target_dir.x && dir.y > target_dir.y)
+        if (dir_.x < target_dir.x && dir_.y > target_dir.y)
         {
-            dir.x += tracking_strength_;
-            dir.y -= tracking_strength_;
+            dir_.x += tracking_strength_;
+            dir_.y -= tracking_strength_;
         }
-        else if (dir.x > target_dir.x && dir.y < target_dir.y)
+        else if (dir_.x > target_dir.x && dir_.y < target_dir.y)
         {
-            dir.x -= tracking_strength_;
-            dir.y += tracking_strength_;
+            dir_.x -= tracking_strength_;
+            dir_.y += tracking_strength_;
         }
     }
 
     // update the internal position
-    pos_.x += dir.x * moveSpeed * dt;
-    pos_.y += dir.y * moveSpeed * dt;
+    pos_.x += dir_.x * movespeed_ * dt;
+    pos_.y += dir_.y * movespeed_ * dt;
 
-    if (rotate)
+    if (rotate_)
     {
-        if (angle >= 360)
-            angle = 0.0f;
+        if (angle_ >= 360)
+            angle_ = 0.0f;
         else
-            angle += rotationSpeed;
+            angle_ += rotationspeed_;
     }
 
     // move the collider as well
-    collider.minX = (int)pos_.x - (colliderW / 2);
-    collider.minY = (int)pos_.y - (colliderH / 2);
-    collider.maxX = (int)pos_.x + (colliderW / 2);
-    collider.maxY = (int)pos_.y + (colliderH / 2);
+    collider_.minX = (int)pos_.x - (collider_width_ / 2);
+    collider_.minY = (int)pos_.y - (collider_height_ / 2);
+    collider_.maxX = (int)pos_.x + (collider_width_ / 2);
+    collider_.maxY = (int)pos_.y + (collider_height_ / 2);
 }
 
 
@@ -111,7 +111,7 @@ void MagicMissile::Render(SDL_Renderer* renderer)
     const SDL_Rect tex_rect = { (int)pos_.x - (tex_size / 2), (int)pos_.y - (tex_size / 2), tex_size, tex_size };
 
     // draw the MagicMissile
-    SDL_RenderCopyEx(renderer, resource_manager_->GetTexture("magic_texture"), NULL, &tex_rect, angle, NULL, {});
+    SDL_RenderCopyEx(renderer, resource_manager_->GetTexture("magic_texture"), NULL, &tex_rect, angle_, NULL, {});
 
     // draw collider
     //collider.debugRender(renderer);

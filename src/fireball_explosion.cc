@@ -11,11 +11,11 @@ FireballExplosion::FireballExplosion(const Vec2f& pos,
      : BaseProjectile(pos, { 0.0f, 0.0f }, resource_manager, particle_manager, particle_emitter_manager)
 {
     name_ = "FireballExplosion";
-    colliderW = 200;
-    colliderH = 200;
-    damage = {0};
-    damage = { .fire = 43, .setBurning = true };
-    lifeTime = 0.3f;
+    collider_width_ = 200;
+    collider_height_ = 200;
+    damage_ = {0};
+    damage_ = { .fire = 43, .setBurning = true };
+    lifetime_ = 0.3f;
     removeOnCollision = false;
     onlyDamageOnce = true;
     size_ = 128;

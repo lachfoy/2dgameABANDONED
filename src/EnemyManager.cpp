@@ -44,9 +44,9 @@ void EnemyManager::resolvePlayerProjectileCollisions(const std::vector<std::uniq
             int enemiesHit = 0;
             for (const auto& enemy : m_enemies)
             {
-                if (AABB2i::testOverlap(projectile->getCollider(), enemy->getCollider()))
+                if (AABB2i::testOverlap(projectile->collider(), enemy->getCollider()))
                 {
-                    enemy->takeDamage(projectile->getDamage());// make the enemy take damage
+                    enemy->takeDamage(projectile->damage());// make the enemy take damage
 
                     // also push the enemy away
                     enemy->push(Vec2f::getDirection(projectile->pos(), enemy->pos()), 100.0f);

@@ -12,47 +12,47 @@ BaseProjectile::BaseProjectile(const Vec2f& pos,
     std::shared_ptr<ParticleEmitterManager> particle_emitter_manager)
      : BaseObject(pos)
 {
-    this->dir = dir;
+    this->dir_ = dir;
 
     resource_manager_ = resource_manager;
     particle_manager_ = particle_manager;
     particle_emitter_manager_ = particle_emitter_manager;
     
-    collider = AABB2i(pos.x, pos.y, colliderW, colliderH);
+    collider_ = AABB2i(pos.x, pos.y, collider_width_, collider_height_);
 }
 
 void BaseProjectile::Update(float dt)
 {
-    if (lifeTime <= 0.0f)
+    if (lifetime_ <= 0.0f)
         removable_ = true;
     else
     {
         // update the internal position
-        pos_.x += dir.x * moveSpeed * dt;
-        pos_.y += dir.y * moveSpeed * dt;
+        pos_.x += dir_.x * movespeed_ * dt;
+        pos_.y += dir_.y * movespeed_ * dt;
 
-        if (rotate)
+        if (rotate_)
         {
-            angle = (angle >= 360) ? 0.0f : angle + rotationSpeed;
+            angle_ = (angle_ >= 360) ? 0.0f : angle_ + rotationspeed_;
         }
 
         // update the rect for renderering
         rect_ = { int(pos_.x) - int(size_ / 2), int(pos_.y) - int(size_ / 2), size_, size_ };
 
         // move the collider as well
-        collider.minX = (int)pos_.x - (colliderW / 2);
-        collider.minY = (int)pos_.y - (colliderH / 2);
-        collider.maxX = (int)pos_.x + (colliderW / 2);
-        collider.maxY = (int)pos_.y + (colliderH / 2);
+        collider_.minX = (int)pos_.x - (collider_width_ / 2);
+        collider_.minY = (int)pos_.y - (collider_height_ / 2);
+        collider_.maxX = (int)pos_.x + (collider_width_ / 2);
+        collider_.maxY = (int)pos_.y + (collider_height_ / 2);
 
-        lifeTime -= dt;
+        lifetime_ -= dt;
     }
 }
 
 void BaseProjectile::Render(SDL_Renderer* renderer) // should be handled by base projectile
 {
     // draw the fireball
-    SDL_RenderCopyEx(renderer, texture_, NULL, &rect_, angle, NULL, {});
+    SDL_RenderCopyEx(renderer, texture_, NULL, &rect_, angle_, NULL, {});
 
     // draw collider
     // collider.debugRender(renderer);
@@ -61,5 +61,5 @@ void BaseProjectile::Render(SDL_Renderer* renderer) // should be handled by base
 void BaseProjectile::renderCollider(SDL_Renderer* renderer)
 {
     // draw collider
-    collider.debugRender(renderer);
+    collider_.debugRender(renderer);
 }

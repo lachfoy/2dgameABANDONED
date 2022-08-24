@@ -13,16 +13,16 @@ Fireball::Fireball(const Vec2f& pos,
      : BaseProjectile(pos, dir, resource_manager, particle_manager, particle_emitter_manager)
 {
     name_ = "Fireball";
-    colliderW = 32;
-    colliderH = 32;
-    moveSpeed = 420.0f;
-    damage = {0};
-    damage = { .fire = 11 };
-    lifeTime = 1.2f;
+    collider_width_ = 32;
+    collider_height_ = 32;
+    movespeed_ = 420.0f;
+    damage_ = {0};
+    damage_ = { .fire = 11 };
+    lifetime_ = 1.2f;
     removeOnCollision = true;
     onlyDamageOnce = true;
-    rotate = true;
-    rotationSpeed = 5.0f;
+    rotate_ = true;
+    rotationspeed_ = 5.0f;
     size_ = 32;
     texture_ = resource_manager_->GetTexture("fireball_texture");
 
@@ -41,7 +41,7 @@ Fireball::Fireball(const Vec2f& pos,
     //info.lifetime = 0.3f;
     info.lifetime_min = 0.1f;
     info.lifetime_max = 0.3f;
-    particle_emitter_manager->AddParticleEmitter(this, 0.0f, lifeTime, 1, info);
+    particle_emitter_manager->AddParticleEmitter(this, 0.0f, lifetime_, 1, info);
 }
 
 void Fireball::OnDestroy(ProjectileManager& projectileManager)

@@ -29,9 +29,9 @@ public:
     bool onlyDamageOnce;
     bool hasDealtDamage = false;
 
-    inline AABB2i const& getCollider() const { return collider; }
-    inline Damage const& getDamage() const { return damage; }
-    inline Vec2f const& getDir() const { return dir; }
+    inline AABB2i const& collider() const { return collider_; }
+    inline Damage const& damage() const { return damage_; }
+    inline Vec2f const& dir() const { return dir_; }
     
     virtual void OnCreate(ProjectileManager& projectileManager) {}
     virtual void OnDestroy(ProjectileManager& projectileManager) {}
@@ -43,16 +43,16 @@ public:
     void renderCollider(SDL_Renderer* renderer);
 
 protected: // things the derived projectiles can access
-    Vec2f dir;
-    AABB2i collider;
-    int colliderW;
-    int colliderH;
-    Damage damage;
-    float moveSpeed;
-    float lifeTime;
-    bool rotate = false;
-    float angle = 0.0f; // angle in degrees
-    float rotationSpeed = 0.0f;
+    Vec2f dir_;
+    AABB2i collider_;
+    int collider_width_;
+    int collider_height_;
+    Damage damage_;
+    float movespeed_;
+    float lifetime_;
+    bool rotate_ = false;
+    float angle_ = 0.0f; // angle in degrees
+    float rotationspeed_ = 0.0f;
     int size_;
     SDL_Rect rect_;
     SDL_Texture* texture_; // texture to use for rendering, particle does not have ownership
