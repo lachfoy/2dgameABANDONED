@@ -12,7 +12,7 @@ Fireball::Fireball(const Vec2f& pos,
     std::shared_ptr<ParticleEmitterManager> particle_emitter_manager)
      : BaseProjectile(pos, dir, resource_manager, particle_manager, particle_emitter_manager)
 {
-    name = "Fireball";
+    name_ = "Fireball";
     colliderW = 32;
     colliderH = 32;
     moveSpeed = 420.0f;
@@ -47,5 +47,5 @@ Fireball::Fireball(const Vec2f& pos,
 void Fireball::OnDestroy(ProjectileManager& projectileManager)
 {
     // when destroyed, create an explosion
-    projectileManager.AddFireballExplosion(pos);
+    projectileManager.AddFireballExplosion(pos_);
 }

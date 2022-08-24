@@ -16,7 +16,7 @@ MagicMissile::MagicMissile(const Vec2f& pos,
     target_ = target;
     tracking_strength_ = 0.01f;
 
-    name = "MagicMissile";
+    name_ = "MagicMissile";
     colliderW = 32;
     colliderH = 32;
     moveSpeed = 500.0f;
@@ -49,14 +49,14 @@ MagicMissile::MagicMissile(const Vec2f& pos,
 void MagicMissile::Update(float dt)
 {
     if (lifeTime <= 0.0f)
-        removable = true;
+        removable_ = true;
     else
         lifeTime -= dt;
 
     // update dir according to target
     if (target_)
     {
-        Vec2f target_dir = Vec2f::getDirection(pos, target_->pos);
+        Vec2f target_dir = Vec2f::getDirection(pos_, target_->pos());
         // can overshoot
         //dir.x += (dir.x < target_dir.x) ? tracking_strength_ : -tracking_strength_;
         //dir.y += (dir.y < target_dir.y) ? tracking_strength_ : -tracking_strength_;
@@ -85,8 +85,8 @@ void MagicMissile::Update(float dt)
     }
 
     // update the internal position
-    pos.x += dir.x * moveSpeed * dt;
-    pos.y += dir.y * moveSpeed * dt;
+    pos_.x += dir.x * moveSpeed * dt;
+    pos_.y += dir.y * moveSpeed * dt;
 
     if (rotate)
     {
@@ -97,10 +97,10 @@ void MagicMissile::Update(float dt)
     }
 
     // move the collider as well
-    collider.minX = (int)pos.x - (colliderW / 2);
-    collider.minY = (int)pos.y - (colliderH / 2);
-    collider.maxX = (int)pos.x + (colliderW / 2);
-    collider.maxY = (int)pos.y + (colliderH / 2);
+    collider.minX = (int)pos_.x - (colliderW / 2);
+    collider.minY = (int)pos_.y - (colliderH / 2);
+    collider.maxX = (int)pos_.x + (colliderW / 2);
+    collider.maxY = (int)pos_.y + (colliderH / 2);
 }
 
 
@@ -108,7 +108,7 @@ void MagicMissile::Render(SDL_Renderer* renderer)
 {
     // draw the origin position representing the actual x and y positions
     const int tex_size = 20;
-    const SDL_Rect tex_rect = { (int)pos.x - (tex_size / 2), (int)pos.y - (tex_size / 2), tex_size, tex_size };
+    const SDL_Rect tex_rect = { (int)pos_.x - (tex_size / 2), (int)pos_.y - (tex_size / 2), tex_size, tex_size };
 
     // draw the MagicMissile
     SDL_RenderCopyEx(renderer, resource_manager_->GetTexture("magic_texture"), NULL, &tex_rect, angle, NULL, {});

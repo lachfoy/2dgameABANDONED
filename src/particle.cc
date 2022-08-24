@@ -5,7 +5,7 @@
 Particle::Particle(const Vec2f& pos, const Vec2f& dir, float movespeed, float gravity, int size, float lifetime, const SDL_Color& color, SDL_Texture* texture)
     : BaseObject(pos)
 {
-    name = "particle";//debug
+    name_ = "particle";//debug
     dir_ = dir;
     movespeed_ = movespeed;
     gravity_ = gravity; // -0.4f
@@ -23,7 +23,7 @@ void Particle::Update(float dt)
 {
     if (current_lifetime_ <= 0.0f)
     {
-        removable = true;
+        removable_ = true;
     }
     else
     {        
@@ -33,13 +33,13 @@ void Particle::Update(float dt)
         alpha_ = lifetime_progress * 255;
         SDL_SetTextureAlphaMod(texture_, alpha_);
 
-        pos.x += dir_.x * movespeed_ * dt;
-        pos.y += dir_.y * movespeed_ * dt + gravity_;
+        pos_.x += dir_.x * movespeed_ * dt;
+        pos_.y += dir_.y * movespeed_ * dt + gravity_;
 
         size_ = lifetime_progress * start_size_;
 
         // update the rect for renderering
-        rect_ = { int(pos.x) - int(size_ / 2), int(pos.y) - int(size_ / 2), size_, size_ };
+        rect_ = { int(pos_.x) - int(size_ / 2), int(pos_.y) - int(size_ / 2), size_, size_ };
         
         current_lifetime_ -= dt;
     }

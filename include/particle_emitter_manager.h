@@ -8,7 +8,7 @@
 #include "particle_emitter.h"
 #include "particle_manager.h"
 #include "Vec2f.h"
-#include "BaseObject.h"
+#include "base_object.h"
 
 // try out mozzila style guide for this class :)
 class ParticleEmitterManager
@@ -41,7 +41,7 @@ public:
                 particle_emitters_.begin(),
                 particle_emitters_.end(),
                 [](const auto& emitter) {
-                    return emitter->parent()->removable;
+                    return emitter->parent()->removable();
                 }
             ),
             particle_emitters_.end()

@@ -15,7 +15,7 @@ Skeleton::Skeleton(const Vec2f& pos,
      : BaseEnemy(pos, resourceManager, particleManager, uiManager, projectileManager, player)
 {
     // initialize everything
-    name = "Skeleton";
+    name_ = "Skeleton";
     
     width = 30;
     height = 50;
@@ -49,19 +49,19 @@ void Skeleton::updateAI(float dt)
     if (thinkingTimer <= 0.0f)
     {
         printf("Skeleton had a thought...\n");
-        target = player->pos;
+        target = player->pos();
         
         thinkingTimer = thinkingTime;  // reset to the starting value
     }
 
-    dir = Vec2f::getDirection(pos, target);
+    dir = Vec2f::getDirection(pos_, target);
 }
 
 void Skeleton::render(SDL_Renderer* renderer)
 {
     // create rect representing the enemy
-    m_rect.x = (int)pos.x - (width / 2);
-    m_rect.y = (int)pos.y - height;
+    m_rect.x = (int)pos_.x - (width / 2);
+    m_rect.y = (int)pos_.y - height;
     m_rect.w = width;
     m_rect.h = height;
     

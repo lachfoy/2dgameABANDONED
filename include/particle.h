@@ -5,7 +5,7 @@
 
 #include <SDL2/SDL.h>
 
-#include "BaseObject.h"
+#include "base_object.h"
 #include "Vec2f.h"
 
 class Particle : public BaseObject

@@ -53,7 +53,7 @@ void ProjectileManager::UpdateProjectiles(float dt)
     // remove unused projectiles
     for (int i = 0; i < _enemy_projectiles.size(); i++)
     {
-        if (_enemy_projectiles[i]->removable)
+        if (_enemy_projectiles[i]->removable())
         {
             _enemy_projectiles[i]->OnDestroy(*this);
             _enemy_projectiles.erase(_enemy_projectiles.begin() + i);
@@ -63,7 +63,7 @@ void ProjectileManager::UpdateProjectiles(float dt)
 
     for (int i = 0; i < _player_projectiles.size(); i++)
     {
-        if (_player_projectiles[i]->removable)
+        if (_player_projectiles[i]->removable())
         {
             _player_projectiles[i]->OnDestroy(*this);
             _player_projectiles.erase(_player_projectiles.begin() + i);
@@ -84,13 +84,13 @@ void ProjectileManager::renderDebug(SDL_Renderer* renderer)
     for (const auto& projectile : _enemy_projectiles)
     {
         projectile->renderCollider(renderer);
-        projectile->renderOrigin(renderer);
+        projectile->RenderOrigin(renderer);
     }
 
     // player projectiles
     for (const auto& projectile : _player_projectiles)
     {
         projectile->renderCollider(renderer);
-        projectile->renderOrigin(renderer);
+        projectile->RenderOrigin(renderer);
     }
 }

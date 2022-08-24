@@ -49,7 +49,7 @@ void EnemyManager::resolvePlayerProjectileCollisions(const std::vector<std::uniq
                     enemy->takeDamage(projectile->getDamage());// make the enemy take damage
 
                     // also push the enemy away
-                    enemy->push(Vec2f::getDirection(projectile->pos, enemy->pos), 100.0f);
+                    enemy->push(Vec2f::getDirection(projectile->pos(), enemy->pos()), 100.0f);
                     
                     enemiesHit++;
                 }
@@ -59,8 +59,8 @@ void EnemyManager::resolvePlayerProjectileCollisions(const std::vector<std::uniq
             if (projectile->onlyDamageOnce && (enemiesHit > 0))
             {
                 projectile->hasDealtDamage = true;
-                if (projectile->removeOnCollision) projectile->removable = true; // set removable
-                printf("%s hit %i enemies\n", projectile->name.c_str(), enemiesHit);
+                if (projectile->removeOnCollision) projectile->set_removable(true); // set removable
+                printf("%s hit %i enemies\n", projectile->name().c_str(), enemiesHit);
             }
         }
     }
@@ -80,7 +80,7 @@ void EnemyManager::removeUnusedEnemies()
 {
     for (int i = 0; i < m_enemies.size(); i++)
     {
-        if (m_enemies[i]->removable)
+        if (m_enemies[i]->removable())
         {
             //enemies[i]->destroy(*this);
             m_enemies.erase(m_enemies.begin() + i);
@@ -107,6 +107,6 @@ void EnemyManager::renderDebug(SDL_Renderer* renderer)
     for (const auto& enemy : m_enemies)
     {
         enemy->renderCollider(renderer);
-        enemy->renderOrigin(renderer);
+        enemy->RenderOrigin(renderer);
     }
 }

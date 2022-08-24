@@ -10,7 +10,7 @@ FireballExplosion::FireballExplosion(const Vec2f& pos,
     std::shared_ptr<ParticleEmitterManager> particle_emitter_manager)
      : BaseProjectile(pos, { 0.0f, 0.0f }, resource_manager, particle_manager, particle_emitter_manager)
 {
-    name = "FireballExplosion";
+    name_ = "FireballExplosion";
     colliderW = 200;
     colliderH = 200;
     damage = {0};

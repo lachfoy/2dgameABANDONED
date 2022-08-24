@@ -24,12 +24,12 @@ BaseProjectile::BaseProjectile(const Vec2f& pos,
 void BaseProjectile::Update(float dt)
 {
     if (lifeTime <= 0.0f)
-        removable = true;
+        removable_ = true;
     else
     {
         // update the internal position
-        pos.x += dir.x * moveSpeed * dt;
-        pos.y += dir.y * moveSpeed * dt;
+        pos_.x += dir.x * moveSpeed * dt;
+        pos_.y += dir.y * moveSpeed * dt;
 
         if (rotate)
         {
@@ -37,13 +37,13 @@ void BaseProjectile::Update(float dt)
         }
 
         // update the rect for renderering
-        rect_ = { int(pos.x) - int(size_ / 2), int(pos.y) - int(size_ / 2), size_, size_ };
+        rect_ = { int(pos_.x) - int(size_ / 2), int(pos_.y) - int(size_ / 2), size_, size_ };
 
         // move the collider as well
-        collider.minX = (int)pos.x - (colliderW / 2);
-        collider.minY = (int)pos.y - (colliderH / 2);
-        collider.maxX = (int)pos.x + (colliderW / 2);
-        collider.maxY = (int)pos.y + (colliderH / 2);
+        collider.minX = (int)pos_.x - (colliderW / 2);
+        collider.minY = (int)pos_.y - (colliderH / 2);
+        collider.maxX = (int)pos_.x + (colliderW / 2);
+        collider.maxY = (int)pos_.y + (colliderH / 2);
 
         lifeTime -= dt;
     }

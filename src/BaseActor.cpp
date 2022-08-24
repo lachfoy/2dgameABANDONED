@@ -10,7 +10,7 @@ BaseActor::BaseActor(const Vec2f& pos,
 {
     this->resource_manager_ = resourceManager;
     this->particleManager = particleManager;
-    collider = AABB2i(pos.x, pos.y, colliderW, colliderH);
+    collider = AABB2i(pos_.x, pos_.y, colliderW, colliderH);
     resistance = {0};
 }
 
@@ -24,8 +24,8 @@ void BaseActor::takeDamage(const Damage& damage)
         // take damage
         int damageTaken = resistance.damageAfterRestistance(damage);
         health -= damageTaken;
-        printf("%s took %i damage\n", name.c_str(), damageTaken);
-        printf("%s has %i/%i HP\n", name.c_str(), health, maxHealth);
+        printf("%s took %i damage\n", name_.c_str(), damageTaken);
+        printf("%s has %i/%i HP\n", name_.c_str(), health, maxHealth);
         isBeingHurt = true;
     }
 }
@@ -118,8 +118,8 @@ void BaseActor::updatePosition(float dt)
         facingDirection = FACING_LEFT;
 
     // update the internal position
-    pos.x += dir.x * moveSpeed * dt;
-    pos.y += dir.y * (moveSpeed * 0.7f) * dt; // moving in the Y direction is a bit slower
+    pos_.x += dir.x * moveSpeed * dt;
+    pos_.y += dir.y * (moveSpeed * 0.7f) * dt; // moving in the Y direction is a bit slower
 
     // reset velocity
     dir.x = 0.0f;
@@ -127,10 +127,10 @@ void BaseActor::updatePosition(float dt)
 
     // move the collider as well
     // note: origin for NPCs/players is always bottom center
-    collider.minX = (int)pos.x - (colliderW / 2);
-    collider.minY = (int)pos.y - (colliderH / 2) - (height / 2);
-    collider.maxX = (int)pos.x + (colliderW / 2);
-    collider.maxY = (int)pos.y + (colliderH / 2) - (height / 2);
+    collider.minX = (int)pos_.x - (colliderW / 2);
+    collider.minY = (int)pos_.y - (colliderH / 2) - (height / 2);
+    collider.maxX = (int)pos_.x + (colliderW / 2);
+    collider.maxY = (int)pos_.y + (colliderH / 2) - (height / 2);
 }
 
 void BaseActor::renderShadow(SDL_Renderer* renderer)
@@ -142,8 +142,8 @@ void BaseActor::renderShadow(SDL_Renderer* renderer)
     const int shadow_default_height = 24;
     shadow_rect.w = (int)(shadow_default_width * (width / (float)max_width));
     shadow_rect.h = (int)(shadow_default_height * (width / (float)max_width));
-    shadow_rect.x = (int)pos.x - (shadow_rect.w / 2);
-    shadow_rect.y = (int)pos.y - (shadow_rect.h / 2);
+    shadow_rect.x = (int)pos_.x - (shadow_rect.w / 2);
+    shadow_rect.y = (int)pos_.y - (shadow_rect.h / 2);
 
     // draw texture
     SDL_RenderCopy(renderer, resource_manager_->GetTexture("ShadowTexture"), NULL, &shadow_rect);

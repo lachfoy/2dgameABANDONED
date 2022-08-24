@@ -11,7 +11,7 @@
 
 #include "Vec2f.h"
 #include "particle_manager.h"
-#include "BaseObject.h"
+#include "base_object.h"
 
 // class uses mozzila style for a change
 
@@ -86,7 +86,7 @@ public:
 
                     float random_lifetime = (rand() % int((info_.lifetime_max * 100) - (info_.lifetime_min * 100) + 1) + info_.lifetime_min * 100) / 100.0f;
 
-                    particle_manager_->AddParticle(parent_->pos, info_.dir, random_movespeed, info_.gravity, random_size, random_lifetime, info_.color, info_.texture);
+                    particle_manager_->AddParticle(parent_->pos(), info_.dir, random_movespeed, info_.gravity, random_size, random_lifetime, info_.color, info_.texture);
 
                 }
                 spawn_timer_ = spawn_interval_;

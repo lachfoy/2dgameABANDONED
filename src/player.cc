@@ -15,7 +15,7 @@ Player::Player(const Vec2f& pos,
     : BaseActor(pos, resourceManager, nullptr)
 {
     // initialize everything
-    name = "Player";
+    name_ = "Player";
 
     ui_manager_ = ui_manager;
     this->projectileManager = projectileManager;
@@ -74,7 +74,7 @@ void Player::handleInput(InputManager& inputManager)
             if (canShoot)
             {
                 int fireballVelX = (facingDirection == FACING_RIGHT) ? 1 : -1;
-                projectileManager->AddFireball({ pos.x, pos.y - (height / 2) }, { (float)fireballVelX, 0.0f });
+                projectileManager->AddFireball({ pos_.x, pos_.y - (height / 2) }, { (float)fireballVelX, 0.0f });
                 canShoot = false;
             }
         }
@@ -107,7 +107,7 @@ void Player::handleInput(InputManager& inputManager)
             if (canShoot)
             {
                 // add a new fireball with some offset from the origin
-                projectileManager->AddFireball({ pos.x, pos.y - (height / 2) }, Vec2f::getDirection(pos, { (float)inputManager.getMouseX(), (float)inputManager.getMouseY() }));
+                projectileManager->AddFireball({ pos_.x, pos_.y - (height / 2) }, Vec2f::getDirection(pos_, { (float)inputManager.getMouseX(), (float)inputManager.getMouseY() }));
 
                 // magiiic missile
                 // Vec2f dir_to_mouse = Vec2f::getDirection(pos, { (float)inputManager.getMouseX(), (float)inputManager.getMouseY() });
@@ -148,8 +148,8 @@ void Player::takeDamage(const Damage& damage)
         // take damage
         int damageTaken = resistance.damageAfterRestistance(damage);
         health -= damageTaken;
-        printf("%s took %i damage\n", name.c_str(), damageTaken);
-        printf("%s has %i/%i HP\n", name.c_str(), health, maxHealth);
+        printf("%s took %i damage\n", name_.c_str(), damageTaken);
+        printf("%s has %i/%i HP\n", name_.c_str(), health, maxHealth);
         isImmune = true; // give iframes
         isBeingHurt = true;
     }
@@ -278,8 +278,8 @@ void Player::update(float dt)
 void Player::render(SDL_Renderer* renderer)
 {
     // create rect to represent the player
-    m_rect.x = (int)pos.x - (width / 2);
-    m_rect.y = (int)pos.y - height;
+    m_rect.x = (int)pos_.x - (width / 2);
+    m_rect.y = (int)pos_.y - height;
     m_rect.w = width;
     m_rect.h = height;
 
@@ -302,5 +302,5 @@ void Player::render(SDL_Renderer* renderer)
 void Player::renderDebug(SDL_Renderer* renderer)
 {
     renderCollider(renderer);
-    renderOrigin(renderer);
+    RenderOrigin(renderer);
 }

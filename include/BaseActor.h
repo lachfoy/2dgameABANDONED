@@ -3,7 +3,7 @@
 
 #include <memory>
 
-#include "BaseObject.h"
+#include "base_object.h"
 #include "AABB2i.h"
 #include "Resistance.h"
 

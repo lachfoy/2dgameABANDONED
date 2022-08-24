@@ -26,7 +26,7 @@ void ParticleManager::UpdateParticles(float dt)
 
     for (int i = 0; i < particles_.size(); i++)
     {
-        if (particles_[i]->removable)
+        if (particles_[i]->removable())
         {
             particles_.erase(particles_.begin() + i);
             i--;
