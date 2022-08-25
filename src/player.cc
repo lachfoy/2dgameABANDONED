@@ -5,14 +5,15 @@
 #include "Healthbar.h"
 #include "InputManager.h"
 #include "projectile_manager.h"
-#include "BaseEnemy.h"
+#include "base_enemy.h"
 #include "resource_manager.h"
 
 Player::Player(const Vec2f& pos,
     std::shared_ptr<ResourceManager> resourceManager,
+    std::shared_ptr<ParticleEmitterManager> particle_emitter_manager,
     std::shared_ptr<UiManager> ui_manager,
     std::shared_ptr<ProjectileManager> projectileManager)
-    : BaseActor(pos, resourceManager, nullptr)
+    : BaseActor(pos, resourceManager, nullptr, particle_emitter_manager)
 {
     // initialize everything
     name_ = "Player";
@@ -20,14 +21,14 @@ Player::Player(const Vec2f& pos,
     ui_manager_ = ui_manager;
     this->projectileManager = projectileManager;
 
-    width = 30;
-    height = 50;
+    width_ = 30;
+    height_ = 50;
 
     colliderW = 40;
     colliderH = 30;
 
-    maxHealth = 80;
-    health = maxHealth;
+    max_health_ = 80;
+    health_ = max_health_;
     ui_manager_->addHealthbar(16, 16, 200, 14, this);
 
     // set the resistance values
@@ -45,9 +46,9 @@ void Player::resolveEnemyCollisions(const std::vector<std::unique_ptr<BaseEnemy>
 {
     for (int i = 0; i < enemies.size(); i++)
     {
-        if (AABB2i::testOverlap(enemies[i]->getCollider(), collider))
+        if (AABB2i::testOverlap(enemies[i]->collider(), collider_))
         {
-            takeDamage(enemies[i]->getDamage());
+            TakeDamage(enemies[i]->damage());
         }
     }
 }
@@ -62,19 +63,19 @@ void Player::handleInput(InputManager& inputManager)
     if (isReceivingInput)
     {
         if (inputManager.keyPressed(SDL_SCANCODE_UP) | inputManager.keyPressed(SDL_SCANCODE_W))
-            dir.y = -1.0f;
+            dir_.y = -1.0f;
         if (inputManager.keyPressed(SDL_SCANCODE_DOWN) | inputManager.keyPressed(SDL_SCANCODE_S))
-            dir.y = 1.0f;
+            dir_.y = 1.0f;
         if (inputManager.keyPressed(SDL_SCANCODE_LEFT) | inputManager.keyPressed(SDL_SCANCODE_A))
-            dir.x = -1.0f;
+            dir_.x = -1.0f;
         if (inputManager.keyPressed(SDL_SCANCODE_RIGHT) | inputManager.keyPressed(SDL_SCANCODE_D))
-            dir.x = 1.0f;
+            dir_.x = 1.0f;
         if (inputManager.keyPressed(SDL_SCANCODE_Z))
         {
             if (canShoot)
             {
-                int fireballVelX = (facingDirection == FACING_RIGHT) ? 1 : -1;
-                projectileManager->AddFireball({ pos_.x, pos_.y - (height / 2) }, { (float)fireballVelX, 0.0f });
+                int fireballVelX = (facing_direction_ == FACING_RIGHT) ? 1 : -1;
+                projectileManager->AddFireball({ pos_.x, pos_.y - (height_ / 2) }, { (float)fireballVelX, 0.0f });
                 canShoot = false;
             }
         }
@@ -82,7 +83,7 @@ void Player::handleInput(InputManager& inputManager)
         {
             if (canAttack)
             {
-                float swordOffsetX = (facingDirection == FACING_RIGHT) ? 28.0f : -28.0f;
+                float swordOffsetX = (facing_direction_ == FACING_RIGHT) ? 28.0f : -28.0f;
                 canAttack = false;
             }
         }
@@ -93,13 +94,13 @@ void Player::handleInput(InputManager& inputManager)
                 isReceivingInput = false;
                 canDodgeRoll = false;
                 dodgeRolls--;
-                dodgeRollVel = dir;
+                dodgeRollVel = dir_;
                 dodgeRolling = true;
             }
         }
         if (inputManager.keyPressed(SDL_SCANCODE_K))
         {
-            takeDamage({ .standard = 10, .crushing = 10, .fire = 10 });
+            TakeDamage({ .standard = 10, .crushing = 10, .fire = 10 });
         }
 
         if (inputManager.mousePressed(0))
@@ -107,7 +108,7 @@ void Player::handleInput(InputManager& inputManager)
             if (canShoot)
             {
                 // add a new fireball with some offset from the origin
-                projectileManager->AddFireball({ pos_.x, pos_.y - (height / 2) }, Vec2f::getDirection(pos_, { (float)inputManager.getMouseX(), (float)inputManager.getMouseY() }));
+                projectileManager->AddFireball({ pos_.x, pos_.y - (height_ / 2) }, Vec2f::getDirection(pos_, { (float)inputManager.getMouseX(), (float)inputManager.getMouseY() }));
 
                 // magiiic missile
                 // Vec2f dir_to_mouse = Vec2f::getDirection(pos, { (float)inputManager.getMouseX(), (float)inputManager.getMouseY() });
@@ -138,7 +139,7 @@ void Player::handleInput(InputManager& inputManager)
     }
 }
 
-void Player::takeDamage(const Damage& damage)
+void Player::TakeDamage(const Damage& damage)
 {
     if(!isImmune)
     {
@@ -147,9 +148,9 @@ void Player::takeDamage(const Damage& damage)
 
         // take damage
         int damageTaken = resistance.damageAfterRestistance(damage);
-        health -= damageTaken;
+        health_ -= damageTaken;
         printf("%s took %i damage\n", name_.c_str(), damageTaken);
-        printf("%s has %i/%i HP\n", name_.c_str(), health, maxHealth);
+        printf("%s has %i/%i HP\n", name_.c_str(), health_, max_health_);
         isImmune = true; // give iframes
         isBeingHurt = true;
     }
@@ -179,7 +180,7 @@ void Player::updateDodgeRoll(float dt)
     {
         if (dodgeRollTimer > 0.0f)
         {
-            dir = dodgeRollVel;
+            dir_ = dodgeRollVel;
             moveSpeed = dodgeRollMoveSpeed;
             isImmune = true;
             dodgeRollTimer -= dt;
@@ -261,27 +262,27 @@ void Player::updateAttackingTimer(float dt)
     }
 }
 
-void Player::update(float dt)
+void Player::Update(float dt)
 {
-    updateFire(dt);
-    updateHurt(dt);
-    updatePush(dt);
+    UpdateFire(dt);
+    UpdateHurt(dt);
+    UpdatePush(dt);
     updateImmuneTimer(dt);
     updateDodgeRoll(dt);
     updateDodgeRollRechargeTimer(dt);
     updateShootingTimer(dt);
     updateShootingRechargeTimer(dt);
     updateAttackingTimer(dt);
-    updatePosition(dt);
+    UpdatePosition(dt);
 }
 
-void Player::render(SDL_Renderer* renderer)
+void Player::Render(SDL_Renderer* renderer)
 {
     // create rect to represent the player
-    m_rect.x = (int)pos_.x - (width / 2);
-    m_rect.y = (int)pos_.y - height;
-    m_rect.w = width;
-    m_rect.h = height;
+    m_rect.x = (int)pos_.x - (width_ / 2);
+    m_rect.y = (int)pos_.y - height_;
+    m_rect.w = width_;
+    m_rect.h = height_;
 
     // set draw color
     m_color = { 0xff, 0xff, 0xff, 0xff };
@@ -301,6 +302,6 @@ void Player::render(SDL_Renderer* renderer)
 
 void Player::renderDebug(SDL_Renderer* renderer)
 {
-    renderCollider(renderer);
+    RenderCollider(renderer);
     RenderOrigin(renderer);
 }

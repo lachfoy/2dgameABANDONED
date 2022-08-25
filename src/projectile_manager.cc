@@ -6,7 +6,7 @@
 #include "fireball.h"
 #include "fireball_explosion.h"
 #include "magic_missile.h"
-#include "BaseActor.h"
+#include "base_actor.h"
 
 ProjectileManager::ProjectileManager(std::shared_ptr<ResourceManager> resource_manager,
     std::shared_ptr<ParticleManager> particle_manager, std::shared_ptr<ParticleEmitterManager> particle_emitter_manager)

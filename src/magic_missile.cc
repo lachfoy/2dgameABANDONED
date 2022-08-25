@@ -43,7 +43,7 @@ MagicMissile::MagicMissile(const Vec2f& pos,
     //info.lifetime = 0.3f;
     info.lifetime_min = 0.1f;
     info.lifetime_max = 0.2f;
-    particle_emitter_manager->AddParticleEmitter(this, 0.0f, 10.0f, 1, info);
+    particle_emitter_manager->AddParticleEmitter(this, 0.01f, 10.0f, 1, info);
 }
 
 void MagicMissile::Update(float dt)

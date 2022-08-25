@@ -1,6 +1,6 @@
 #include "Healthbar.h"
 
-#include "BaseActor.h"
+#include "base_actor.h"
 
 Healthbar::Healthbar(int x, int y, int length, int height, BaseActor* damageable)
 {
@@ -37,11 +37,11 @@ void Healthbar::setSize(const int& length, const int& height)
 
 void Healthbar::updateHealth()
 {
-    if (damageable->getHealth() <= 0)
+    if (damageable->health() <= 0)
         removable = true;
     else
         // update the healthbar width using the players health %
-        health_rect.w = (int)(((float)damageable->getHealth() / damageable->getMaxHealth()) * length);
+        health_rect.w = (int)(((float)damageable->health() / damageable->max_health()) * length);
 }
 
 void Healthbar::update(float dt)

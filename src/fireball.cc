@@ -41,7 +41,7 @@ Fireball::Fireball(const Vec2f& pos,
     //info.lifetime = 0.3f;
     info.lifetime_min = 0.1f;
     info.lifetime_max = 0.3f;
-    particle_emitter_manager->AddParticleEmitter(this, 0.0f, lifetime_, 1, info);
+    particle_emitter_manager->AddParticleEmitter(this, 0.01f, lifetime_, 1, info);
 }
 
 void Fireball::OnDestroy(ProjectileManager& projectileManager)

@@ -6,7 +6,7 @@
 
 #include <SDL2/SDL.h>
 
-#include "BaseActor.h"
+#include "base_actor.h"
 
 class UiManager;
 class ProjectileManager;
@@ -18,6 +18,7 @@ class Player : public BaseActor
 public:
     Player(const Vec2f& pos,
         std::shared_ptr<ResourceManager> resourceManager,
+        std::shared_ptr<ParticleEmitterManager> particle_emitter_manager,
         std::shared_ptr<UiManager> uiManager,
         std::shared_ptr<ProjectileManager> projectileManager);
 
@@ -29,7 +30,7 @@ public:
     void resolveEnemyCollisions(const std::vector<std::unique_ptr<BaseEnemy>>& enemies);
     void FindTarget(const std::vector<std::unique_ptr<BaseEnemy>>& enemies);
 
-    void takeDamage(const Damage& damage) override;
+    void TakeDamage(const Damage& damage) override;
 
     void updateImmuneTimer(float dt);
     void updateDodgeRoll(float dt);
@@ -37,9 +38,9 @@ public:
     void updateShootingTimer(float dt);
     void updateShootingRechargeTimer(float dt);
     void updateAttackingTimer(float dt);
-    void update(float dt) override;
+    void Update(float dt) override;
 
-    void render(SDL_Renderer* renderer) override;
+    void Render(SDL_Renderer* renderer) override;
     void renderDebug(SDL_Renderer* renderer);
 
 private:

@@ -23,9 +23,9 @@ GameScene::GameScene(std::shared_ptr<InputManager> inputManager, std::shared_ptr
     m_projectileManager = std::make_shared<ProjectileManager>(resource_manager_, particle_manager_, particle_emitter_manager_);
 
     const Vec2f playerPos = { 100.0f, 200.0f };
-    m_player = std::make_shared<Player>(playerPos, resource_manager_, ui_manager_, m_projectileManager);
+    m_player = std::make_shared<Player>(playerPos, resource_manager_, particle_emitter_manager_, ui_manager_, m_projectileManager);
     
-    m_enemyManager = std::make_shared<EnemyManager>(resource_manager_, particle_manager_, ui_manager_, m_projectileManager, m_player);
+    m_enemyManager = std::make_shared<EnemyManager>(resource_manager_, particle_manager_, particle_emitter_manager_, ui_manager_, m_projectileManager, m_player);
     // m_enemyManager->addSkeleton({ 400.0f, 300.0f });
     // m_enemyManager->addSkeleton({ 600.0f, 400.0f });
     // m_enemyManager->addSkeleton({ 500.0f, 500.0f });
@@ -45,7 +45,7 @@ void GameScene::update(float dt)
     m_player->handleInput(*m_inputManager);
 
     // update game objects
-    m_player->update(dt);
+    m_player->Update(dt);
     m_enemyManager->updateEnemies(dt);
     m_projectileManager->UpdateProjectiles(dt);
     particle_manager_->UpdateParticles(dt);
@@ -74,8 +74,8 @@ void GameScene::render(SDL_Renderer* renderer)
 
     // render game objects
     m_enemyManager->renderEnemies(renderer);
-    m_player->renderShadow(renderer);
-    m_player->render(renderer);
+    m_player->RenderShadow(renderer);
+    m_player->Render(renderer);
     particle_manager_->RenderParticles(renderer);
     m_projectileManager->RenderProjectiles(renderer);
 
