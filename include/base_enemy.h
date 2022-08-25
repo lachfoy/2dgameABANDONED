@@ -3,7 +3,7 @@
 
 #include <SDL2/SDL.h>
 
-#include "base_actor.h"
+#include "base_character.h"
 
 #include "Damage.h"
 
@@ -11,7 +11,7 @@ class UiManager;
 class ProjectileManager;
 class Player;
 
-class BaseEnemy : public BaseActor
+class BaseEnemy : public BaseCharacter
 {
 public:
     BaseEnemy(const Vec2f& pos,

@@ -1,5 +1,5 @@
-#ifndef BASE_ACTOR_H_
-#define BASE_ACTOR_H_
+#ifndef BASE_CHARACTER_H_
+#define BASE_CHARACTER_H_
 
 #include <memory>
 
@@ -11,10 +11,10 @@ class ResourceManager;
 class ParticleManager;
 class ParticleEmitterManager;
 
-class BaseActor : public BaseObject
+class BaseCharacter : public BaseObject
 {
 public:
-    BaseActor(const Vec2f& pos,
+    BaseCharacter(const Vec2f& pos,
         std::shared_ptr<ResourceManager> resource_manager,
         std::shared_ptr<ParticleManager> particle_manager,
         std::shared_ptr<ParticleEmitterManager> particle_emitter_manager);

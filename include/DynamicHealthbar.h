@@ -3,12 +3,12 @@
 
 #include "Healthbar.h"
 
-class BaseActor;
+class BaseCharacter;
 
 class DynamicHealthbar : public Healthbar
 {
 public:
-    DynamicHealthbar(int length, int height, BaseActor* damageable);
+    DynamicHealthbar(int length, int height, BaseCharacter* damageable);
 
     // updates the position of the healthbar around a center origin
     void updatePosition() override;

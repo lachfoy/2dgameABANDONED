@@ -5,20 +5,20 @@ digraph inheritance {
     edge [dir=back arrowtail=empty]
 
     subgraph objects {
-        BaseObject->{BaseActor, BaseProjectile, Particle}
-        BaseActor->{Player, BaseEnemy}
+        BaseObject->{BaseCharacter, BaseProjectile, Particle}
+        BaseCharacter->{Player, BaseEnemy}
         BaseProjectile->{Fireball, FireballExplosion}
         BaseEnemy->Skeleton
     }
 
-    subgraph uiObjects {
-        BaseUiObject->{Healthbar, BaseTextObject}
-        Healthbar->DynamicHealthbar
-    }
+    // subgraph uiObjects {
+    //     BaseUiObject->{Healthbar, BaseTextObject}
+    //     Healthbar->DynamicHealthbar
+    // }
 
-    subgraph scenes {
-        BaseScene->{GameScene, PauseScene, MenuScene}
-    }
+    // subgraph scenes {
+    //     BaseScene->{GameScene, PauseScene, MenuScene}
+    // }
 }
 
 // use `dot -Tpng -O inheritance.gv` to generate a .png

@@ -1,8 +1,8 @@
 #include "DynamicHealthbar.h"
 
-#include "base_actor.h"
+#include "base_character.h"
 
-DynamicHealthbar::DynamicHealthbar(int length, int height, BaseActor* damageable)
+DynamicHealthbar::DynamicHealthbar(int length, int height, BaseCharacter* damageable)
      : Healthbar(0, 0, length, height, damageable)
 {
     

@@ -1,10 +1,10 @@
-#include "base_actor.h"
+#include "base_character.h"
 
 #include "resource_manager.h"
 #include "particle_manager.h"
 #include "particle_emitter_manager.h"
 
-BaseActor::BaseActor(const Vec2f& pos,
+BaseCharacter::BaseCharacter(const Vec2f& pos,
     std::shared_ptr<ResourceManager> resource_manager,
     std::shared_ptr<ParticleManager> particle_manager,
     std::shared_ptr<ParticleEmitterManager> particle_emitter_manager)
@@ -17,7 +17,7 @@ BaseActor::BaseActor(const Vec2f& pos,
     resistance = {0};
 }
 
-void BaseActor::TakeDamage(const Damage& damage)
+void BaseCharacter::TakeDamage(const Damage& damage)
 {
     if(!isImmune)
     {
@@ -56,7 +56,7 @@ void BaseActor::TakeDamage(const Damage& damage)
 
 // instead we should take in an origin pos, then do the velocity calculation.\
     we should also use some kind of calculation based on a "mass" attribute
-void BaseActor::Push(const Vec2f& pushDir, float pushMoveSpeed)
+void BaseCharacter::Push(const Vec2f& pushDir, float pushMoveSpeed)
 {
     if (!isBeingPushed)
     {
@@ -67,7 +67,7 @@ void BaseActor::Push(const Vec2f& pushDir, float pushMoveSpeed)
     }
 }
 
-void BaseActor::UpdatePush(float dt)
+void BaseCharacter::UpdatePush(float dt)
 {
     // push timer
     if (isBeingPushed)
@@ -89,7 +89,7 @@ void BaseActor::UpdatePush(float dt)
     }
 }
 
-void BaseActor::UpdateHurt(float dt)
+void BaseCharacter::UpdateHurt(float dt)
 {
     // hurt timer
     if (isBeingHurt)
@@ -106,7 +106,7 @@ void BaseActor::UpdateHurt(float dt)
     }
 }
 
-void BaseActor::UpdateFire(float dt)
+void BaseCharacter::UpdateFire(float dt)
 {
     // on fire timer
     if (canBeSetOnFire)
@@ -133,7 +133,7 @@ void BaseActor::UpdateFire(float dt)
     }
 }
 
-void BaseActor::UpdatePosition(float dt)
+void BaseCharacter::UpdatePosition(float dt)
 {
     // update facing direction
     if (dir_.x > 0.0f)
@@ -157,7 +157,7 @@ void BaseActor::UpdatePosition(float dt)
     collider_.maxY = (int)pos_.y + (colliderH / 2) - (height_ / 2);
 }
 
-void BaseActor::RenderShadow(SDL_Renderer* renderer)
+void BaseCharacter::RenderShadow(SDL_Renderer* renderer)
 {
     // draw the origin position representing the actual x and y positions
     SDL_Rect shadow_rect;
@@ -173,7 +173,7 @@ void BaseActor::RenderShadow(SDL_Renderer* renderer)
     SDL_RenderCopy(renderer, resource_manager_->GetTexture("ShadowTexture"), NULL, &shadow_rect);
 }
 
-void BaseActor::RenderCollider(SDL_Renderer* renderer)
+void BaseCharacter::RenderCollider(SDL_Renderer* renderer)
 {
     // draw collider
     collider_.debugRender(renderer);

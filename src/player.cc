@@ -13,7 +13,7 @@ Player::Player(const Vec2f& pos,
     std::shared_ptr<ParticleEmitterManager> particle_emitter_manager,
     std::shared_ptr<UiManager> ui_manager,
     std::shared_ptr<ProjectileManager> projectileManager)
-    : BaseActor(pos, resourceManager, nullptr, particle_emitter_manager)
+    : BaseCharacter(pos, resourceManager, nullptr, particle_emitter_manager)
 {
     // initialize everything
     name_ = "Player";

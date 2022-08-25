@@ -11,7 +11,7 @@
 class InputManager;
 class ResourceManager;
 class BaseUiObject;
-class BaseActor;
+class BaseCharacter;
 class Player;
 
 class UiManager
@@ -22,8 +22,8 @@ public:
 
     std::vector<std::unique_ptr<BaseUiObject>> const& getUiObjects() const { return m_uiObjects; }
     
-    void addHealthbar(int x, int y, int length, int height, BaseActor* damageable);
-    void addDynamicHealthbar(int length, int height, BaseActor* damageable);
+    void addHealthbar(int x, int y, int length, int height, BaseCharacter* damageable);
+    void addDynamicHealthbar(int length, int height, BaseCharacter* damageable);
     void addCrosshair(int x, int y, int w, int h);
     void addTextObject(int x, int y, std::string text);
     void addButton(int x, int y, std::string text);

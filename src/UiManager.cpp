@@ -22,12 +22,12 @@ UiManager::~UiManager()
     m_uiObjects.clear();
 }
 
-void UiManager::addHealthbar(int x, int y, int length, int height, BaseActor* damageable)
+void UiManager::addHealthbar(int x, int y, int length, int height, BaseCharacter* damageable)
 {
     m_uiObjects.push_back(std::make_unique<Healthbar>(x, y, length, height, damageable));
 }
 
-void UiManager::addDynamicHealthbar(int length, int height, BaseActor* damageable)
+void UiManager::addDynamicHealthbar(int length, int height, BaseCharacter* damageable)
 {
     m_uiObjects.push_back(std::make_unique<DynamicHealthbar>(length, height, damageable));
 }

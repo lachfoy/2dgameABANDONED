@@ -12,7 +12,7 @@ BaseEnemy::BaseEnemy(const Vec2f& pos,
     std::shared_ptr<UiManager> ui_manager,
     std::shared_ptr<ProjectileManager> projectile_manager,
     std::shared_ptr<Player> player)
-     : BaseActor(pos, resource_manager, particle_manager, particle_emitter_manager)
+     : BaseCharacter(pos, resource_manager, particle_manager, particle_emitter_manager)
 {
     ui_manager_ = ui_manager;
     projectile_manager_ = projectile_manager;

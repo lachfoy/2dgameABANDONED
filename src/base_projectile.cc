@@ -1,6 +1,6 @@
 #include "base_projectile.h"
 
-#include "base_actor.h"
+#include "base_character.h"
 #include "particle_manager.h"
 #include "resource_manager.h"
 #include "particle_emitter_manager.h"

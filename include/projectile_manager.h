@@ -10,7 +10,7 @@
 #include "base_projectile.h"
 #include "Vec2f.h"
 
-class BaseActor;
+class BaseCharacter;
 class ResourceManager;
 class ParticleManager;
 class ParticleEmitterManager;
@@ -38,7 +38,7 @@ public:
     void AddMagicMissile(const Vec2f& pos, const Vec2f& dir, BaseObject* target);
 
     void UpdateProjectiles(float dt);
-    void resolveProjectileVsEnemyCollisions(const std::vector<BaseActor*>& enemies);
+    void resolveProjectileVsEnemyCollisions(const std::vector<BaseCharacter*>& enemies);
     void removeUnusedProjectiles();
     void RenderProjectiles(SDL_Renderer* renderer);
     void renderDebug(SDL_Renderer* renderer);
