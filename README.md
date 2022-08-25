@@ -2,9 +2,6 @@
 
 This is a ~~simple~~ 2D game project that uses SDL2 for rendering. I don't have any huge goals or ambitions for this project - I'm mainly working on this for fun and to improve my software design and C++ skills.
 
-## Task List
-General, (slightly out of date) todo list [todo.md](todo.md)
-
 ## Inheritance Diagram
 
 Inheritance diagram generated from [inheritance.gv](inheritance.gv) using Graphviz.

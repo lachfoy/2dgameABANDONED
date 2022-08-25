@@ -27,6 +27,7 @@ void ProjectileManager::AddFireball(const Vec2f& pos, const Vec2f& dir)
 {
     std::unique_ptr<BaseProjectile> projectile = std::make_unique<Fireball>(pos, dir, resource_manager_, particle_manager_, particle_emitter_manager_);
     projectile->OnCreate(*this);
+    Mix_PlayChannel(-1, resource_manager_->GetSound("fireball_sound"), 0);
     _player_projectiles.push_back(std::move(projectile));
 }
 
@@ -34,6 +35,7 @@ void ProjectileManager::AddFireballExplosion(const Vec2f& pos)
 {
     std::unique_ptr<BaseProjectile> projectile = std::make_unique<FireballExplosion>(pos, resource_manager_, particle_manager_, particle_emitter_manager_);
     projectile->OnCreate(*this);
+    Mix_PlayChannel(-1, resource_manager_->GetSound("fireball_explosion_sound"), 0);
     _player_projectiles.push_back(std::move(projectile));
 }
 

@@ -32,7 +32,7 @@ bool Game::init(int w, int h)
     }
 
     // initialize SDL_mixer
-    if (Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 ) < 0)
+    if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
     {
         printf("Unable to initialize SDL_mixer: %s\n", Mix_GetError());
         return false;
@@ -124,6 +124,7 @@ void Game::destroy()
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
 
+    Mix_Quit();
     TTF_Quit();
     IMG_Quit();
     SDL_Quit();

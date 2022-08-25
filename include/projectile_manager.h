@@ -6,6 +6,7 @@
 #include <memory>
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_mixer.h>
 
 #include "base_projectile.h"
 #include "Vec2f.h"

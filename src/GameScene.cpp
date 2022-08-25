@@ -13,6 +13,7 @@ GameScene::GameScene(std::shared_ptr<InputManager> inputManager, std::shared_ptr
      : BaseScene(inputManager, resourceManager, windowWidth, windowHeight)
 {
     resource_manager_->LoadGameTextures();
+    resource_manager_->LoadSounds();
 
     ui_manager_ = std::make_shared<UiManager>(m_inputManager, resource_manager_, m_windowWidth, m_windowHeight);
     particle_manager_ = std::make_shared<ParticleManager>(resource_manager_);
