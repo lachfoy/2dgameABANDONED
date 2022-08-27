@@ -22,8 +22,18 @@ public:
         std::shared_ptr<UiManager> uiManager,
         std::shared_ptr<ProjectileManager> projectileManager);
 
-    int ammo() const { return ammo_; }
-    std::vector<std::string> getDebugInfo() const;
+    inline std::vector<std::string> getDebugInfo() const
+    {
+        std::vector<std::string> info;
+        info.push_back("Health: " + std::to_string(health_) + "/" + std::to_string(max_health_));
+        info.push_back("Ammo: " + std::to_string(ammo_) + "/" + std::to_string(AMMO_MAX));
+        info.push_back("Ammo regen: " + std::to_string(shootRechargeTimer));
+        info.push_back("Immune: " + std::to_string(isImmune));
+        info.push_back("Immune timer: " + std::to_string(immuneTimer));
+        info.push_back("Dodges: " + std::to_string(dodgeRolls) + "/" + std::to_string(DODGEROLLS_MAX));
+        info.push_back("Dodge regen: " + std::to_string(dodgeRollRechargeTimer));
+        return info;
+    }
 
     void handleInput(InputManager& inputManager);
 

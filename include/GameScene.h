@@ -9,6 +9,9 @@ class EnemyManager;
 class UiManager;
 class ParticleManager;
 class ParticleEmitterManager;
+class DebugTextManager;
+
+typedef std::shared_ptr<DebugTextManager> DebugTextManagerPtr;
 
 class GameScene : public BaseScene
 {
@@ -20,6 +23,7 @@ public:
     void render(SDL_Renderer* renderer) override;
 
 private:
+    DebugTextManagerPtr debug_text_manager_;
     std::shared_ptr<Player> m_player;
     std::shared_ptr<ProjectileManager> m_projectileManager;
     std::shared_ptr<EnemyManager> m_enemyManager;

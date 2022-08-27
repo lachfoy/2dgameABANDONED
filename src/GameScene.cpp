@@ -6,6 +6,7 @@
 #include "UiManager.h"
 #include "particle_manager.h"
 #include "particle_emitter_manager.h"
+#include "debug_text_manager.h"
 
 #define DEBUG_DRAW 0
 
@@ -26,6 +27,8 @@ GameScene::GameScene(std::shared_ptr<InputManager> inputManager, std::shared_ptr
     const Vec2f playerPos = { 100.0f, 200.0f };
     m_player = std::make_shared<Player>(playerPos, resource_manager_, particle_emitter_manager_, ui_manager_, m_projectileManager);
     
+    debug_text_manager_ = std::make_shared<DebugTextManager>(resource_manager_->GetFont("arial_body"));
+
     m_enemyManager = std::make_shared<EnemyManager>(resource_manager_, particle_manager_, particle_emitter_manager_, ui_manager_, m_projectileManager, m_player);
     // m_enemyManager->addSkeleton({ 400.0f, 300.0f });
     // m_enemyManager->addSkeleton({ 600.0f, 400.0f });
@@ -62,6 +65,8 @@ void GameScene::update(float dt)
     // update ui objects
     //ui_manager_->updateUiObjects(dt);
 
+    debug_text_manager_->Update(*m_player);
+
     // remove unused objects
     m_enemyManager->removeUnusedEnemies();
     //ui_manager_->removeUnusedUiObjects();
@@ -90,6 +95,8 @@ void GameScene::render(SDL_Renderer* renderer)
         m_player->renderDebug(renderer);
         m_projectileManager->renderDebug(renderer);
     }
+
+    debug_text_manager_->Render(renderer);
 }
 
 
