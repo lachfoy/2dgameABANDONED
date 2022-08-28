@@ -47,21 +47,13 @@ ResourceManager::~ResourceManager()
 void ResourceManager::LoadGameTextures()
 {
     printf("ResourceManager: loading textures...\n");
-
-    textures_["background_purple_texture"] = LoadTextureFromFile("../resources/textures/background_purple.bmp", SDL_BLENDMODE_NONE);
-    textures_["background_forest_texture"] = LoadTextureFromFile("../resources/textures/background_forest.bmp", SDL_BLENDMODE_NONE);
-    textures_["flame_particle1_texture"] = LoadTextureFromFile("../resources/textures/flame_particle1.bmp", SDL_BLENDMODE_ADD);
-    textures_["flame_particle2_texture"] = LoadTextureFromFile("../resources/textures/flame_particle2.bmp", SDL_BLENDMODE_ADD);
-    textures_["fireball_texture"] = LoadTextureFromFile("../resources/textures/fireball.bmp", SDL_BLENDMODE_BLEND);
-    textures_["main_girl_texture"] = LoadTextureFromFile("../resources/textures/main_girl.bmp", SDL_BLENDMODE_BLEND);
-    textures_["magic_texture"] = LoadTextureFromFile("../resources/textures/magic.bmp", SDL_BLENDMODE_BLEND);
-    textures_["skeleton_texture"] = LoadTextureFromFile("../resources/textures/skeleton.bmp", SDL_BLENDMODE_BLEND);
-
-
-    textures_["base_particle_texture"] = LoadTextureFromFile("../resources/textures/particle.bmp", SDL_BLENDMODE_BLEND);
-    textures_["spell_effect_texture"] = LoadTextureFromFile("../resources/textures/spell_effect.bmp", SDL_BLENDMODE_ADD);
-
-    textures_["ShadowTexture"] = LoadTextureFromFile("../resources/textures/Shadow.bmp", SDL_BLENDMODE_BLEND);
+    textures_["background_forest_texture"] = LoadTextureFromFile("../resources/textures/background_forest.png", SDL_BLENDMODE_NONE);
+    textures_["fireball_texture"] = LoadTextureFromFile("../resources/textures/fireball.png", SDL_BLENDMODE_BLEND);
+    textures_["flame_particle2_texture"] = LoadTextureFromFile("../resources/textures/flame_particle2.png", SDL_BLENDMODE_ADD);
+    textures_["player_texture"] = LoadTextureFromFile("../resources/textures/player.png", SDL_BLENDMODE_BLEND);
+    textures_["shadow_texture"] = LoadTextureFromFile("../resources/textures/shadow.png", SDL_BLENDMODE_BLEND);
+    textures_["skeleton_texture"] = LoadTextureFromFile("../resources/textures/skeleton.png", SDL_BLENDMODE_BLEND);
+    textures_["slime_texture"] = LoadTextureFromFile("../resources/textures/slime.png", SDL_BLENDMODE_BLEND);
 }
 
 void ResourceManager::LoadFonts()
@@ -101,7 +93,7 @@ Mix_Chunk* ResourceManager::GetSound(std::string key)
 
 SDL_Texture* ResourceManager::LoadTextureFromFile(const char* path, SDL_BlendMode blend_mode = SDL_BLENDMODE_NONE)
 {
-    SDL_Surface* surface = SDL_LoadBMP(path);
+    SDL_Surface* surface = IMG_Load(path);
     if (!surface)
     {
         printf("Failed to load image %s\n", SDL_GetError());

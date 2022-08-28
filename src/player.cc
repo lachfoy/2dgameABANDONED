@@ -18,7 +18,7 @@ Player::Player(const Vec2f& pos,
     // initialize everything
     name_ = "Player";
 
-    texture_ = resource_manager_->GetTexture("main_girl_texture");
+    texture_ = resource_manager_->GetTexture("player_texture");
 
     ui_manager.addHealthbar(16, 16, 200, 14, this);
     this->projectileManager = projectileManager;

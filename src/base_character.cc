@@ -202,7 +202,7 @@ void BaseCharacter::RenderShadow(SDL_Renderer* renderer)
     shadow_rect.y = (int)pos_.y - (shadow_rect.h / 2);
 
     // draw texture
-    SDL_RenderCopy(renderer, resource_manager_->GetTexture("ShadowTexture"), NULL, &shadow_rect);
+    SDL_RenderCopy(renderer, resource_manager_->GetTexture("shadow_texture"), NULL, &shadow_rect);
 }
 
 void BaseCharacter::RenderCollider(SDL_Renderer* renderer)
