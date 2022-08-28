@@ -15,14 +15,12 @@ class UiManager;
 class Skeleton;
 class ProjectileManager;
 class ResourceManager;
-class ParticleManager;
 class ParticleEmitterManager;
 
 class EnemyManager
 {
 public:
     EnemyManager(std::shared_ptr<ResourceManager> resourceManager,
-        std::shared_ptr<ParticleManager> particleManager,
         std::shared_ptr<ParticleEmitterManager> particle_emitter_manager,
         std::shared_ptr<UiManager> uiManager,
         std::shared_ptr<ProjectileManager> projectileManager,
@@ -42,7 +40,6 @@ public:
 
 private:
     std::shared_ptr<ResourceManager> resource_manager_; // pointer to resource manager
-    std::shared_ptr<ParticleManager> particleManager;
     std::shared_ptr<ParticleEmitterManager> particle_emitter_manager_;
     std::shared_ptr<UiManager> ui_manager_; // pointer to ui manager
     std::shared_ptr<ProjectileManager> projectileManager; // pointer to projectile manager

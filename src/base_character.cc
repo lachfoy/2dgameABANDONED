@@ -1,18 +1,15 @@
 #include "base_character.h"
 
 #include "resource_manager.h"
-#include "particle_manager.h"
 #include "particle_emitter_manager.h"
 
 BaseCharacter::BaseCharacter(const Vec2f& pos,
-    std::shared_ptr<ResourceManager> resource_manager,
-    std::shared_ptr<ParticleManager> particle_manager,
-    std::shared_ptr<ParticleEmitterManager> particle_emitter_manager)
+    ResourceManagerPtr resource_manager,
+    ParticleEmitterManagerPtr particle_emitter_manager)
      : BaseObject(pos)
 {
     resource_manager_ = resource_manager;
     texture_ = nullptr;
-    particle_manager_ = particle_manager;
     particle_emitter_manager_ = particle_emitter_manager;
     collider_ = AABB2i(pos_.x, pos_.y, colliderW, colliderH);
     resistance = {0};

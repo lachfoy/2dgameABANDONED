@@ -67,8 +67,7 @@ void ResourceManager::LoadGameTextures()
 void ResourceManager::LoadFonts()
 {
     printf("ResourceManager: loading fonts...\n");
-    fonts_["arial_body"] = TTF_OpenFont("../resources/fonts/arial.ttf", 21);
-    fonts_["arial_header"] = TTF_OpenFont("../resources/fonts/arial.ttf", 34);
+    fonts_["debug_font"] = TTF_OpenFont("../resources/fonts/arial.ttf", 16);
 }
 
 void ResourceManager::LoadSounds()

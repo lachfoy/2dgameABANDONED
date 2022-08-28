@@ -11,17 +11,17 @@ class UiManager;
 class ProjectileManager;
 class Player;
 
+typedef std::shared_ptr<ProjectileManager> ProjectileManagerPtr;
 typedef std::shared_ptr<Player> PlayerPtr;
 
 class BaseEnemy : public BaseCharacter
 {
 public:
     BaseEnemy(const Vec2f& pos,
-        std::shared_ptr<ResourceManager> resource_manager,
-        std::shared_ptr<ParticleManager> particle_manager,
-        std::shared_ptr<ParticleEmitterManager> particle_emitter_manager,
+        ResourceManagerPtr resource_manager,
+        ParticleEmitterManagerPtr particle_emitter_manager,
         UiManager& ui_manager,
-        std::shared_ptr<ProjectileManager> projectile_manager,
+        ProjectileManagerPtr projectile_manager,
         PlayerPtr player);
 
     Damage const& damage() const { return damage_; }
@@ -31,7 +31,7 @@ public:
     void Update(float dt) override;
 
 protected:
-    std::shared_ptr<ProjectileManager> projectile_manager_;
+    ProjectileManagerPtr projectile_manager_;
     PlayerPtr player_;
     Damage damage_;
     

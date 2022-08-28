@@ -9,11 +9,11 @@
 #include "resource_manager.h"
 
 Player::Player(const Vec2f& pos,
-    std::shared_ptr<ResourceManager> resourceManager,
-    std::shared_ptr<ParticleEmitterManager> particle_emitter_manager,
+    ResourceManagerPtr resourceManager,
+    ParticleEmitterManagerPtr particle_emitter_manager,
     UiManager& ui_manager,
-    std::shared_ptr<ProjectileManager> projectileManager)
-    : BaseCharacter(pos, resourceManager, nullptr, particle_emitter_manager)
+    ProjectileManagerPtr projectileManager)
+    : BaseCharacter(pos, resourceManager, particle_emitter_manager)
 {
     // initialize everything
     name_ = "Player";

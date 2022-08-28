@@ -32,7 +32,7 @@ public:
     {
         int x = 10;
         int y = 10;
-        int vertical_offset = 30;
+        int vertical_offset = 20;
         for (const auto& string : debug_strings_)
         {
             RenderString(renderer, string, x, y);

@@ -17,9 +17,8 @@ GameScene::GameScene(std::shared_ptr<InputManager> inputManager, std::shared_ptr
     resource_manager_->LoadSounds();
 
     ui_manager_ = std::make_shared<UiManager>(m_inputManager, resource_manager_, m_windowWidth, m_windowHeight);
-    particle_manager_ = std::make_shared<ParticleManager>(resource_manager_);
-    
 
+    particle_manager_ = std::make_shared<ParticleManager>(resource_manager_);
     particle_emitter_manager_ = std::make_shared<ParticleEmitterManager>(particle_manager_);
 
     m_projectileManager = std::make_shared<ProjectileManager>(resource_manager_, particle_manager_, particle_emitter_manager_);
@@ -27,9 +26,9 @@ GameScene::GameScene(std::shared_ptr<InputManager> inputManager, std::shared_ptr
     const Vec2f playerPos = { 100.0f, 200.0f };
     m_player = std::make_shared<Player>(playerPos, resource_manager_, particle_emitter_manager_, *ui_manager_, m_projectileManager);
     
-    debug_text_manager_ = std::make_shared<DebugTextManager>(resource_manager_->GetFont("arial_body"));
+    debug_text_manager_ = std::make_shared<DebugTextManager>(resource_manager_->GetFont("debug_font"));
 
-    m_enemyManager = std::make_shared<EnemyManager>(resource_manager_, particle_manager_, particle_emitter_manager_, ui_manager_, m_projectileManager, m_player);
+    m_enemyManager = std::make_shared<EnemyManager>(resource_manager_, particle_emitter_manager_, ui_manager_, m_projectileManager, m_player);
     // m_enemyManager->addSkeleton({ 400.0f, 300.0f });
     // m_enemyManager->addSkeleton({ 600.0f, 400.0f });
     // m_enemyManager->addSkeleton({ 500.0f, 500.0f });

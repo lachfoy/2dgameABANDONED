@@ -9,12 +9,11 @@ class Skeleton : public BaseEnemy
 {
 public:
     Skeleton(const Vec2f& pos,
-        std::shared_ptr<ResourceManager> resourceManager,
-        std::shared_ptr<ParticleManager> particleManager,
-        std::shared_ptr<ParticleEmitterManager> particle_emitter_manager,
+        ResourceManagerPtr resourceManager,
+        ParticleEmitterManagerPtr particle_emitter_manager,
         UiManager& ui_manager,
-        std::shared_ptr<ProjectileManager> projectileManager,
-        std::shared_ptr<Player> player);
+        ProjectileManagerPtr projectileManager,
+        PlayerPtr player);
 
 private:
     void UpdateAI(float dt) override;

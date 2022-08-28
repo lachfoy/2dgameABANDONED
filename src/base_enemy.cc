@@ -3,16 +3,14 @@
 #include "UiManager.h"
 #include "projectile_manager.h"
 #include "player.h"
-#include "DynamicHealthbar.h"
 
 BaseEnemy::BaseEnemy(const Vec2f& pos,
-    std::shared_ptr<ResourceManager> resource_manager,
-    std::shared_ptr<ParticleManager> particle_manager,
-    std::shared_ptr<ParticleEmitterManager> particle_emitter_manager,
+    ResourceManagerPtr resource_manager,
+    ParticleEmitterManagerPtr particle_emitter_manager,
     UiManager& ui_manager,
-    std::shared_ptr<ProjectileManager> projectile_manager,
+    ProjectileManagerPtr projectile_manager,
     PlayerPtr player)
-     : BaseCharacter(pos, resource_manager, particle_manager, particle_emitter_manager)
+     : BaseCharacter(pos, resource_manager, particle_emitter_manager)
 {
     projectile_manager_ = projectile_manager;
     player_ = player;

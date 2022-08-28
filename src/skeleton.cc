@@ -7,13 +7,12 @@
 #include "resource_manager.h"
 
 Skeleton::Skeleton(const Vec2f& pos,
-    std::shared_ptr<ResourceManager> resource_manager,
-    std::shared_ptr<ParticleManager> particle_manager,
-    std::shared_ptr<ParticleEmitterManager> particle_emitter_manager,
+    ResourceManagerPtr resource_manager,
+    ParticleEmitterManagerPtr particle_emitter_manager,
     UiManager& ui_manager,
-    std::shared_ptr<ProjectileManager> projectile_manager,
-    std::shared_ptr<Player> player)
-     : BaseEnemy(pos, resource_manager, particle_manager, particle_emitter_manager, ui_manager, projectile_manager, player)
+    ProjectileManagerPtr projectile_manager,
+    PlayerPtr player)
+     : BaseEnemy(pos, resource_manager, particle_emitter_manager, ui_manager, projectile_manager, player)
 {
     // initialize everything
     name_ = "Skeleton";

@@ -8,16 +8,17 @@
 #include "Resistance.h"
 
 class ResourceManager;
-class ParticleManager;
 class ParticleEmitterManager;
+
+typedef std::shared_ptr<ResourceManager> ResourceManagerPtr;
+typedef std::shared_ptr<ParticleEmitterManager> ParticleEmitterManagerPtr;
 
 class BaseCharacter : public BaseObject
 {
 public:
     BaseCharacter(const Vec2f& pos,
-        std::shared_ptr<ResourceManager> resource_manager,
-        std::shared_ptr<ParticleManager> particle_manager,
-        std::shared_ptr<ParticleEmitterManager> particle_emitter_manager);
+        ResourceManagerPtr resource_manager,
+        ParticleEmitterManagerPtr particle_emitter_manager);
 
     // getters
     inline int health() const { return health_; }
@@ -68,11 +69,10 @@ protected:
     enum FacingDirection { FACING_LEFT, FACING_RIGHT } facing_direction_;
 
     // resources
-    std::shared_ptr<ResourceManager> resource_manager_;
+    ResourceManagerPtr resource_manager_;
 
     // particles
-    std::shared_ptr<ParticleManager> particle_manager_;
-    std::shared_ptr<ParticleEmitterManager> particle_emitter_manager_;
+    ParticleEmitterManagerPtr particle_emitter_manager_;
 
     // fire
     bool canBeSetOnFire = true;
