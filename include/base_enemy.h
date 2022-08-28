@@ -25,12 +25,13 @@ public:
         PlayerPtr player);
 
     Damage const& damage() const { return damage_; }
-    
-    // derived enemies can add any AI functionality if they wish
-    virtual void UpdateAI(float dt) {}
+
     void Update(float dt) override;
 
 protected:
+    // derived enemies can add any AI functionality if they wish
+    virtual void UpdateAI(float dt) {}
+
     ProjectileManagerPtr projectile_manager_;
     PlayerPtr player_;
     Damage damage_;
