@@ -12,14 +12,13 @@ public:
         std::shared_ptr<ResourceManager> resourceManager,
         std::shared_ptr<ParticleManager> particleManager,
         std::shared_ptr<ParticleEmitterManager> particle_emitter_manager,
-        std::shared_ptr<UiManager> uiManager,
+        UiManager& ui_manager,
         std::shared_ptr<ProjectileManager> projectileManager,
         std::shared_ptr<Player> player);
 
-    void UpdateAI(float dt) override;
-    void Render(SDL_Renderer* renderer) override;
-
 private:
+    void UpdateAI(float dt) override;
+
     Vec2f target;
     float thinkingTime;
     float thinkingTimer;

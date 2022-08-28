@@ -25,7 +25,7 @@ GameScene::GameScene(std::shared_ptr<InputManager> inputManager, std::shared_ptr
     m_projectileManager = std::make_shared<ProjectileManager>(resource_manager_, particle_manager_, particle_emitter_manager_);
 
     const Vec2f playerPos = { 100.0f, 200.0f };
-    m_player = std::make_shared<Player>(playerPos, resource_manager_, particle_emitter_manager_, ui_manager_, m_projectileManager);
+    m_player = std::make_shared<Player>(playerPos, resource_manager_, particle_emitter_manager_, *ui_manager_, m_projectileManager);
     
     debug_text_manager_ = std::make_shared<DebugTextManager>(resource_manager_->GetFont("arial_body"));
 
@@ -80,7 +80,6 @@ void GameScene::render(SDL_Renderer* renderer)
 
     // render game objects
     m_enemyManager->renderEnemies(renderer);
-    m_player->RenderShadow(renderer);
     m_player->Render(renderer);
     particle_manager_->RenderParticles(renderer);
     m_projectileManager->RenderProjectiles(renderer);
@@ -92,7 +91,7 @@ void GameScene::render(SDL_Renderer* renderer)
     if (DEBUG_DRAW)
     {
         m_enemyManager->renderDebug(renderer);
-        m_player->renderDebug(renderer);
+        m_player->RenderDebug(renderer);
         m_projectileManager->renderDebug(renderer);
     }
 

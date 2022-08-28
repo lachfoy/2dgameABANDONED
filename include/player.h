@@ -19,7 +19,7 @@ public:
     Player(const Vec2f& pos,
         std::shared_ptr<ResourceManager> resourceManager,
         std::shared_ptr<ParticleEmitterManager> particle_emitter_manager,
-        std::shared_ptr<UiManager> uiManager,
+        UiManager& ui_manager,
         std::shared_ptr<ProjectileManager> projectileManager);
 
     inline std::vector<std::string> getDebugInfo() const
@@ -42,18 +42,16 @@ public:
 
     void TakeDamage(const Damage& damage) override;
 
+    void Update(float dt) override;
+
+private:
     void updateImmuneTimer(float dt);
     void updateDodgeRoll(float dt);
     void updateDodgeRollRechargeTimer(float dt);
     void updateShootingTimer(float dt);
     void updateShootingRechargeTimer(float dt);
     void updateAttackingTimer(float dt);
-    void Update(float dt) override;
 
-    void Render(SDL_Renderer* renderer) override;
-    void renderDebug(SDL_Renderer* renderer);
-
-private:
     std::shared_ptr<UiManager> ui_manager_;
     std::shared_ptr<ProjectileManager> projectileManager;
     

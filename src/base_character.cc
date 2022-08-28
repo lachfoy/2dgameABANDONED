@@ -11,6 +11,7 @@ BaseCharacter::BaseCharacter(const Vec2f& pos,
      : BaseObject(pos)
 {
     resource_manager_ = resource_manager;
+    texture_ = nullptr;
     particle_manager_ = particle_manager;
     particle_emitter_manager_ = particle_emitter_manager;
     collider_ = AABB2i(pos_.x, pos_.y, colliderW, colliderH);
@@ -65,6 +66,40 @@ void BaseCharacter::Push(const Vec2f& pushDir, float pushMoveSpeed)
         this->pushMoveSpeed = pushMoveSpeed;
         isBeingPushed = true;
     }
+}
+
+void BaseCharacter::Render(SDL_Renderer* renderer)
+{
+    RenderShadow(renderer);
+
+    // create rect to represent the player
+    rect_.x = (int)pos_.x - (width_ / 2);
+    rect_.y = (int)pos_.y - height_;
+    rect_.w = width_;
+    rect_.h = height_;
+
+    // set draw color
+    color_ = { 0xff, 0xff, 0xff, 0xff };
+
+    // set alpha depending on damageable status
+    if (isImmune) color_.a = 0x65;
+
+    // set on fire ???
+    if (isOnFire) color_ = { 0xff, 0x6a, 0x0d, 0xff }; // #ff6a0d more intense fire orange
+
+    // owwwie
+    if (isBeingHurt) color_ = { 0xff, 0x4e, 0x45, 0xff }; // #ff4e45
+    
+    // draw player
+    //SDL_SetRenderDrawColor(renderer, m_color.r, m_color.g, m_color.b, m_color.a);
+    //SDL_RenderFillRect(renderer, &m_rect);
+    SDL_SetTextureColorMod(texture_, color_.r, color_.g, color_.b);
+    SDL_RenderCopy(renderer, texture_, NULL, &rect_);
+}
+
+void BaseCharacter::RenderDebug(SDL_Renderer* renderer)
+{
+    RenderCollider(renderer);
 }
 
 void BaseCharacter::UpdatePush(float dt)

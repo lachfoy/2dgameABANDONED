@@ -31,23 +31,26 @@ public:
     virtual void TakeDamage(const Damage& damage); // overriden by player
     void Push(const Vec2f& pushDir, float pushMoveSpeed);
 
+    virtual void Update(float dt) = 0;
+    void Render(SDL_Renderer* renderer);
+    void RenderDebug(SDL_Renderer* renderer);
+
+protected:
     // can be pushed, hurt, on fire
     void UpdatePush(float dt);
     void UpdateHurt(float dt);
     void UpdateFire(float dt);
     void UpdatePosition(float dt); // update position and collider position
-    virtual void Update(float dt) = 0;
 
     void RenderShadow(SDL_Renderer* renderer);
     void RenderCollider(SDL_Renderer* renderer);
-    virtual void Render(SDL_Renderer* renderer) = 0;
 
-protected:
     Vec2f dir_;
     int width_;
     int height_;
-    SDL_Rect m_rect;
-    SDL_Color m_color;
+    SDL_Rect rect_;
+    SDL_Color color_;
+    SDL_Texture* texture_;
     int colliderW;
     int colliderH;
     AABB2i collider_;

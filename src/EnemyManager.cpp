@@ -32,7 +32,7 @@ EnemyManager::~EnemyManager()
 
 void EnemyManager::addSkeleton(const Vec2f& pos)
 {
-    m_enemies.push_back(std::make_unique<Skeleton>(pos, resource_manager_, particleManager, particle_emitter_manager_, ui_manager_, projectileManager, player));
+    m_enemies.push_back(std::make_unique<Skeleton>(pos, resource_manager_, particleManager, particle_emitter_manager_, *ui_manager_, projectileManager, player));
 }
 
 // tests collision against a list of projectiles and deals appropriate damage
@@ -96,10 +96,6 @@ void EnemyManager::renderEnemies(SDL_Renderer* renderer)
     // render enemies
     for (const auto& enemy : m_enemies)
     {
-        enemy->RenderShadow(renderer);
-    }
-    for (const auto& enemy : m_enemies)
-    {
         enemy->Render(renderer);
     }
 }
@@ -108,7 +104,6 @@ void EnemyManager::renderDebug(SDL_Renderer* renderer)
 {
     for (const auto& enemy : m_enemies)
     {
-        enemy->RenderCollider(renderer);
-        enemy->RenderOrigin(renderer);
+        enemy->RenderDebug(renderer);
     }
 }

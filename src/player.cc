@@ -11,14 +11,16 @@
 Player::Player(const Vec2f& pos,
     std::shared_ptr<ResourceManager> resourceManager,
     std::shared_ptr<ParticleEmitterManager> particle_emitter_manager,
-    std::shared_ptr<UiManager> ui_manager,
+    UiManager& ui_manager,
     std::shared_ptr<ProjectileManager> projectileManager)
     : BaseCharacter(pos, resourceManager, nullptr, particle_emitter_manager)
 {
     // initialize everything
     name_ = "Player";
 
-    ui_manager_ = ui_manager;
+    texture_ = resource_manager_->GetTexture("main_girl_texture");
+
+    ui_manager.addHealthbar(16, 16, 200, 14, this);
     this->projectileManager = projectileManager;
 
     width_ = 30;
@@ -29,7 +31,7 @@ Player::Player(const Vec2f& pos,
 
     max_health_ = 80;
     health_ = max_health_;
-    ui_manager_->addHealthbar(16, 16, 200, 14, this);
+    
 
     // set the resistance values
     resistance = {0};
@@ -274,34 +276,4 @@ void Player::Update(float dt)
     updateShootingRechargeTimer(dt);
     updateAttackingTimer(dt);
     UpdatePosition(dt);
-}
-
-void Player::Render(SDL_Renderer* renderer)
-{
-    // create rect to represent the player
-    m_rect.x = (int)pos_.x - (width_ / 2);
-    m_rect.y = (int)pos_.y - height_;
-    m_rect.w = width_;
-    m_rect.h = height_;
-
-    // set draw color
-    m_color = { 0xff, 0xff, 0xff, 0xff };
-
-    // set alpha depending on damageable status
-    if (isImmune) m_color.a = 0x65;
-
-    // owwwie
-    if (isBeingHurt) m_color = { 0xff, 0x4e, 0x45, 0xff }; // #ff4e45
-    
-    // draw player
-    //SDL_SetRenderDrawColor(renderer, m_color.r, m_color.g, m_color.b, m_color.a);
-    //SDL_RenderFillRect(renderer, &m_rect);
-    SDL_SetTextureColorMod(resource_manager_->GetTexture("main_girl_texture"), m_color.r, m_color.g, m_color.b);
-    SDL_RenderCopy(renderer, resource_manager_->GetTexture("main_girl_texture"), NULL, &m_rect);
-}
-
-void Player::renderDebug(SDL_Renderer* renderer)
-{
-    RenderCollider(renderer);
-    RenderOrigin(renderer);
 }
