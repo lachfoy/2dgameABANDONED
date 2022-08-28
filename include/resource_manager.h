@@ -13,7 +13,6 @@ class ResourceManager
 {
 public:
     ResourceManager(SDL_Renderer* renderer);
-    ~ResourceManager();
 
     void LoadGameTextures();
     void LoadFonts();
@@ -22,6 +21,8 @@ public:
     SDL_Texture* GetTexture(std::string key);
     TTF_Font* GetFont(std::string key);
     Mix_Chunk* GetSound(std::string key);
+
+    void CleanUpResources();
     
 private:
     SDL_Renderer* renderer_; // ptr to renderer for texture loading, resource manager does not have ownership

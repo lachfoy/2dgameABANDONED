@@ -121,6 +121,8 @@ void Game::create()
 
 void Game::destroy()
 {
+    resource_manager_->CleanUpResources();
+
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
 
