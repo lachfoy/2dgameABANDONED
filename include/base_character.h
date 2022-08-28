@@ -52,20 +52,20 @@ protected:
     SDL_Rect rect_;
     SDL_Color color_;
     SDL_Texture* texture_;
-    int colliderW;
-    int colliderH;
+    int collider_width_;
+    int collider_height_;
     AABB2i collider_;
 
     int max_health_;
     int health_;
-    Resistance resistance;
-    bool isBeingHurt;
-    float hurtCooldown = 0.1f;
-    float hurtTimer = hurtCooldown;
-    bool isImmune; // if not damageable then they are taking damage
+    Resistance resistance_;
+    bool is_being_hurt_;
+    float hurt_cooldown_ = 0.1f;
+    float hurt_timer_ = hurt_cooldown_;
+    bool is_immune_; // if not damageable then they are taking damage
 
-    float startingMoveSpeed;
-    float moveSpeed;
+    float movespeed_;
+    float current_movespeed_;
     enum FacingDirection { FACING_LEFT, FACING_RIGHT } facing_direction_;
 
     // resources
@@ -75,23 +75,20 @@ protected:
     ParticleEmitterManagerPtr particle_emitter_manager_;
 
     // fire
-    bool canBeSetOnFire = true;
-    bool isOnFire = false;
-    float fireTime = 3.0f; // how many seconds of fire
-    float fireTimer = fireTime;
-    float fireTickTime = 0.4f; // how many seconds before each tick of fire damage
-    float fireTickTimer = fireTickTime;
+    bool can_be_set_on_fire_ = true;
+    bool is_on_fire_ = false;
+    float on_fire_duration_ = 3.0f; // how many seconds of fire
+    float on_fire_timer_ = on_fire_duration_;
+    float fire_tick_interval_ = 0.4f; // how many seconds before each tick of fire damage
+    float fire_tick_timer_ = fire_tick_interval_;
 
     // push
-    bool isBeingPushed = false;
-    float pushTime = 0.1f;
-    float pushTimer = pushTime;
-    Vec2f pushDir;
-    float pushMoveSpeed;
-
-    // debug
+    bool is_being_pushed_ = false;
+    float push_duration_ = 0.1f;
+    float push_timer_ = push_duration_;
+    Vec2f push_dir_;
+    float push_movespeed_;
     
-
 };
 
 #endif

@@ -26,22 +26,22 @@ Player::Player(const Vec2f& pos,
     width_ = 30;
     height_ = 50;
 
-    colliderW = 40;
-    colliderH = 30;
+    collider_width_ = 40;
+    collider_height_ = 30;
 
     max_health_ = 80;
     health_ = max_health_;
     
 
     // set the resistance values
-    resistance = {0};
-    resistance = { .standardResistance = 0, .crushingResistance = 0, .fireResistance = 0 };
+    resistance_ = {0};
+    resistance_ = { .standardResistance = 0, .crushingResistance = 0, .fireResistance = 0 };
 
     immuneCooldown = 0.2f; // how many seconds of iframes
     immuneTimer = immuneCooldown;
 
-    startingMoveSpeed = 130.0f;
-    moveSpeed = startingMoveSpeed;
+    movespeed_ = 130.0f;
+    current_movespeed_ = movespeed_;
 }
 
 void Player::resolveEnemyCollisions(const std::vector<std::unique_ptr<BaseEnemy>>& enemies)
@@ -143,25 +143,25 @@ void Player::handleInput(InputManager& inputManager)
 
 void Player::TakeDamage(const Damage& damage)
 {
-    if(!isImmune)
+    if(!is_immune_)
     {
         // set status
-        if (damage.setBurning) isOnFire = true;
+        if (damage.setBurning) is_on_fire_ = true;
 
         // take damage
-        int damageTaken = resistance.damageAfterRestistance(damage);
+        int damageTaken = resistance_.damageAfterRestistance(damage);
         health_ -= damageTaken;
         printf("%s took %i damage\n", name_.c_str(), damageTaken);
         printf("%s has %i/%i HP\n", name_.c_str(), health_, max_health_);
-        isImmune = true; // give iframes
-        isBeingHurt = true;
+        is_immune_ = true; // give iframes
+        is_being_hurt_ = true;
     }
 }
 
 void Player::updateImmuneTimer(float dt)
 {
     // set up iframes
-    if (isImmune) 
+    if (is_immune_) 
     {
         if (immuneTimer > 0.0f)
         {
@@ -170,7 +170,7 @@ void Player::updateImmuneTimer(float dt)
         else
         {
             immuneTimer = immuneCooldown; // reset to the starting value
-            isImmune = false;
+            is_immune_ = false;
         }
     }
 
@@ -183,14 +183,14 @@ void Player::updateDodgeRoll(float dt)
         if (dodgeRollTimer > 0.0f)
         {
             dir_ = dodgeRollVel;
-            moveSpeed = dodgeRollMoveSpeed;
-            isImmune = true;
+            current_movespeed_ = dodgeRollMoveSpeed;
+            is_immune_ = true;
             dodgeRollTimer -= dt;
         }
         else // finished dodge rolling
         {
             dodgeRolling = false;
-            moveSpeed = startingMoveSpeed;
+            current_movespeed_ = movespeed_;
             dodgeRollTimer = dodgeRollTime; // reset timer
             canDodgeRoll = true;
             isReceivingInput = true; // allow input again

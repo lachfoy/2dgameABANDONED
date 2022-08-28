@@ -11,18 +11,18 @@ BaseCharacter::BaseCharacter(const Vec2f& pos,
     resource_manager_ = resource_manager;
     texture_ = nullptr;
     particle_emitter_manager_ = particle_emitter_manager;
-    collider_ = AABB2i(pos_.x, pos_.y, colliderW, colliderH);
-    resistance = {0};
+    collider_ = AABB2i(pos_.x, pos_.y, collider_width_, collider_height_);
+    resistance_ = {0};
 }
 
 void BaseCharacter::TakeDamage(const Damage& damage)
 {
-    if(!isImmune)
+    if(!is_immune_)
     {
         // set status
         if (damage.setBurning)
         {
-            isOnFire = true;
+            is_on_fire_ = true;
 
             // add flame emitter
             ParticleSpawnInfo info;
@@ -40,15 +40,15 @@ void BaseCharacter::TakeDamage(const Damage& damage)
             //info.lifetime = 0.3f;
             info.lifetime_min = 0.1f;
             info.lifetime_max = 0.3f;
-            particle_emitter_manager_->AddParticleEmitter(this, 0.01f, fireTime, 1, info);
+            particle_emitter_manager_->AddParticleEmitter(this, 0.01f, on_fire_duration_, 1, info);
         } 
 
         // take damage
-        int damageTaken = resistance.damageAfterRestistance(damage);
+        int damageTaken = resistance_.damageAfterRestistance(damage);
         health_ -= damageTaken;
         printf("%s took %i damage\n", name_.c_str(), damageTaken);
         printf("%s has %i/%i HP\n", name_.c_str(), health_, max_health_);
-        isBeingHurt = true;
+        is_being_hurt_ = true;
     }
 }
 
@@ -56,12 +56,12 @@ void BaseCharacter::TakeDamage(const Damage& damage)
     we should also use some kind of calculation based on a "mass" attribute
 void BaseCharacter::Push(const Vec2f& pushDir, float pushMoveSpeed)
 {
-    if (!isBeingPushed)
+    if (!is_being_pushed_)
     {
-        this->pushDir.x = pushDir.x;
-        this->pushDir.y = pushDir.y;
-        this->pushMoveSpeed = pushMoveSpeed;
-        isBeingPushed = true;
+        this->push_dir_.x = pushDir.x;
+        this->push_dir_.y = pushDir.y;
+        this->push_movespeed_ = pushMoveSpeed;
+        is_being_pushed_ = true;
     }
 }
 
@@ -79,13 +79,13 @@ void BaseCharacter::Render(SDL_Renderer* renderer)
     color_ = { 0xff, 0xff, 0xff, 0xff };
 
     // set alpha depending on damageable status
-    if (isImmune) color_.a = 0x65;
+    if (is_immune_) color_.a = 0x65;
 
     // set on fire ???
-    if (isOnFire) color_ = { 0xff, 0x6a, 0x0d, 0xff }; // #ff6a0d more intense fire orange
+    if (is_on_fire_) color_ = { 0xff, 0x6a, 0x0d, 0xff }; // #ff6a0d more intense fire orange
 
     // owwwie
-    if (isBeingHurt) color_ = { 0xff, 0x4e, 0x45, 0xff }; // #ff4e45
+    if (is_being_hurt_) color_ = { 0xff, 0x4e, 0x45, 0xff }; // #ff4e45
     
     // draw player
     //SDL_SetRenderDrawColor(renderer, m_color.r, m_color.g, m_color.b, m_color.a);
@@ -102,21 +102,21 @@ void BaseCharacter::RenderDebug(SDL_Renderer* renderer)
 void BaseCharacter::UpdatePush(float dt)
 {
     // push timer
-    if (isBeingPushed)
+    if (is_being_pushed_)
     {
-        if (pushTimer > 0.0f)
+        if (push_timer_ > 0.0f)
         {
-            dir_.x = pushDir.x;
-            dir_.y = pushDir.y;
-            moveSpeed = pushMoveSpeed;
-            pushTimer -= dt;
+            dir_.x = push_dir_.x;
+            dir_.y = push_dir_.y;
+            current_movespeed_ = push_movespeed_;
+            push_timer_ -= dt;
         }
         else
         {
             // reset back to normal
-            isBeingPushed = false;
-            moveSpeed = startingMoveSpeed;
-            pushTimer = pushTime;
+            is_being_pushed_ = false;
+            current_movespeed_ = movespeed_;
+            push_timer_ = push_duration_;
         }
     }
 }
@@ -124,16 +124,16 @@ void BaseCharacter::UpdatePush(float dt)
 void BaseCharacter::UpdateHurt(float dt)
 {
     // hurt timer
-    if (isBeingHurt)
+    if (is_being_hurt_)
     {
-        if (hurtTimer > 0.0f)
+        if (hurt_timer_ > 0.0f)
         {
-            hurtTimer -= dt;
+            hurt_timer_ -= dt;
         }
         else
         {
-            hurtTimer = hurtCooldown; // reset to the starting value
-            isBeingHurt = false;
+            hurt_timer_ = hurt_cooldown_; // reset to the starting value
+            is_being_hurt_ = false;
         }
     }
 }
@@ -141,25 +141,25 @@ void BaseCharacter::UpdateHurt(float dt)
 void BaseCharacter::UpdateFire(float dt)
 {
     // on fire timer
-    if (canBeSetOnFire)
+    if (can_be_set_on_fire_)
     {
-        if (isOnFire) // they stay on fire not forever :)
+        if (is_on_fire_) // they stay on fire not forever :)
         {
-            if (fireTimer > 0.0f)
+            if (on_fire_timer_ > 0.0f)
             {
-                fireTimer -= dt;
+                on_fire_timer_ -= dt;
 
-                if (fireTickTimer > 0.0f) fireTickTimer -= dt;
+                if (fire_tick_timer_ > 0.0f) fire_tick_timer_ -= dt;
                 else
                 {
                     TakeDamage(statusBurning);
-                    fireTickTimer = fireTickTime; // reset to the starting value
+                    fire_tick_timer_ = fire_tick_interval_; // reset to the starting value
                 }
             }
             else
             {
-                isOnFire = false;
-                fireTimer = fireTime;
+                is_on_fire_ = false;
+                on_fire_timer_ = on_fire_duration_;
             }
         }
     }
@@ -174,8 +174,8 @@ void BaseCharacter::UpdatePosition(float dt)
         facing_direction_ = FACING_LEFT;
 
     // update the internal position
-    pos_.x += dir_.x * moveSpeed * dt;
-    pos_.y += dir_.y * (moveSpeed * 0.7f) * dt; // moving in the Y direction is a bit slower
+    pos_.x += dir_.x * current_movespeed_ * dt;
+    pos_.y += dir_.y * (current_movespeed_ * 0.7f) * dt; // moving in the Y direction is a bit slower
 
     // reset velocity
     dir_.x = 0.0f;
@@ -183,10 +183,10 @@ void BaseCharacter::UpdatePosition(float dt)
 
     // move the collider as well
     // note: origin for NPCs/players is always bottom center
-    collider_.minX = (int)pos_.x - (colliderW / 2);
-    collider_.minY = (int)pos_.y - (colliderH / 2) - (height_ / 2);
-    collider_.maxX = (int)pos_.x + (colliderW / 2);
-    collider_.maxY = (int)pos_.y + (colliderH / 2) - (height_ / 2);
+    collider_.minX = (int)pos_.x - (collider_width_ / 2);
+    collider_.minY = (int)pos_.y - (collider_height_ / 2) - (height_ / 2);
+    collider_.maxX = (int)pos_.x + (collider_width_ / 2);
+    collider_.maxY = (int)pos_.y + (collider_height_ / 2) - (height_ / 2);
 }
 
 void BaseCharacter::RenderShadow(SDL_Renderer* renderer)

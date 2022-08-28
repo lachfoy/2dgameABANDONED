@@ -33,7 +33,7 @@ ResourceManager::~ResourceManager()
 
     if (!sounds_.empty())
     {
-        // clear the fonts from the map
+        // clear the sounds from the map
         printf("ResourceManager: deallocating sounds...\n");
         for (const auto& it : sounds_)
         {
@@ -59,7 +59,8 @@ void ResourceManager::LoadGameTextures()
 void ResourceManager::LoadFonts()
 {
     printf("ResourceManager: loading fonts...\n");
-    fonts_["debug_font"] = TTF_OpenFont("../resources/fonts/arial.ttf", 16);
+    //fonts_["debug_font"] = TTF_OpenFont("../resources/fonts/arial.ttf", 16);
+    fonts_.insert({ "debug_font", TTF_OpenFont("../resources/fonts/arial.ttf", 16) });
 }
 
 void ResourceManager::LoadSounds()

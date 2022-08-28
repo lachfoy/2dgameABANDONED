@@ -22,20 +22,20 @@ Skeleton::Skeleton(const Vec2f& pos,
 
     texture_ = resource_manager_->GetTexture("skeleton_texture");
 
-    colliderW = 40;
-    colliderH = 30;
+    collider_width_ = 40;
+    collider_height_ = 30;
 
     max_health_ = 80;
     health_ = max_health_;
 
-    resistance = {0};
-    resistance = { .crushingResistance = -80 };
+    resistance_ = {0};
+    resistance_ = { .crushingResistance = -80 };
 
-    hurtCooldown = 0.1f; // how many seconds of iframes
-    hurtTimer = hurtCooldown;
+    hurt_cooldown_ = 0.1f; // how many seconds of iframes
+    hurt_timer_ = hurt_cooldown_;
 
-    startingMoveSpeed = 20.0f; // slowww
-    moveSpeed = startingMoveSpeed;
+    movespeed_ = 20.0f; // slowww
+    current_movespeed_ = movespeed_;
 
     damage_ = {0};
     damage_ = { .crushing = 6 };
