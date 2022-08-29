@@ -47,12 +47,12 @@ Player::Player(const Vec2f& pos,
 
 void Player::resolveEnemyCollisions(const std::vector<std::unique_ptr<BaseEnemy>>& enemies)
 {
-    for (int i = 0; i < enemies.size(); i++)
+    for (const auto& enemy : enemies)
     {
-        //if (AABB2i::testOverlap(enemies[i]->collider(), collider_))
-        if (SDL_HasIntersection(&enemies[i]->collider_rect(), &collider_rect_))
+        if (SDL_HasIntersection(&enemy->collider_rect(), &collider_rect_))
         {
-            TakeDamage(enemies[i]->damage());
+            TakeDamage(enemy->damage());
+            Push(Vec2f::getDirection(enemy->pos(), pos_), 100.0f);
         }
     }
 }
