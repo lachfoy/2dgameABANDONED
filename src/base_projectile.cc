@@ -1,15 +1,14 @@
 #include "base_projectile.h"
 
-#include "base_character.h"
 #include "particle_manager.h"
 #include "resource_manager.h"
 #include "particle_emitter_manager.h"
 
 BaseProjectile::BaseProjectile(const Vec2f& pos,
     const Vec2f& dir,
-    std::shared_ptr<ResourceManager> resource_manager,
-    std::shared_ptr<ParticleManager> particle_manager,
-    std::shared_ptr<ParticleEmitterManager> particle_emitter_manager)
+    ResourceManagerPtr resource_manager,
+    ParticleManagerPtr particle_manager,
+    ParticleEmitterManagerPtr particle_emitter_manager)
      : BaseObject(pos)
 {
     this->dir_ = dir;

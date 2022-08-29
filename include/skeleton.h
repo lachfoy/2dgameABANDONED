@@ -9,18 +9,18 @@ class Skeleton : public BaseEnemy
 {
 public:
     Skeleton(const Vec2f& pos,
-        ResourceManagerPtr resourceManager,
+        ResourceManagerPtr resource_manager,
         ParticleEmitterManagerPtr particle_emitter_manager,
         UiManager& ui_manager,
-        ProjectileManagerPtr projectileManager,
+        ProjectileManagerPtr projectile_manager,
         PlayerPtr player);
 
 private:
     void UpdateAI(float dt) override;
 
-    Vec2f target;
-    float thinkingTime;
-    float thinkingTimer;
+    Vec2f target_pos_;
+    float thinking_interval_;
+    float thinking_timer_;
     
 };
 

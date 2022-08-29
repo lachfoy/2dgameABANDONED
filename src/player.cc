@@ -9,11 +9,11 @@
 #include "resource_manager.h"
 
 Player::Player(const Vec2f& pos,
-    ResourceManagerPtr resourceManager,
+    ResourceManagerPtr resource_manager,
     ParticleEmitterManagerPtr particle_emitter_manager,
     UiManager& ui_manager,
-    ProjectileManagerPtr projectileManager)
-    : BaseCharacter(pos, resourceManager, particle_emitter_manager)
+    ProjectileManagerPtr projectile_manager)
+    : BaseCharacter(pos, resource_manager, particle_emitter_manager)
 {
     // initialize everything
     name_ = "Player";
@@ -21,7 +21,7 @@ Player::Player(const Vec2f& pos,
     texture_ = resource_manager_->GetTexture("player_texture");
 
     ui_manager.addHealthbar(16, 16, 200, 14, this);
-    this->projectileManager = projectileManager;
+    this->projectile_manager_ = projectile_manager;
 
     width_ = 30;
     height_ = 50;
@@ -37,8 +37,8 @@ Player::Player(const Vec2f& pos,
     resistance_ = {0};
     resistance_ = { .standardResistance = 0, .crushingResistance = 0, .fireResistance = 0 };
 
-    immuneCooldown = 0.2f; // how many seconds of iframes
-    immuneTimer = immuneCooldown;
+    immune_duration_ = 0.2f; // how many seconds of iframes
+    immune_timer_ = immune_duration_;
 
     movespeed_ = 130.0f;
     current_movespeed_ = movespeed_;
@@ -62,7 +62,7 @@ void Player::FindTarget(const std::vector<std::unique_ptr<BaseEnemy>>& enemies)
 
 void Player::handleInput(InputManager& inputManager)
 {
-    if (isReceivingInput)
+    if (is_receiving_input_)
     {
         if (inputManager.keyPressed(SDL_SCANCODE_UP) | inputManager.keyPressed(SDL_SCANCODE_W))
             dir_.y = -1.0f;
@@ -74,30 +74,30 @@ void Player::handleInput(InputManager& inputManager)
             dir_.x = 1.0f;
         if (inputManager.keyPressed(SDL_SCANCODE_Z))
         {
-            if (canShoot)
+            if (can_shoot_)
             {
                 int fireballVelX = (facing_direction_ == FACING_RIGHT) ? 1 : -1;
-                projectileManager->AddFireball({ pos_.x, pos_.y - (height_ / 2) }, { (float)fireballVelX, 0.0f });
-                canShoot = false;
+                projectile_manager_->AddFireball({ pos_.x, pos_.y - (height_ / 2) }, { (float)fireballVelX, 0.0f });
+                can_shoot_ = false;
             }
         }
         if (inputManager.keyPressed(SDL_SCANCODE_X))
         {
-            if (canAttack)
+            if (can_attack_)
             {
                 float swordOffsetX = (facing_direction_ == FACING_RIGHT) ? 28.0f : -28.0f;
-                canAttack = false;
+                can_attack_ = false;
             }
         }
         if (inputManager.keyPressed(SDL_SCANCODE_C))
         {
-            if (canDodgeRoll && (dodgeRolls > 0))
+            if (can_dodge_roll_ && (dodge_rolls_ > 0))
             {
-                isReceivingInput = false;
-                canDodgeRoll = false;
-                dodgeRolls--;
-                dodgeRollVel = dir_;
-                dodgeRolling = true;
+                is_receiving_input_ = false;
+                can_dodge_roll_ = false;
+                dodge_rolls_--;
+                dodge_roll_dir_ = dir_;
+                is_dodge_rolling_ = true;
             }
         }
         if (inputManager.keyPressed(SDL_SCANCODE_K))
@@ -107,10 +107,10 @@ void Player::handleInput(InputManager& inputManager)
 
         if (inputManager.mousePressed(0))
         {
-            if (canShoot)
+            if (can_shoot_)
             {
                 // add a new fireball with some offset from the origin
-                projectileManager->AddFireball({ pos_.x, pos_.y - (height_ / 2) }, Vec2f::getDirection(pos_, { (float)inputManager.getMouseX(), (float)inputManager.getMouseY() }));
+                projectile_manager_->AddFireball({ pos_.x, pos_.y - (height_ / 2) }, Vec2f::getDirection(pos_, { (float)inputManager.getMouseX(), (float)inputManager.getMouseY() }));
 
                 // magiiic missile
                 // Vec2f dir_to_mouse = Vec2f::getDirection(pos, { (float)inputManager.getMouseX(), (float)inputManager.getMouseY() });
@@ -135,7 +135,7 @@ void Player::handleInput(InputManager& inputManager)
                 // );
 
                 ammo_--; // subtract ammo
-                canShoot = false;
+                can_shoot_ = false;
             }
         }
     }
@@ -163,13 +163,13 @@ void Player::updateImmuneTimer(float dt)
     // set up iframes
     if (is_immune_) 
     {
-        if (immuneTimer > 0.0f)
+        if (immune_timer_ > 0.0f)
         {
-            immuneTimer -= dt;
+            immune_timer_ -= dt;
         }
         else
         {
-            immuneTimer = immuneCooldown; // reset to the starting value
+            immune_timer_ = immune_duration_; // reset to the starting value
             is_immune_ = false;
         }
     }
@@ -178,55 +178,55 @@ void Player::updateImmuneTimer(float dt)
 
 void Player::updateDodgeRoll(float dt)
 {
-    if (dodgeRolling)
+    if (is_dodge_rolling_)
     {
-        if (dodgeRollTimer > 0.0f)
+        if (dodge_roll_timer_ > 0.0f)
         {
-            dir_ = dodgeRollVel;
-            current_movespeed_ = dodgeRollMoveSpeed;
+            dir_ = dodge_roll_dir_;
+            current_movespeed_ = dodge_roll_movespeed_;
             is_immune_ = true;
-            dodgeRollTimer -= dt;
+            dodge_roll_timer_ -= dt;
         }
         else // finished dodge rolling
         {
-            dodgeRolling = false;
+            is_dodge_rolling_ = false;
             current_movespeed_ = movespeed_;
-            dodgeRollTimer = dodgeRollTime; // reset timer
-            canDodgeRoll = true;
-            isReceivingInput = true; // allow input again
+            dodge_roll_timer_ = dodge_roll_duration_; // reset timer
+            can_dodge_roll_ = true;
+            is_receiving_input_ = true; // allow input again
         }
     }
 }
 
 void Player::updateDodgeRollRechargeTimer(float dt)
 {
-    if (dodgeRolls < DODGEROLLS_MAX)
+    if (dodge_rolls_ < DODGEROLLS_MAX)
     {
-        if (dodgeRollRechargeTimer > 0.0f)
+        if (dodge_roll_recharge_timer_ > 0.0f)
         {
-            dodgeRollRechargeTimer -= dt;
+            dodge_roll_recharge_timer_ -= dt;
         }
         else
         {
             printf("regained dodgeroll!\n");
-            dodgeRolls++;
-            dodgeRollRechargeTimer = dodgeRollRechargeTime; // reset cooldown
+            dodge_rolls_++;
+            dodge_roll_recharge_timer_ = dodge_roll_recharge_cooldown_; // reset cooldown
         }
     }
 }
 
 void Player::updateShootingTimer(float dt)
 {
-    if (!canShoot && (ammo_ > 0)) // if we can't shoot then run a cooldown
+    if (!can_shoot_ && (ammo_ > 0)) // if we can't shoot then run a cooldown
     {
-        if (shootingTimer < shootingTime)
+        if (shooting_cooldown_timer_ < shooting_cooldown_)
         {
-            shootingTimer += dt;
+            shooting_cooldown_timer_ += dt;
         }
         else
         {
-            canShoot = true;
-            shootingTimer = 0.0f; // reset cooldown to 0
+            can_shoot_ = true;
+            shooting_cooldown_timer_ = 0.0f; // reset cooldown to 0
         }
     }
 }
@@ -235,31 +235,31 @@ void Player::updateShootingRechargeTimer(float dt)
 {
     if (ammo_ < AMMO_MAX) // if we dont have maximum amount of ammo
     {
-        if (shootRechargeTimer > 0.0f)
+        if (ammo_recharge_timer_ > 0.0f)
         {
-            shootRechargeTimer -= dt;
+            ammo_recharge_timer_ -= dt;
         }
         else
         {
             printf("regained 1 ammo!\n");
             ammo_++;
-            shootRechargeTimer = shootRechargeTime; // reset cooldown
+            ammo_recharge_timer_ = ammo_recharge_cooldown_; // reset cooldown
         }
     }
 }
 
 void Player::updateAttackingTimer(float dt)
 {
-    if (!canAttack) // if we can't attack then run a cooldown
+    if (!can_attack_) // if we can't attack then run a cooldown
     {
-        if (attackingTimer < attackingTime)
+        if (attack_timer_ < attack_cooldown_)
         {
-            attackingTimer += dt;
+            attack_timer_ += dt;
         }
         else
         {
-            canAttack = true;
-            attackingTimer = 0.0f; // reset cooldown to 0
+            can_attack_ = true;
+            attack_timer_ = 0.0f; // reset cooldown to 0
         }
     }
 }

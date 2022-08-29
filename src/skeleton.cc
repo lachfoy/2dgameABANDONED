@@ -40,21 +40,21 @@ Skeleton::Skeleton(const Vec2f& pos,
     damage_ = {0};
     damage_ = { .crushing = 6 };
 
-    thinkingTime = 2.0f;
-    thinkingTimer = (float)((rand() % 2) + 1);
+    thinking_interval_ = 2.0f;
+    thinking_timer_ = (float)((rand() % 2) + 1);
 }
 
 void Skeleton::UpdateAI(float dt)
 {
     // do thinking. this is really messy :/
-    thinkingTimer -= dt;
-    if (thinkingTimer <= 0.0f)
+    thinking_timer_ -= dt;
+    if (thinking_timer_ <= 0.0f)
     {
         printf("Skeleton had a thought...\n");
-        target = player_->pos();
+        target_pos_ = player_->pos();
         
-        thinkingTimer = thinkingTime;  // reset to the starting value
+        thinking_timer_ = thinking_interval_;  // reset to the starting value
     }
 
-    dir_ = Vec2f::getDirection(pos_, target);
+    dir_ = Vec2f::getDirection(pos_, target_pos_);
 }

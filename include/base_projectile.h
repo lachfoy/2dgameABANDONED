@@ -9,19 +9,24 @@
 #include "AABB2i.h"
 #include "Damage.h"
 
-class ProjectileManager;
+
 class ParticleManager;
 class ResourceManager;
 class ParticleEmitterManager;
+class ProjectileManager;
+
+typedef std::shared_ptr<ResourceManager> ResourceManagerPtr;
+typedef std::shared_ptr<ParticleManager> ParticleManagerPtr;
+typedef std::shared_ptr<ParticleEmitterManager> ParticleEmitterManagerPtr;
 
 class BaseProjectile : public BaseObject
 {
 public:
     BaseProjectile(const Vec2f& pos,
         const Vec2f& dir,
-        std::shared_ptr<ResourceManager> resource_manager,
-        std::shared_ptr<ParticleManager> particle_manager,
-        std::shared_ptr<ParticleEmitterManager> particle_emitter_manager);
+        ResourceManagerPtr resource_manager,
+        ParticleManagerPtr particle_manager,
+        ParticleEmitterManagerPtr particle_emitter_manager);
     
     virtual ~BaseProjectile() {}
 
@@ -57,9 +62,9 @@ protected: // things the derived projectiles can access
     SDL_Rect rect_;
     SDL_Texture* texture_; // texture to use for rendering, particle does not have ownership
 
-    std::shared_ptr<ParticleManager> particle_manager_;
-    std::shared_ptr<ResourceManager> resource_manager_;
-    std::shared_ptr<ParticleEmitterManager> particle_emitter_manager_;
+    ResourceManagerPtr resource_manager_;
+    ParticleManagerPtr particle_manager_;
+    ParticleEmitterManagerPtr particle_emitter_manager_;
 
 };
 
