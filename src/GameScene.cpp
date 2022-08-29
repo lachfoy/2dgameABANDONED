@@ -8,7 +8,7 @@
 #include "particle_emitter_manager.h"
 #include "debug_text_manager.h"
 
-#define DEBUG_DRAW 0
+#define DEBUG_DRAW 1
 
 GameScene::GameScene(std::shared_ptr<InputManager> inputManager, std::shared_ptr<ResourceManager> resourceManager, int windowWidth, int windowHeight)
      : BaseScene(inputManager, resourceManager, windowWidth, windowHeight)
@@ -78,7 +78,7 @@ void GameScene::render(SDL_Renderer* renderer)
     SDL_RenderCopy(renderer, resource_manager_->GetTexture("background_forest_texture"), NULL, &background_rect);
 
     // render game objects
-    m_enemyManager->renderEnemies(renderer);
+    m_enemyManager->RenderEnemies(renderer);
     m_player->Render(renderer);
     particle_manager_->RenderParticles(renderer);
     m_projectileManager->RenderProjectiles(renderer);
@@ -89,7 +89,7 @@ void GameScene::render(SDL_Renderer* renderer)
     // debug
     if (DEBUG_DRAW)
     {
-        m_enemyManager->renderDebug(renderer);
+        m_enemyManager->RenderDebug(renderer);
         m_player->RenderDebug(renderer);
         m_projectileManager->renderDebug(renderer);
     }

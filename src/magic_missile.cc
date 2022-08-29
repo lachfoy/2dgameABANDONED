@@ -17,8 +17,8 @@ MagicMissile::MagicMissile(const Vec2f& pos,
     tracking_strength_ = 0.01f;
 
     name_ = "MagicMissile";
-    collider_width_ = 32;
-    collider_height_ = 32;
+    collider_rect_.w = 32;
+    collider_rect_.h = 32;
     movespeed_ = 500.0f;
     damage_ = {0};
     damage_ = { .fire = 11 };
@@ -97,10 +97,8 @@ void MagicMissile::Update(float dt)
     }
 
     // move the collider as well
-    collider_.minX = (int)pos_.x - (collider_width_ / 2);
-    collider_.minY = (int)pos_.y - (collider_height_ / 2);
-    collider_.maxX = (int)pos_.x + (collider_width_ / 2);
-    collider_.maxY = (int)pos_.y + (collider_height_ / 2);
+    collider_rect_.x = (int)pos_.x - (collider_rect_.w / 2);
+    collider_rect_.y = (int)pos_.y - (collider_rect_.h / 2);
 }
 
 

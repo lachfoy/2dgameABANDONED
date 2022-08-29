@@ -26,6 +26,8 @@ Player::Player(const Vec2f& pos,
     width_ = 30;
     height_ = 50;
 
+    collider_rect_.w = 40;
+    collider_rect_.h = 30;
     collider_width_ = 40;
     collider_height_ = 30;
 
@@ -48,7 +50,8 @@ void Player::resolveEnemyCollisions(const std::vector<std::unique_ptr<BaseEnemy>
 {
     for (int i = 0; i < enemies.size(); i++)
     {
-        if (AABB2i::testOverlap(enemies[i]->collider(), collider_))
+        //if (AABB2i::testOverlap(enemies[i]->collider(), collider_))
+        if (SDL_HasIntersection(&enemies[i]->collider_rect(), &collider_rect_))
         {
             TakeDamage(enemies[i]->damage());
         }

@@ -85,14 +85,12 @@ void ProjectileManager::renderDebug(SDL_Renderer* renderer)
     // enemy projectiles
     for (const auto& projectile : _enemy_projectiles)
     {
-        projectile->renderCollider(renderer);
-        projectile->RenderOrigin(renderer);
+        projectile->RenderDebug(renderer);
     }
 
     // player projectiles
     for (const auto& projectile : _player_projectiles)
     {
-        projectile->renderCollider(renderer);
-        projectile->RenderOrigin(renderer);
+        projectile->RenderDebug(renderer);
     }
 }

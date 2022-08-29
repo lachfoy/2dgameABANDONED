@@ -11,7 +11,7 @@ BaseCharacter::BaseCharacter(const Vec2f& pos,
     resource_manager_ = resource_manager;
     texture_ = nullptr;
     particle_emitter_manager_ = particle_emitter_manager;
-    collider_ = AABB2i(pos_.x, pos_.y, collider_width_, collider_height_);
+    collider_rect_ = { int(pos_.x), int(pos_.y), collider_width_, collider_height_ };
     resistance_ = {0};
 }
 
@@ -96,7 +96,9 @@ void BaseCharacter::Render(SDL_Renderer* renderer)
 
 void BaseCharacter::RenderDebug(SDL_Renderer* renderer)
 {
-    RenderCollider(renderer);
+    // draw collider rect in red
+    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+    SDL_RenderDrawRect(renderer, &collider_rect_);
 }
 
 void BaseCharacter::UpdatePush(float dt)
@@ -183,10 +185,8 @@ void BaseCharacter::UpdatePosition(float dt)
 
     // move the collider as well
     // note: origin for NPCs/players is always bottom center
-    collider_.minX = (int)pos_.x - (collider_width_ / 2);
-    collider_.minY = (int)pos_.y - (collider_height_ / 2) - (height_ / 2);
-    collider_.maxX = (int)pos_.x + (collider_width_ / 2);
-    collider_.maxY = (int)pos_.y + (collider_height_ / 2) - (height_ / 2);
+    collider_rect_.x = (int)pos_.x - (collider_rect_.w / 2);
+    collider_rect_.y = (int)pos_.y - (collider_rect_.h / 2) - (height_ / 2);
 }
 
 void BaseCharacter::RenderShadow(SDL_Renderer* renderer)
@@ -203,11 +203,5 @@ void BaseCharacter::RenderShadow(SDL_Renderer* renderer)
 
     // draw texture
     SDL_RenderCopy(renderer, resource_manager_->GetTexture("shadow_texture"), NULL, &shadow_rect);
-}
-
-void BaseCharacter::RenderCollider(SDL_Renderer* renderer)
-{
-    // draw collider
-    collider_.debugRender(renderer);
 }
 
