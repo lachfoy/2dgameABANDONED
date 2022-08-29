@@ -21,13 +21,14 @@ Player::Player(const Vec2f& pos,
     texture_ = resource_manager_->GetTexture("player_texture");
 
     ui_manager.addHealthbar(16, 16, 200, 14, this);
-    this->projectile_manager_ = projectile_manager;
+    projectile_manager_ = projectile_manager;
 
-    width_ = 30;
-    height_ = 50;
+    rect_.w = 30;
+    rect_.h = 50;
 
-    collider_width_ = 40;
-    collider_height_ = 30;
+    collider_rect_.w = 40;
+    collider_rect_.h = 30;
+    
 
     max_health_ = 80;
     health_ = max_health_;
@@ -48,7 +49,8 @@ void Player::resolveEnemyCollisions(const std::vector<std::unique_ptr<BaseEnemy>
 {
     for (int i = 0; i < enemies.size(); i++)
     {
-        if (AABB2i::testOverlap(enemies[i]->collider(), collider_))
+        //if (AABB2i::testOverlap(enemies[i]->collider(), collider_))
+        if (SDL_HasIntersection(&enemies[i]->collider_rect(), &collider_rect_))
         {
             TakeDamage(enemies[i]->damage());
         }
@@ -77,7 +79,7 @@ void Player::handleInput(InputManager& inputManager)
             if (can_shoot_)
             {
                 int fireballVelX = (facing_direction_ == FACING_RIGHT) ? 1 : -1;
-                projectile_manager_->AddFireball({ pos_.x, pos_.y - (height_ / 2) }, { (float)fireballVelX, 0.0f });
+                projectile_manager_->AddFireball({ pos_.x, pos_.y - (rect_.h / 2) }, { (float)fireballVelX, 0.0f });
                 can_shoot_ = false;
             }
         }
@@ -110,7 +112,7 @@ void Player::handleInput(InputManager& inputManager)
             if (can_shoot_)
             {
                 // add a new fireball with some offset from the origin
-                projectile_manager_->AddFireball({ pos_.x, pos_.y - (height_ / 2) }, Vec2f::getDirection(pos_, { (float)inputManager.getMouseX(), (float)inputManager.getMouseY() }));
+                projectile_manager_->AddFireball({ pos_.x, pos_.y - (rect_.h / 2) }, Vec2f::getDirection(pos_, { (float)inputManager.getMouseX(), (float)inputManager.getMouseY() }));
 
                 // magiiic missile
                 // Vec2f dir_to_mouse = Vec2f::getDirection(pos, { (float)inputManager.getMouseX(), (float)inputManager.getMouseY() });

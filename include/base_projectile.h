@@ -34,7 +34,7 @@ public:
     bool onlyDamageOnce;
     bool hasDealtDamage = false;
 
-    inline AABB2i const& collider() const { return collider_; }
+    inline SDL_Rect const& collider_rect() const { return collider_rect_; }
     inline Damage const& damage() const { return damage_; }
     inline Vec2f const& dir() const { return dir_; }
     
@@ -43,22 +43,17 @@ public:
 
     virtual void Update(float dt);
     virtual void Render(SDL_Renderer* renderer);
-
-    // debug
-    void renderCollider(SDL_Renderer* renderer);
+    virtual void RenderDebug(SDL_Renderer* renderer);
 
 protected: // things the derived projectiles can access
     Vec2f dir_;
-    AABB2i collider_;
-    int collider_width_;
-    int collider_height_;
+    SDL_Rect collider_rect_;
     Damage damage_;
     float movespeed_;
     float lifetime_;
     bool rotate_ = false;
     float angle_ = 0.0f; // angle in degrees
     float rotationspeed_ = 0.0f;
-    int size_;
     SDL_Rect rect_;
     SDL_Texture* texture_; // texture to use for rendering, particle does not have ownership
 

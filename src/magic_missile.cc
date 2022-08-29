@@ -17,8 +17,8 @@ MagicMissile::MagicMissile(const Vec2f& pos,
     tracking_strength_ = 0.01f;
 
     name_ = "MagicMissile";
-    collider_width_ = 32;
-    collider_height_ = 32;
+    collider_rect_.w = 32;
+    collider_rect_.h = 32;
     movespeed_ = 500.0f;
     damage_ = {0};
     damage_ = { .fire = 11 };
@@ -96,23 +96,11 @@ void MagicMissile::Update(float dt)
             angle_ += rotationspeed_;
     }
 
+    // update the rect for renderering
+    rect_.x = int(pos_.x) - (rect_.w / 2);
+    rect_.y = int(pos_.y) - (rect_.h / 2);
+
     // move the collider as well
-    collider_.minX = (int)pos_.x - (collider_width_ / 2);
-    collider_.minY = (int)pos_.y - (collider_height_ / 2);
-    collider_.maxX = (int)pos_.x + (collider_width_ / 2);
-    collider_.maxY = (int)pos_.y + (collider_height_ / 2);
-}
-
-
-void MagicMissile::Render(SDL_Renderer* renderer)
-{
-    // draw the origin position representing the actual x and y positions
-    const int tex_size = 20;
-    const SDL_Rect tex_rect = { (int)pos_.x - (tex_size / 2), (int)pos_.y - (tex_size / 2), tex_size, tex_size };
-
-    // draw the MagicMissile
-    SDL_RenderCopyEx(renderer, resource_manager_->GetTexture("magic_texture"), NULL, &tex_rect, angle_, NULL, {});
-
-    // draw collider
-    //collider.debugRender(renderer);
+    collider_rect_.x = (int)pos_.x - (collider_rect_.w / 2);
+    collider_rect_.y = (int)pos_.y - (collider_rect_.h / 2);
 }

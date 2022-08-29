@@ -1,10 +1,11 @@
 #ifndef BASE_CHARACTER_H_
 #define BASE_CHARACTER_H_
 
+#include <SDL2/SDL.h>
+
 #include <memory>
 
 #include "base_object.h"
-#include "AABB2i.h"
 #include "Resistance.h"
 
 class ResourceManager;
@@ -23,9 +24,9 @@ public:
     // getters
     inline int health() const { return health_; }
     inline int max_health() const { return max_health_; }
-    inline int width() const { return width_; }
-    inline int height() const { return height_; }
-    inline AABB2i const& collider() const { return collider_; }
+    inline int width() const { return rect_.w; }
+    inline int height() const { return rect_.h; }
+    inline SDL_Rect const& collider_rect() const { return collider_rect_; }
     inline Vec2f const& dir() const { return dir_; }
     inline bool IsFacingRight() const { return facing_direction_; }
 
@@ -44,17 +45,12 @@ protected:
     void UpdatePosition(float dt); // update position and collider position
 
     void RenderShadow(SDL_Renderer* renderer);
-    void RenderCollider(SDL_Renderer* renderer);
 
     Vec2f dir_;
-    int width_;
-    int height_;
     SDL_Rect rect_;
     SDL_Color color_;
     SDL_Texture* texture_;
-    int collider_width_;
-    int collider_height_;
-    AABB2i collider_;
+    SDL_Rect collider_rect_;
 
     int max_health_;
     int health_;

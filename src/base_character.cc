@@ -11,7 +11,6 @@ BaseCharacter::BaseCharacter(const Vec2f& pos,
     resource_manager_ = resource_manager;
     texture_ = nullptr;
     particle_emitter_manager_ = particle_emitter_manager;
-    collider_ = AABB2i(pos_.x, pos_.y, collider_width_, collider_height_);
     resistance_ = {0};
 }
 
@@ -70,10 +69,8 @@ void BaseCharacter::Render(SDL_Renderer* renderer)
     RenderShadow(renderer);
 
     // create rect to represent the player
-    rect_.x = (int)pos_.x - (width_ / 2);
-    rect_.y = (int)pos_.y - height_;
-    rect_.w = width_;
-    rect_.h = height_;
+    rect_.x = (int)pos_.x - (rect_.w / 2);
+    rect_.y = (int)pos_.y - rect_.h;
 
     // set draw color
     color_ = { 0xff, 0xff, 0xff, 0xff };
@@ -96,7 +93,9 @@ void BaseCharacter::Render(SDL_Renderer* renderer)
 
 void BaseCharacter::RenderDebug(SDL_Renderer* renderer)
 {
-    RenderCollider(renderer);
+    // draw collider rect in red
+    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+    SDL_RenderDrawRect(renderer, &collider_rect_);
 }
 
 void BaseCharacter::UpdatePush(float dt)
@@ -183,10 +182,8 @@ void BaseCharacter::UpdatePosition(float dt)
 
     // move the collider as well
     // note: origin for NPCs/players is always bottom center
-    collider_.minX = (int)pos_.x - (collider_width_ / 2);
-    collider_.minY = (int)pos_.y - (collider_height_ / 2) - (height_ / 2);
-    collider_.maxX = (int)pos_.x + (collider_width_ / 2);
-    collider_.maxY = (int)pos_.y + (collider_height_ / 2) - (height_ / 2);
+    collider_rect_.x = (int)pos_.x - (collider_rect_.w / 2);
+    collider_rect_.y = (int)pos_.y - (collider_rect_.h / 2) - (rect_.h / 2);
 }
 
 void BaseCharacter::RenderShadow(SDL_Renderer* renderer)
@@ -196,18 +193,12 @@ void BaseCharacter::RenderShadow(SDL_Renderer* renderer)
     const int max_width = 60; // set a max width for damageable objects, scale the shadow rect by a % of the width to the max width
     const int shadow_default_width = 60;
     const int shadow_default_height = 24;
-    shadow_rect.w = (int)(shadow_default_width * (width_ / (float)max_width));
-    shadow_rect.h = (int)(shadow_default_height * (width_ / (float)max_width));
+    shadow_rect.w = (int)(shadow_default_width * (rect_.w / (float)max_width));
+    shadow_rect.h = (int)(shadow_default_height * (rect_.h / (float)max_width));
     shadow_rect.x = (int)pos_.x - (shadow_rect.w / 2);
     shadow_rect.y = (int)pos_.y - (shadow_rect.h / 2);
 
     // draw texture
     SDL_RenderCopy(renderer, resource_manager_->GetTexture("shadow_texture"), NULL, &shadow_rect);
-}
-
-void BaseCharacter::RenderCollider(SDL_Renderer* renderer)
-{
-    // draw collider
-    collider_.debugRender(renderer);
 }
 

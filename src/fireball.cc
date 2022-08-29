@@ -13,8 +13,10 @@ Fireball::Fireball(const Vec2f& pos,
      : BaseProjectile(pos, dir, resource_manager, particle_manager, particle_emitter_manager)
 {
     name_ = "Fireball";
-    collider_width_ = 32;
-    collider_height_ = 32;
+    
+    collider_rect_.w = 32;
+    collider_rect_.h = 32;
+
     movespeed_ = 420.0f;
     damage_ = {0};
     damage_ = { .fire = 11 };
@@ -23,7 +25,8 @@ Fireball::Fireball(const Vec2f& pos,
     onlyDamageOnce = true;
     rotate_ = true;
     rotationspeed_ = 5.0f;
-    size_ = 32;
+    rect_.w = 32;
+    rect_.h = 32;
     texture_ = resource_manager_->GetTexture("fireball_texture");
 
     ParticleSpawnInfo info;

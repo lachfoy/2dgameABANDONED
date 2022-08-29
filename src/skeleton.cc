@@ -17,13 +17,13 @@ Skeleton::Skeleton(const Vec2f& pos,
     // initialize everything
     name_ = "Skeleton";
     
-    width_ = 30;
-    height_ = 50;
+    rect_.w = 30;
+    rect_.h = 50;
 
     texture_ = resource_manager_->GetTexture("skeleton_texture");
 
-    collider_width_ = 40;
-    collider_height_ = 30;
+    collider_rect_.w = 40;
+    collider_rect_.h = 30;
 
     max_health_ = 80;
     health_ = max_health_;

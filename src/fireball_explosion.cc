@@ -11,13 +11,16 @@ FireballExplosion::FireballExplosion(const Vec2f& pos,
      : BaseProjectile(pos, { 0.0f, 0.0f }, resource_manager, particle_manager, particle_emitter_manager)
 {
     name_ = "FireballExplosion";
-    collider_width_ = 200;
-    collider_height_ = 200;
+
+    collider_rect_.w = 120;
+    collider_rect_.h = 120;
+
     damage_ = {0};
     damage_ = { .fire = 43, .setBurning = true };
     lifetime_ = 0.3f;
     removeOnCollision = false;
     onlyDamageOnce = true;
-    size_ = 128;
+    rect_.w = 128;
+    rect_.h = 128;
     texture_ = resource_manager_->GetTexture("fireball_texture");
 }

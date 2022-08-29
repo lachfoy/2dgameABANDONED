@@ -35,8 +35,8 @@ public:
 
     void updateEnemies(float dt);
     void removeUnusedEnemies();
-    void renderEnemies(SDL_Renderer* renderer);
-    void renderDebug(SDL_Renderer* renderer);
+    void RenderEnemies(SDL_Renderer* renderer);
+    void RenderDebug(SDL_Renderer* renderer);
 
 private:
     std::shared_ptr<ResourceManager> resource_manager_; // pointer to resource manager

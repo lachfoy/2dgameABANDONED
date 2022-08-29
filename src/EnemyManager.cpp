@@ -44,7 +44,8 @@ void EnemyManager::resolvePlayerProjectileCollisions(const std::vector<std::uniq
             int enemiesHit = 0;
             for (const auto& enemy : m_enemies)
             {
-                if (AABB2i::testOverlap(projectile->collider(), enemy->collider()))
+                //if (AABB2i::testOverlap(&projectile->collider_rect(), &enemy->collider_rect()))
+                if (SDL_HasIntersection(&projectile->collider_rect(), &enemy->collider_rect()))
                 {
                     enemy->TakeDamage(projectile->damage());// make the enemy take damage
 
@@ -89,7 +90,7 @@ void EnemyManager::removeUnusedEnemies()
     }
 }
 
-void EnemyManager::renderEnemies(SDL_Renderer* renderer)
+void EnemyManager::RenderEnemies(SDL_Renderer* renderer)
 {
     // render enemies
     for (const auto& enemy : m_enemies)
@@ -98,7 +99,7 @@ void EnemyManager::renderEnemies(SDL_Renderer* renderer)
     }
 }
 
-void EnemyManager::renderDebug(SDL_Renderer* renderer)
+void EnemyManager::RenderDebug(SDL_Renderer* renderer)
 {
     for (const auto& enemy : m_enemies)
     {
