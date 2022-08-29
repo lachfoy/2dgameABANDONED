@@ -16,8 +16,6 @@ BaseProjectile::BaseProjectile(const Vec2f& pos,
     resource_manager_ = resource_manager;
     particle_manager_ = particle_manager;
     particle_emitter_manager_ = particle_emitter_manager;
-    
-    collider_rect_ = { int(pos_.x), int(pos_.y), collider_width_, collider_height_ };
 }
 
 void BaseProjectile::Update(float dt)
@@ -36,7 +34,8 @@ void BaseProjectile::Update(float dt)
         }
 
         // update the rect for renderering
-        rect_ = { int(pos_.x) - int(size_ / 2), int(pos_.y) - int(size_ / 2), size_, size_ };
+        rect_.x = int(pos_.x) - (rect_.w / 2);
+        rect_.y = int(pos_.y) - (rect_.h / 2);
 
         // move the collider as well
         collider_rect_.x = (int)pos_.x - (collider_rect_.w / 2);

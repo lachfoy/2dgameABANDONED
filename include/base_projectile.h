@@ -48,15 +48,12 @@ public:
 protected: // things the derived projectiles can access
     Vec2f dir_;
     SDL_Rect collider_rect_;
-    int collider_width_;
-    int collider_height_;
     Damage damage_;
     float movespeed_;
     float lifetime_;
     bool rotate_ = false;
     float angle_ = 0.0f; // angle in degrees
     float rotationspeed_ = 0.0f;
-    int size_;
     SDL_Rect rect_;
     SDL_Texture* texture_; // texture to use for rendering, particle does not have ownership
 

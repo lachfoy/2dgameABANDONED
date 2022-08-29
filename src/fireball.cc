@@ -25,7 +25,8 @@ Fireball::Fireball(const Vec2f& pos,
     onlyDamageOnce = true;
     rotate_ = true;
     rotationspeed_ = 5.0f;
-    size_ = 32;
+    rect_.w = 32;
+    rect_.h = 32;
     texture_ = resource_manager_->GetTexture("fireball_texture");
 
     ParticleSpawnInfo info;

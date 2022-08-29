@@ -12,14 +12,15 @@ FireballExplosion::FireballExplosion(const Vec2f& pos,
 {
     name_ = "FireballExplosion";
 
-    collider_rect_.w = 200;
-    collider_rect_.h = 200;
+    collider_rect_.w = 120;
+    collider_rect_.h = 120;
 
     damage_ = {0};
     damage_ = { .fire = 43, .setBurning = true };
     lifetime_ = 0.3f;
     removeOnCollision = false;
     onlyDamageOnce = true;
-    size_ = 128;
+    rect_.w = 128;
+    rect_.h = 128;
     texture_ = resource_manager_->GetTexture("fireball_texture");
 }

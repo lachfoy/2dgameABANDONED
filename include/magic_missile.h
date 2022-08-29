@@ -14,7 +14,6 @@ public:
         BaseObject* target);
 
     void Update(float dt) override;
-    void Render(SDL_Renderer* renderer) override;
 
 private:
     BaseObject* target_;
