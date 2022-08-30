@@ -29,7 +29,7 @@ Skeleton::Skeleton(const Vec2f& pos,
     health_ = max_health_;
 
     resistance_ = {0};
-    resistance_ = { .crushingResistance = -80 };
+    resistance_ = { .crushing_resistance = -80 };
 
     hurt_cooldown_ = 0.1f; // how many seconds of iframes
     hurt_timer_ = hurt_cooldown_;

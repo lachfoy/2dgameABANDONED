@@ -68,10 +68,6 @@ void BaseCharacter::Render(SDL_Renderer* renderer)
 {
     RenderShadow(renderer);
 
-    // create rect to represent the player
-    rect_.x = (int)pos_.x - (rect_.w / 2);
-    rect_.y = (int)pos_.y - rect_.h;
-
     // set draw color
     color_ = { 0xff, 0xff, 0xff, 0xff };
 
@@ -175,6 +171,10 @@ void BaseCharacter::UpdatePosition(float dt)
     // update the internal position
     pos_.x += dir_.x * current_movespeed_ * dt;
     pos_.y += dir_.y * (current_movespeed_ * 0.7f) * dt; // moving in the Y direction is a bit slower
+
+    // update the rect position
+    rect_.x = (int)pos_.x - (rect_.w / 2);
+    rect_.y = (int)pos_.y - rect_.h;
 
     // reset velocity
     dir_.x = 0.0f;

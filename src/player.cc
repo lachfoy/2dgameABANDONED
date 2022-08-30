@@ -36,12 +36,12 @@ Player::Player(const Vec2f& pos,
 
     // set the resistance values
     resistance_ = {0};
-    resistance_ = { .standardResistance = 0, .crushingResistance = 0, .fireResistance = 0 };
+    resistance_ = { .standard_resistance = 0, .crushing_resistance = 0, .fire_resistance = 0 };
 
     immune_duration_ = 0.2f; // how many seconds of iframes
     immune_timer_ = immune_duration_;
 
-    movespeed_ = 130.0f;
+    movespeed_ = 150.0f;
     current_movespeed_ = movespeed_;
 }
 

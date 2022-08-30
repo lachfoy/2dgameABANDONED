@@ -6,7 +6,7 @@
 #include <memory>
 
 #include "base_object.h"
-#include "Resistance.h"
+#include "resistance.h"
 
 class ResourceManager;
 class ParticleEmitterManager;
