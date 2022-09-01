@@ -45,9 +45,17 @@ void BaseCharacter::TakeDamage(const Damage& damage)
         // take damage
         int damageTaken = resistance_.damageAfterRestistance(damage);
         health_ -= damageTaken;
-        printf("%s took %i damage\n", name_.c_str(), damageTaken);
-        printf("%s has %i/%i HP\n", name_.c_str(), health_, max_health_);
         is_being_hurt_ = true;
+        printf("%s took %i damage\n", name_.c_str(), damageTaken);
+        if (health_ <= 0)
+        {
+            printf("%s died\n", name_.c_str());
+            removable_ = true;
+        }
+        else 
+        {
+            printf("%s has %i/%i HP\n", name_.c_str(), health_, max_health_); 
+        }
     }
 }
 

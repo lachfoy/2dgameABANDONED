@@ -3,7 +3,7 @@
 #include "AABB2i.h"
 #include "player.h"
 #include "UiManager.h"
-#include "EnemyManager.h"
+#include "enemy_manager.h"
 #include "resource_manager.h"
 
 Skeleton::Skeleton(const Vec2f& pos,
