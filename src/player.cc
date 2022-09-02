@@ -57,11 +57,6 @@ void Player::resolveEnemyCollisions(const std::vector<std::unique_ptr<BaseEnemy>
     }
 }
 
-void Player::FindTarget(const std::vector<std::unique_ptr<BaseEnemy>>& enemies)
-{
-    target_ = enemies[0].get();
-}
-
 void Player::handleInput(InputManager& inputManager)
 {
     if (is_receiving_input_)

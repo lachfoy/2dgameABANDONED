@@ -57,9 +57,6 @@ void GameScene::update(float dt)
     m_enemyManager->ResolvePlayerProjectileCollisions(m_projectileManager->player_projectiles());
     m_player->resolveEnemyCollisions(m_enemyManager->enemies());
 
-    // give targets to the player? idk abotu this lol
-    m_player->FindTarget(m_enemyManager->enemies());
-
     // update ui objects
     //ui_manager_->updateUiObjects(dt);
 

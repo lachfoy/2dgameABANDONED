@@ -40,7 +40,6 @@ public:
     void handleInput(InputManager& inputManager);
 
     void resolveEnemyCollisions(const std::vector<std::unique_ptr<BaseEnemy>>& enemies);
-    void FindTarget(const std::vector<std::unique_ptr<BaseEnemy>>& enemies);
 
     void TakeDamage(const Damage& damage) override;
 
