@@ -10,8 +10,10 @@ class UiManager;
 class ParticleManager;
 class ParticleEmitterManager;
 class DebugTextManager;
+class EnemySpawnHandler;
 
 typedef std::shared_ptr<DebugTextManager> DebugTextManagerPtr;
+typedef std::shared_ptr<EnemySpawnHandler> EnemySpawnHandlerPtr;
 
 class GameScene : public BaseScene
 {
@@ -24,6 +26,7 @@ public:
 
 private:
     DebugTextManagerPtr debug_text_manager_;
+    EnemySpawnHandlerPtr enemy_spawn_handler_;
     std::shared_ptr<Player> m_player;
     std::shared_ptr<ProjectileManager> m_projectileManager;
     std::shared_ptr<EnemyManager> m_enemyManager;

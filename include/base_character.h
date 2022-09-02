@@ -71,7 +71,7 @@ protected:
     ParticleEmitterManagerPtr particle_emitter_manager_;
 
     // fire
-    bool can_be_set_on_fire_ = true;
+    bool can_be_set_on_fire_;
     bool is_on_fire_ = false;
     float on_fire_duration_ = 3.0f; // how many seconds of fire
     float on_fire_timer_ = on_fire_duration_;

@@ -19,7 +19,7 @@ void BaseCharacter::TakeDamage(const Damage& damage)
     if(!is_immune_)
     {
         // set status
-        if (damage.setBurning && !is_on_fire_)
+        if (damage.setBurning && !is_on_fire_ && can_be_set_on_fire_)
         {
             is_on_fire_ = true;
 

@@ -80,7 +80,7 @@ private:
     bool can_shoot_ = true;
     float shooting_cooldown_ = 0.1f; // time before able to shoot again "cool down"
     float shooting_cooldown_timer_ = 0.0f;
-    float ammo_recharge_cooldown_ = 1.0f;
+    float ammo_recharge_cooldown_ = 0.4f;
     float ammo_recharge_timer_ = ammo_recharge_cooldown_;
 
     // for targeted abilities

@@ -28,13 +28,15 @@ Skeleton::Skeleton(const Vec2f& pos,
     max_health_ = 80;
     health_ = max_health_;
 
+    can_be_set_on_fire_ = false; // it simply does not make sense
+
     resistance_ = {0};
     resistance_ = { .crushing_resistance = -80 };
 
     hurt_cooldown_ = 0.1f; // how many seconds of iframes
     hurt_timer_ = hurt_cooldown_;
 
-    movespeed_ = 20.0f; // slowww
+    movespeed_ = 80.0f; // slowww
     current_movespeed_ = movespeed_;
 
     damage_ = {0};

@@ -32,7 +32,7 @@ protected:
 
 BaseObject::~BaseObject()
 {
-    printf("deleting %s\n", name_.c_str()); removable_ = true;
+    //printf("deleting %s\n", name_.c_str()); // stop spam
 }
 
 void BaseObject::RenderOrigin(SDL_Renderer* renderer)

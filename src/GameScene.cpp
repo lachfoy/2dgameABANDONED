@@ -7,6 +7,7 @@
 #include "particle_manager.h"
 #include "particle_emitter_manager.h"
 #include "debug_text_manager.h"
+#include "enemy_spawn_handler.h"
 
 #define DEBUG_DRAW 1
 
@@ -29,11 +30,7 @@ GameScene::GameScene(std::shared_ptr<InputManager> inputManager, std::shared_ptr
     debug_text_manager_ = std::make_shared<DebugTextManager>(resource_manager_->GetFont("debug_font"));
 
     m_enemyManager = std::make_shared<EnemyManager>(resource_manager_, particle_emitter_manager_, ui_manager_, m_projectileManager, m_player);
-    // m_enemyManager->AddSkeleton({ 400.0f, 300.0f });
-    // m_enemyManager->AddSkeleton({ 600.0f, 400.0f });
-    // m_enemyManager->AddSkeleton({ 500.0f, 500.0f });
-    // m_enemyManager->AddSkeleton({ 300.0f, 400.0f });
-    m_enemyManager->AddSkeleton({ 700.0f, 200.0f });
+    enemy_spawn_handler_ = std::make_shared<EnemySpawnHandler>(m_enemyManager, m_windowWidth, m_windowHeight);
 }
 
 GameScene::~GameScene()
@@ -53,6 +50,8 @@ void GameScene::update(float dt)
     m_projectileManager->UpdateProjectiles(dt);
     particle_manager_->UpdateParticles(dt);
     particle_emitter_manager_->UpdateParticleEmitters(dt);
+
+    enemy_spawn_handler_->Update(dt);
 
     // collision resolution
     m_enemyManager->ResolvePlayerProjectileCollisions(m_projectileManager->player_projectiles());
