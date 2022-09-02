@@ -36,13 +36,6 @@ If you would like to try and build this project (requires SDL2, sdl2_ttf, sdl2_i
 
 Hopefully it works ;)
 
-### For fun
-
-Counting all the lines of code
-```shell
-find include/ src/ -regex '.*/.*\.\(h\|cpp\)$' | xargs wc -l
-```
-
 ### Considerations for Future Projects
 
 - Try using an ECS architecture
