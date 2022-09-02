@@ -52,7 +52,7 @@ void Skeleton::UpdateAI(float dt)
     thinking_timer_ -= dt;
     if (thinking_timer_ <= 0.0f)
     {
-        printf("Skeleton had a thought...\n");
+        // printf("Skeleton had a thought...\n"); annoying
         target_pos_ = player_->pos();
         
         thinking_timer_ = thinking_interval_;  // reset to the starting value

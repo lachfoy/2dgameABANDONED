@@ -22,34 +22,44 @@ public:
 
         enemy_spawn_interval_ = 0.2f; // ASHDGAKUJSHFGASKJFH
         enemy_spawn_timer_ = 0.0f; // timer goes up, not down
+
+        current_wave_spawn_counter_ = 0;
     }
 
     // update the logic
     void Update(float dt)
     {
-        if (enemy_spawn_timer_ >= enemy_spawn_interval_)
-        { 
-            int side = rand() % 2; // pick a number between 0 and 1, 0 = left, 1= right
-            std::string side_str = (side == 0) ? "left" : "right";
-            std::cout << "side: " << side_str << std::endl;
-
-            const int x_offset_amount = 60; // offset so they spawn outside the play area
-            float x_offset = float(rand() % x_offset_amount + 1); // pick a random x offset
-            std::cout << "x offset: " << x_offset << std::endl;
-
-            Vec2f spawn_pos;
-            spawn_pos.x = (side == 0) ? float(0 - x_offset) : float(window_width_ + x_offset);
-            spawn_pos.y = float(rand() % window_height_ + 1); // pick a random y
-            std::cout << "pos: " << spawn_pos.x << ", " << spawn_pos.y << std::endl;
-
-            // add an enemy
-            enemy_manager_->AddSkeleton(spawn_pos);
-
-            enemy_spawn_timer_ = 0.0f; // reset the timer
-        }
-        else
+        const int kMaxEnemies= 1000;
+        if (current_wave_spawn_counter_ < kMaxEnemies)
         {
-            enemy_spawn_timer_ += dt;
+            if (enemy_spawn_timer_ >= enemy_spawn_interval_)
+            {
+                int side = rand() % 2; // pick a number between 0 and 1, 0 = left, 1= right
+                std::string side_str = (side == 0) ? "left" : "right";
+                std::cout << "side: " << side_str << std::endl;
+
+                const int x_offset_amount = 60; // offset so they spawn outside the play area
+                float x_offset = float(rand() % x_offset_amount + 1); // pick a random x offset
+                std::cout << "x offset: " << x_offset << std::endl;
+
+                Vec2f spawn_pos;
+                spawn_pos.x = (side == 0) ? float(0 - x_offset) : float(window_width_ + x_offset);
+                spawn_pos.y = float(rand() % window_height_ + 1); // pick a random y
+                std::cout << "pos: " << spawn_pos.x << ", " << spawn_pos.y << std::endl;
+
+                // add an enemy
+                enemy_manager_->AddSkeleton(spawn_pos);
+
+                // update the counter
+                current_wave_spawn_counter_++;
+                std::cout << "spawned " << current_wave_spawn_counter_ << " total enemies\n";
+
+                enemy_spawn_timer_ = 0.0f; // reset the timer
+            }
+            else
+            {
+                enemy_spawn_timer_ += dt;
+            }
         }
 
     }
@@ -70,6 +80,8 @@ private:
 
     float enemy_spawn_interval_;
     float enemy_spawn_timer_;
+
+    int current_wave_spawn_counter_;
 
 };
 
