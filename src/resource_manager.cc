@@ -5,7 +5,7 @@ ResourceManager::ResourceManager(SDL_Renderer* renderer)
     renderer_ = renderer;
 }
 
-void ResourceManager::LoadGameTextures()
+void ResourceManager::LoadTextures()
 {
     printf("ResourceManager: loading textures...\n");
     textures_["background_forest_texture"] = LoadTextureFromFile("../resources/textures/background_forest.png", SDL_BLENDMODE_NONE);

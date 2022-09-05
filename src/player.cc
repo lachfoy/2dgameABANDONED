@@ -1,6 +1,5 @@
 #include "player.h"
 
-#include "AABB2i.h"
 #include "UiManager.h"
 #include "Healthbar.h"
 #include "InputManager.h"

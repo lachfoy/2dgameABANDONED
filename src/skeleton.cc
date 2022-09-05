@@ -1,6 +1,5 @@
 #include "skeleton.h"
 
-#include "AABB2i.h"
 #include "player.h"
 #include "UiManager.h"
 #include "enemy_manager.h"

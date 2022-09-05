@@ -14,7 +14,7 @@ class ResourceManager
 public:
     ResourceManager(SDL_Renderer* renderer);
 
-    void LoadGameTextures();
+    void LoadTextures();
     void LoadFonts();
     void LoadSounds();
 

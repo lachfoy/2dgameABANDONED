@@ -6,9 +6,7 @@
 #include <memory>
 
 #include "base_object.h"
-#include "AABB2i.h"
 #include "Damage.h"
-
 
 class ParticleManager;
 class ResourceManager;
