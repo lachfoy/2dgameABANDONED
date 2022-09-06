@@ -8,8 +8,8 @@
 #include "base_object.h"
 #include "damage.h"
 
-class ParticleManager;
 class ResourceManager;
+class ParticleManager;
 class ParticleEmitterManager;
 class ProjectileManager;
 

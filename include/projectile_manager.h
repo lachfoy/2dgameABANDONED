@@ -16,11 +16,15 @@ class ResourceManager;
 class ParticleManager;
 class ParticleEmitterManager;
 
+typedef std::shared_ptr<ResourceManager> ResourceManagerPtr;
+typedef std::shared_ptr<ParticleManager> ParticleManagerPtr;
+typedef std::shared_ptr<ParticleEmitterManager> ParticleEmitterManagerPtr;
+
 class ProjectileManager
 {
 public:
-    ProjectileManager(std::shared_ptr<ResourceManager> resource_manager,
-        std::shared_ptr<ParticleManager> particle_manager, std::shared_ptr<ParticleEmitterManager> particle_emitter_manager);
+    ProjectileManager(ResourceManagerPtr resource_manager,
+        ParticleManagerPtr particle_manager, ParticleEmitterManagerPtr particle_emitter_manager);
     ~ProjectileManager();
 
     // Getter for the projectiles vectors
@@ -49,9 +53,9 @@ private:
     std::vector<std::unique_ptr<BaseProjectile>> player_projectiles_;
     std::vector<std::unique_ptr<BaseProjectile>> enemy_projectiles_;
 
-    std::shared_ptr<ResourceManager> resource_manager_;
-    std::shared_ptr<ParticleManager> particle_manager_;
-    std::shared_ptr<ParticleEmitterManager> particle_emitter_manager_;
+    ResourceManagerPtr resource_manager_;
+    ParticleManagerPtr particle_manager_;
+    ParticleEmitterManagerPtr particle_emitter_manager_;
 
 };
 
