@@ -6,7 +6,7 @@
 #include <memory>
 
 #include "base_object.h"
-#include "Damage.h"
+#include "damage.h"
 
 class ParticleManager;
 class ResourceManager;

@@ -19,7 +19,7 @@ void BaseCharacter::TakeDamage(const Damage& damage)
     if(!is_immune_)
     {
         // set status
-        if (damage.setBurning && !is_on_fire_ && can_be_set_on_fire_)
+        if (damage.set_burning && !is_on_fire_ && can_be_set_on_fire_)
         {
             is_on_fire_ = true;
 
@@ -155,7 +155,7 @@ void BaseCharacter::UpdateFire(float dt)
                 if (fire_tick_timer_ > 0.0f) fire_tick_timer_ -= dt;
                 else
                 {
-                    TakeDamage(statusBurning);
+                    TakeDamage(burning_damage);
                     fire_tick_timer_ = fire_tick_interval_; // reset to the starting value
                 }
             }

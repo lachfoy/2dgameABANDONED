@@ -8,17 +8,17 @@ struct Damage
     int fire;
     int magic;
     int poison;
-    bool setBurning; // should this projectile set the burning status
+    bool set_burning; // should this projectile set the burning status
 };
 
 // predefined status damages
-static const Damage statusBurning = {
+static const Damage burning_damage = {
     .standard = 0,
     .crushing = 0,
     .fire = 4, // only deals a small tick of fire damage
     .magic = 0,
     .poison = 0,
-    .setBurning = false,
+    .set_burning = false,
 };
 
 #endif

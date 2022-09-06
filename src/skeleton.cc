@@ -1,7 +1,7 @@
 #include "skeleton.h"
 
 #include "player.h"
-#include "UiManager.h"
+#include "ui_manager.h"
 #include "enemy_manager.h"
 #include "resource_manager.h"
 
@@ -57,5 +57,5 @@ void Skeleton::UpdateAI(float dt)
         thinking_timer_ = thinking_interval_;  // reset to the starting value
     }
 
-    dir_ = Vec2f::getDirection(pos_, target_pos_);
+    dir_ = Vec2f::GetDirection(pos_, target_pos_);
 }

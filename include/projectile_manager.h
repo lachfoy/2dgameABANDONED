@@ -9,7 +9,7 @@
 #include <SDL2/SDL_mixer.h>
 
 #include "base_projectile.h"
-#include "Vec2f.h"
+#include "vec2f.h"
 
 class BaseCharacter;
 class ResourceManager;
@@ -43,7 +43,7 @@ public:
     void UpdateProjectiles(float dt);
     void CleanUpUnusedProjectiles();
     void RenderProjectiles(SDL_Renderer* renderer);
-    void renderDebug(SDL_Renderer* renderer);
+    void RenderDebug(SDL_Renderer* renderer);
 
 private:
     std::vector<std::unique_ptr<BaseProjectile>> player_projectiles_;

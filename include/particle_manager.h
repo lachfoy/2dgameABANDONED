@@ -8,7 +8,7 @@
 #include <SDL2/SDL.h>
 
 #include "resource_manager.h"
-#include "Vec2f.h"
+#include "vec2f.h"
 #include "particle.h"
 
 class ParticleManager

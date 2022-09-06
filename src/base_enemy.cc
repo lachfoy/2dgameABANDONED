@@ -1,6 +1,6 @@
 #include "base_enemy.h"
 
-#include "UiManager.h"
+#include "ui_manager.h"
 #include "projectile_manager.h"
 #include "player.h"
 

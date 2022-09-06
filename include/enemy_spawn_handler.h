@@ -2,7 +2,7 @@
 #define ENEMY_SPAWN_HANDLER_H_
 
 #include "enemy_manager.h"
-#include "Vec2f.h"
+#include "vec2f.h"
 
 #include <cstdlib>
 #include <iostream>

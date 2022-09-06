@@ -93,7 +93,7 @@ void ProjectileManager::RenderProjectiles(SDL_Renderer* renderer)
     for (const auto& projectile : player_projectiles_) projectile->Render(renderer);
 }
 
-void ProjectileManager::renderDebug(SDL_Renderer* renderer)
+void ProjectileManager::RenderDebug(SDL_Renderer* renderer)
 {
     // enemy projectiles
     for (const auto& projectile : enemy_projectiles_)

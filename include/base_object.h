@@ -5,7 +5,7 @@
 
 #include <SDL2/SDL.h>
 
-#include "Vec2f.h"
+#include "vec2f.h"
 
 class BaseObject
 {

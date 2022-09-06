@@ -5,7 +5,7 @@
 
 #include "base_character.h"
 
-#include "Damage.h"
+#include "damage.h"
 
 class UiManager;
 class ProjectileManager;

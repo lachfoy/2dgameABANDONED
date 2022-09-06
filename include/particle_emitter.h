@@ -9,7 +9,7 @@
 
 #include <SDL2/SDL.h>
 
-#include "Vec2f.h"
+#include "vec2f.h"
 #include "particle_manager.h"
 #include "base_object.h"
 

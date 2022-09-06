@@ -56,7 +56,7 @@ void MagicMissile::Update(float dt)
     // update dir according to target
     if (target_)
     {
-        Vec2f target_dir = Vec2f::getDirection(pos_, target_->pos());
+        Vec2f target_dir = Vec2f::GetDirection(pos_, target_->pos());
         // can overshoot
         //dir.x += (dir.x < target_dir.x) ? tracking_strength_ : -tracking_strength_;
         //dir.y += (dir.y < target_dir.y) ? tracking_strength_ : -tracking_strength_;

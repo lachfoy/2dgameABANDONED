@@ -16,7 +16,7 @@ FireballExplosion::FireballExplosion(const Vec2f& pos,
     collider_rect_.h = 120;
 
     damage_ = {0};
-    damage_ = { .fire = 43, .setBurning = true };
+    damage_ = { .fire = 43, .set_burning = true };
     lifetime_ = 0.3f;
     removeOnCollision = false;
     onlyDamageOnce = true;

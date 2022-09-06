@@ -1,8 +1,8 @@
 #include "player.h"
 
-#include "UiManager.h"
+#include "ui_manager.h"
 #include "Healthbar.h"
-#include "InputManager.h"
+#include "input_manager.h"
 #include "projectile_manager.h"
 #include "base_enemy.h"
 #include "resource_manager.h"
@@ -51,7 +51,7 @@ void Player::resolveEnemyCollisions(const std::vector<std::unique_ptr<BaseEnemy>
         if (SDL_HasIntersection(&enemy->collider_rect(), &collider_rect_))
         {
             TakeDamage(enemy->damage());
-            Push(Vec2f::getDirection(enemy->pos(), pos_), 100.0f);
+            Push(Vec2f::GetDirection(enemy->pos(), pos_), 100.0f);
         }
     }
 }
@@ -106,12 +106,12 @@ void Player::handleInput(InputManager& inputManager)
             if (can_shoot_)
             {
                 // add a new fireball with some offset from the origin
-                projectile_manager_->AddFireball({ pos_.x, pos_.y - (rect_.h / 2) }, Vec2f::getDirection(pos_, { (float)inputManager.getMouseX(), (float)inputManager.getMouseY() }));
+                projectile_manager_->AddFireball({ pos_.x, pos_.y - (rect_.h / 2) }, Vec2f::GetDirection(pos_, { (float)inputManager.getMouseX(), (float)inputManager.getMouseY() }));
 
                 // magiiic missile
-                // Vec2f dir_to_mouse = Vec2f::getDirection(pos, { (float)inputManager.getMouseX(), (float)inputManager.getMouseY() });
-                // Vec2f dir_to_mouse_offset_up = Vec2f::getDirection(pos, { (float)inputManager.getMouseX(), (float)inputManager.getMouseY() - 100 });
-                // Vec2f dir_to_mouse_offset_down = Vec2f::getDirection(pos, { (float)inputManager.getMouseX(), (float)inputManager.getMouseY() + 100 });
+                // Vec2f dir_to_mouse = Vec2f::GetDirection(pos, { (float)inputManager.getMouseX(), (float)inputManager.getMouseY() });
+                // Vec2f dir_to_mouse_offset_up = Vec2f::GetDirection(pos, { (float)inputManager.getMouseX(), (float)inputManager.getMouseY() - 100 });
+                // Vec2f dir_to_mouse_offset_down = Vec2f::GetDirection(pos, { (float)inputManager.getMouseX(), (float)inputManager.getMouseY() + 100 });
                 // projectileManager->AddMagicMissile(
                 //     { pos.x, pos.y - (height / 2) },
                 //     dir_to_mouse,
@@ -142,7 +142,7 @@ void Player::TakeDamage(const Damage& damage)
     if(!is_immune_)
     {
         // set status
-        if (damage.setBurning) is_on_fire_ = true;
+        if (damage.set_burning) is_on_fire_ = true;
 
         // take damage
         int damageTaken = resistance_.damageAfterRestistance(damage);

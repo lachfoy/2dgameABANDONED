@@ -7,7 +7,7 @@
 
 #include "particle_emitter.h"
 #include "particle_manager.h"
-#include "Vec2f.h"
+#include "vec2f.h"
 #include "base_object.h"
 
 // try out mozzila style guide for this class :)

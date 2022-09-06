@@ -3,7 +3,7 @@
 #include "base_enemy.h"
 #include "base_projectile.h"
 #include "skeleton.h"
-#include "UiManager.h"
+#include "ui_manager.h"
 #include "player.h"
 #include "projectile_manager.h"
 #include "resource_manager.h"
@@ -50,7 +50,7 @@ void EnemyManager::ResolvePlayerProjectileCollisions(const std::vector<std::uniq
                     enemy->TakeDamage(projectile->damage());// make the enemy take damage
 
                     // also push the enemy away
-                    enemy->Push(Vec2f::getDirection(projectile->pos(), enemy->pos()), 100.0f);
+                    enemy->Push(Vec2f::GetDirection(projectile->pos(), enemy->pos()), 100.0f);
                     
                     enemiesHit++;
                 }

@@ -1,8 +1,8 @@
 #include "game.h"
 
-#include "InputManager.h"
+#include "input_manager.h"
 #include "resource_manager.h"
-#include "UiManager.h"
+#include "ui_manager.h"
 #include "particle_manager.h"
 #include "particle_emitter_manager.h"
 #include "projectile_manager.h"
@@ -13,7 +13,10 @@
 
 #define DEBUG_DRAW 0
 
-Game::Game() {}
+Game::Game()
+{
+    
+}
 
 // init all the framework resources - SDL2, ttf etc.
 bool Game::Init(int window_width, int window_height)
@@ -157,7 +160,7 @@ void Game::Update(float dt)
     particle_emitter_manager_->UpdateParticleEmitters(dt);
 
     // update ui objects
-    //ui_manager_->updateUiObjects(dt);
+    //ui_manager_->UpdateUiObjects(dt);
     debug_text_manager_->Update(*player_);
 
 
@@ -165,7 +168,7 @@ void Game::Update(float dt)
     enemy_manager_->CleanUpUnusedEnemies();
     projectile_manager_->CleanUpUnusedProjectiles();
 
-    //ui_manager_->removeUnusedUiObjects();
+    //ui_manager_->CleanUpUnusedUiObjects();
 }
 
 void Game::Render(SDL_Renderer* renderer)
@@ -181,14 +184,14 @@ void Game::Render(SDL_Renderer* renderer)
     projectile_manager_->RenderProjectiles(renderer);
 
     // render ui objects
-    //ui_manager_->renderUiObjects(renderer);
+    //ui_manager_->RenderUiObjects(renderer);
 
     // debug
     if (DEBUG_DRAW)
     {
         enemy_manager_->RenderDebug(renderer);
         player_->RenderDebug(renderer);
-        projectile_manager_->renderDebug(renderer);
+        projectile_manager_->RenderDebug(renderer);
         debug_text_manager_->Render(renderer);
     }
 
