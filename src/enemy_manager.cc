@@ -74,16 +74,28 @@ void EnemyManager::UpdateEnemies(float dt)
     {
         enemy->Update(dt);
     }
+}
 
+void EnemyManager::CleanUpUnusedEnemies()
+{
     for (int i = 0; i < enemies_.size(); i++)
     {
         if (enemies_[i]->removable())
         {
             //enemies_[i]->OnDestroy(*this);
-            enemies_.erase(enemies_.begin() + i);
-            i--;
         }
     }
+
+    enemies_.erase(
+        std::remove_if(
+            enemies_.begin(),
+            enemies_.end(),
+            [](auto const& enemy) {
+                return enemy->removable();
+            }
+        ),
+        enemies_.end()
+    );
 }
 
 void EnemyManager::RenderEnemies(SDL_Renderer* renderer)

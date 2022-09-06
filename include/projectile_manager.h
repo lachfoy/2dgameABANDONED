@@ -25,8 +25,8 @@ public:
 
     // Getter for the projectiles vectors
     // Needed so other classes can check collisions and such
-    std::vector<std::unique_ptr<BaseProjectile>> const& player_projectiles() const { return _player_projectiles; }
-    std::vector<std::unique_ptr<BaseProjectile>> const& enemy_projectiles() const { return _enemy_projectiles; }
+    std::vector<std::unique_ptr<BaseProjectile>> const& player_projectiles() const { return player_projectiles_; }
+    std::vector<std::unique_ptr<BaseProjectile>> const& enemy_projectiles() const { return enemy_projectiles_; }
 
     // Adding different kinds of projectiles
     // -------------------------------------
@@ -38,15 +38,16 @@ public:
     void AddFireballExplosion(const Vec2f& pos);
     void AddMagicMissile(const Vec2f& pos, const Vec2f& dir, BaseObject* target);
 
-    void UpdateProjectiles(float dt);
     void resolveProjectileVsEnemyCollisions(const std::vector<BaseCharacter*>& enemies);
-    void removeUnusedProjectiles();
+
+    void UpdateProjectiles(float dt);
+    void CleanUpUnusedProjectiles();
     void RenderProjectiles(SDL_Renderer* renderer);
     void renderDebug(SDL_Renderer* renderer);
 
 private:
-    std::vector<std::unique_ptr<BaseProjectile>> _player_projectiles;
-    std::vector<std::unique_ptr<BaseProjectile>> _enemy_projectiles;
+    std::vector<std::unique_ptr<BaseProjectile>> player_projectiles_;
+    std::vector<std::unique_ptr<BaseProjectile>> enemy_projectiles_;
 
     std::shared_ptr<ResourceManager> resource_manager_;
     std::shared_ptr<ParticleManager> particle_manager_;

@@ -11,7 +11,7 @@
 #include "enemy_manager.h"
 #include "enemy_spawn_handler.h"
 
-#define DEBUG_DRAW 1
+#define DEBUG_DRAW 0
 
 Game::Game() {}
 
@@ -158,10 +158,13 @@ void Game::Update(float dt)
 
     // update ui objects
     //ui_manager_->updateUiObjects(dt);
-
     debug_text_manager_->Update(*player_);
 
-    // remove unused objects
+
+    // clean up all unused objects AT THE END of the update
+    enemy_manager_->CleanUpUnusedEnemies();
+    projectile_manager_->CleanUpUnusedProjectiles();
+
     //ui_manager_->removeUnusedUiObjects();
 }
 

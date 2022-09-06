@@ -24,14 +24,17 @@ void ParticleManager::UpdateParticles(float dt)
         particle->Update(dt);
     }
 
-    for (int i = 0; i < particles_.size(); i++)
-    {
-        if (particles_[i]->removable())
-        {
-            particles_.erase(particles_.begin() + i);
-            i--;
-        }
-    }
+    // if particle gets flagged for removal
+    particles_.erase(
+        std::remove_if(
+            particles_.begin(),
+            particles_.end(),
+            [](auto const& particle) {
+                return particle->removable();
+            }
+        ),
+        particles_.end()
+    );
 }
 
 void ParticleManager::RenderParticles(SDL_Renderer* renderer)

@@ -74,7 +74,7 @@ private:
     float dodge_roll_recharge_timer_ = dodge_roll_recharge_cooldown_;
 
     // Shooting
-    const int AMMO_MAX = 10;
+    const int AMMO_MAX = 100;
     int ammo_ = AMMO_MAX;
     bool can_shoot_ = true;
     float shooting_cooldown_ = 0.1f; // time before able to shoot again "cool down"

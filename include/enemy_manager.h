@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <memory>
+#include <algorithm>
 
 #include <SDL2/SDL.h>
 
@@ -42,6 +43,7 @@ public:
     void ResolvePlayerProjectileCollisions(const std::vector<std::unique_ptr<BaseProjectile>>& player_projectiles);
 
     void UpdateEnemies(float dt);
+    void CleanUpUnusedEnemies();
     void RenderEnemies(SDL_Renderer* renderer);
     void RenderDebug(SDL_Renderer* renderer);
 
