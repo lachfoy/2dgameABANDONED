@@ -106,29 +106,10 @@ void Player::handleInput(InputManager& inputManager)
             if (can_shoot_)
             {
                 // add a new fireball with some offset from the origin
-                projectile_manager_->AddFireball({ pos_.x, pos_.y - (rect_.h / 2) }, Vec2f::GetDirection(pos_, { (float)inputManager.getMouseX(), (float)inputManager.getMouseY() }));
-
-                // magiiic missile
-                // Vec2f dir_to_mouse = Vec2f::GetDirection(pos, { (float)inputManager.getMouseX(), (float)inputManager.getMouseY() });
-                // Vec2f dir_to_mouse_offset_up = Vec2f::GetDirection(pos, { (float)inputManager.getMouseX(), (float)inputManager.getMouseY() - 100 });
-                // Vec2f dir_to_mouse_offset_down = Vec2f::GetDirection(pos, { (float)inputManager.getMouseX(), (float)inputManager.getMouseY() + 100 });
-                // projectileManager->AddMagicMissile(
-                //     { pos.x, pos.y - (height / 2) },
-                //     dir_to_mouse,
-                //     target_
-                // );
-
-                // projectileManager->AddMagicMissile(
-                //     { pos.x, pos.y - (height / 2) },
-                //     dir_to_mouse_offset_up,
-                //     target_
-                // );
-
-                // projectileManager->AddMagicMissile(
-                //     { pos.x, pos.y - (height / 2) },
-                //     dir_to_mouse_offset_down,
-                //     target_
-                // );
+                projectile_manager_->AddFireball(
+                    Vec2f(pos_.x, pos_.y - float(rect_.h / 2)),
+                    Vec2f::GetDirection(pos_, Vec2f(float(inputManager.getMouseX()), float(inputManager.getMouseY())))
+                );
 
                 ammo_--; // subtract ammo
                 can_shoot_ = false;
@@ -145,9 +126,9 @@ void Player::TakeDamage(const Damage& damage)
         if (damage.set_burning) is_on_fire_ = true;
 
         // take damage
-        int damageTaken = resistance_.damageAfterRestistance(damage);
-        health_ -= damageTaken;
-        printf("%s took %i damage\n", name_.c_str(), damageTaken);
+        int damage_taken = resistance_.damageAfterRestistance(damage);
+        health_ -= damage_taken;
+        printf("%s took %i damage\n", name_.c_str(), damage_taken);
         printf("%s has %i/%i HP\n", name_.c_str(), health_, max_health_);
         is_immune_ = true; // give iframes
         is_being_hurt_ = true;

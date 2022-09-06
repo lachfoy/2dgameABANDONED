@@ -42,7 +42,7 @@ public:
     void AddFireballExplosion(const Vec2f& pos);
     void AddMagicMissile(const Vec2f& pos, const Vec2f& dir, BaseObject* target);
 
-    void resolveProjectileVsEnemyCollisions(const std::vector<BaseCharacter*>& enemies);
+    void ResolvePlayerProjectileVsEnemyCollisions(const std::vector<BaseCharacter*>& enemies);
 
     void UpdateProjectiles(float dt);
     void CleanUpUnusedProjectiles();
