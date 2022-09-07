@@ -7,7 +7,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # add all c source files under the src directory
-file(GLOB SOURCES "src/*.cpp" "src/*.cc")
+file(GLOB SOURCES "src/*.cpp" "src/*.cc" "src/*.h")
 add_executable(${PROJECT_NAME} ${SOURCES})
 
 INCLUDE(FindPkgConfig)
@@ -20,7 +20,6 @@ PKG_SEARCH_MODULE(SDL2MIXER REQUIRED SDL2_mixer)
 
 include_directories(
     ${PROJECT_NAME} PRIVATE
-    include
     /usr/local/include # /usr/local/include needed for mac
     ${SDL2_INCLUDE_DIRS}
     ${SDL2IMAGE_INCLUDE_DIRS}
