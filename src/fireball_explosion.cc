@@ -1,14 +1,13 @@
 #include "fireball_explosion.h"
 
 #include "projectile_manager.h"
-#include "resource_manager.h"
 #include "particle_manager.h"
 
 FireballExplosion::FireballExplosion(const Vec2f& pos,
+    SDL_Texture* texture,
     std::shared_ptr<ResourceManager> resource_manager,
-    std::shared_ptr<ParticleManager> particle_manager,
     std::shared_ptr<ParticleEmitterManager> particle_emitter_manager)
-     : BaseProjectile(pos, { 0.0f, 0.0f }, resource_manager, particle_manager, particle_emitter_manager)
+     : BaseProjectile(pos, { 0.0f, 0.0f }, texture, resource_manager, particle_emitter_manager)
 {
     name_ = "FireballExplosion";
 

@@ -1,16 +1,15 @@
 #include "fireball.h"
 
 #include "projectile_manager.h"
-#include "particle_manager.h"
 #include "particle_emitter_manager.h"
 #include "resource_manager.h"
 
 Fireball::Fireball(const Vec2f& pos,
-    const Vec2f& dir, 
+    const Vec2f& dir,
+    SDL_Texture* texture,
     std::shared_ptr<ResourceManager> resource_manager,
-    std::shared_ptr<ParticleManager> particle_manager,
     std::shared_ptr<ParticleEmitterManager> particle_emitter_manager)
-     : BaseProjectile(pos, dir, resource_manager, particle_manager, particle_emitter_manager)
+     : BaseProjectile(pos, dir, texture, resource_manager, particle_emitter_manager)
 {
     name_ = "Fireball";
     

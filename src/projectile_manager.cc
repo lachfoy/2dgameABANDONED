@@ -5,14 +5,11 @@
 #include "particle_emitter_manager.h"
 #include "fireball.h"
 #include "fireball_explosion.h"
-#include "magic_missile.h"
 #include "base_character.h"
 
-ProjectileManager::ProjectileManager(std::shared_ptr<ResourceManager> resource_manager,
-    std::shared_ptr<ParticleManager> particle_manager, std::shared_ptr<ParticleEmitterManager> particle_emitter_manager)
+ProjectileManager::ProjectileManager(ResourceManagerPtr resource_manager, ParticleEmitterManagerPtr particle_emitter_manager)
 {
     resource_manager_ = resource_manager;
-    particle_manager_ = particle_manager;
     particle_emitter_manager_ = particle_emitter_manager;
 }
 
@@ -25,7 +22,13 @@ ProjectileManager::~ProjectileManager()
 
 void ProjectileManager::AddFireball(const Vec2f& pos, const Vec2f& dir)
 {
-    std::unique_ptr<BaseProjectile> projectile = std::make_unique<Fireball>(pos, dir, resource_manager_, particle_manager_, particle_emitter_manager_);
+    std::unique_ptr<BaseProjectile> projectile = std::make_unique<Fireball>(
+        pos,
+        dir,
+        resource_manager_->GetTexture("fireball_texture"),
+        resource_manager_,
+        particle_emitter_manager_
+    );
     projectile->OnCreate(*this);
     Mix_PlayChannel(-1, resource_manager_->GetSound("fireball_sound"), 0);
     player_projectiles_.push_back(std::move(projectile));
@@ -33,16 +36,14 @@ void ProjectileManager::AddFireball(const Vec2f& pos, const Vec2f& dir)
 
 void ProjectileManager::AddFireballExplosion(const Vec2f& pos)
 {
-    std::unique_ptr<BaseProjectile> projectile = std::make_unique<FireballExplosion>(pos, resource_manager_, particle_manager_, particle_emitter_manager_);
+    std::unique_ptr<BaseProjectile> projectile = std::make_unique<FireballExplosion>(
+        pos,
+        resource_manager_->GetTexture("fireball_texture"),
+        resource_manager_,
+        particle_emitter_manager_
+    );
     projectile->OnCreate(*this);
     Mix_PlayChannel(-1, resource_manager_->GetSound("fireball_explosion_sound"), 0);
-    player_projectiles_.push_back(std::move(projectile));
-}
-
-void ProjectileManager::AddMagicMissile(const Vec2f& pos, const Vec2f& dir, BaseObject* target)
-{
-    std::unique_ptr<BaseProjectile> projectile = std::make_unique<MagicMissile>(pos, dir, resource_manager_, particle_manager_, particle_emitter_manager_, target);
-    projectile->OnCreate(*this);
     player_projectiles_.push_back(std::move(projectile));
 }
 

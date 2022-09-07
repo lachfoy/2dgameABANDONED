@@ -9,12 +9,10 @@
 #include "damage.h"
 
 class ResourceManager;
-class ParticleManager;
 class ParticleEmitterManager;
 class ProjectileManager;
 
 typedef std::shared_ptr<ResourceManager> ResourceManagerPtr;
-typedef std::shared_ptr<ParticleManager> ParticleManagerPtr;
 typedef std::shared_ptr<ParticleEmitterManager> ParticleEmitterManagerPtr;
 
 class BaseProjectile : public BaseObject
@@ -22,8 +20,8 @@ class BaseProjectile : public BaseObject
 public:
     BaseProjectile(const Vec2f& pos,
         const Vec2f& dir,
+        SDL_Texture* texture,
         ResourceManagerPtr resource_manager,
-        ParticleManagerPtr particle_manager,
         ParticleEmitterManagerPtr particle_emitter_manager);
     
     virtual ~BaseProjectile() {}
@@ -56,7 +54,6 @@ protected: // things the derived projectiles can access
     SDL_Texture* texture_; // texture to use for rendering, particle does not have ownership
 
     ResourceManagerPtr resource_manager_;
-    ParticleManagerPtr particle_manager_;
     ParticleEmitterManagerPtr particle_emitter_manager_;
 
 };

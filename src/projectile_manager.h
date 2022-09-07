@@ -11,20 +11,17 @@
 #include "base_projectile.h"
 #include "vec2f.h"
 
-class BaseCharacter;
 class ResourceManager;
-class ParticleManager;
 class ParticleEmitterManager;
+class BaseCharacter;
 
 typedef std::shared_ptr<ResourceManager> ResourceManagerPtr;
-typedef std::shared_ptr<ParticleManager> ParticleManagerPtr;
 typedef std::shared_ptr<ParticleEmitterManager> ParticleEmitterManagerPtr;
 
 class ProjectileManager
 {
 public:
-    ProjectileManager(ResourceManagerPtr resource_manager,
-        ParticleManagerPtr particle_manager, ParticleEmitterManagerPtr particle_emitter_manager);
+    ProjectileManager(ResourceManagerPtr resource_manager, ParticleEmitterManagerPtr particle_emitter_manager);
     ~ProjectileManager();
 
     // Getter for the projectiles vectors
@@ -40,7 +37,6 @@ public:
     //inline void addProjectile(BaseProjectile* projectile) { projectiles.push_back(projectile); } // depracated? dont use this anymore
     void AddFireball(const Vec2f& pos, const Vec2f& dir);
     void AddFireballExplosion(const Vec2f& pos);
-    void AddMagicMissile(const Vec2f& pos, const Vec2f& dir, BaseObject* target);
 
     void ResolvePlayerProjectileVsEnemyCollisions(const std::vector<BaseCharacter*>& enemies);
 
@@ -54,7 +50,6 @@ private:
     std::vector<std::unique_ptr<BaseProjectile>> enemy_projectiles_;
 
     ResourceManagerPtr resource_manager_;
-    ParticleManagerPtr particle_manager_;
     ParticleEmitterManagerPtr particle_emitter_manager_;
 
 };

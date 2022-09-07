@@ -6,15 +6,14 @@
 
 BaseProjectile::BaseProjectile(const Vec2f& pos,
     const Vec2f& dir,
+    SDL_Texture* texture,
     ResourceManagerPtr resource_manager,
-    ParticleManagerPtr particle_manager,
     ParticleEmitterManagerPtr particle_emitter_manager)
      : BaseObject(pos)
 {
-    this->dir_ = dir;
-
+    dir_ = dir;
+    texture_ = texture;
     resource_manager_ = resource_manager;
-    particle_manager_ = particle_manager;
     particle_emitter_manager_ = particle_emitter_manager;
 }
 

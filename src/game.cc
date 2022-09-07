@@ -127,10 +127,9 @@ void Game::Create()
     ui_manager_ = std::make_shared<UiManager>(input_manager_, resource_manager_, window_width_, window_height_);
 
     particle_manager_ = std::make_shared<ParticleManager>(resource_manager_);
-    
     particle_emitter_manager_ = std::make_shared<ParticleEmitterManager>(particle_manager_);
 
-    projectile_manager_ = std::make_shared<ProjectileManager>(resource_manager_, particle_manager_, particle_emitter_manager_);
+    projectile_manager_ = std::make_shared<ProjectileManager>(resource_manager_, particle_emitter_manager_);
 
     const Vec2f playerPos = { 100.0f, 200.0f };
     player_ = std::make_shared<Player>(playerPos, resource_manager_, particle_emitter_manager_, *ui_manager_, projectile_manager_);
@@ -138,7 +137,6 @@ void Game::Create()
     debug_text_manager_ = std::make_shared<DebugTextManager>(resource_manager_->GetFont("debug_font"));
 
     enemy_manager_ = std::make_shared<EnemyManager>(resource_manager_, particle_emitter_manager_, ui_manager_, projectile_manager_, player_);
-    
     enemy_spawn_handler_ = std::make_shared<EnemySpawnHandler>(enemy_manager_, window_width_, window_height_);
 }
 
