@@ -15,7 +15,7 @@ BaseEnemy::BaseEnemy(const Vec2f& pos,
     projectile_manager_ = projectile_manager;
     player_ = player;
 
-    ui_manager.addDynamicHealthbar(44, 4, this);
+    //ui_manager.addDynamicHealthbar(44, 4, this);
 }
 
 void BaseEnemy::Update(float dt)

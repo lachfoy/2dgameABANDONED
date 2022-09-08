@@ -17,8 +17,8 @@ public:
     //inline void updateString(std::string string); // these should be added as a derived class
     //inline void updatePosition(const int& newX, const int& newY); // these should be added as a derived class
 
-    inline void update(float dt) override; // these should be added as a derived class
-    inline void render(SDL_Renderer* renderer) override;
+    inline void Update(float dt) override; // these should be added as a derived class
+    inline void Render(SDL_Renderer* renderer) override;
 
 protected:
     std::string text;
@@ -51,11 +51,11 @@ BaseTextObject::~BaseTextObject()
 //     this->y = newY;
 // }
 
-void BaseTextObject::update(float dt)
+void BaseTextObject::Update(float dt)
 {
 }
 
-void BaseTextObject::render(SDL_Renderer* renderer)
+void BaseTextObject::Render(SDL_Renderer* renderer)
 {
     SDL_Surface* surface = TTF_RenderText_Blended(font, text.c_str(), SDL_Color{255, 255, 255});
     texture = SDL_CreateTextureFromSurface(renderer, surface);

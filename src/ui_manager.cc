@@ -3,7 +3,7 @@
 #include "input_manager.h"
 #include "resource_manager.h"
 #include "BaseUiObject.h"
-#include "Healthbar.h"
+#include "resource_bar.h"
 #include "DynamicHealthbar.h"
 #include "BaseTextObject.h"
 
@@ -20,26 +20,32 @@ UiManager::~UiManager()
     ui_objects_.clear();
 }
 
-void UiManager::addHealthbar(int x, int y, int length, int height, BaseCharacter* damageable)
-{
-    ui_objects_.push_back(std::make_unique<Healthbar>(x, y, length, height, damageable));
-}
+// void UiManager::addHealthbar(int x, int y, int length, int height, BaseCharacter* damageable)
+// {
+//     ui_objects_.push_back(std::make_unique<HealthBar>(x, y, length, height, damageable));
+// }
 
-void UiManager::addDynamicHealthbar(int length, int height, BaseCharacter* damageable)
-{
-    ui_objects_.push_back(std::make_unique<DynamicHealthbar>(length, height, damageable));
-}
+// void UiManager::addDynamicHealthbar(int length, int height, BaseCharacter* damageable)
+// {
+//     ui_objects_.push_back(std::make_unique<DynamicHealthbar>(length, height, damageable));
+// }
 
-void UiManager::addTextObject(int x, int y, std::string text)
+// void UiManager::addTextObject(int x, int y, std::string text)
+// {
+//     ui_objects_.push_back(std::make_unique<BaseTextObject>(x, y, text, resource_manager_->GetFont("ArialHeader")));
+// }
+
+void UiManager::AddHealthBar(int x, int y, int width, int height, BaseCharacter* character)
 {
-    ui_objects_.push_back(std::make_unique<BaseTextObject>(x, y, text, resource_manager_->GetFont("ArialHeader")));
+
+
 }
 
 void UiManager::UpdateUiObjects(float dt)
 {
     for (const auto& uiObject : ui_objects_)
     {
-        uiObject->update(dt);
+        uiObject->Update(dt);
     }
 }
 
@@ -61,6 +67,6 @@ void UiManager::RenderUiObjects(SDL_Renderer* renderer)
     // render UiObjects
     for (const auto& uiObject : ui_objects_)
     {
-        uiObject->render(renderer);
+        uiObject->Render(renderer);
     }
 }

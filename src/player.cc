@@ -1,7 +1,7 @@
 #include "player.h"
 
 #include "ui_manager.h"
-#include "Healthbar.h"
+//#include "ui/health_bar.h"
 #include "input_manager.h"
 #include "projectile_manager.h"
 #include "base_enemy.h"
@@ -19,7 +19,7 @@ Player::Player(const Vec2f& pos,
 
     texture_ = resource_manager_->GetTexture("player_texture");
 
-    ui_manager.addHealthbar(16, 16, 200, 14, this);
+    //ui_manager.addHealthbar(16, 16, 200, 14, this);
     projectile_manager_ = projectile_manager;
 
     rect_.w = 30;

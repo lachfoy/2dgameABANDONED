@@ -12,8 +12,8 @@ struct BaseUiObject
     int x;
     int y;
 
-    virtual void update(float dt) = 0;
-    virtual void render(SDL_Renderer* renderer) = 0;
+    virtual void Update(float dt) = 0;
+    virtual void Render(SDL_Renderer* renderer) = 0;
 };
 
 #endif

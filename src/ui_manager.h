@@ -8,6 +8,8 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 
+#include "resource_bar.h"
+
 class InputManager;
 class ResourceManager;
 class BaseUiObject;
@@ -25,9 +27,11 @@ public:
 
     std::vector<std::unique_ptr<BaseUiObject>> const& getUiObjects() const { return ui_objects_; }
     
-    void addHealthbar(int x, int y, int length, int height, BaseCharacter* damageable);
-    void addDynamicHealthbar(int length, int height, BaseCharacter* damageable);
-    void addTextObject(int x, int y, std::string text);
+    //void addHealthbar(int x, int y, int length, int height, BaseCharacter* damageable);
+    //void addDynamicHealthbar(int length, int height, BaseCharacter* damageable);
+    //void addTextObject(int x, int y, std::string text);
+
+    void AddHealthBar(int x, int y, int width, int height, BaseCharacter* character);
 
     void UpdateUiObjects(float dt);
     void CleanUpUnusedUiObjects();

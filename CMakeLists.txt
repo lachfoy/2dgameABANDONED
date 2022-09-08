@@ -7,7 +7,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # add all c source files under the src directory
-file(GLOB SOURCES "src/*.cpp" "src/*.cc" "src/*.h")
+file(GLOB SOURCES "src/*.h" "src/*.cc")
 add_executable(${PROJECT_NAME} ${SOURCES})
 
 INCLUDE(FindPkgConfig)
