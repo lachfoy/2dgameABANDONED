@@ -19,9 +19,8 @@ Player::Player(const Vec2f& pos,
 
     texture_ = resource_manager_->GetTexture("player_texture");
 
-    auto resource_bar = ui_manager.AddResourceBar(16, 16, 200, 14);
-    printf("%i\n",resource_bar->x);
-    resource_bar->UpdateResource(10, 100);
+
+    
 
     projectile_manager_ = projectile_manager;
 
@@ -34,6 +33,9 @@ Player::Player(const Vec2f& pos,
 
     max_health_ = 80;
     health_ = max_health_;
+
+    mHealthBar = ui_manager.AddResourceBar(20, 20, 300, 25);
+    mHealthBar->UpdateResource(health_, max_health_);
     
 
     // set the resistance values
@@ -125,18 +127,26 @@ void Player::TakeDamage(const Damage& damage)
 {
     if(!is_immune_)
     {
-        // set status
-        if (damage.set_burning) is_on_fire_ = true;
+        if (health_ > 0)
+        {
+            // set status
+            if (damage.set_burning) is_on_fire_ = true;
 
-        // take damage
-        int damage_taken = resistance_.damageAfterRestistance(damage);
-        health_ -= damage_taken;
-        printf("%s took %i damage\n", name_.c_str(), damage_taken);
-        printf("%s has %i/%i HP\n", name_.c_str(), health_, max_health_);
-        is_immune_ = true; // give iframes
-        is_being_hurt_ = true;
+            // take damage
+            int damage_taken = resistance_.damageAfterRestistance(damage);
+            health_ -= damage_taken;
+            printf("%s took %i damage\n", name_.c_str(), damage_taken);
+            printf("%s has %i/%i HP\n", name_.c_str(), health_, max_health_);
+            is_immune_ = true; // give iframes
+            is_being_hurt_ = true;
 
-        
+            // update the healthbar with new health
+            mHealthBar->UpdateResource(health_, max_health_);
+        }
+        else
+        {
+            // die :(
+        }
     }
 }
 

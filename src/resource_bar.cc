@@ -1,6 +1,6 @@
 #include "resource_bar.h"
 
-ResourceBar::ResourceBar(int x, int y, int aWidth, int aHeight, SDL_Texture* aTexture)
+ResourceBar::ResourceBar(int x, int y, int aWidth, int aHeight, SDL_Texture* aTexture, SDL_Texture* aBgTexture)
 {
     this->x = x;
     this->x = y;
@@ -16,6 +16,7 @@ ResourceBar::ResourceBar(int x, int y, int aWidth, int aHeight, SDL_Texture* aTe
     mResourceRect.h = aHeight;
 
     mTexture = aTexture;
+    mBgTexture = aBgTexture;
 }
 
 void ResourceBar::SetSize(int length, int height)
@@ -40,18 +41,13 @@ void ResourceBar::Update(float dt)
 
     // lerp the actual width to the new width over time
     if (mNewWidth != mResourceRect.w) {
-        mResourceRect.w = mNewWidth + (mResourceRect.w - mNewWidth) * dt; // lerp(a, b, t) = a + (b - a) * t
+        mResourceRect.w = mNewWidth + int((mResourceRect.w - mNewWidth) * dt); // lerp(a, b, t) = a + (b - a) * t
     }
 
 }
 
 void ResourceBar::Render(SDL_Renderer* renderer)
 {
-    // draw the bg
-    SDL_SetRenderDrawColor(renderer, 0xaa, 0xaa, 0xaa, 0xff); // dark grey
-    SDL_RenderFillRect(renderer, &mBgRect);
-
-    // draw the actual health bar over the bg
-    SDL_SetRenderDrawColor(renderer, 0xd1, 0x15, 0x15, 0xff); // #d11515 darkish red
-    SDL_RenderFillRect(renderer, &mResourceRect);
+    SDL_RenderCopy(renderer, mBgTexture, NULL, &mBgRect);
+    SDL_RenderCopy(renderer, mTexture, NULL, &mResourceRect);
 }

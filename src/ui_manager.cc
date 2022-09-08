@@ -37,7 +37,14 @@ UiManager::~UiManager()
 
 ResourceBar* UiManager::AddResourceBar(int x, int y, int width, int height)
 {
-    std::unique_ptr<BaseUiObject> ui_object = std::make_unique<ResourceBar>(x, y, width, height, resource_manager_->GetTexture("fireball_texture"));
+    std::unique_ptr<BaseUiObject> ui_object = std::make_unique<ResourceBar>(
+        x,
+        y,
+        width,
+        height,
+        resource_manager_->GetTexture("bar_health_texture"),
+        resource_manager_->GetTexture("bar_bg_texture")
+    );
     ResourceBar* copy = (ResourceBar*)ui_object.get();
     ui_objects_.push_back(std::move(ui_object));
     return copy;

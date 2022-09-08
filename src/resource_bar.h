@@ -11,7 +11,7 @@ class BaseCharacter;
 class ResourceBar : public BaseUiObject
 {
 public:
-    ResourceBar(int x, int y, int aWidth, int aHeight, SDL_Texture* aTexture);
+    ResourceBar(int x, int y, int aWidth, int aHeight, SDL_Texture* aTexture, SDL_Texture* aBgTexture);
 
     // update the healthbar internal length and height as well as the rects
     void SetSize(int length, int height);
@@ -24,6 +24,7 @@ public:
 
 protected:
     SDL_Texture* mTexture;
+    SDL_Texture* mBgTexture;
     BaseCharacter* mCharacter;
     SDL_Rect mBgRect;
     SDL_Rect mResourceRect;

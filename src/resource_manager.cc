@@ -15,6 +15,8 @@ void ResourceManager::LoadTextures()
     textures_["shadow_texture"] = LoadTextureFromFile("../resources/textures/shadow.png", SDL_BLENDMODE_BLEND);
     textures_["skeleton_texture"] = LoadTextureFromFile("../resources/textures/skeleton.png", SDL_BLENDMODE_BLEND);
     textures_["slime_texture"] = LoadTextureFromFile("../resources/textures/slime.png", SDL_BLENDMODE_BLEND);
+    textures_["bar_bg_texture"] = LoadTextureFromFile("../resources/textures/bar_bg.png", SDL_BLENDMODE_NONE);
+    textures_["bar_health_texture"] = LoadTextureFromFile("../resources/textures/bar_health.png", SDL_BLENDMODE_NONE);
 }
 
 void ResourceManager::LoadFonts()

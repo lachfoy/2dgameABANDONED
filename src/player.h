@@ -12,6 +12,7 @@ class UiManager;
 class ProjectileManager;
 class InputManager;
 class BaseEnemy;
+class ResourceBar;
 
 typedef std::shared_ptr<ProjectileManager> ProjectileManagerPtr;
 
@@ -83,7 +84,7 @@ private:
     float ammo_recharge_timer_ = ammo_recharge_cooldown_;
 
     // for targeted abilities
-    BaseObject* target_;
+    ResourceBar* mHealthBar; // no ownership
 
     // Attacking
     bool can_attack_ = true;
