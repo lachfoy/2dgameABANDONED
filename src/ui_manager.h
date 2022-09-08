@@ -1,7 +1,7 @@
 #ifndef UI_MANAGER_H_
 #define UI_MANAGER_H_
 
-#include <vector>
+#include <map>
 #include <string>
 #include <memory>
 
@@ -25,20 +25,23 @@ public:
     UiManager(InputManagerPtr input_manager, ResourceManagerPtr resource_manager, int window_width, int window_height);
     ~UiManager();
 
-    std::vector<std::unique_ptr<BaseUiObject>> const& getUiObjects() const { return ui_objects_; }
+    //std::vector<std::unique_ptr<BaseUiObject>> const& getUiObjects() const { return ui_objects_; }
     
     //void addHealthbar(int x, int y, int length, int height, BaseCharacter* damageable);
     //void addDynamicHealthbar(int length, int height, BaseCharacter* damageable);
     //void addTextObject(int x, int y, std::string text);
 
-    void AddHealthBar(int x, int y, int width, int height, BaseCharacter* character);
+    std::unique_ptr<BaseUiObject> const& GetUiObject(std::string tag) { return ui_objects_[tag]; }
+
+    void AddResourceBar(int x, int y, int width, int height, std::string tag);
 
     void UpdateUiObjects(float dt);
     void CleanUpUnusedUiObjects();
     void RenderUiObjects(SDL_Renderer* renderer);
 
 private:
-    std::vector<std::unique_ptr<BaseUiObject>> ui_objects_;
+    //std::vector<std::unique_ptr<BaseUiObject>> ui_objects_;
+    std::map<std::string, std::unique_ptr<BaseUiObject>> ui_objects_;
     int window_width_;
     int window_height_;
 

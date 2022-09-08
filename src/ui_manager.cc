@@ -4,7 +4,7 @@
 #include "resource_manager.h"
 #include "BaseUiObject.h"
 #include "resource_bar.h"
-#include "DynamicHealthbar.h"
+//#include "DynamicHealthbar.h"
 #include "BaseTextObject.h"
 
 UiManager::UiManager(InputManagerPtr input_manager, ResourceManagerPtr resource_manager, int window_width, int window_height)
@@ -35,7 +35,7 @@ UiManager::~UiManager()
 //     ui_objects_.push_back(std::make_unique<BaseTextObject>(x, y, text, resource_manager_->GetFont("ArialHeader")));
 // }
 
-void UiManager::AddHealthBar(int x, int y, int width, int height, BaseCharacter* character)
+void UiManager::AddResourceBar(int x, int y, int width, int height, std::string tag)
 {
 
 
@@ -43,30 +43,40 @@ void UiManager::AddHealthBar(int x, int y, int width, int height, BaseCharacter*
 
 void UiManager::UpdateUiObjects(float dt)
 {
-    for (const auto& uiObject : ui_objects_)
+    // for (const auto& uiObject : ui_objects_)
+    // {
+    //     uiObject->Update(dt);
+    // }
+
+    for (const auto& it : ui_objects_)
     {
-        uiObject->Update(dt);
+        it.second->Update(dt);
     }
 }
 
 void UiManager::CleanUpUnusedUiObjects()
 {
-    for (int i = 0; i < ui_objects_.size(); i++)
-    {
-        if (ui_objects_[i]->removable)
-        {
-            //uiObjects[i]->destroy(*this);
-            ui_objects_.erase(ui_objects_.begin() + i);
-            i--;
-        }
-    }
+    // for (int i = 0; i < ui_objects_.size(); i++)
+    // {
+    //     if (ui_objects_[i]->removable)
+    //     {
+    //         //uiObjects[i]->destroy(*this);
+    //         ui_objects_.erase(ui_objects_.begin() + i);
+    //         i--;
+    //     }
+    // }
 }
 
 void UiManager::RenderUiObjects(SDL_Renderer* renderer)
 {
     // render UiObjects
-    for (const auto& uiObject : ui_objects_)
+    // for (const auto& uiObject : ui_objects_)
+    // {
+    //     uiObject->Render(renderer);
+    // }
+
+    for (const auto& it : ui_objects_)
     {
-        uiObject->Render(renderer);
+        it.second->Render(renderer);
     }
 }

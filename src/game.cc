@@ -158,7 +158,7 @@ void Game::Update(float dt)
     particle_emitter_manager_->UpdateParticleEmitters(dt);
 
     // update ui objects
-    //ui_manager_->UpdateUiObjects(dt);
+    ui_manager_->UpdateUiObjects(dt);
     debug_text_manager_->Update(*player_);
 
 
@@ -182,7 +182,7 @@ void Game::Render(SDL_Renderer* renderer)
     projectile_manager_->RenderProjectiles(renderer);
 
     // render ui objects
-    //ui_manager_->RenderUiObjects(renderer);
+    ui_manager_->RenderUiObjects(renderer);
 
     // debug
     if (DEBUG_DRAW)

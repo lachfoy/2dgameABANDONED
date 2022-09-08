@@ -1,7 +1,7 @@
 #include "player.h"
 
 #include "ui_manager.h"
-//#include "ui/health_bar.h"
+#include "resource_bar.h"
 #include "input_manager.h"
 #include "projectile_manager.h"
 #include "base_enemy.h"
@@ -19,7 +19,9 @@ Player::Player(const Vec2f& pos,
 
     texture_ = resource_manager_->GetTexture("player_texture");
 
-    //ui_manager.addHealthbar(16, 16, 200, 14, this);
+    ui_manager.AddResourceBar(16, 16, 200, 14, "player_health_bar");
+    printf("%i\n",ui_manager.GetUiObject("player_health_bar")->x);
+
     projectile_manager_ = projectile_manager;
 
     rect_.w = 30;
@@ -132,6 +134,8 @@ void Player::TakeDamage(const Damage& damage)
         printf("%s has %i/%i HP\n", name_.c_str(), health_, max_health_);
         is_immune_ = true; // give iframes
         is_being_hurt_ = true;
+
+        
     }
 }
 
