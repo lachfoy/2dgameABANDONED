@@ -40,7 +40,7 @@ void ResourceBar::Update(float dt)
 
     // lerp the actual width to the new width over time
     if (mNewWidth != mResourceRect.w) {
-        mResourceRect.w = mResourceRect.w + (mNewWidth - mResourceRect.w) * dt; // lerp(a, b, t) = a + (b - a) * t
+        mResourceRect.w = mNewWidth + (mResourceRect.w - mNewWidth) * dt; // lerp(a, b, t) = a + (b - a) * t
     }
 
 }

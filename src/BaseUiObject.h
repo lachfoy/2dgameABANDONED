@@ -6,7 +6,7 @@
 struct BaseUiObject
 {
     BaseUiObject() {}
-    virtual ~BaseUiObject() { removable = true; }
+    virtual ~BaseUiObject() {}
 
     bool removable = false;
     int x;

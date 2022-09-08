@@ -19,8 +19,9 @@ Player::Player(const Vec2f& pos,
 
     texture_ = resource_manager_->GetTexture("player_texture");
 
-    ui_manager.AddResourceBar(16, 16, 200, 14, "player_health_bar");
-    printf("%i\n",ui_manager.GetUiObject("player_health_bar")->x);
+    auto resource_bar = ui_manager.AddResourceBar(16, 16, 200, 14);
+    printf("%i\n",resource_bar->x);
+    resource_bar->UpdateResource(10, 100);
 
     projectile_manager_ = projectile_manager;
 

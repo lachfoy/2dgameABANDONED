@@ -35,48 +35,40 @@ UiManager::~UiManager()
 //     ui_objects_.push_back(std::make_unique<BaseTextObject>(x, y, text, resource_manager_->GetFont("ArialHeader")));
 // }
 
-void UiManager::AddResourceBar(int x, int y, int width, int height, std::string tag)
+ResourceBar* UiManager::AddResourceBar(int x, int y, int width, int height)
 {
-
-
+    std::unique_ptr<BaseUiObject> ui_object = std::make_unique<ResourceBar>(x, y, width, height, resource_manager_->GetTexture("fireball_texture"));
+    ResourceBar* copy = (ResourceBar*)ui_object.get();
+    ui_objects_.push_back(std::move(ui_object));
+    return copy;
 }
 
 void UiManager::UpdateUiObjects(float dt)
 {
-    // for (const auto& uiObject : ui_objects_)
-    // {
-    //     uiObject->Update(dt);
-    // }
-
-    for (const auto& it : ui_objects_)
+    for (const auto& uiObject : ui_objects_)
     {
-        it.second->Update(dt);
+        uiObject->Update(dt);
     }
 }
 
 void UiManager::CleanUpUnusedUiObjects()
 {
-    // for (int i = 0; i < ui_objects_.size(); i++)
-    // {
-    //     if (ui_objects_[i]->removable)
-    //     {
-    //         //uiObjects[i]->destroy(*this);
-    //         ui_objects_.erase(ui_objects_.begin() + i);
-    //         i--;
-    //     }
-    // }
+    for (int i = 0; i < ui_objects_.size(); i++)
+    {
+        if (ui_objects_[i]->removable)
+        {
+            //uiObjects[i]->destroy(*this);
+            ui_objects_.erase(ui_objects_.begin() + i);
+            i--;
+        }
+    }
 }
 
 void UiManager::RenderUiObjects(SDL_Renderer* renderer)
 {
     // render UiObjects
-    // for (const auto& uiObject : ui_objects_)
-    // {
-    //     uiObject->Render(renderer);
-    // }
-
-    for (const auto& it : ui_objects_)
+    for (const auto& uiObject : ui_objects_)
     {
-        it.second->Render(renderer);
+        uiObject->Render(renderer);
     }
 }

@@ -1,20 +1,19 @@
 #ifndef UI_MANAGER_H_
 #define UI_MANAGER_H_
 
-#include <map>
+#include <vector>
 #include <string>
 #include <memory>
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 
-#include "resource_bar.h"
-
 class InputManager;
 class ResourceManager;
 class BaseUiObject;
 class BaseCharacter;
 class Player;
+class ResourceBar;
 
 typedef std::shared_ptr<InputManager> InputManagerPtr;
 typedef std::shared_ptr<ResourceManager> ResourceManagerPtr;
@@ -31,17 +30,15 @@ public:
     //void addDynamicHealthbar(int length, int height, BaseCharacter* damageable);
     //void addTextObject(int x, int y, std::string text);
 
-    std::unique_ptr<BaseUiObject> const& GetUiObject(std::string tag) { return ui_objects_[tag]; }
-
-    void AddResourceBar(int x, int y, int width, int height, std::string tag);
+    ResourceBar* AddResourceBar(int x, int y, int width, int height);
 
     void UpdateUiObjects(float dt);
     void CleanUpUnusedUiObjects();
     void RenderUiObjects(SDL_Renderer* renderer);
 
 private:
-    //std::vector<std::unique_ptr<BaseUiObject>> ui_objects_;
-    std::map<std::string, std::unique_ptr<BaseUiObject>> ui_objects_;
+    std::vector<std::unique_ptr<BaseUiObject>> ui_objects_;
+    //std::map<std::string, std::unique_ptr<BaseUiObject>> ui_objects_;
     int window_width_;
     int window_height_;
 
